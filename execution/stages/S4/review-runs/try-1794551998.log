@@ -1,0 +1,83 @@
+==== 1. lock against S3
+- actioncable (7.2.4);+ actioncable (8.0.5.2);- actionmailbox (7.2.4);+ actionmailbox (8.0.5.2);- actionmailer (7.2.4);+ actionmailer (8.0.5.2);- actionpack (7.2.4);+ actionpack (8.0.5.2);- actiontext (7.2.4);+ actiontext (8.0.5.2);- actionview (7.2.4);+ actionview (8.0.5.2);- activejob (7.2.4);+ activejob (8.0.5.2);- activemodel (7.2.4);+ activemodel (8.0.5.2);- activerecord (7.2.4);+ activerecord (8.0.5.2);- activestorage (7.2.4);+ activestorage (8.0.5.2);- activesupport (7.2.4);+ activesupport (8.0.5.2);- connection_pool (2.5.5);+ connection_pool (3.0.2);- loofah (2.25.1);+ loofah (2.25.3);- minitest (5.27.0);+ minitest (6.1.0);- nokogiri (1.19.3-aarch64-linux-gnu);- nokogiri (1.19.3-arm64-darwin);- nokogiri (1.19.3-x86_64-darwin);- nokogiri (1.19.3-x86_64-linux-gnu);+ nokogiri (1.19.7-aarch64-linux-gnu);+ nokogiri (1.19.7-arm64-darwin);+ nokogiri (1.19.7-x86_64-darwin);+ nokogiri (1.19.7-x86_64-linux-gnu);- rails (7.2.4);+ rails (8.0.5.2);- rails-html-sanitizer (1.7.0);+ rails-html-sanitizer (1.7.2);- railties (7.2.4);+ railties (8.0.5.2);
+spec lines moved: 42
+-- other lock lines (dependencies, platforms, bundler)
++ cgi;- rails (= 7.2.4);+ rails (= 8.0.5.2);
++gem "cgi"
+-gem "rails", "= 7.2.4"
++gem "rails", "= 8.0.5.2"
+-- application files changed
+ app/models/concerns/has_authentication.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+setup exit=0
+==== 2. boots
+default: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+production: No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=8.0.5.2 env=production never-loaded=39/39 routes=196 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=d04442f1/25
+development: No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=8.0.5.2 env=development never-loaded=39/39 routes=206 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=d68de86f/29
+oidc: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=198 oidc-route=true /login oidc=true local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=0c647ecd/27
+oidc-no-discovery: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=198 oidc-route=true /login oidc=true local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=0c647ecd/27
+oidc-local-off: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=198 oidc-route=true /login oidc=true local=false waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=0c647ecd/27
+migration-waiter: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=true railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+rails-log: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=true sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+sentry: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=true rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+rspamd: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=true clamav=false spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+clamav: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=true spamd=false tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+spamd: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=true tls=false regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+smtp-tls: DEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)
+boot-ok rails=8.0.5.2 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=true regexp-timeout=nil to_time=:offset mw=84b9abc0/26
+everything-production: No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=8.0.5.2 env=production never-loaded=39/39 routes=197 oidc-route=true /login oidc=true local=false waiter=true railslog=true sentry=true rspamd=true clamav=true spamd=true tls=true regexp-timeout=nil to_time=:offset mw=28bca409/26
+-- the same boot line on 7.2.4, default and production, for the middleware stack and the two settings
+s3-default: No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 routes=197 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=true mw=84b9abc0/26
+s3-production: No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=production never-loaded=39/39 routes=196 oidc-route=false /login oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false regexp-timeout=nil to_time=true mw=d04442f1/25
+==== 3. rake and rack
+53
+rake postal:generate_config_docs       # Generate configuration documentation
+rake postal:generate_helm_env_vars     # Generate Helm Environment Variables
+rake postal:migrate_message_databases  # Run all migrations on message databases
+rake postal:update                     # Update the database
+No secret key was specified in the Postal config file. Using one for just this session
+Database schema is already loaded. Running migrations with db:migrate
+postal:update exit=0
+==== 4. specs
+17 examples, 0 failures
+-- request specs in three random orders
+37 examples, 0 failures
+37 examples, 0 failures
+37 examples, 0 failures
+-- password reset spec on 8.0.5.2 with the option removed
+8:    has_secure_password validations: false
+6 examples, 4 failures
+rspec ./spec/requests/password_reset_spec.rb:15 # Password reset POST /login/reset stores a 24 character token valid for a day and e-mails a link containing it
+rspec ./spec/requests/password_reset_spec.rb:32 # Password reset POST /login/reset includes the return_to in the e-mailed link
+rspec ./spec/requests/password_reset_spec.rb:53 # Password reset the e-mailed link sets the new password, clears the stored token and logs the user in
+rspec ./spec/requests/password_reset_spec.rb:78 # Password reset User#password_reset_token reads the stored column
+-- the same file, option removed, against the 7.2.4 lock
+10 examples, 0 failures
+-- vary spec against the 7.2.4 lock (expected to fail there)
+2 examples, 1 failure
+rspec ./spec/requests/vary_header_spec.rb:8 # Vary header is set on a rendered response
+==== 5. db:migrate on an empty database
+s4: rails 8.0.5.2 db:migrate exit=0
+tables=28 versions=19
+ M db/schema.rb
+s3: rails 7.2.4 db:migrate exit=1
+StandardError: Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Active Record release the migration was written for: (StandardError)
+Caused by:
+StandardError: Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Active Record release the migration was written for: (StandardError)
+tables=2 versions=0
+==== end

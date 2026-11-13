@@ -1,0 +1,30 @@
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+rails 7.2.4 env test ruby 3.4.6
+FAIL  migration_waiter.rb:18 as written (Base.connection.migration_context): NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter
+OK    migration_waiter.rb:18 through the pool (Base.connection_pool.migration_context): 19
+FAIL  MigrationWaiter.wait: NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter
+OK    migration_waiter.rb:47 Rails.const_defined?(Console): false
+OK    database.rb:333 MySQL::ExplainPrettyPrinter#pp(result, time): 6
+OK    secret_key_base comes from credentials: [true, 256, false]
+OK    worker/process.rb:105 connection_pool.size: 5
+FAIL  worker/process.rb:159 connection_pool.with_connection + query: ActiveRecord::StatementInvalid: Mysql2::Error: Table 'postal.worker_roles' doesn't exist
+FAIL  worker/process.rb:217 WorkerRole.acquire inside with_connection: ActiveRecord::StatementInvalid: Mysql2::Error: Table 'postal.worker_roles' doesn't exist
+FAIL  worker/process.rb:204 WorkerRole.release inside with_connection: ActiveRecord::StatementInvalid: Mysql2::Error: Table 'postal.worker_roles' doesn't exist
+OK    config.rb:150 change_database_connection_pool_size: 9
+OK    Worker::Process.new + ensure_connection_pool_size_is_suitable: 13
+FAIL  Worker::Process#work one tick: Prometheus::Client::Registry::AlreadyRegisteredError: postal_worker_job_executions has already been registered
+FAIL  Worker::Process#run_tasks one tick: Prometheus::Client::Registry::AlreadyRegisteredError: postal_worker_job_executions has already been registered
+OK    postal.rake:31 Base.connection.table_exists? / select_all: [true, false]
+OK    route.rb:122 raise ActiveRecord::RecordInvalid with no record: "ActiveRecord::RecordInvalid"
+OK    ip_pools_controller.rb:36 ActiveRecord::DeleteRestrictionError: true
+OK    to_json through Active Support: ["2.7.1", "{\"a\":[1,null,\"1970-01-01T00:00:00.000Z\"]}"]
+OK    TimeZone[Astana]: ["Asia/Almaty", "+05:00"]
+FAIL  serialize coder on Credential#options and WebhookRequest#payload: ActiveRecord::StatementInvalid: Mysql2::Error: Table 'postal.credentials' doesn't exist
+OK    show_exceptions: :none
+OK    load_defaults: 7.0
+OK    Rails.application.eager_load!: :loaded
+OK    Zeitwerk::Loader.eager_load_all: :loaded
+OK    all controllers and models resolve: [20, 24]
+OK    dynamic_form helpers present: [true, true]

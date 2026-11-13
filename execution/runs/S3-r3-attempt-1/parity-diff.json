@@ -1,0 +1,136 @@
+{
+ "requests_before": 170,
+ "requests_after": 170,
+ "identical": 165,
+ "different": 5,
+ "masked_as_noise": 2,
+ "noise_mask": {
+  "admin: POST credentials invalid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  },
+  "api: send/message valid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  }
+ },
+ "before_status_counts": {
+  "302": 24,
+  "200": 137,
+  "ActionController::RoutingError": 1,
+  "422": 3,
+  "ActiveRecord::RecordNotFound": 2,
+  "ActionController::UrlGenerationError": 1,
+  "Postal::MessageDB::Webhooks::RequestNotFound": 1,
+  "Postal::MessageDB::Message::NotFound": 1
+ },
+ "differences": [
+  {
+   "name": "admin: GET /org/acme/settings",
+   "changes": [
+    {
+     "field": "body",
+     "diff": [
+      "--- before",
+      "+++ after",
+      "@@ -162,2 +162,3 @@",
+      " <option value=\"Almaty\">(GMT+05:00) Almaty</option>",
+      "+<option value=\"Astana\">(GMT+05:00) Astana</option>",
+      " <option value=\"Ekaterinburg\">(GMT+05:00) Ekaterinburg</option>",
+      "@@ -172,3 +173,2 @@",
+      " <option value=\"Kathmandu\">(GMT+05:45) Kathmandu</option>",
+      "-<option value=\"Astana\">(GMT+06:00) Astana</option>",
+      " <option value=\"Dhaka\">(GMT+06:00) Dhaka</option>"
+     ],
+     "diff_lines_total": 10
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /settings",
+   "changes": [
+    {
+     "field": "body",
+     "diff": [
+      "--- before",
+      "+++ after",
+      "@@ -166,2 +166,3 @@",
+      " <option value=\"Almaty\">(GMT+05:00) Almaty</option>",
+      "+<option value=\"Astana\">(GMT+05:00) Astana</option>",
+      " <option value=\"Ekaterinburg\">(GMT+05:00) Ekaterinburg</option>",
+      "@@ -176,3 +177,2 @@",
+      " <option value=\"Kathmandu\">(GMT+05:45) Kathmandu</option>",
+      "-<option value=\"Astana\">(GMT+06:00) Astana</option>",
+      " <option value=\"Dhaka\">(GMT+06:00) Dhaka</option>"
+     ],
+     "diff_lines_total": 10
+    }
+   ]
+  },
+  {
+   "name": "admin: PATCH /org/acme/settings invalid",
+   "changes": [
+    {
+     "field": "body",
+     "diff": [
+      "--- before",
+      "+++ after",
+      "@@ -162,2 +162,3 @@",
+      " <option value=\"Almaty\">(GMT+05:00) Almaty</option>",
+      "+<option value=\"Astana\">(GMT+05:00) Astana</option>",
+      " <option value=\"Ekaterinburg\">(GMT+05:00) Ekaterinburg</option>",
+      "@@ -172,3 +173,2 @@",
+      " <option value=\"Kathmandu\">(GMT+05:45) Kathmandu</option>",
+      "-<option value=\"Astana\">(GMT+06:00) Astana</option>",
+      " <option value=\"Dhaka\">(GMT+06:00) Dhaka</option>"
+     ],
+     "diff_lines_total": 10
+    }
+   ]
+  },
+  {
+   "name": "admin: PATCH /settings invalid",
+   "changes": [
+    {
+     "field": "body",
+     "diff": [
+      "--- before",
+      "+++ after",
+      "@@ -166,2 +166,3 @@",
+      " <option value=\"Almaty\">(GMT+05:00) Almaty</option>",
+      "+<option value=\"Astana\">(GMT+05:00) Astana</option>",
+      " <option value=\"Ekaterinburg\">(GMT+05:00) Ekaterinburg</option>",
+      "@@ -176,3 +177,2 @@",
+      " <option value=\"Kathmandu\">(GMT+05:45) Kathmandu</option>",
+      "-<option value=\"Astana\">(GMT+06:00) Astana</option>",
+      " <option value=\"Dhaka\">(GMT+06:00) Dhaka</option>"
+     ],
+     "diff_lines_total": 10
+    }
+   ]
+  },
+  {
+   "name": "member: GET /org/acme/settings",
+   "changes": [
+    {
+     "field": "body",
+     "diff": [
+      "--- before",
+      "+++ after",
+      "@@ -159,2 +159,3 @@",
+      " <option value=\"Almaty\">(GMT+05:00) Almaty</option>",
+      "+<option value=\"Astana\">(GMT+05:00) Astana</option>",
+      " <option value=\"Ekaterinburg\">(GMT+05:00) Ekaterinburg</option>",
+      "@@ -169,3 +170,2 @@",
+      " <option value=\"Kathmandu\">(GMT+05:45) Kathmandu</option>",
+      "-<option value=\"Astana\">(GMT+06:00) Astana</option>",
+      " <option value=\"Dhaka\">(GMT+06:00) Dhaka</option>"
+     ],
+     "diff_lines_total": 10
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "S2": [
+  {
+   "exit_code": 0,
+   "name": "default",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "oidc",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "oidc-no-discovery",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "migration-waiter",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "rails-log",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "sentry",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "name": "production",
+   "ok": true
+  }
+ ],
+ "S3_as_shipped": [
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=test",
+   "name": "default",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=test",
+   "name": "oidc",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=test",
+   "name": "oidc-no-discovery",
+   "ok": true
+  },
+  {
+   "exit_code": 1,
+   "log_tail": "\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:352:in 'block in TSort.each_strongly_connected_component'\n\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'Rails::Initializable::Collection#each'\n\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'Method#call'\n\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'TSort.each_strongly_connected_component'\n\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:229:in 'TSort.tsort_each'\n\tfrom /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:208:in 'TSort#tsort_each'\n\tfrom /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:60:in 'Rails::Initializable#run_initializers'\n\tfrom /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/application.rb:435:in 'Rails::Application#initialize!'\n\tfrom /work/config/environment.rb:7:in '<top (required)>'\n\tfrom /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'\n\tfrom /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'\n\tfrom -e:1:in '<main>'",
+   "name": "migration-waiter",
+   "ok": false
+  },
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=test",
+   "name": "rails-log",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=test",
+   "name": "sentry",
+   "ok": true
+  },
+  {
+   "exit_code": 0,
+   "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.2.4 env=production",
+   "name": "production",
+   "ok": true
+  }
+ ],
+ "what": "boot variants on S2 (Rails 7.1.6) and on S3 as first shipped (Rails 7.2.4, commit 68077628e6)"
+}

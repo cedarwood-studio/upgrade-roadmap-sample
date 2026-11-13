@@ -1,0 +1,443 @@
+01be7c8 Correct the secret key spec comment: no change on this hop
+329324c Fix migration waiter on Rails 7.2 and relock conservatively
+730195a Upgrade Rails from 7.1.6 to 7.2.4
+a45dff2 Remove annotate from the bundle
+fe9e34c Add characterization tests ahead of the Rails upgrade
+db4e80e Mark environment-dependent checks from the baseline CI run
+ .upgrade/accepted-differences.json |  33 ++++++++-
+ .upgrade/baseline/examples.json    |  70 +++++++++++++++++++
+ Gemfile                            |   2 +-
+ Gemfile.lock                       | 139 ++++++++++++++++++-------------------
+ config/environments/test.rb        |   2 +-
+ lib/migration_waiter.rb            |   2 +-
+ spec/lib/migration_waiter_spec.rb  |  40 +++++++++++
+ spec/lib/secret_key_spec.rb        |  13 ++++
+ 8 files changed, 224 insertions(+), 77 deletions(-)
+diff --git a/.upgrade/accepted-differences.json b/.upgrade/accepted-differences.json
+index fe51488..26958f7 100644
+--- a/.upgrade/accepted-differences.json
++++ b/.upgrade/accepted-differences.json
+@@ -1 +1,32 @@
+-[]
++[
++ {
++  "field": "body",
++  "name": "admin: GET /org/acme/settings",
++  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
++  "stage": "S3"
++ },
++ {
++  "field": "body",
++  "name": "admin: GET /settings",
++  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
++  "stage": "S3"
++ },
++ {
++  "field": "body",
++  "name": "admin: PATCH /org/acme/settings invalid",
++  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
++  "stage": "S3"
++ },
++ {
++  "field": "body",
++  "name": "admin: PATCH /settings invalid",
++  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
++  "stage": "S3"
++ },
++ {
++  "field": "body",
++  "name": "member: GET /org/acme/settings",
++  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
++  "stage": "S3"
++ }
++]
+diff --git a/.upgrade/baseline/examples.json b/.upgrade/baseline/examples.json
+index 3f98bb4..6a2c8b2 100644
+--- a/.upgrade/baseline/examples.json
++++ b/.upgrade/baseline/examples.json
+@@ -272,6 +272,10 @@
+ "./spec/lib/message_dequeuer/state_spec.rb[1:2:2]": "passed",
+ "./spec/lib/message_dequeuer/state_spec.rb[1:3:1]": "passed",
+ "./spec/lib/message_dequeuer_spec.rb[1:1:1]": "passed",
++"./spec/lib/migration_waiter_spec.rb[1:1:1]": "passed",
++"./spec/lib/migration_waiter_spec.rb[1:1:2]": "passed",
++"./spec/lib/migration_waiter_spec.rb[1:2:1]": "passed",
++"./spec/lib/migration_waiter_spec.rb[1:2:2]": "passed",
+ "./spec/lib/postal/http/address_guard_spec.rb[1:1:10:1]": "passed",
+ "./spec/lib/postal/http/address_guard_spec.rb[1:1:11:1]": "passed",
+ "./spec/lib/postal/http/address_guard_spec.rb[1:1:12:1]": "passed",
+@@ -413,6 +417,7 @@
+ "./spec/lib/received_header_spec.rb[1:1:2:1]": "passed",
+ "./spec/lib/received_header_spec.rb[1:1:3:1]": "passed",
+ "./spec/lib/received_header_spec.rb[1:1:4:1]": "passed",
++"./spec/lib/secret_key_spec.rb[1:1]": "passed",
+ "./spec/lib/smtp_client/endpoint_spec.rb[1:1:1]": "passed",
+ "./spec/lib/smtp_client/endpoint_spec.rb[1:2:1:1]": "passed",
+ "./spec/lib/smtp_client/endpoint_spec.rb[1:2:2:1]": "passed",
+@@ -509,6 +514,7 @@
+ "./spec/lib/smtp_server/client/rcpt_to_spec.rb[1:1:8:3]": "passed",
+ "./spec/lib/smtp_server/client/rcpt_to_spec.rb[1:1:9:1]": "passed",
+ "./spec/lib/smtp_server/client/rcpt_to_spec.rb[1:1:9:2:1]": "passed",
++"./spec/lib/smtp_server/server_spec.rb[1:1:1]": "passed",
+ "./spec/lib/tracking_middleware_spec.rb[1:1:1]": "passed",
+ "./spec/lib/tracking_middleware_spec.rb[1:1:2]": "passed",
+ "./spec/lib/tracking_middleware_spec.rb[1:2:1]": "passed",
+@@ -528,6 +534,13 @@
+ "./spec/lib/worker/jobs/process_webhook_requests_job_spec.rb[1:3:1]": "passed",
+ "./spec/lib/worker/jobs/process_webhook_requests_job_spec.rb[1:4:1]": "passed",
+ "./spec/lib/worker/jobs/process_webhook_requests_job_spec.rb[1:5:1]": "passed",
++"./spec/lib/worker/process_spec.rb[1:1:1]": "passed",
++"./spec/models/credential_spec.rb[1:1:1]": "passed",
++"./spec/models/credential_spec.rb[1:1:2]": "passed",
++"./spec/models/credential_spec.rb[1:1:3]": "passed",
++"./spec/models/credential_spec.rb[1:1:4]": "passed",
++"./spec/models/credential_spec.rb[1:1:5]": "passed",
++"./spec/models/credential_spec.rb[1:1:6]": "passed",
+ "./spec/models/domain_spec.rb[1:10:1:1]": "passed",
+ "./spec/models/domain_spec.rb[1:10:2:1]": "passed",
+ "./spec/models/domain_spec.rb[1:11:1:1]": "passed",
+@@ -761,6 +774,11 @@
+ "./spec/models/user_spec.rb[1:7:1]": "passed",
+ "./spec/models/user_spec.rb[1:8:1]": "passed",
+ "./spec/models/user_spec.rb[1:9:1]": "passed",
++"./spec/models/webhook_request_spec.rb[1:1:1]": "passed",
++"./spec/models/webhook_request_spec.rb[1:1:2]": "passed",
++"./spec/models/webhook_request_spec.rb[1:1:3]": "passed",
++"./spec/models/webhook_request_spec.rb[1:1:4]": "passed",
++"./spec/models/webhook_request_spec.rb[1:1:5]": "passed",
+ "./spec/models/worker_role_spec.rb[1:1:1:1]": "passed",
+ "./spec/models/worker_role_spec.rb[1:1:2:1]": "passed",
+ "./spec/models/worker_role_spec.rb[1:1:3:1]": "passed",
+@@ -779,12 +797,64 @@
+ "./spec/requests/messages_controller_spec.rb[1:1:2]": "passed",
+ "./spec/requests/messages_controller_spec.rb[1:1:3]": "passed",
+ "./spec/requests/messages_controller_spec.rb[1:2:1]": "passed",
++"./spec/requests/session_continuity_spec.rb[1:1:1]": "passed",
++"./spec/requests/session_continuity_spec.rb[1:1:2]": "passed",
++"./spec/requests/session_continuity_spec.rb[1:1:3]": "passed",
++"./spec/requests/session_continuity_spec.rb[1:2:1]": "passed",
++"./spec/requests/session_continuity_spec.rb[1:3:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:1:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:2:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:3:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:4:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:5:1]": "passed",
+ "./spec/requests/sessions_controller_spec.rb[1:1:6:1]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:1:3]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:1:4]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb[1:2:2]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:3]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:4]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:5]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:1:6]": "passed",
++"./spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:1:3]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:1:4]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:1:5]": "passed",
++"./spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb[1:1:3]": "passed",
++"./spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:1:1]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:1:2]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:1:3]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:1:4]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:1:5]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:1:2:1]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb[1:2:2]": "passed",
++"./spec/scheduled_tasks/prune_suppression_lists_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/prune_suppression_lists_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/prune_suppression_lists_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb[1:1:1]": "passed",
++"./spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb[1:1:2]": "passed",
++"./spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb[1:1:3]": "passed",
++"./spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb[1:2:1]": "passed",
++"./spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb[1:2:2]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:1:1]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:1:2]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:1:3]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:1:4]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:2:1]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:3:1]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:1:4:1]": "passed",
++"./spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb[1:2:1]": "passed",
+ "./spec/scheduled_tasks/tidy_queued_messages_task_spec.rb[1:1:1]": "passed",
+ "./spec/scheduled_tasks/tidy_queued_messages_task_spec.rb[1:1:2]": "passed",
+ "./spec/scheduled_tasks/tidy_queued_messages_task_spec.rb[1:1:3]": "passed",
+diff --git a/Gemfile b/Gemfile
+index 7e8fe4b..0cd97a5 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -29,7 +29,7 @@ gem "ostruct"
+ gem "prometheus-client"
+ gem "puma"
+ gem "rackup"
+-gem "rails", "= 7.1.6"
++gem "rails", "= 7.2.4"
+ gem "resolv"
+ gem "secure_headers"
+ gem "sentry-rails"
+diff --git a/config/environments/test.rb b/config/environments/test.rb
+index da3785d..281a97a 100644
+--- a/config/environments/test.rb
++++ b/config/environments/test.rb
+@@ -25,7 +25,7 @@ Rails.application.configure do
+   config.action_controller.perform_caching = false
+ 
+   # Raise exceptions instead of rendering exception templates.
+-  config.action_dispatch.show_exceptions = false
++  config.action_dispatch.show_exceptions = :none
+ 
+   # Disable request forgery protection in test environment.
+   config.action_controller.allow_forgery_protection = false
+diff --git a/lib/migration_waiter.rb b/lib/migration_waiter.rb
+index 36b36e0..ac3eaa4 100644
+--- a/lib/migration_waiter.rb
++++ b/lib/migration_waiter.rb
+@@ -15,7 +15,7 @@ class MigrationWaiter
+     def wait
+       attempts_remaining = ATTEMPTS
+       loop do
+-        pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size
++        pending_migrations = ActiveRecord::Base.connection_pool.migration_context.open.pending_migrations.size
+         if pending_migrations.zero?
+           Postal.logger.info "no pending migrations, continuing"
+           return
+diff --git a/spec/lib/migration_waiter_spec.rb b/spec/lib/migration_waiter_spec.rb
+new file mode 100644
+index 0000000..80d3b96
+--- /dev/null
++++ b/spec/lib/migration_waiter_spec.rb
+@@ -0,0 +1,40 @@
++# frozen_string_literal: true
++
++require "rails_helper"
++require "migration_waiter"
++
++RSpec.describe MigrationWaiter do
++  describe ".wait" do
++    it "returns when there are no pending migrations" do
++      expect(Process).not_to receive(:exit)
++      expect(Postal.logger).to receive(:info).with("no pending migrations, continuing")
++      expect { described_class.wait }.not_to raise_error
++    end
++
++    it "exits when migrations are still pending after the configured attempts" do
++      migrator = instance_double(ActiveRecord::Migrator, pending_migrations: [double("migration")])
++      context = instance_double(ActiveRecord::MigrationContext, open: migrator)
++      allow(ActiveRecord::Base.connection_pool).to receive(:migration_context).and_return(context)
++      allow(described_class).to receive(:sleep)
++      allow(Process).to receive(:exit).with(1).and_raise(SystemExit)
++
++      expect { described_class.wait }.to raise_error(SystemExit)
++      expect(described_class).to have_received(:sleep).with(described_class::SLEEP_TIME).exactly(described_class::ATTEMPTS - 1).times
++    end
++  end
++
++  describe ".wait_if_appropriate" do
++    it "does not wait when the migration waiter is not enabled" do
++      allow(Postal::Config.migration_waiter).to receive(:enabled?).and_return(false)
++      expect(described_class).not_to receive(:wait)
++      described_class.wait_if_appropriate
++    end
++
++    it "waits when enabled outside the console, rake tasks and rails commands" do
++      allow(Postal::Config.migration_waiter).to receive(:enabled?).and_return(true)
++      allow(described_class).to receive_messages(console?: false, rake_task?: false, rails_command?: false)
++      expect(described_class).to receive(:wait)
++      described_class.wait_if_appropriate
++    end
++  end
++end
+diff --git a/spec/lib/secret_key_spec.rb b/spec/lib/secret_key_spec.rb
+new file mode 100644
+index 0000000..be403bb
+--- /dev/null
++++ b/spec/lib/secret_key_spec.rb
+@@ -0,0 +1,13 @@
++# frozen_string_literal: true
++
++require "rails_helper"
++
++# config/initializers/secret_key.rb puts the key in the credentials, and Rails
++# reads it from there in every environment. Because the credentials value is
++# always set, Rails never falls back to a generated tmp/local_secret.txt.
++RSpec.describe "The secret key base" do
++  it "is the key the initializer put in the credentials" do
++    expect(Rails.application.credentials.secret_key_base).to be_present
++    expect(Rails.application.secret_key_base).to eq Rails.application.credentials.secret_key_base
++  end
++end
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 8316de7..148f08d 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -5,3 +5,3 @@ GEM
+-    actioncable (7.1.6)
+-      actionpack (= 7.1.6)
+-      activesupport (= 7.1.6)
++    actioncable (7.2.4)
++      actionpack (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -11,19 +11,13 @@ GEM
+-    actionmailbox (7.1.6)
+-      actionpack (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
+-      mail (>= 2.7.1)
+-      net-imap
+-      net-pop
+-      net-smtp
+-    actionmailer (7.1.6)
+-      actionpack (= 7.1.6)
+-      actionview (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activesupport (= 7.1.6)
+-      mail (~> 2.5, >= 2.5.4)
+-      net-imap
+-      net-pop
+-      net-smtp
++    actionmailbox (7.2.4)
++      actionpack (= 7.2.4)
++      activejob (= 7.2.4)
++      activerecord (= 7.2.4)
++      activestorage (= 7.2.4)
++      activesupport (= 7.2.4)
++      mail (>= 2.8.0)
++    actionmailer (7.2.4)
++      actionpack (= 7.2.4)
++      actionview (= 7.2.4)
++      activejob (= 7.2.4)
++      activesupport (= 7.2.4)
++      mail (>= 2.8.0)
+@@ -31,3 +25,3 @@ GEM
+-    actionpack (7.1.6)
+-      actionview (= 7.1.6)
+-      activesupport (= 7.1.6)
++    actionpack (7.2.4)
++      actionview (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -37 +31 @@ GEM
+-      rack (>= 2.2.4)
++      rack (>= 2.2.4, < 3.3)
+@@ -42,5 +36,6 @@ GEM
+-    actiontext (7.1.6)
+-      actionpack (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
++      useragent (~> 0.16)
++    actiontext (7.2.4)
++      actionpack (= 7.2.4)
++      activerecord (= 7.2.4)
++      activestorage (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -49,2 +44,2 @@ GEM
+-    actionview (7.1.6)
+-      activesupport (= 7.1.6)
++    actionview (7.2.4)
++      activesupport (= 7.2.4)
+@@ -56,2 +51,2 @@ GEM
+-    activejob (7.1.6)
+-      activesupport (= 7.1.6)
++    activejob (7.2.4)
++      activesupport (= 7.2.4)
+@@ -59,5 +54,5 @@ GEM
+-    activemodel (7.1.6)
+-      activesupport (= 7.1.6)
+-    activerecord (7.1.6)
+-      activemodel (= 7.1.6)
+-      activesupport (= 7.1.6)
++    activemodel (7.2.4)
++      activesupport (= 7.2.4)
++    activerecord (7.2.4)
++      activemodel (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -65,5 +60,5 @@ GEM
+-    activestorage (7.1.6)
+-      actionpack (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activesupport (= 7.1.6)
++    activestorage (7.2.4)
++      actionpack (= 7.2.4)
++      activejob (= 7.2.4)
++      activerecord (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -71 +66 @@ GEM
+-    activesupport (7.1.6)
++    activesupport (7.2.4)
+@@ -75,2 +70,2 @@ GEM
+-      concurrent-ruby (~> 1.0, >= 1.0.2)
+-      connection_pool (>= 2.2.5)
++      concurrent-ruby (~> 1.0, >= 1.3.1)
++      connection_pool (>= 2.2.5, < 3)
+@@ -80,2 +75 @@ GEM
+-      minitest (>= 5.1)
+-      mutex_m
++      minitest (>= 5.1, < 6)
+@@ -83 +77 @@ GEM
+-      tzinfo (~> 2.0)
++      tzinfo (~> 2.0, >= 2.0.5)
+@@ -109 +103 @@ GEM
+-    connection_pool (3.0.2)
++    connection_pool (2.5.5)
+@@ -204,3 +198 @@ GEM
+-    minitest (6.0.6)
+-      drb (~> 2.0)
+-      prism (~> 1.5)
++    minitest (5.27.0)
+@@ -291,12 +283,12 @@ GEM
+-    rails (7.1.6)
+-      actioncable (= 7.1.6)
+-      actionmailbox (= 7.1.6)
+-      actionmailer (= 7.1.6)
+-      actionpack (= 7.1.6)
+-      actiontext (= 7.1.6)
+-      actionview (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activemodel (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
++    rails (7.2.4)
++      actioncable (= 7.2.4)
++      actionmailbox (= 7.2.4)
++      actionmailer (= 7.2.4)
++      actionpack (= 7.2.4)
++      actiontext (= 7.2.4)
++      actionview (= 7.2.4)
++      activejob (= 7.2.4)
++      activemodel (= 7.2.4)
++      activerecord (= 7.2.4)
++      activestorage (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -304 +296 @@ GEM
+-      railties (= 7.1.6)
++      railties (= 7.2.4)
+@@ -312,3 +304,3 @@ GEM
+-    railties (7.1.6)
+-      actionpack (= 7.1.6)
+-      activesupport (= 7.1.6)
++    railties (7.2.4)
++      actionpack (= 7.2.4)
++      activesupport (= 7.2.4)
+@@ -316 +308 @@ GEM
+-      irb
++      irb (~> 1.13)
+@@ -418,0 +411 @@ GEM
++    useragent (0.16.11)
+@@ -478 +471 @@ DEPENDENCIES
+-  rails (= 7.1.6)
++  rails (= 7.2.4)

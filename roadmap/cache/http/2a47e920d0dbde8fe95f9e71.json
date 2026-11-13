@@ -1,0 +1,1 @@
+{"url": "https://rubygems.org/api/v1/gems/bcrypt.json", "fetched": "2026-11-13T03:56:30Z", "status": 200, "body": "{\"name\": \"bcrypt\", \"version\": \"3.1.22\", \"ruby_abi\": null, \"homepage_uri\": \"https://github.com/bcrypt-ruby/bcrypt-ruby\", \"source_code_uri\": null, \"changelog_uri\": \"https://github.com/bcrypt-ruby/bcrypt-ruby/blob/master/CHANGELOG\"}"}

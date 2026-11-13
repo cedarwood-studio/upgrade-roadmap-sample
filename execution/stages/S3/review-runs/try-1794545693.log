@@ -1,0 +1,64 @@
+329324c Fix migration waiter on Rails 7.2 and relock conservatively
+730195a Upgrade Rails from 7.1.6 to 7.2.4
+a45dff2 Remove annotate from the bundle
+fe9e34c Add characterization tests ahead of the Rails upgrade
+ .upgrade/accepted-differences.json |  33 ++++++++-
+ .upgrade/baseline/examples.json    |  70 +++++++++++++++++++
+ Gemfile                            |   2 +-
+ Gemfile.lock                       | 139 ++++++++++++++++++-------------------
+ config/environments/test.rb        |   2 +-
+ lib/migration_waiter.rb            |   2 +-
+ spec/lib/migration_waiter_spec.rb  |  40 +++++++++++
+ spec/lib/secret_key_spec.rb        |  13 ++++
+ 8 files changed, 224 insertions(+), 77 deletions(-)
+-    actioncable (7.1.6)
++    actioncable (7.2.4)
+-    actionmailbox (7.1.6)
+-    actionmailer (7.1.6)
++    actionmailbox (7.2.4)
++    actionmailer (7.2.4)
+-    actionpack (7.1.6)
++    actionpack (7.2.4)
+-    actiontext (7.1.6)
++    actiontext (7.2.4)
+-    actionview (7.1.6)
++    actionview (7.2.4)
+-    activejob (7.1.6)
++    activejob (7.2.4)
+-    activemodel (7.1.6)
+-    activerecord (7.1.6)
++    activemodel (7.2.4)
++    activerecord (7.2.4)
+-    activestorage (7.1.6)
++    activestorage (7.2.4)
+-    activesupport (7.1.6)
++    activesupport (7.2.4)
+-    connection_pool (3.0.2)
++    connection_pool (2.5.5)
+-    minitest (6.0.6)
++    minitest (5.27.0)
+-    rails (7.1.6)
++    rails (7.2.4)
+-    railties (7.1.6)
++    railties (7.2.4)
++    useragent (0.16.11)
+---
+103:    connection_pool (2.5.5)
+158:    json (2.7.1)
+190:    mail (2.9.0)
+198:    minitest (5.27.0)
+217:    nokogiri (1.19.3-aarch64-linux-gnu)
+219:    nokogiri (1.19.3-arm64-darwin)
+221:    nokogiri (1.19.3-x86_64-darwin)
+223:    nokogiri (1.19.3-x86_64-linux-gnu)
+255:    prism (1.9.0)
+257:    psych (5.4.0)
+264:    rack (3.2.6)
+283:    rails (7.2.4)
+316:    rdoc (7.2.0)
+376:    sentry-rails (5.16.1)
+379:    sentry-ruby (5.16.1)
+390:    stringio (3.2.0)
+411:    useragent (0.16.11)
+---
+abbrev-0.1.2 actioncable-7.1.6 actioncable-7.2.4 actionmailbox-7.1.6 actionmailbox-7.2.4 actionmailer-7.1.6 actionmailer-7.2.4 actionpack-7.1.6 actionpack-7.2.4 actiontext-7.1.6 actiontext-7.2.4 actionview-7.1.6 actionview-7.2.4 activejob-7.1.6 activejob-7.2.4 activemodel-7.1.6 activemodel-7.2.4 activerecord-7.1.6 activerecord-7.2.4 activestorage-7.1.6 activestorage-7.2.4 activesupport-7.1.6 activesupport-7.2.4 addressable-2.8.6 aes_key_wrap-1.1.0 annotate-3.2.0 ast-2.4.2 attr_required-1.0.2 authie-5.0.0 autoprefixer-rails-10.4.13.0 base64-0.3.0 bcrypt-3.1.20 benchmark-0.5.0 bigdecimal-4.1.2 bigdecimal-4.1.3 bindata-2.5.0 builder-3.3.0 cgi-0.5.1 cgi-0.5.2 chronic-0.10.2 coffee-rails-5.0.0 coffee-script-2.4.1 coffee-script-source-1.12.2 concurrent-ruby-1.3.6 concurrent-ruby-1.3.8 connection_pool-2.5.5 connection_pool-3.0.2 crack-1.0.0 crass-1.0.6 crass-1.0.8 database_cleaner-active_record-2.2.2 database_cleaner-core-2.0.1 date-3.5.1 date-3.6.0 diff-lcs-1.6.2 domain_name-0.6.20240107 dotenv-3.0.2 drb-2.2.3 dynamic_form-1.2.0 email_validator-2.2.4 erb-6.0.4 erb-6.0.7 erubi-1.13.1 execjs-2.7.0 factory_bot-6.4.6 factory_bot_rails-6.4.3 faraday-2.9.0 faraday-follow_redirects-0.3.0 faraday-net_http-3.1.0 ffi-1.15.5 gelf-3.1.0 globalid-1.3.0 globalid-1.4.0 haml-6.3.0 hashdiff-1.1.0 hashie-5.0.0 highline-2.1.0 i18n-1.14.8 i18n-1.15.2 io-console-0.8.2 io-console-0.9.5 irb-1.18.0 irb-1.19.0 jquery-rails-4.5.1 json-2.7.1 json-jwt-1.16.6 jwt-2.8.1 kaminari-1.2.2 kaminari-actionview-1.2.2 kaminari-activerecord-1.2.2 kaminari-core-1.2.2 klogger-logger-1.4.0 konfig-config-3.0.0 logger-1.7.0 loofah-2.25.1 loofah-2.25.3 mail-2.9.0 mail-2.9.1 marcel-1.2.1 mini_mime-1.1.5 minitest-5.27.0 minitest-6.0.6 mutex_m-0.3.0 mysql2-0.5.6 net-http-0.4.1 net-imap-0.6.4 net-imap-0.6.8 net-pop-0.1.2 net-protocol-0.2.2 net-protocol-0.4.0 net-smtp-0.5.1 net-smtp-0.5.2 nifty-utils-1.1.7 nilify_blanks-1.4.0 nio4r-2.7.5 nokogiri-1.19.3-aarch64-linux-gnu nokogiri-1.19.7-aarch64-linux-gnu omniauth-2.1.2 omniauth-rails_csrf_protection-1.0.1 omniauth_openid_connect-0.7.1 openid_connect-2.3.0 ostruct-0.6.3 parallel-1.22.1 parser-3.2.1.1 pp-0.6.3 pp-0.6.4 prettyprint-0.2.0 prettyprint-0.2.1 prism-1.9.0 prism-2.1.0-aarch64-linux-gnu prometheus-client-4.2.2 psych-5.4.0 public_suffix-5.0.4 puma-7.0.4 racc-1.8.1 rack-3.2.6 rack-3.2.8 rack-oauth2-2.2.1 rack-protection-4.1.1 rack-session-2.1.2 rack-test-2.2.0 rack-test-2.3.0 rackup-2.3.1 rails-7.1.6 rails-7.2.4 rails-dom-testing-2.3.0 rails-html-sanitizer-1.7.0 rails-html-sanitizer-1.7.2 railties-7.1.6 railties-7.2.4 rainbow-3.1.1 rake-13.4.2 rbs-4.2.0 rdoc-7.2.0 rdoc-8.1.0 regexp_parser-2.7.0 reline-0.6.3 reline-0.7.0 resolv-0.6.2 rexml-3.4.4 rouge-4.2.0 rspec-3.13.1 rspec-core-3.13.5 rspec-expectations-3.13.5 rspec-mocks-3.13.5 rspec-rails-6.1.1 rspec-support-3.13.6 rubocop-1.48.1 rubocop-ast-1.27.0 rubocop-rails-2.18.0 ruby-progressbar-1.13.0 sass-rails-6.0.0 sassc-2.4.0 sassc-rails-2.1.2 secure_headers-6.5.0 securerandom-0.4.1 sentry-rails-5.16.1 sentry-ruby-5.16.1 shoulda-matchers-6.1.0 sprockets-4.2.0 sprockets-rails-3.4.2 stringio-3.2.0 swd-2.0.3 temple-0.10.3 thor-1.5.0 tilt-2.3.0 timecop-0.9.8 timeout-0.6.1 tsort-0.2.0 turbolinks-5.2.1 turbolinks-source-5.2.0 tzinfo-2.0.6 uglifier-4.2.0 unicode-display_width-2.4.2 uri-1.0.3 useragent-0.16.11 validate_url-1.0.15 webfinger-2.1.3 webmock-3.20.0 webrick-1.9.1 websocket-driver-0.8.0 websocket-driver-0.8.2 websocket-extensions-0.1.5 zeitwerk-2.8.2 zeitwerk-2.8.3 

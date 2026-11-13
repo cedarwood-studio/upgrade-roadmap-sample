@@ -1,0 +1,965 @@
+setup exit=0
+assets exit=0
+s4 exit=0 rails 8.0.5.2 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s3 exit=0 rails 7.2.4 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s4b exit=0 rails 8.0.5.2 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+==== status counts on 8.0.5.2
+    153 200      14 302      11 400       1 403      23 404       6 406      14 422       8 500       1 temp webhook created: true 200 
+==== Vary values, count per version
+7.2.4:        27 "Accept"     203 nil 
+8.0.5.2:     160 "Accept, X-Requested-With"      70 nil 
+==== responses with no Vary on 8.0.5.2
+000 HEAD /no/such/page HTTP_ACCEPT=*/* -> 404 */*; charset=UTF-8 0b vary=nil loc=
+001 HEAD /no/such/page HTTP_ACCEPT=text/html,application/xhtml+xml,applicat -> 404 text/html; charset=UTF-8 0b
+002 HEAD /no/such/page -> 404 text/html; charset=UTF-8 0b vary=nil loc=
+003 GET /no/such/page HTTP_ACCEPT=*/* -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+004 GET /no/such/page HTTP_ACCEPT=application/json -> 404 application/json; charset=UTF-8 34b vary=nil loc=
+005 HEAD /no/such/page.json HTTP_ACCEPT=*/* -> 404 */*; charset=UTF-8 0b vary=nil loc=
+008 GET /login.json HTTP_ACCEPT=*/* -> 406 application/json; charset=UTF-8 39b vary=nil loc=
+009 GET /login HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b vary=nil loc=
+010 HEAD /assets/nonexistent.css HTTP_ACCEPT=*/* -> 404 */*; charset=UTF-8 0b vary=nil loc=
+011 GET /404.html HTTP_ACCEPT=*/* -> 200 text/html 1564b vary=nil loc=
+012 HEAD /500.html HTTP_ACCEPT=*/* -> 200 text/html 0b vary=nil loc=
+013 GET /robots.txt HTTP_ACCEPT=*/* -> 200 text/plain 202b vary=nil loc=
+014 GET /raise HTTP_ACCEPT=*/* -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+017 GET / HTTP_ACCEPT=*/* -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.example.com/
+018 GET /org/s4org HTTP_ACCEPT=application/json -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http
+019 POST /login HTTP_ACCEPT=*/* -> 422 text/html; charset=UTF-8 1547b vary=nil loc=
+020 GET /login/reset/nosuchtoken HTTP_ACCEPT=*/* -> 302 text/html; charset=utf-8 0b vary=nil loc=location: htt
+022 GET /login?a[]=1&a[b]=2 HTTP_ACCEPT=*/* -> 400 text/html; charset=UTF-8 0b vary=nil loc=
+023 GET /login?%ff=1 HTTP_ACCEPT=*/* -> 500 text/html; charset=UTF-8 1477b vary=nil loc=
+024 GET /%ff HTTP_ACCEPT=*/* -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+025 OPTIONS /login HTTP_ACCEPT=*/* -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+026 PROPFIND /login HTTP_ACCEPT=*/* -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+027 GET /login HTTP_HOST=evil.example.net -> 403 text/html; charset=UTF-8 0b vary=nil loc=
+028 POST /login -> 422 text/html; charset=UTF-8 1547b vary=nil loc=
+030 POST /api/v1/send/message CONTENT_TYPE=multipart/form-data; boundary=x -> 400 text/html; charset=UTF-8 0b 
+032 POST /login/reset -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.example.com/logi
+033 POST /login/reset -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.example.com/logi
+039 POST /login/reset/MAILEDTOKEN -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.exam
+041 GET /login/reset/MAILEDTOKEN -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.examp
+042 POST /login/reset/MAILEDTOKEN -> 422 text/html; charset=UTF-8 1547b vary=nil loc=
+044 POST /login -> 302 text/html; charset=utf-8 0b vary=nil loc=location: http://postal.example.com/
+056 GET /org/s4org/servers/s4server/messages -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+087 GET /org/s4org/servers/s4server/domains/00000000-0000-4000-8000-000000000001/verify -> 302 text/html; char
+088 GET /org/s4org/servers/s4server/domains/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charse
+090 GET /org/s4org/servers/s4server/credentials/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; ch
+092 GET /org/s4org/servers/s4server/routes/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset
+094 GET /org/s4org/servers/s4server/http_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html;
+096 GET /org/s4org/servers/s4server/webhooks/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; chars
+101 GET /org/s4org/servers/s4server/messages/1/html_raw -> 500 text/html; charset=UTF-8 1477b vary=nil loc=
+107 GET /org/s4org/servers/s4server/messages/1/attachment?attachment=0 -> 302 text/html; charset=utf-8 0b vary
+123 GET /org/s4org/servers/s4server/messages/3/html_raw -> 500 text/html; charset=UTF-8 1477b vary=nil loc=
+129 GET /org/s4org/servers/s4server/messages/3/attachment?attachment=0 -> 302 text/html; charset=utf-8 0b vary
+130 GET /org/s4org/servers/s4server/messages/999999 -> 500 text/html; charset=UTF-8 1477b vary=nil loc=
+134 GET /org/s4org/servers/s4server/queue HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 
+137 GET /org/s4org/servers/s4server/webhooks/history HTTP_ACCEPT=application/json -> 406 application/json; cha
+140 GET /org/s4org/servers/s4server/messages/1/deliveries HTTP_ACCEPT=application/json -> 500 application/json
+143 GET /org/s4org/servers/s4server/credentials HTTP_ACCEPT=application/json -> 406 application/json; charset=
+146 GET /org/s4org/servers/s4server/domains HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-
+166 GET /org/s4org/servers/nosuch -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+167 GET /org/nosuch -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+168 GET /ip_pools/00000000-0000-4000-8000-000000000009 -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+172 GET /no/such/page -> 404 text/html; charset=UTF-8 1564b vary=nil loc=
+175 HEAD /no/such/page -> 404 text/html; charset=UTF-8 0b vary=nil loc=
+176 HEAD /org/s4org/servers/nosuch -> 404 text/html; charset=UTF-8 0b vary=nil loc=
+179 POST /org/s4org/servers/s4server/domains -> 400 text/html; charset=UTF-8 0b vary=nil loc=
+182 POST /org/s4org/servers/s4server/credentials -> 400 text/html; charset=UTF-8 0b vary=nil loc=
+183 POST /org/s4org/servers/s4server/routes -> 500 text/html; charset=UTF-8 1477b vary=nil loc=
+184 POST /org/s4org/servers/s4server/routes HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-
+185 POST /org/s4org/servers/s4server/routes -> 400 text/html; charset=UTF-8 0b vary=nil loc=
+188 POST /org/s4org/servers/s4server/http_endpoints -> 400 text/html; charset=UTF-8 0b vary=nil loc=
+==== responses whose Vary is not the declared value on 8.0.5.2
+==== summaries with Vary left out, 7.2.4 < > 8.0.5.2
+47,56c47,56
+< 046 GET /org/s4org/servers/s4server -> 200 text/html; charset=utf-8 11250b loc=
+< 047 GET /org/s4org/servers/s4server/edit -> 200 text/html; charset=utf-8 10406b loc=
+< 048 GET /org/s4org/servers/s4server/limits -> 200 text/html; charset=utf-8 8758b loc=
+< 049 GET /org/s4org/servers/s4server/retention -> 200 text/html; charset=utf-8 9099b loc=
+< 050 GET /org/s4org/servers/s4server/queue -> 200 text/html; charset=utf-8 7781b loc=
+< 051 GET /org/s4org/servers/s4server/spam -> 200 text/html; charset=utf-8 9618b loc=
+< 052 GET /org/s4org/servers/s4server/delete -> 200 text/html; charset=utf-8 8614b loc=
+< 053 GET /org/s4org/servers/s4server/advanced -> 200 text/html; charset=utf-8 12918b loc=
+< 054 GET /org/s4org/servers/s4server/help/outgoing -> 200 text/html; charset=utf-8 9437b loc=
+< 055 GET /org/s4org/servers/s4server/help/incoming -> 200 text/html; charset=utf-8 8996b loc=
+---
+> 046 GET /org/s4org/servers/s4server -> 200 text/html; charset=utf-8 11249b loc=
+> 047 GET /org/s4org/servers/s4server/edit -> 200 text/html; charset=utf-8 10405b loc=
+> 048 GET /org/s4org/servers/s4server/limits -> 200 text/html; charset=utf-8 8757b loc=
+> 049 GET /org/s4org/servers/s4server/retention -> 200 text/html; charset=utf-8 9098b loc=
+> 050 GET /org/s4org/servers/s4server/queue -> 200 text/html; charset=utf-8 7780b loc=
+> 051 GET /org/s4org/servers/s4server/spam -> 200 text/html; charset=utf-8 9617b loc=
+> 052 GET /org/s4org/servers/s4server/delete -> 200 text/html; charset=utf-8 8613b loc=
+> 053 GET /org/s4org/servers/s4server/advanced -> 200 text/html; charset=utf-8 12917b loc=
+> 054 GET /org/s4org/servers/s4server/help/outgoing -> 200 text/html; charset=utf-8 9436b loc=
+> 055 GET /org/s4org/servers/s4server/help/incoming -> 200 text/html; charset=utf-8 8995b loc=
+58,87c58,87
+< 057 GET /org/s4org/servers/s4server/messages/outgoing -> 200 text/html; charset=utf-8 11926b loc=
+< 058 GET /org/s4org/servers/s4server/messages/incoming -> 200 text/html; charset=utf-8 7965b loc=
+< 059 GET /org/s4org/servers/s4server/messages/held -> 200 text/html; charset=utf-8 8365b loc=
+< 060 GET /org/s4org/servers/s4server/messages/suppressions -> 200 text/html; charset=utf-8 8590b loc=
+< 061 GET /org/s4org/servers/s4server/messages/new -> 200 text/html; charset=utf-8 9770b loc=
+< 062 GET /org/s4org/servers/s4server/messages/outgoing?query=to:john@example.com -> 200 text/html; charset=utf-8 10819b loc=
+< 063 GET /org/s4org/servers/s4server/messages/outgoing?query=status:softfail+tag:s4tag -> 200 text/html; charset=utf-8 10211b loc=
+< 064 GET /org/s4org/servers/s4server/messages/outgoing?query=before:2026-07-01+after:2026-05-01 -> 200 text/html; charset=utf-8 12010b loc=
+< 065 GET /org/s4org/servers/s4server/messages/outgoing?query=nonsense:: -> 200 text/html; charset=utf-8 11962b loc=
+< 066 GET /org/s4org/servers/s4server/messages/outgoing?page=2 -> 200 text/html; charset=utf-8 10171b loc=
+< 067 GET /org/s4org/servers/s4server/domains -> 200 text/html; charset=utf-8 7976b loc=
+< 068 GET /org/s4org/servers/s4server/domains/new -> 200 text/html; charset=utf-8 7638b loc=
+< 069 GET /org/s4org/servers/s4server/credentials -> 200 text/html; charset=utf-8 7907b loc=
+< 070 GET /org/s4org/servers/s4server/credentials/new -> 200 text/html; charset=utf-8 9770b loc=
+< 071 GET /org/s4org/servers/s4server/routes -> 200 text/html; charset=utf-8 8165b loc=
+< 072 GET /org/s4org/servers/s4server/routes/new -> 200 text/html; charset=utf-8 10873b loc=
+< 073 GET /org/s4org/servers/s4server/http_endpoints -> 200 text/html; charset=utf-8 8006b loc=
+(end of summary diff)
+==== response files that differ beyond the Vary header (7.2.4 < > 8.0.5.2)
+--- 046.txt: GET /org/s4org/servers/s4server
+16c16
+< body-bytes: 11250
+---
+> body-bytes: 11249
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+229c229
+< &quot;outgoing&quot;:6
+---
+> &quot;outgoing&quot;:9
+--- 047.txt: GET /org/s4org/servers/s4server/edit
+16c16
+< body-bytes: 10406
+---
+> body-bytes: 10405
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 048.txt: GET /org/s4org/servers/s4server/limits
+16c16
+< body-bytes: 8758
+---
+> body-bytes: 8757
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 049.txt: GET /org/s4org/servers/s4server/retention
+16c16
+< body-bytes: 9099
+---
+> body-bytes: 9098
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 050.txt: GET /org/s4org/servers/s4server/queue
+16c16
+< body-bytes: 7781
+---
+> body-bytes: 7780
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 051.txt: GET /org/s4org/servers/s4server/spam
+16c16
+< body-bytes: 9618
+---
+> body-bytes: 9617
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 052.txt: GET /org/s4org/servers/s4server/delete
+16c16
+< body-bytes: 8614
+---
+> body-bytes: 8613
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 053.txt: GET /org/s4org/servers/s4server/advanced
+16c16
+< body-bytes: 12918
+---
+> body-bytes: 12917
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 054.txt: GET /org/s4org/servers/s4server/help/outgoing
+16c16
+< body-bytes: 9437
+---
+> body-bytes: 9436
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 055.txt: GET /org/s4org/servers/s4server/help/incoming
+16c16
+< body-bytes: 8996
+---
+> body-bytes: 8995
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 057.txt: GET /org/s4org/servers/s4server/messages/outgoing
+16c16
+< body-bytes: 11926
+---
+> body-bytes: 11925
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 058.txt: GET /org/s4org/servers/s4server/messages/incoming
+16c16
+< body-bytes: 7965
+---
+> body-bytes: 7964
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 059.txt: GET /org/s4org/servers/s4server/messages/held
+16c16
+< body-bytes: 8365
+---
+> body-bytes: 8364
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 060.txt: GET /org/s4org/servers/s4server/messages/suppressions
+16c16
+< body-bytes: 8590
+---
+> body-bytes: 8589
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 061.txt: GET /org/s4org/servers/s4server/messages/new
+16c16
+< body-bytes: 9770
+---
+> body-bytes: 9769
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 062.txt: GET /org/s4org/servers/s4server/messages/outgoing?query=to:john@example.com
+16c16
+< body-bytes: 10819
+---
+> body-bytes: 10818
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 063.txt: GET /org/s4org/servers/s4server/messages/outgoing?query=status:softfail+tag:s4tag
+16c16
+< body-bytes: 10211
+---
+> body-bytes: 10210
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 064.txt: GET /org/s4org/servers/s4server/messages/outgoing?query=before:2026-07-01+after:2026-05-01
+16c16
+< body-bytes: 12010
+---
+> body-bytes: 12009
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 065.txt: GET /org/s4org/servers/s4server/messages/outgoing?query=nonsense::
+16c16
+< body-bytes: 11962
+---
+> body-bytes: 11961
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 066.txt: GET /org/s4org/servers/s4server/messages/outgoing?page=2
+16c16
+< body-bytes: 10171
+---
+> body-bytes: 10170
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 067.txt: GET /org/s4org/servers/s4server/domains
+16c16
+< body-bytes: 7976
+---
+> body-bytes: 7975
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 068.txt: GET /org/s4org/servers/s4server/domains/new
+16c16
+< body-bytes: 7638
+---
+> body-bytes: 7637
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 069.txt: GET /org/s4org/servers/s4server/credentials
+16c16
+< body-bytes: 7907
+---
+> body-bytes: 7906
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 070.txt: GET /org/s4org/servers/s4server/credentials/new
+16c16
+< body-bytes: 9770
+---
+> body-bytes: 9769
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 071.txt: GET /org/s4org/servers/s4server/routes
+16c16
+< body-bytes: 8165
+---
+> body-bytes: 8164
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 072.txt: GET /org/s4org/servers/s4server/routes/new
+16c16
+< body-bytes: 10873
+---
+> body-bytes: 10872
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 073.txt: GET /org/s4org/servers/s4server/http_endpoints
+16c16
+< body-bytes: 8006
+---
+> body-bytes: 8005
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 074.txt: GET /org/s4org/servers/s4server/http_endpoints/new
+16c16
+< body-bytes: 11630
+---
+> body-bytes: 11629
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 075.txt: GET /org/s4org/servers/s4server/smtp_endpoints
+16c16
+< body-bytes: 7834
+---
+> body-bytes: 7833
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 076.txt: GET /org/s4org/servers/s4server/smtp_endpoints/new
+16c16
+< body-bytes: 9310
+---
+> body-bytes: 9309
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 077.txt: GET /org/s4org/servers/s4server/address_endpoints
+16c16
+< body-bytes: 7844
+---
+> body-bytes: 7843
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 078.txt: GET /org/s4org/servers/s4server/address_endpoints/new
+16c16
+< body-bytes: 8215
+---
+> body-bytes: 8214
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 079.txt: GET /org/s4org/servers/s4server/track_domains
+16c16
+< body-bytes: 7533
+---
+> body-bytes: 7532
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 080.txt: GET /org/s4org/servers/s4server/track_domains/new
+16c16
+< body-bytes: 10793
+---
+> body-bytes: 10792
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 081.txt: GET /org/s4org/servers/s4server/ip_pool_rules
+16c16
+< body-bytes: 7927
+---
+> body-bytes: 7926
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 082.txt: GET /org/s4org/servers/s4server/ip_pool_rules/new
+16c16
+< body-bytes: 9373
+---
+> body-bytes: 9372
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 083.txt: GET /org/s4org/servers/s4server/webhooks
+16c16
+< body-bytes: 7775
+---
+> body-bytes: 7774
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 084.txt: GET /org/s4org/servers/s4server/webhooks/new
+16c16
+< body-bytes: 13119
+---
+> body-bytes: 13118
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 085.txt: GET /org/s4org/servers/s4server/webhooks/history
+16c16
+< body-bytes: 8053
+---
+> body-bytes: 8549
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+153a154,163
+> <a class="webhookRequestList__link" href="/org/s4org/servers/s4server/webhooks/history/576e1808-8f55-41a4-ada4-2bc7ca876628"><div class='webhookRequestList__top'>
+> <p class='webhookRequestList__status'>
+> <span class='label label--http-status--'>-4</span>
+> </p>
+> <p class='webhookRequestList__time'>13/11/2026 at 06:46:20</p>
+--- 086.txt: GET /org/s4org/servers/s4server/domains/00000000-0000-4000-8000-000000000001/setup
+16c16
+< body-bytes: 9811
+---
+> body-bytes: 9810
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 089.txt: GET /org/s4org/servers/s4server/credentials/00000000-0000-4000-8000-000000000002/edit
+16c16
+< body-bytes: 10390
+---
+> body-bytes: 10389
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 091.txt: GET /org/s4org/servers/s4server/routes/00000000-0000-4000-8000-000000000006/edit
+16c16
+< body-bytes: 11870
+---
+> body-bytes: 11869
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 093.txt: GET /org/s4org/servers/s4server/http_endpoints/00000000-0000-4000-8000-000000000003/edit
+16c16
+< body-bytes: 12193
+---
+> body-bytes: 12192
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 095.txt: GET /org/s4org/servers/s4server/webhooks/00000000-0000-4000-8000-000000000007/edit
+16c16
+< body-bytes: 13561
+---
+> body-bytes: 13560
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 097.txt: GET /org/s4org/servers/s4server/messages/1
+16c16
+< body-bytes: 11675
+---
+> body-bytes: 11674
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 098.txt: GET /org/s4org/servers/s4server/messages/1/activity
+16c16
+< body-bytes: 9991
+---
+> body-bytes: 9990
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 099.txt: GET /org/s4org/servers/s4server/messages/1/plain
+16c16
+< body-bytes: 9348
+---
+> body-bytes: 9347
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 100.txt: GET /org/s4org/servers/s4server/messages/1/html
+16c16
+< body-bytes: 9548
+---
+> body-bytes: 9547
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 102.txt: GET /org/s4org/servers/s4server/messages/1/attachments
+16c16
+< body-bytes: 9568
+---
+> body-bytes: 9567
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 103.txt: GET /org/s4org/servers/s4server/messages/1/headers
+16c16
+< body-bytes: 9994
+---
+> body-bytes: 9993
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 105.txt: GET /org/s4org/servers/s4server/messages/1/spam_checks
+16c16
+< body-bytes: 9615
+---
+> body-bytes: 9614
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 108.txt: GET /org/s4org/servers/s4server/messages/2
+16c16
+< body-bytes: 11859
+---
+> body-bytes: 11858
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 109.txt: GET /org/s4org/servers/s4server/messages/2/activity
+16c16
+< body-bytes: 10037
+---
+> body-bytes: 10036
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 110.txt: GET /org/s4org/servers/s4server/messages/2/plain
+16c16
+< body-bytes: 9412
+---
+> body-bytes: 9411
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 111.txt: GET /org/s4org/servers/s4server/messages/2/html
+16c16
+< body-bytes: 9460
+---
+> body-bytes: 9459
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 113.txt: GET /org/s4org/servers/s4server/messages/2/attachments
+16c16
+< body-bytes: 9635
+---
+> body-bytes: 9634
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 114.txt: GET /org/s4org/servers/s4server/messages/2/headers
+16c16
+< body-bytes: 10104
+---
+> body-bytes: 10103
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 116.txt: GET /org/s4org/servers/s4server/messages/2/spam_checks
+16c16
+< body-bytes: 9647
+---
+> body-bytes: 9646
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 119.txt: GET /org/s4org/servers/s4server/messages/3
+16c16
+< body-bytes: 11961
+---
+> body-bytes: 11960
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 120.txt: GET /org/s4org/servers/s4server/messages/3/activity
+16c16
+< body-bytes: 9991
+---
+> body-bytes: 9990
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 121.txt: GET /org/s4org/servers/s4server/messages/3/plain
+16c16
+< body-bytes: 9348
+---
+> body-bytes: 9347
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 122.txt: GET /org/s4org/servers/s4server/messages/3/html
+16c16
+< body-bytes: 9548
+---
+> body-bytes: 9547
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 124.txt: GET /org/s4org/servers/s4server/messages/3/attachments
+16c16
+< body-bytes: 9568
+---
+> body-bytes: 9567
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 125.txt: GET /org/s4org/servers/s4server/messages/3/headers
+16c16
+< body-bytes: 9994
+---
+> body-bytes: 9993
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 127.txt: GET /org/s4org/servers/s4server/messages/3/spam_checks
+16c16
+< body-bytes: 9615
+---
+> body-bytes: 9614
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 132.txt: GET /org/s4org/servers/s4server/messages/outgoing HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttp
+17c17
+< body-bytes: 11945
+---
+> body-bytes: 11944
+96c96
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 135.txt: GET /org/s4org/servers/s4server/queue HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest
+17c17
+< body-bytes: 7781
+---
+> body-bytes: 7780
+96c96
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 138.txt: GET /org/s4org/servers/s4server/webhooks/history HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpR
+17c17
+< body-bytes: 8053
+---
+> body-bytes: 8549
+96c96
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+154a155,164
+> <a class="webhookRequestList__link" href="/org/s4org/servers/s4server/webhooks/history/576e1808-8f55-41a4-ada4-2bc7ca876628"><div class='webhookRequestList__top'>
+> <p class='webhookRequestList__status'>
+> <span class='label label--http-status--'>-4</span>
+> </p>
+> <p class='webhookRequestList__time'>13/11/2026 at 06:46:20</p>
+--- 144.txt: GET /org/s4org/servers/s4server/credentials HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpReques
+17c17
+< body-bytes: 7907
+---
+> body-bytes: 7906
+96c96
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 147.txt: GET /org/s4org/servers/s4server/domains HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest
+17c17
+< body-bytes: 7976
+---
+> body-bytes: 7975
+96c96
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 177.txt: POST /org/s4org/servers/s4server/domains
+16c16
+< body-bytes: 7859
+---
+> body-bytes: 7858
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 180.txt: POST /org/s4org/servers/s4server/credentials
+16c16
+< body-bytes: 10070
+---
+> body-bytes: 10069
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 186.txt: POST /org/s4org/servers/s4server/http_endpoints
+16c16
+< body-bytes: 12055
+---
+> body-bytes: 12054
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 189.txt: POST /org/s4org/servers/s4server/smtp_endpoints
+16c16
+< body-bytes: 9627
+---
+> body-bytes: 9626
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 192.txt: POST /org/s4org/servers/s4server/address_endpoints
+16c16
+< body-bytes: 8451
+---
+> body-bytes: 8450
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 195.txt: POST /org/s4org/servers/s4server/track_domains
+16c16
+< body-bytes: 11058
+---
+> body-bytes: 11057
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 198.txt: POST /org/s4org/servers/s4server/ip_pool_rules
+16c16
+< body-bytes: 9637
+---
+> body-bytes: 9636
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 201.txt: POST /org/s4org/servers/s4server/webhooks
+16c16
+< body-bytes: 13356
+---
+> body-bytes: 13355
+95c95
+< <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">3.84 KB used</a>
+---
+> <a class="js-disk-size" href="/org/s4org/servers/s4server/retention">6.2 KB used</a>
+--- 225.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=s4fixedkey0000000000000A
+14c14
+< body-bytes: 2908
+---
+> body-bytes: 2914
+31c31
+< "size":"1169"
+---
+> "size":"1173"
+49c49
+<  13 Nov 2026 06:46:18 +0000"]
+---
+>  13 Nov 2026 06:46:31 +0000"]
+51c51
+<  13 Nov 2026 06:46:18 +0000"]
+compared 230 response files, 160 differ at all, 79 differ beyond Vary
+==== same version twice (8.0.5.2 first run < > third run), files that differ: noise
+noise 046.txt: GET /org/s4org/servers/s4server
+noise 047.txt: GET /org/s4org/servers/s4server/edit
+noise 048.txt: GET /org/s4org/servers/s4server/limits
+noise 049.txt: GET /org/s4org/servers/s4server/retention
+noise 050.txt: GET /org/s4org/servers/s4server/queue
+noise 051.txt: GET /org/s4org/servers/s4server/spam
+noise 052.txt: GET /org/s4org/servers/s4server/delete
+noise 053.txt: GET /org/s4org/servers/s4server/advanced
+noise 054.txt: GET /org/s4org/servers/s4server/help/outgoing
+noise 055.txt: GET /org/s4org/servers/s4server/help/incoming
+noise 057.txt: GET /org/s4org/servers/s4server/messages/outgoing
+noise 058.txt: GET /org/s4org/servers/s4server/messages/incoming
+==== mails (7.2.4 < > 8.0.5.2)
+mails: 7, raised: 0
+==== facts (7.2.4 < > 8.0.5.2)
+28c28
+< total_size and number helpers: ["Integer", "6.2 KB", "1,234,567.891", "1.01", "12.3%", "1.5 KB", "1e3", nil]
+---
+> total_size and number helpers: ["Integer", "8.56 KB", "1,234,567.891", "1.01", "12.3%", "1.5 KB", "1e3", nil]
+(end of facts diff)
+==== facts on 8.0.5.2
+reset: stored token shape: xxxxxxxxxxxxxxxxxxxxxxxx (24)
+reset: valid for hours: 24
+reset: mails sent: 1
+reset: mailed token equals stored: true
+reset: mail link: https://postal.example.com/login/reset/MAILEDTOKEN?return_to=%2Forg%2Fs4org
+reset: mail subject and from: Reset your Postal password / ["postal@example.com"]
+reset: after reset, stored token and expiry: [nil, nil]
+reset: new password works: true
+password_reset_token reader is the column: ["abcdefghijklmnopqrstuvwx", true, false]
+begin_password_reset writes the column: [24, true, true]
+password change clears the token: [nil, nil]
+authenticate, bad password, previous password first: [true, false, "Authentication Failed: InvalidPassword", true]
+password validations: blank, short, mismatch, spaces: [[true, []], [false, ["Password is too short (minimum is 8 characters)"]], [false, ["Password confirmation doesn't match Password"]], [true, []], [true, []]]
+user json has no secrets beyond before: ["admin", "created_at", "email_address", "email_verification_token", "email_verified_at", "first_name", "id", "last_name", "oidc_issuer", "oidc_uid", "password_digest", "password_reset_token", "password_reset_token_valid_until", "time_zone", "updated_at", "uuid"]
+migration_waiter.rb:18 wait: 0
+migration_waiter.rb:47 console?: [false, false]
+database.rb:333 explain printer: ["+----+-------------+----------+-------+---------------+-----", "| id | select_type | table | type | possible_keys | key | ke", "1 row in set (0.10 sec)"]
+route.rb:122 bad endpoint: RAISED Postal::Error: Invalid endpoint class name 'Nope'
+route additional endpoints: [false, [nil]]
+ip pool destroy guard: "ActiveRecord::DeleteRestrictionError"
+worker process.rb:105 pool size: [5, "ActiveRecord::ConnectionAdapters::ConnectionPool"]
+worker process.rb:159 work: true
+worker process.rb:217,233 run_tasks: 9
+worker run_tasks again (renewed): 9
+scheduled tasks recorded: 9
+worker process.rb:203 release role: true
+retention cutoff provisioner.rb:133: ["Time", 0, "2026-05-02 23:59:59 +0000"]
+total_size and number helpers: ["Integer", "8.56 KB", "1,234,567.891", "1.01", "12.3%", "1.5 KB", "1e3", nil]
+times as text: ["June 01, 2026 13:00", "01 Jun 13:00", "2026-06-01 13:00:00 +0100", "2026-06-01T13:00:00.000+01:00", "2026-06-01T12:00:00.000Z", "June 01, 2026", "Abc def", "Soft fail"]
+json encoding: ["{\"a\":1.0,\"b\":null,\"c\":[\"1.5\",\"sym\",\"2026-06-01T12:00:00.000Z\"],\"d\":\"\\u003c\\u0026\\u003e\\u2028\"}", {"a" => [1, 2.5, nil]}]
+credential options round trip: ["Hash", {}, "ActiveRecord::Coders::YAMLColumn"]
+webhook request serialize: [{"a" => [1, {"b" => nil}]}, "---\na:\n- 1\n- b:\n"]
+server stats: [0, 1, "Float", 0.0, {incoming: "Integer", outgoing: "Integer", outgoing_usage: "Integer"}]
+message parser tracked link, CGI: ["0.5.1", "a&b", {"ssl_mode" => ["TLS"], "a" => ["1"]}]
+delivery attributes are string keyed: ["Postal::MessageDB::Delivery", "Sent", ["String"]]
+secret key and cookie settings: RAISED ArgumentError: wrong number of arguments (given 0, expected 1)
+default headers: {}
+active record settings: [:utc, false, true, true, true, false, "ActiveRecord::Coders::YAMLColumn", false, false]
+active support settings: RAISED NoMethodError: undefined method 'use_rfc4122_namespaced_uuids' for module ActiveSupport
+action controller and view settings: RAISED NoMethodError: undefined method 'default_protect_from_forgery' for class ActionController::Base
+mailer settings: [{mime_version: "1.0", charset: "UTF-8", content_type: "text/plain", parts_order: ["text/plain", "text/enriched", "text/html"]}, [:address, :authentication, :enable_starttls, :enable_starttls_auto, :openssl_verify_mode, :password, :port, :user_name], true, true, nil, {}]
+worker process.rb:114 raises the pool size: [12, true]
+==== Rails log, normalized (7.2.4 < > 8.0.5.2): 1241 and 1249 lines
+106c106,107
+< ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a'):
+---
+> ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a')
+> Caused by: ActionDispatch::ParameterTypeError (expected Hash (got Array) for param `a')
+108,109c109
+< Causes:
+< Rack::QueryParser::ParameterTypeError (expected Hash (got Array) for param `a')
+---
+> Information for: ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a'):
+110a111,114
+> 
+> Information for cause: ActionDispatch::ParameterTypeError (expected Hash (got Array) for param `a'):
+>   
+> lib/tracking_middleware.rb:13:in 'TrackingMiddleware#call'
+147c151,152
+< ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError):
+---
+> ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError)
+> Caused by: Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError)
+149,150c154
+< Causes:
+< Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError)
+---
+> Information for: ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError):
+151a156,159
+> 
+> Information for cause: Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError):
+>   
+> lib/tracking_middleware.rb:13:in 'TrackingMiddleware#call'
+957c965
+< ActionController::ParameterMissing (param is missing or the value is empty: domain):
+---
+> ActionController::ParameterMissing (param is missing or the value is empty or invalid: domain):
+975c983
+< ActionController::ParameterMissing (param is missing or the value is empty: credential):
+---
+> ActionController::ParameterMissing (param is missing or the value is empty or invalid: credential):
+1004c1012
+< ActionController::ParameterMissing (param is missing or the value is empty: route):
+==== errors in output
+/tmp/s4.out:0
+/tmp/s3.out:0
+/tmp/s4b.out:0
+==== end

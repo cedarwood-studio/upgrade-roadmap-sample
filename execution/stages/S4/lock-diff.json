@@ -1,0 +1,61 @@
+{
+ "changed": true,
+ "declared": 2,
+ "forced": 3,
+ "framework_gems_moved": 13,
+ "moved_outside_framework": 5,
+ "moves": [
+  {
+   "declared_reason": "Restores the major version the lock held before the 7.2 hop (3.0.2). Active Support 7.2.4 required connection_pool below 3 and forced it down to 2.5.5; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back.",
+   "forced_by": [],
+   "from": "2.5.5",
+   "kind": "declared",
+   "name": "connection_pool",
+   "to": "3.0.2",
+   "why": "Restores the major version the lock held before the 7.2 hop (3.0.2). Active Support 7.2.4 required connection_pool below 3 and forced it down to 2.5.5; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back."
+  },
+  {
+   "declared_reason": null,
+   "forced_by": [
+    "rails-html-sanitizer 1.7.2 requires loofah (~> 2.25, >= 2.25.3)"
+   ],
+   "from": "2.25.1",
+   "kind": "forced",
+   "name": "loofah",
+   "to": "2.25.3",
+   "why": "rails-html-sanitizer 1.7.2 requires loofah (~> 2.25, >= 2.25.3)"
+  },
+  {
+   "declared_reason": "Restores the major version the lock held before the 7.2 hop (6.0.6 then, 6.1.0 now, the version the roadmap's resolve for 8.0 predicted). Active Support 7.2.4 required minitest below 6 and forced it down to 5.27.0; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back.",
+   "forced_by": [],
+   "from": "5.27.0",
+   "kind": "declared",
+   "name": "minitest",
+   "to": "6.1.0",
+   "why": "Restores the major version the lock held before the 7.2 hop (6.0.6 then, 6.1.0 now, the version the roadmap's resolve for 8.0 predicted). Active Support 7.2.4 required minitest below 6 and forced it down to 5.27.0; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back."
+  },
+  {
+   "declared_reason": null,
+   "forced_by": [
+    "loofah 2.25.3 requires nokogiri (>= 1.19.5)"
+   ],
+   "from": "1.19.3",
+   "kind": "forced",
+   "name": "nokogiri",
+   "to": "1.19.7",
+   "why": "loofah 2.25.3 requires nokogiri (>= 1.19.5)"
+  },
+  {
+   "declared_reason": null,
+   "forced_by": [
+    "actionview 8.0.5.2 requires rails-html-sanitizer (~> 1.6, >= 1.7.2)"
+   ],
+   "from": "1.7.0",
+   "kind": "forced",
+   "name": "rails-html-sanitizer",
+   "to": "1.7.2",
+   "why": "actionview 8.0.5.2 requires rails-html-sanitizer (~> 1.6, >= 1.7.2)"
+  }
+ ],
+ "unexplained": []
+}

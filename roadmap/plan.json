@@ -1,0 +1,1185 @@
+{
+ "baseline": {
+  "examples": 851,
+  "failing": 17,
+  "failing_reason": "834 of 851 examples pass with the network off; 17 more pass with the network on; 5 fail in that run. The 17 offline failures are 16 examples in spec/lib/dns_resolver_spec.rb and 1 in spec/senders/smtp_sender_spec.rb that make real DNS lookups.",
+  "test_command": "bundle exec rspec"
+ },
+ "drivers": {
+  "affected_lines": 78,
+  "affected_lines_executed_percent": 43.1,
+  "app_code_lines": 27249,
+  "dependencies_blocked_no_release": 1,
+  "dependencies_declared_incompatible": 1,
+  "dependencies_direct": 50,
+  "dependencies_total": 162,
+  "deprecations_distinct": 0,
+  "deprecations_occurrences": 0,
+  "flags_not_exercised": 6,
+  "framework_call_sites_in_files_never_loaded": 11,
+  "framework_call_sites_never_executed": 5,
+  "line_coverage_percent_of_loaded": 83.7,
+  "major_versions_jumped": 1,
+  "removed_gems_with_uses": 2,
+  "resolver_final_hop_downgrades": 1,
+  "resolver_final_hop_gems_changed": 17,
+  "resolver_final_hop_major_jumps": 0,
+  "resolver_final_hop_resolves": true,
+  "ruby_warnings_deprecated": 2,
+  "rules_on_path": 275,
+  "rules_on_path_with_hits": 20,
+  "series_hops": 3,
+  "suite_seconds": 221.7,
+  "tests_failing_at_baseline": 17,
+  "tests_total": 851,
+  "upstream_upgrade_in_flight": true
+ },
+ "estimate": {
+  "assumptions": [
+   "The range comes from a rubric of uncalibrated priors; 0 executed upgrades have corrected it.",
+   "The suite plus the S1 recording is the acceptance test.",
+   "No production-only code paths exist beyond the ones named in the report.",
+   "Dependencies behave as their declared constraints say.",
+   "Reviews turn around within a day.",
+   "The affected-under-50 multiplier applies to every stage: 43.1 percent of affected lines are executed by the suite.",
+   "The manual-setup multiplier is not applied: the suite runs offline, and the 17 examples that need DNS are tracked separately.",
+   "Hits read and judged false matches carry no hours. The two Benchmark lines are counted as rule hits and as one removed-gem use.",
+   "One 7.2 rule and one 8.0 rule are excluded from the unsearchable allowance, each with its reason on the stage.",
+   "The independent review moved one judgment hit, the retention cutoff line, from S8 to S5 along with its test; the total is unchanged."
+  ],
+  "hours_high": 263.25,
+  "hours_low": 30.35,
+  "would_move_it": [
+   "A gem that fails at runtime despite resolving, most likely one of the five stale, undeclared direct dependencies.",
+   "Deprecation warnings that appear only on 7.2 or 8.0.",
+   "A recorded response that differs and needs a product decision, most likely from the header and cookie defaults in S6 or the JSON escaping default in S9 (the independent review replaced the sanitizer change in S4 here, having found no caller of the sanitizer helpers).",
+   "Full pages that still do not render in the test environment after S1's Gemfile change; the request set would then need another way to run, which is not estimated.",
+   "A review finding that reopens a stage.",
+   "The client merging the project's own open pull request for Rails 8.1 first, which would replace parts of S2 to S5 with a review of that work."
+  ]
+ },
+ "schema": 1,
+ "scope_verdict": "in-scope",
+ "stages": [
+  {
+   "changes": [
+    {
+     "evidence": [
+      "measurement:baseline"
+     ],
+     "what": "Record the suite per example under both network conditions, so later stages compare example by example."
+    },
+    {
+     "evidence": [
+      "measurement:coverage",
+      "file:spec/requests/sessions_controller_spec.rb",
+      "rule:rails-8.1-json-escaping-defaults",
+      "file:app/controllers/legacy_api/base_controller.rb:103"
+     ],
+     "what": "Record a request set: login page, an authenticated page, a form that fails validation, response headers and cookies, and (added by the independent review) one API response whose data contains HTML-significant characters, so the 8.1 JSON escaping default shows in the recording."
+    },
+    {
+     "evidence": [
+      "file:Gemfile:46",
+      "file:spec/requests/messages_controller_spec.rb:50",
+      "measurement:upstream"
+     ],
+     "what": "Added by the independent review: make full pages renderable in the test environment by adding the test group to the asset gems, as the project's 7.2 branch did. The checkout says the layout cannot render in test today. This is the stage's one Gemfile change; the lock must not move. The request set and the form test depend on it."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-has-secure-password-reset-token",
+      "file:app/models/concerns/has_authentication.rb:42",
+      "file:app/controllers/sessions_controller.rb:46",
+      "file:app/views/app_mailer/password_reset.text.erb:5",
+      "measurement:affected"
+     ],
+     "what": "Characterization test for the password reset flow end to end."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-connection-migration-methods-moved-to-pool",
+      "file:lib/migration_waiter.rb:18",
+      "measurement:unexecuted",
+      "measurement:upstream"
+     ],
+     "what": "Characterization test for MigrationWaiter.wait that runs the real migration context call."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-benchmark-gem-dependency",
+      "file:app/lib/worker/process.rb:164",
+      "file:app/lib/worker/process.rb:256",
+      "measurement:removed_gems",
+      "measurement:upstream"
+     ],
+     "what": "Characterization tests for Worker::Process job and task runs, with errors raised instead of swallowed."
+    },
+    {
+     "evidence": [
+      "file:lib/postal/message_parser.rb:121",
+      "file:lib/postal/message_parser.rb:56",
+      "measurement:removed_gems"
+     ],
+     "what": "Characterization test for tracked-link rewriting in HTML parts. It must assert the rewritten link: errors on this path are rescued and the message goes out untracked (found by the independent review)."
+    },
+    {
+     "evidence": [
+      "file:lib/postal/message_db/database.rb:333",
+      "measurement:unexecuted"
+     ],
+     "what": "Characterization test that forces the slow-query explain path in the message database."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.1-default-column-serializer",
+      "file:app/models/credential.rb:34",
+      "file:app/models/webhook_request.rb:37",
+      "measurement:upstream"
+     ],
+     "what": "Characterization tests for the two YAML-serialized columns: round trip and stored format."
+    },
+    {
+     "evidence": [
+      "dep:dynamic_form",
+      "file:app/views/user/edit.html.haml:7",
+      "file:app/views/user/edit.html.haml:40",
+      "measurement:registry"
+     ],
+     "what": "Characterization test for a form that renders validation errors through dynamic_form, and for the time zone select."
+    },
+    {
+     "evidence": [
+      "dep:secure_headers",
+      "file:app/controllers/messages_controller.rb:92",
+      "measurement:upstream"
+     ],
+     "what": "Characterization test for security headers and session cookies on a response."
+    },
+    {
+     "evidence": [
+      "file:Dockerfile:67",
+      "file:Gemfile:46",
+      "dep:sass-rails",
+      "dep:turbolinks"
+     ],
+     "what": "Record the asset precompile output as a file list; neither CI nor the suite compiles assets."
+    },
+    {
+     "evidence": [
+      "file:config/initializers/secret_key.rb:4",
+      "measurement:boot",
+      "measurement:changelogs"
+     ],
+     "what": "Add a boot variant with a configured secret so the production branch of the secret key initializer runs."
+    }
+   ],
+   "check": {
+    "commands": [
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "The new examples pass on Rails 7.1.6; every existing example has the same recorded state as the baseline under each network condition (834 passing with the network off, the 17 network-dependent examples compared separately with the network on); all boot variants start. Followed by the independent review."
+   },
+   "depends_on": [],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 36.75,
+    "low": 8.0
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "baseline.base"
+    },
+    {
+     "count": 9,
+     "term": "baseline.characterization-path"
+    },
+    {
+     "count": 1,
+     "term": "baseline.request-set"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Record today's behavior on Rails 7.1.6 and put tests around the nine paths the upgrade touches and the suite does not run.",
+   "id": "S1",
+   "kind": "baseline",
+   "risk": "low",
+   "risk_reasons": [
+    "No version changes in this stage.",
+    "39 of 154 source files are never loaded by the suite and 43.1 percent of affected lines are executed, so the characterization work is where the stage can overrun.",
+    "Added by the independent review: loading the asset gems in the test environment is new, and whether the layout then renders has not been measured."
+   ],
+   "ships_separately": true,
+   "title": "Baseline and characterization"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "dep:annotate",
+      "resolve:8.0",
+      "resolve:8.1",
+      "measurement:registry",
+      "measurement:upstream",
+      "file:Gemfile:54",
+      "file:lib/tasks/auto_annotate_models.rake:5"
+     ],
+     "what": "Replace annotate with a maintained equivalent (the project's own 8.1 branch chose annotaterb) and replace its rake file. The replacement's constraints are not in the measurements; the resolve check decides."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-json-3-quirks-mode",
+      "dep:json",
+      "file:Gemfile.lock:167",
+      "measurement:upstream"
+     ],
+     "what": "Pin json below 3 in the Gemfile, with a comment naming Rails 8.1 as the point the pin comes out. Protects every to_json call on the hops below 8.1."
+    }
+   ],
+   "check": {
+    "commands": [
+     "resolve",
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "The lock changes only annotate, its replacement and their own dependencies; no example that passed in the S1 recording fails or is missing; recorded responses unchanged; all boot variants start. Followed by the independent review."
+   },
+   "depends_on": [
+    "S1"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 15.75,
+    "low": 2.75
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "dependency.replace"
+    },
+    {
+     "count": 1,
+     "term": "hit.judgment"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Remove the one blocker and add the one pin while still on Rails 7.1.6.",
+   "id": "S2",
+   "kind": "dependency",
+   "risk": "low",
+   "risk_reasons": [
+    "annotate is a development-only gem; the registry marks it blocked from 8.0 and the resolver downgraded it to 2.6.5 on the 8.0 and 8.1 hops.",
+    "The json pin holds the version already in the lock."
+   ],
+   "ships_separately": true,
+   "title": "Dependencies that can move on 7.1"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "rule:rails-7.2-ruby-3.1-minimum",
+      "measurement:changelogs"
+     ],
+     "what": "Run bin/rails app:update and review each file it touches; keep load_defaults at 7.0."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-connection-migration-methods-moved-to-pool",
+      "file:lib/migration_waiter.rb:18",
+      "measurement:upstream",
+      "measurement:unexecuted"
+     ],
+     "what": "Read migration_context from the connection pool instead of the connection."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-show-exceptions-boolean",
+      "file:config/environments/test.rb:28",
+      "measurement:upstream"
+     ],
+     "what": "Set show_exceptions to :none in the test environment."
+    },
+    {
+     "evidence": [
+      "resolve:7.2",
+      "dep:connection_pool",
+      "dep:minitest",
+      "file:lib/postal/message_db/database.rb:10"
+     ],
+     "what": "Accept the resolved lock for this hop: connection_pool 2.5.5, minitest 5.27.0, useragent added."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-time-zone-astana-mapping",
+      "file:app/views/user/edit.html.haml:40",
+      "file:app/views/organizations/edit.html.haml:22",
+      "file:app/controllers/application_controller.rb:55"
+     ],
+     "what": "Declare the Astana time zone change and hand the client a query for stored values."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-base-connection-soft-deprecated",
+      "file:lib/tasks/postal.rake:31"
+     ],
+     "what": "Leave ActiveRecord::Base.connection in the update rake task; it still works and prints nothing by default."
+    },
+    {
+     "evidence": [
+      "file:config/initializers/secret_key.rb:7",
+      "measurement:changelogs"
+     ],
+     "what": "Added by the independent review: declare that from 7.2.3 development and test take the secret key from credentials, which this initializer sets per process when none is configured."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-singular-association-plural-name",
+      "rule:rails-7.2-quote-duration",
+      "rule:rails-7.2-transaction-non-local-return",
+      "rule:rails-7.2-tests-without-assertions-warn"
+     ],
+     "what": "Read the four unsearchable 7.2 rules against the code."
+    },
+    {
+     "evidence": [
+      "measurement:unexecuted",
+      "file:app/lib/worker/process.rb:159",
+      "file:lib/postal/message_db/database.rb:333"
+     ],
+     "what": "Read the unexecuted framework call sites against the 7.2 changelogs, the worker's connection pool calls first."
+    }
+   ],
+   "check": {
+    "commands": [
+     "resolve",
+     "tests",
+     "parity",
+     "boot",
+     "deprecations"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing; recorded responses differ only where declared and sourced; all boot variants start, the migration waiter's included; the deprecation count on 7.2 is recorded and each new warning is listed. Followed by the independent review."
+   },
+   "depends_on": [
+    "S1",
+    "S2"
+   ],
+   "estimate_exclusions": [
+    {
+     "id": "rails-7.2-job-time-with-zone-preserved",
+     "reason": "The rule concerns Active Job arguments. The application does not require the Active Job railtie (config/application.rb requires six railties and Active Job is not among them) and the inventory counts 0 job classes."
+    }
+   ],
+   "estimate_hours": {
+    "high": 52.5,
+    "low": 3.7
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "framework-hop.base"
+    },
+    {
+     "count": 2,
+     "term": "hit.high"
+    },
+    {
+     "count": 3,
+     "term": "hit.judgment"
+    },
+    {
+     "count": 4,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 5,
+     "term": "stale-gem"
+    },
+    {
+     "count": 1,
+     "term": "unexecuted-read"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move to Rails 7.2.4; the runtime floor is Ruby 3.1 and the application is on 3.4.6.",
+   "id": "S3",
+   "kind": "framework-hop",
+   "risk": "medium",
+   "risk_reasons": [
+    "One confirmed break (lib/migration_waiter.rb:18) on a line the baseline suite never executes.",
+    "The resolver downgrades connection_pool and minitest one major each on this hop.",
+    "Four on-path 7.2 rules cannot be found by search.",
+    "Five direct dependencies declare nothing and have had no release in three years."
+   ],
+   "series": "7.2",
+   "ships_separately": true,
+   "title": "Rails 7.1 to 7.2"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "rule:rails-8.0-ruby-3.2-minimum",
+      "measurement:changelogs"
+     ],
+     "what": "Run bin/rails app:update and review each file it touches; keep load_defaults at 7.0."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-has-secure-password-reset-token",
+      "file:app/models/concerns/has_authentication.rb:8",
+      "file:app/models/concerns/has_authentication.rb:42",
+      "file:app/controllers/sessions_controller.rb:46",
+      "file:app/views/app_mailer/password_reset.text.erb:5",
+      "file:db/schema.rb:332",
+      "measurement:affected"
+     ],
+     "what": "Pass reset_token: false to has_secure_password so the application's own password_reset_token column and flow keep working."
+    },
+    {
+     "evidence": [
+      "measurement:removed_gems",
+      "dep:cgi",
+      "resolve:8.0",
+      "file:lib/postal/config_schema.rb:80",
+      "file:lib/postal/message_parser.rb:121",
+      "measurement:upstream"
+     ],
+     "what": "Add cgi to the Gemfile; Rails 8.0 stops depending on it and two files use CGI without requiring it."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-rails-html-sanitizer-1-7-2",
+      "resolve:8.0",
+      "dep:rails-html-sanitizer",
+      "dep:loofah",
+      "dep:nokogiri",
+      "file:Gemfile.lock:312"
+     ],
+     "what": "Let rails-html-sanitizer, loofah and nokogiri move as resolved, and lift connection_pool and minitest back up. Resolution from a 7.2 lock is not yet measured."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-hwia-stringify-keys-all-keys",
+      "file:lib/postal/message_db/delivery.rb:26",
+      "file:lib/postal/message_db/database.rb:298"
+     ],
+     "what": "Confirm the Delivery constructor receives a plain Hash, so the stringify_keys change does not apply."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-db-migrate-loads-schema",
+      "file:bin/update:24",
+      "file:lib/tasks/postal.rake:35"
+     ],
+     "what": "Declare the db:migrate change for the developer update script; the production path is unchanged."
+    },
+    {
+     "evidence": [
+      "file:app/controllers/application_controller.rb:85",
+      "measurement:changelogs"
+     ],
+     "what": "Added by the independent review: declare the Vary header change on rendered responses."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-ar-mysql-5-5-dropped",
+      "file:config/database.yml:2",
+      "file:docker-compose.yml:23"
+     ],
+     "what": "Get the production MySQL or MariaDB server versions from the client before the hop ships."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-ar-nested-association-inference",
+      "rule:rails-8.0-encrypted-configuration-non-symbol-keys",
+      "file:config/initializers/secret_key.rb:4"
+     ],
+     "what": "Read the two unsearchable 8.0 rules against the code."
+    },
+    {
+     "evidence": [
+      "measurement:unexecuted",
+      "file:lib/postal/message_db/database.rb:333",
+      "file:lib/migration_waiter.rb:47"
+     ],
+     "what": "Read the unexecuted framework call sites against the 8.0 changelogs."
+    }
+   ],
+   "check": {
+    "commands": [
+     "resolve",
+     "tests",
+     "parity",
+     "boot",
+     "deprecations"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing, the S1 password reset test included; recorded responses differ only where declared and sourced; all boot variants start; the deprecation count on 8.0 is recorded and each new warning is listed. Followed by the independent review."
+   },
+   "depends_on": [
+    "S3"
+   ],
+   "estimate_exclusions": [
+    {
+     "id": "rails-8.0-unregistered-database-adapters",
+     "reason": "The rule concerns third-party database adapters. The application uses mysql2 (config/database.yml:2), an adapter Active Record ships and registers itself."
+    }
+   ],
+   "estimate_hours": {
+    "high": 53.25,
+    "low": 4.85
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "framework-hop.base"
+    },
+    {
+     "count": 8,
+     "term": "hit.judgment"
+    },
+    {
+     "count": 2,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 5,
+     "term": "stale-gem"
+    },
+    {
+     "count": 1,
+     "term": "removed-gem-use"
+    },
+    {
+     "count": 1,
+     "term": "unexecuted-read"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move to Rails 8.0.5.2; the runtime floor is Ruby 3.2.",
+   "id": "S4",
+   "kind": "framework-hop",
+   "risk": "high",
+   "risk_reasons": [
+    "The password reset flow breaks without a fix, and the lines that write and look up the token are never executed by the baseline suite.",
+    "The cgi gem leaves the lock while two application lines use its constant without requiring it; on the tracked-link line a missing constant is rescued and fails silently (independent review).",
+    "rails-html-sanitizer, loofah and nokogiri move on this hop. The independent review found no caller of the sanitizer helpers in app, lib or config, so no change to this application's HTML is expected; the S1 recording is the check.",
+    "Rendered responses gain Vary on Accept and X-Requested-With from 8.0.5.2, so recorded headers differ (independent review).",
+    "Two on-path 8.0 rules cannot be found by search; five direct dependencies are stale and undeclared.",
+    "Authentication is touched."
+   ],
+   "series": "8.0",
+   "ships_separately": true,
+   "title": "Rails 7.2 to 8.0"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "rule:rails-8.0-ruby-3.2-minimum",
+      "measurement:changelogs"
+     ],
+     "what": "Run bin/rails app:update and review each file it touches; keep load_defaults at 7.0."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-benchmark-gem-dependency",
+      "measurement:removed_gems",
+      "dep:benchmark",
+      "resolve:8.1",
+      "file:app/lib/worker/process.rb:164",
+      "file:app/lib/worker/process.rb:256",
+      "measurement:upstream"
+     ],
+     "what": "Add benchmark to the Gemfile; Active Support 8.1 no longer requires it and the worker uses it without a require."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-schema-columns-sorted",
+      "file:db/schema.rb:13",
+      "measurement:upstream"
+     ],
+     "what": "Commit the restamped schema file as its own change and confirm column order is untouched at 8.1.4.1."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-remote-ip-forwarded-ports",
+      "file:app/controllers/sessions_controller.rb:67",
+      "file:config/initializers/trusted_proxies.rb:4",
+      "measurement:changelogs"
+     ],
+     "what": "Compare request.remote_ip before and after behind the client's proxy chain. Added by the independent review: declare that from 8.1.4.1 the same action raises when the Forwarded and X-Forwarded-For headers disagree."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-to-time-preserves-timezone",
+      "rule:rails-8.0-to-time-callers-zone",
+      "file:lib/postal/message_db/provisioner.rb:133",
+      "measurement:affected",
+      "measurement:changelogs"
+     ],
+     "what": "Moved here from S8 by the independent review: before the hop, add a test for the retention cutoff. Rails 8.1 removes the older to_time behavior on the hop itself, whatever load_defaults says."
+    },
+    {
+     "evidence": [
+      "file:config/database.yml:5",
+      "file:lib/postal/config.rb:158",
+      "file:app/lib/worker/process.rb:105",
+      "file:spec/lib/postal_spec.rb:15",
+      "measurement:changelogs"
+     ],
+     "what": "Added by the independent review: confirm the pool size setting and the worker's pool resize still work now that 8.1 renames pool to max_connections; an existing spec asserts on the resized pool."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-rails-html-sanitizer-minimum",
+      "resolve:8.1",
+      "dep:rails-html-sanitizer"
+     ],
+     "what": "Confirm the sanitizer minimum is already met by the S4 lock."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-query-string-semicolon",
+      "rule:rails-8.1-time-plus-time-with-zone",
+      "rule:rails-8.1-order-dependent-finder",
+      "rule:rails-8.1-insert-all-unpersisted-association",
+      "rule:rails-8.1-missing-controller-returns-500",
+      "rule:rails-8.1-cookie-size-includes-name",
+      "rule:rails-8.1-integer-cast-long-strings"
+     ],
+     "what": "Read the seven unsearchable 8.1 rules against the code."
+    },
+    {
+     "evidence": [
+      "measurement:unexecuted",
+      "file:config/initializers/secret_key.rb:4",
+      "file:lib/postal/message_db/database.rb:333"
+     ],
+     "what": "Read the unexecuted framework call sites against the 8.1 changelogs."
+    }
+   ],
+   "check": {
+    "commands": [
+     "resolve",
+     "tests",
+     "parity",
+     "boot",
+     "deprecations"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing, the S1 worker tests and the retention cutoff test included; recorded responses differ only where declared and sourced; all boot variants start; the deprecation count on 8.1 is recorded and each new warning is listed. Followed by the independent review."
+   },
+   "depends_on": [
+    "S4"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 57.75,
+    "low": 3.85
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "framework-hop.base"
+    },
+    {
+     "count": 4,
+     "term": "hit.judgment"
+    },
+    {
+     "count": 7,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 5,
+     "term": "stale-gem"
+    },
+    {
+     "count": 1,
+     "term": "removed-gem-use"
+    },
+    {
+     "count": 1,
+     "term": "unexecuted-read"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move to Rails 8.1.4.1, the supported series; the runtime floor is Ruby 3.2.",
+   "id": "S5",
+   "kind": "framework-hop",
+   "risk": "high",
+   "risk_reasons": [
+    "The benchmark gem leaves the lock while the worker loop calls Benchmark.realtime in a file the baseline suite never loads.",
+    "Seven on-path 8.1 rules cannot be found by search, including cookie size and query string parsing.",
+    "request.remote_ip can change behind a proxy that forwards ports; only the client's environment shows it.",
+    "Five direct dependencies are stale and undeclared."
+   ],
+   "series": "8.1",
+   "ships_separately": true,
+   "title": "Rails 8.0 to 8.1"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "rule:rails-7.1-default-column-serializer",
+      "file:app/models/credential.rb:34",
+      "file:app/models/webhook_request.rb:37",
+      "measurement:upstream"
+     ],
+     "what": "Add coder: YAML to both serialize calls before the defaults change; existing rows are YAML and must stay readable."
+    },
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "file:config/initializers/new_framework_defaults_7_0.rb",
+      "measurement:upstream"
+     ],
+     "what": "Turn on the 7.1 defaults one at a time and set load_defaults to 7.1; adopt the fallback-capable message serializer so existing sessions still read."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.1-after-commit-callback-order",
+      "file:app/models/server.rb:92"
+     ],
+     "what": "Confirm the after_commit ordering default does not apply: one after_commit callback exists in the models."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.1-cache-invalid-expiration-raises"
+     ],
+     "what": "Check the cache expiry default against the code."
+    }
+   ],
+   "check": {
+    "commands": [
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing, the serialized-column and cookie tests included; each header or cookie difference is listed against the default that caused it; all boot variants start. Followed by the independent review."
+   },
+   "defaults_version": "7.1",
+   "depends_on": [
+    "S5"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 11.25,
+    "low": 1.7
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "config.defaults-version"
+    },
+    {
+     "count": 2,
+     "term": "hit.high"
+    },
+    {
+     "count": 1,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move load_defaults from 7.0 to 7.1.",
+   "id": "S6",
+   "kind": "config",
+   "risk": "high",
+   "risk_reasons": [
+    "Two serialize calls have no explicit coder and the 7.1 defaults remove the fallback.",
+    "The 7.1 defaults change the message serializer and message metadata format, which the session cookie uses.",
+    "One on-path 7.1 default cannot be found by search."
+   ],
+   "ships_separately": true,
+   "title": "Adopt the 7.1 defaults"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "measurement:upstream"
+     ],
+     "what": "Turn on each 7.2 default and set load_defaults to 7.2."
+    },
+    {
+     "evidence": [
+      "rule:rails-7.2-validate-migration-timestamps",
+      "file:db/schema.rb:13"
+     ],
+     "what": "Check the migration timestamps against the new validation."
+    }
+   ],
+   "check": {
+    "commands": [
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing; recorded responses differ only where declared and sourced; all boot variants start. Followed by the independent review."
+   },
+   "defaults_version": "7.2",
+   "depends_on": [
+    "S6"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 10.5,
+    "low": 1.5
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "config.defaults-version"
+    },
+    {
+     "count": 1,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move load_defaults from 7.1 to 7.2.",
+   "id": "S7",
+   "kind": "config",
+   "risk": "low",
+   "risk_reasons": [
+    "The 7.2 defaults file in the project's own branch lists five settings; three concern Active Job, Active Storage or PostgreSQL, which the application does not use.",
+    "One on-path 7.2 default cannot be found by search."
+   ],
+   "ships_separately": true,
+   "title": "Adopt the 7.2 defaults"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "file:config/application.rb:22",
+      "rule:rails-8.1-to-time-preserves-timezone",
+      "measurement:changelogs"
+     ],
+     "what": "Turn on each 8.0 default and set load_defaults to 8.0. Corrected by the independent review: the retention cutoff test moved to S5, because to_time changes on the 8.1 hop and not here."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.0-regexp-timeout",
+      "file:lib/postal/message_parser.rb:101",
+      "file:lib/postal/message_parser.rb:118",
+      "file:lib/postal/message_parser.rb:56"
+     ],
+     "what": "Added by the independent review: read the patterns the application runs over message bodies before accepting the one-second Regexp.timeout, and decide with the client whether to keep it, raise it or leave it off for the worker."
+    }
+   ],
+   "check": {
+    "commands": [
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing, the S1 tracked-link test included; recorded responses differ only where declared and sourced; all boot variants start. Followed by the independent review."
+   },
+   "defaults_version": "8.0",
+   "depends_on": [
+    "S7"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 9.0,
+    "low": 1.5
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "config.defaults-version"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move load_defaults from 7.2 to 8.0.",
+   "id": "S8",
+   "kind": "config",
+   "risk": "medium",
+   "risk_reasons": [
+    "The 8.0 defaults set Regexp.timeout to one second. The application runs URL patterns over message bodies, and a timeout there is rescued and sends the message untracked, so it fails silently (independent review).",
+    "No test or recording uses production-sized mail."
+   ],
+   "ships_separately": true,
+   "title": "Adopt the 8.0 defaults"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "rule:rails-8.1-json-escaping-defaults",
+      "file:app/controllers/legacy_api/base_controller.rb:103",
+      "file:app/controllers/application_controller.rb:87",
+      "file:config/application.rb:22",
+      "measurement:changelogs"
+     ],
+     "what": "Turn on each 8.1 default and set load_defaults to 8.1. Corrected by the independent review: the JSON escaping default lands on the render json calls, the API's first; decide with the client whether API consumers depend on the escaped form and keep the old setting if they do."
+    },
+    {
+     "evidence": [
+      "rule:rails-8.1-hidden-field-autocomplete",
+      "file:app/views/sessions/new.html.haml:7"
+     ],
+     "what": "Added by the independent review: declare that hidden form inputs lose autocomplete=\"off\" under the 8.1 defaults, so every recorded page with a form differs."
+    }
+   ],
+   "check": {
+    "commands": [
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing; the API response and the pages recorded in S1 differ only where declared and sourced; all boot variants start. Followed by the independent review."
+   },
+   "defaults_version": "8.1",
+   "depends_on": [
+    "S8"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 10.5,
+    "low": 1.5
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "config.defaults-version"
+    },
+    {
+     "count": 1,
+     "term": "unsearchable-rule"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Move load_defaults from 8.0 to 8.1.",
+   "id": "S9",
+   "kind": "config",
+   "risk": "medium",
+   "risk_reasons": [
+    "The JSON escaping default cannot be found by search. It governs render json, so it changes the bytes API clients receive (corrected by the independent review; the stage first pointed at a to_json in a view, which the setting does not govern)."
+   ],
+   "ships_separately": true,
+   "title": "Adopt the 8.1 defaults"
+  },
+  {
+   "changes": [
+    {
+     "evidence": [
+      "rule:rails-8.0-json-3-quirks-mode",
+      "dep:json"
+     ],
+     "what": "Remove the json pin added in S2."
+    },
+    {
+     "evidence": [
+      "file:config/initializers/new_framework_defaults_7_0.rb",
+      "file:config/application.rb:22"
+     ],
+     "what": "Delete the framework defaults files once load_defaults is 8.1."
+    },
+    {
+     "evidence": [
+      "file:CONTRIBUTING.md:9",
+      "file:.rubocop.yml:2",
+      "file:docker-compose.yml:17"
+     ],
+     "what": "Optionally correct the stale Ruby version notes and the unread compose variable."
+    }
+   ],
+   "check": {
+    "commands": [
+     "resolve",
+     "tests",
+     "parity",
+     "boot"
+    ],
+    "pass_when": "No example that passed in the S1 recording fails or is missing; recorded responses unchanged from S9; all boot variants start; the lock changes only json and what depends on it. Followed by the independent review."
+   },
+   "depends_on": [
+    "S9"
+   ],
+   "estimate_exclusions": [],
+   "estimate_hours": {
+    "high": 6.0,
+    "low": 1.0
+   },
+   "estimate_multipliers": [
+    "affected-under-50"
+   ],
+   "estimate_terms": [
+    {
+     "count": 1,
+     "term": "cleanup.base"
+    },
+    {
+     "count": 1,
+     "term": "review.stage"
+    }
+   ],
+   "goal": "Remove what the upgrade no longer needs.",
+   "id": "S10",
+   "kind": "cleanup",
+   "risk": "low",
+   "risk_reasons": [
+    "Active Support 8.1 no longer passes the option json 3 rejects, so the pin can go; the resolve and tests checks confirm it."
+   ],
+   "ships_separately": true,
+   "title": "Cleanup"
+  }
+ ],
+ "subject": {
+  "commit": "d96eddbadeda600595d6247486f9ceb8e99cbc15",
+  "ecosystem": "rails",
+  "repository": "postalserver/postal"
+ },
+ "target": {
+  "rails": "8.1.4.1",
+  "ruby": "3.4.6"
+ },
+ "unknowns": [
+  {
+   "settled_by": "S3",
+   "what": "The Rails deprecation count on 7.2, 8.0 and 8.1. Today's count of 0 was measured on 7.1.6 only."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Behavior of the 122 gems with no declared constraint on each hop."
+  },
+  {
+   "settled_by": "S3",
+   "what": "Whether dynamic_form renders form errors on 7.2 and later; it declares nothing and 18 templates call it."
+  },
+  {
+   "settled_by": "S3",
+   "what": "The four unsearchable 7.2 rules that apply: singular association by plural name, duration as a bind value, non-local exit from a transaction block, tests without assertions."
+  },
+  {
+   "settled_by": "S4",
+   "what": "The two unsearchable 8.0 rules that apply: nested association inference and non-symbol keys in encrypted configuration."
+  },
+  {
+   "settled_by": "S5",
+   "what": "The seven unsearchable 8.1 rules: query string semicolons, Time plus TimeWithZone, order-dependent finders, insert_all through unsaved associations, missing controller returning 500, cookie size counting the name, integer casting of long strings."
+  },
+  {
+   "settled_by": "S9",
+   "what": "The three unsearchable defaults: invalid cache expiry raising (7.1), migration timestamp validation (7.2), JSON escaping (8.1)."
+  },
+  {
+   "settled_by": "S4",
+   "what": "Whether the password reset flow breaks on 8.0 exactly as read; no line of it that matters is executed today."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Whether the worker loop raises NameError on 8.1 without the benchmark gem; the file is never loaded by today's suite."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Whether the internal ExplainPrettyPrinter class keeps its interface on each hop; it runs only on slow message database queries."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Production configuration: a configured secret key, the proxy chain and forwarded ports, the rspamd, SpamAssassin and ClamAV integrations."
+  },
+  {
+   "settled_by": "S4",
+   "what": "Production database server versions; Rails 8.0 drops MySQL 5.5 and the repository names no server version."
+  },
+  {
+   "settled_by": "S6",
+   "what": "Production data: stored Astana time zone names, and stored YAML in the options and payload columns under an explicit coder."
+  },
+  {
+   "settled_by": "S1",
+   "what": "The asset pipeline on each hop; neither CI nor the suite compiles assets."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Behavior of the 39 source files the suite never loads, beyond what S1 brings under test."
+  },
+  {
+   "settled_by": "S1",
+   "what": "Whether full pages render in the test environment once the asset gems load there; the checkout says they do not today and the change was not run (independent review)."
+  },
+  {
+   "settled_by": "S8",
+   "what": "Which real messages are slow enough to hit the one-second Regexp.timeout of the 8.0 defaults in the tracking patterns; a timeout there is swallowed (independent review)."
+  },
+  {
+   "settled_by": "S9",
+   "what": "Whether API consumers depend on HTML entities being escaped in JSON responses, which the 8.1 defaults stop doing (independent review)."
+  },
+  {
+   "settled_by": "S5",
+   "what": "Resolution of 8.0 from a 7.2 lock and 8.1 from an 8.0 lock; each hop was resolved from today's lock."
+  },
+  {
+   "settled_by": "S10",
+   "what": "Whether Active Support 7.2 passes quirks_mode to json; our rule and the project's 7.2 branch disagree. The pin makes it moot until it is removed on 8.1."
+  }
+ ]
+}

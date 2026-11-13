@@ -1,0 +1,22 @@
+## 7.2.4
+Loading production environment (Rails 7.2.4)
+postal(prod)> 1 + 1
+=> 2
+postal(prod)> exit
+## 7.1.6
+Loading production environment (Rails 7.1.6)
+irb(main):001> 1 + 1
+=> 2
+irb(main):002> exit
+## diff 7.1.6 < > 7.2.4
+1,2c1,2
+< Loading production environment (Rails 7.1.6)
+< irb(main):001> 1 + 1
+---
+> Loading production environment (Rails 7.2.4)
+> postal(prod)> 1 + 1
+4c4
+< irb(main):002> exit
+---
+> postal(prod)> exit
+diff exit=1

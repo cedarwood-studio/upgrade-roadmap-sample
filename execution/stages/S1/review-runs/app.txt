@@ -1,0 +1,1045 @@
+=== app/scheduled_tasks/action_deletions_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class ActionDeletionsScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Organization.deleted.each do |org|
+     7	      logger.info "permanently removing organization #{org.id} (#{org.permalink})"
+     8	      org.destroy
+     9	    end
+    10	
+    11	    Server.deleted.each do |server|
+    12	      logger.info "permanently removing server #{server.id} (#{server.full_permalink})"
+    13	      server.destroy
+    14	    end
+    15	  end
+    16	
+    17	end
+=== app/scheduled_tasks/application_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class ApplicationScheduledTask
+     4	
+     5	  def initialize(logger:)
+     6	    @logger = logger
+     7	  end
+     8	
+     9	  def call
+    10	    raise NotImplementedError
+    11	  end
+    12	
+    13	  attr_reader :logger
+    14	
+    15	  class << self
+    16	
+    17	    def next_run_after
+    18	      quarter_past_each_hour
+    19	    end
+    20	
+    21	    private
+    22	
+    23	    def quarter_past_each_hour
+    24	      time = Time.current
+    25	      time = time.change(min: 15, sec: 0)
+    26	      time += 1.hour if time < Time.current
+    27	      time
+    28	    end
+    29	
+    30	    def quarter_to_each_hour
+    31	      time = Time.current
+    32	      time = time.change(min: 45, sec: 0)
+    33	      time += 1.hour if time < Time.current
+    34	      time
+    35	    end
+    36	
+    37	    def three_am
+    38	      time = Time.current
+    39	      time = time.change(hour: 3, min: 0, sec: 0)
+    40	      time += 1.day if time < Time.current
+    41	      time
+    42	    end
+    43	
+    44	  end
+    45	
+    46	end
+=== app/scheduled_tasks/check_all_dns_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class CheckAllDNSScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Domain.where.not(dns_checked_at: nil).where("dns_checked_at <= ?", 1.hour.ago).each do |domain|
+     7	      logger.info "checking DNS for domain: #{domain.name}"
+     8	      domain.check_dns(:auto)
+     9	    end
+    10	
+    11	    TrackDomain.where("dns_checked_at IS NULL OR dns_checked_at <= ?", 1.hour.ago).includes(:domain).each do |domain|
+    12	      logger.info "checking DNS for track domain: #{domain.full_name}"
+    13	      domain.check_dns
+    14	    end
+    15	  end
+    16	
+    17	end
+=== app/scheduled_tasks/cleanup_authie_sessions_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "authie/session"
+     4	
+     5	class CleanupAuthieSessionsScheduledTask < ApplicationScheduledTask
+     6	
+     7	  def call
+     8	    Authie::Session.cleanup
+     9	  end
+    10	
+    11	end
+=== app/scheduled_tasks/expire_held_messages_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class ExpireHeldMessagesScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Server.all.each do |server|
+     7	      messages = server.message_db.messages(where: {
+     8	        status: "Held",
+     9	        hold_expiry: { less_than: Time.now.to_f }
+    10	      })
+    11	
+    12	      messages.each(&:cancel_hold)
+    13	    end
+    14	  end
+    15	
+    16	end
+=== app/scheduled_tasks/process_message_retention_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class ProcessMessageRetentionScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Server.all.each do |server|
+     7	      if server.raw_message_retention_days
+     8	        # If the server has a maximum number of retained raw messages, remove any that are older than this
+     9	        logger.info "Tidying raw messages (by days) for #{server.permalink} (ID: #{server.id}). Keeping #{server.raw_message_retention_days} days."
+    10	        server.message_db.provisioner.remove_raw_tables_older_than(server.raw_message_retention_days)
+    11	      end
+    12	
+    13	      if server.raw_message_retention_size
+    14	        logger.info "Tidying raw messages (by size) for #{server.permalink} (ID: #{server.id}). Keeping #{server.raw_message_retention_size} MB of data."
+    15	        server.message_db.provisioner.remove_raw_tables_until_less_than_size(server.raw_message_retention_size * 1024 * 1024)
+    16	      end
+    17	
+    18	      if server.message_retention_days
+    19	        logger.info "Tidying messages for #{server.permalink} (ID: #{server.id}). Keeping #{server.message_retention_days} days."
+    20	        server.message_db.provisioner.remove_messages(server.message_retention_days)
+    21	      end
+    22	    end
+    23	  end
+    24	
+    25	  def self.next_run_after
+    26	    three_am
+    27	  end
+    28	
+    29	end
+=== app/scheduled_tasks/prune_suppression_lists_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class PruneSuppressionListsScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Server.all.each do |s|
+     7	      logger.info "Pruning suppression lists for server #{s.id}"
+     8	      s.message_db.suppression_list.prune
+     9	    end
+    10	  end
+    11	
+    12	  def self.next_run_after
+    13	    three_am
+    14	  end
+    15	
+    16	end
+=== app/scheduled_tasks/prune_webhook_requests_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class PruneWebhookRequestsScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Server.all.each do |s|
+     7	      logger.info "Pruning webhook requests for server #{s.id}"
+     8	      s.message_db.webhooks.prune
+     9	    end
+    10	  end
+    11	
+    12	  def self.next_run_after
+    13	    quarter_to_each_hour
+    14	  end
+    15	
+    16	end
+=== app/scheduled_tasks/send_notifications_scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class SendNotificationsScheduledTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    Server.send_send_limit_notifications
+     7	  end
+     8	
+     9	  def self.next_run_after
+    10	    1.minute.from_now
+    11	  end
+    12	
+    13	end
+=== app/scheduled_tasks/tidy_queued_messages_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	class TidyQueuedMessagesTask < ApplicationScheduledTask
+     4	
+     5	  def call
+     6	    QueuedMessage.with_stale_lock.in_batches do |messages|
+     7	      messages.each do |message|
+     8	        logger.info "removing queued message #{message.id} (locked at #{message.locked_at} by #{message.locked_by})"
+     9	        message.destroy
+    10	      end
+    11	    end
+    12	  end
+    13	
+    14	  def self.next_run_after
+    15	    quarter_to_each_hour
+    16	  end
+    17	
+    18	end
+=== app/lib/worker/process.rb
+     1	# frozen_string_literal: true
+     2	
+     3	module Worker
+     4	  # The Postal Worker process is responsible for handling all background tasks. This includes processing of all
+     5	  # messages, webhooks and other administrative tasks. There are two main types of background work which is completed,
+     6	  # jobs and scheduled tasks.
+     7	  #
+     8	  # The 'Jobs' here allow for the continuous monitoring of a database table (or queue) and processing of any new items
+     9	  # which may appear in that. The polling takes place every 5 seconds by default and the work is able to run multiple
+    10	  # threads to look for and process this work.
+    11	  #
+    12	  # Scheduled Tasks allow for code to be executed on a ROUGH schedule. This is used for administrative tasks.  A single
+    13	  # thread will run within each worker process and attempt to acquire the 'tasks' role. If successful it will run all
+    14	  # tasks which are due to be run. The tasks are then scheduled to run again at a future time. Workers which are not
+    15	  # successful in acquiring the role will not run any tasks but will still attempt to acquire a lock in case the current
+    16	  # acquiree disappears.
+    17	  #
+    18	  # The worker process will run until it receives a TERM or INT signal. It will then attempt to gracefully shut down
+    19	  # after it has completed any outstanding jobs which are already inflight.
+    20	  class Process
+    21	
+    22	    include HasPrometheusMetrics
+    23	
+    24	    # An array of job classes that should be processed each time the worker ticks.
+    25	    #
+    26	    # @return [Array<Class>]
+    27	    JOBS = [
+    28	      Jobs::ProcessQueuedMessagesJob,
+    29	      Jobs::ProcessWebhookRequestsJob,
+    30	    ].freeze
+    31	
+    32	    # An array of tasks that should be processed
+    33	    #
+    34	    # @return [Array<Class>]
+    35	    TASKS = [
+    36	      ActionDeletionsScheduledTask,
+    37	      CheckAllDNSScheduledTask,
+    38	      CleanupAuthieSessionsScheduledTask,
+    39	      ExpireHeldMessagesScheduledTask,
+    40	      ProcessMessageRetentionScheduledTask,
+    41	      PruneSuppressionListsScheduledTask,
+    42	      PruneWebhookRequestsScheduledTask,
+    43	      SendNotificationsScheduledTask,
+    44	      TidyQueuedMessagesTask,
+    45	    ].freeze
+    46	
+    47	    # @param [Integer] thread_count The number of worker threads to run in this process
+    48	    def initialize(thread_count: Postal::Config.worker.threads,
+    49	                   work_sleep_time: 5,
+    50	                   task_sleep_time: 60)
+    51	      @thread_count = thread_count
+    52	      @exit_pipe_read, @exit_pipe_write = IO.pipe
+    53	      @work_sleep_time = work_sleep_time
+    54	      @task_sleep_time = task_sleep_time
+    55	      @threads = []
+    56	
+    57	      setup_prometheus
+    58	    end
+    59	
+    60	    def run
+    61	      logger.tagged(component: "worker") do
+    62	        setup_traps
+    63	        ensure_connection_pool_size_is_suitable
+    64	        start_work_threads
+    65	        start_tasks_thread
+    66	        wait_for_threads
+    67	      end
+    68	    end
+    69	
+    70	    private
+    71	
+    72	    # Install signal traps to allow for graceful shutdown
+    73	    #
+    74	    # @return [void]
+    75	    def setup_traps
+    76	      trap("INT") { receive_signal("INT") }
+    77	      trap("TERM") { receive_signal("TERM") }
+    78	    end
+    79	
+    80	    # Receive a signal and set the shutdown flag
+    81	    #
+    82	    # @param [String] signal The signal that was received z
+    83	    # @return [void]
+    84	    def receive_signal(signal)
+    85	      puts "Received #{signal} signal. Stopping when able."
+    86	      @shutdown = true
+    87	      @exit_pipe_write.close
+    88	    end
+    89	
+    90	    # Wait for the period of time and return true or false if shutdown has been requested. If the shutdown is
+    91	    # requested during the wait, it will return immediately otherwise it will return false when it has finished
+    92	    # waiting for the period of time.
+    93	    #
+    94	    # @param [Integer] wait_time The time to wait for
+    95	    # @return [Boolean]
+    96	    def shutdown_after_wait?(wait_time)
+    97	      @exit_pipe_read.wait_readable(wait_time) ? true : false
+    98	    end
+    99	
+   100	    # Ensure that the connection pool is big enough for the number of threads
+   101	    # configured.
+   102	    #
+   103	    # @return [void]
+   104	    def ensure_connection_pool_size_is_suitable
+   105	      current_pool_size = ActiveRecord::Base.connection_pool.size
+   106	      desired_pool_size = @thread_count + 3
+   107	
+   108	      return if current_pool_size >= desired_pool_size
+   109	
+   110	      logger.warn "number of worker threads (#{@thread_count}) is more  " \
+   111	                  "than the db connection pool size (#{current_pool_size}+3), " \
+   112	                  "increasing connection pool size to #{desired_pool_size}"
+   113	
+   114	      Postal.change_database_connection_pool_size(desired_pool_size)
+   115	    end
+   116	
+   117	    # Wait for all threads to complete
+   118	    #
+   119	    # @return [void]
+   120	    def wait_for_threads
+   121	      @threads.each(&:join)
+   122	    end
+   123	
+   124	    # Start the worker threads
+   125	    #
+   126	    # @return [void]
+   127	    def start_work_threads
+   128	      logger.info "starting #{@thread_count} work threads"
+   129	      @thread_count.times do |index|
+   130	        start_work_thread(index)
+   131	      end
+   132	    end
+   133	
+   134	    # Start a worker thread
+   135	    #
+   136	    # @return [void]
+   137	    def start_work_thread(index)
+   138	      @threads << Thread.new do
+   139	        logger.tagged(component: "worker", thread: "work#{index}") do
+   140	          logger.info "started work thread #{index}"
+   141	          loop do
+   142	            work_completed = work(index)
+   143	
+   144	            if shutdown_after_wait?(work_completed ? 0 : @work_sleep_time)
+   145	              break
+   146	            end
+   147	          end
+   148	
+   149	          logger.info "stopping work thread #{index}"
+   150	        end
+   151	      end
+   152	    end
+   153	
+   154	    # Actually perform the work for this tick. This will call each job which has been registered.
+   155	    #
+   156	    # @return [Boolean] Whether any work was completed in this job or not
+   157	    def work(thread)
+   158	      completed_work = 0
+   159	      ActiveRecord::Base.connection_pool.with_connection do
+   160	        JOBS.each do |job_class|
+   161	          capture_errors do
+   162	            job = job_class.new(logger: logger)
+   163	
+   164	            time = Benchmark.realtime { job.call }
+   165	
+   166	            observe_prometheus_histogram :postal_worker_job_runtime,
+   167	                                         time,
+   168	                                         labels: {
+   169	                                          thread: thread,
+   170	                                          job: job_class.to_s.split("::").last
+   171	                                         }
+   172	
+   173	            if job.work_completed?
+   174	              completed_work += 1
+   175	              increment_prometheus_counter :postal_worker_job_executions,
+   176	                                           labels: {
+   177	                                              thread: thread,
+   178	                                              job: job_class.to_s.split("::").last
+   179	                                           }
+   180	            end
+   181	          end
+   182	        end
+   183	      end
+   184	      completed_work.positive?
+   185	    end
+   186	
+   187	    # Start the tasks thread
+   188	    #
+   189	    # @return [void]
+   190	    def start_tasks_thread
+   191	      logger.info "starting tasks thread"
+   192	      @threads << Thread.new do
+   193	        logger.tagged(component: "worker", thread: "tasks") do
+   194	          loop do
+   195	            run_tasks
+   196	
+   197	            if shutdown_after_wait?(@task_sleep_time)
+   198	              break
+   199	            end
+   200	          end
+   201	
+   202	          logger.info "stopping tasks thread"
+   203	          ActiveRecord::Base.connection_pool.with_connection do
+   204	            if WorkerRole.release(:tasks)
+   205	              logger.info "released tasks role"
+   206	            end
+   207	          end
+   208	        end
+   209	      end
+   210	    end
+   211	
+   212	    # Run the tasks. This will attempt to acquire the tasks role and if successful it will all the registered
+   213	    # tasks if they are due to be run.
+   214	    #
+   215	    # @return [void]
+   216	    def run_tasks
+   217	      role_acquisition_status = ActiveRecord::Base.connection_pool.with_connection do
+   218	        WorkerRole.acquire(:tasks)
+   219	      end
+   220	
+   221	      case role_acquisition_status
+   222	      when :stolen
+   223	        logger.info "acquired task role by stealing it from a lazy worker"
+   224	      when :created
+   225	        logger.info "acquired task role by creating it"
+   226	      when :renewed
+   227	        logger.debug "acquired task role by renewing it"
+   228	      else
+   229	        logger.debug "could not acquire task role, not doing anything"
+   230	        return false
+   231	      end
+   232	
+   233	      ActiveRecord::Base.connection_pool.with_connection do
+   234	        TASKS.each { |task| run_task(task) }
+   235	      end
+   236	    end
+   237	
+   238	    # Run a single task
+   239	    #
+   240	    # @param [Class] task The task to run
+   241	    # @return [void]
+   242	    def run_task(task)
+   243	      logger.tagged task: task do
+   244	        scheduled_task = ScheduledTask.find_by(name: task.to_s)
+   245	        if scheduled_task.nil?
+   246	          logger.info "no existing task object, creating it now"
+   247	          scheduled_task = ScheduledTask.create!(name: task.to_s, next_run_after: task.next_run_after)
+   248	        end
+   249	
+   250	        next unless scheduled_task.next_run_after < Time.current
+   251	
+   252	        logger.info "running task"
+   253	
+   254	        time = 0
+   255	        capture_errors do
+   256	          time = Benchmark.realtime do
+   257	            task.new(logger: logger).call
+   258	          end
+   259	
+   260	          observe_prometheus_histogram :postal_worker_task_runtime,
+   261	                                       time,
+   262	                                       labels: {
+   263	                                        task: task.to_s.split("::").last
+   264	                                       }
+   265	        end
+   266	
+   267	        next_run_after = task.next_run_after
+   268	        logger.info "scheduling task to next run at #{next_run_after}"
+   269	        scheduled_task.update!(next_run_after: next_run_after)
+   270	      end
+   271	    end
+   272	
+   273	    # Return the logger
+   274	    #
+   275	    # @return [Klogger::Logger]
+   276	    def logger
+   277	      Postal.logger
+   278	    end
+   279	
+   280	    # Capture exceptions and handle this as appropriate.
+   281	    #
+   282	    # @yield The block of code to run
+   283	    # @return [void]
+   284	    def capture_errors
+   285	      yield
+   286	    rescue StandardError => e
+   287	      logger.error "#{e.class} (#{e.message})"
+   288	      e.backtrace.each { |line| logger.error line }
+   289	      Sentry.capture_exception(e) if defined?(Sentry)
+   290	
+   291	      increment_prometheus_counter :postal_worker_errors,
+   292	                                   labels: { error: e.class.to_s }
+   293	    end
+   294	
+   295	    def setup_prometheus
+   296	      register_prometheus_counter :postal_worker_job_executions,
+   297	                                  docstring: "The number of jobs worked by a worker where work was completed",
+   298	                                  labels: [:thread, :job]
+   299	
+   300	      register_prometheus_histogram :postal_worker_job_runtime,
+   301	                                    docstring: "The time taken to process jobs (in seconds)",
+   302	                                    labels: [:thread, :job]
+   303	
+   304	      register_prometheus_counter :postal_worker_errors,
+   305	                                  docstring: "The number of errors encountered while processing jobs",
+   306	                                  labels: [:error]
+   307	
+   308	      register_prometheus_histogram :postal_worker_task_runtime,
+   309	                                    docstring: "The time taken to process tasks (in seconds)",
+   310	                                    labels: [:task]
+   311	
+   312	      register_prometheus_histogram :postal_message_queue_latency,
+   313	                                    docstring: "The length of time between a message being queued and being dequeued (in seconds)"
+   314	    end
+   315	
+   316	  end
+   317	end
+=== app/lib/smtp_server/server.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "ipaddr"
+     4	require "nio"
+     5	
+     6	module SMTPServer
+     7	  class Server
+     8	
+     9	    include HasPrometheusMetrics
+    10	
+    11	    class << self
+    12	
+    13	      def tls_private_key
+    14	        @tls_private_key ||= OpenSSL::PKey.read(File.read(Postal::Config.smtp_server.tls_private_key_path))
+    15	      end
+    16	
+    17	      def tls_certificates
+    18	        @tls_certificates ||= begin
+    19	          data = File.read(Postal::Config.smtp_server.tls_certificate_path)
+    20	          certs = data.scan(/-----BEGIN CERTIFICATE-----.+?-----END CERTIFICATE-----/m)
+    21	          certs.map do |c|
+    22	            OpenSSL::X509::Certificate.new(c)
+    23	          end.freeze
+    24	        end
+    25	      end
+    26	
+    27	    end
+    28	
+    29	    def initialize(options = {})
+    30	      @options = options
+    31	      @options[:debug] ||= false
+    32	      register_prometheus_metrics
+    33	      prepare_environment
+    34	    end
+    35	
+    36	    def run
+    37	      logger.tagged(component: "smtp-server") do
+    38	        listen
+    39	        run_event_loop
+    40	      end
+    41	    end
+    42	
+    43	    private
+    44	
+    45	    def prepare_environment
+    46	      $\ = "\r\n"
+    47	      BasicSocket.do_not_reverse_lookup = true
+    48	
+    49	      trap("TERM") do
+    50	        $stdout.puts "Received TERM signal, shutting down."
+    51	        unlisten
+    52	      end
+    53	
+    54	      trap("INT") do
+    55	        $stdout.puts "Received INT signal, shutting down."
+    56	        unlisten
+    57	      end
+    58	    end
+    59	
+    60	    def ssl_context
+    61	      @ssl_context ||= begin
+    62	        ssl_context      = OpenSSL::SSL::SSLContext.new
+    63	        ssl_context.cert = self.class.tls_certificates[0]
+    64	        ssl_context.extra_chain_cert = self.class.tls_certificates[1..]
+    65	        ssl_context.key = self.class.tls_private_key
+    66	        ssl_context.ssl_version = Postal::Config.smtp_server.ssl_version if Postal::Config.smtp_server.ssl_version
+    67	        ssl_context.ciphers = Postal::Config.smtp_server.tls_ciphers if Postal::Config.smtp_server.tls_ciphers
+    68	        ssl_context
+    69	      end
+    70	    end
+    71	
+    72	    def listen
+    73	      bind_address = ENV.fetch("BIND_ADDRESS", Postal::Config.smtp_server.default_bind_address)
+    74	      port = ENV.fetch("PORT", Postal::Config.smtp_server.default_port)
+    75	
+    76	      @server = TCPServer.open(bind_address, port)
+    77	      @server.autoclose = false
+    78	      @server.close_on_exec = false
+    79	      if defined?(Socket::SOL_SOCKET) && defined?(Socket::SO_KEEPALIVE)
+    80	        @server.setsockopt(Socket::SOL_SOCKET, Socket::SO_KEEPALIVE, true)
+    81	      end
+    82	      if defined?(Socket::SOL_TCP) && defined?(Socket::TCP_KEEPIDLE) && defined?(Socket::TCP_KEEPINTVL) && defined?(Socket::TCP_KEEPCNT)
+    83	        @server.setsockopt(Socket::SOL_TCP, Socket::TCP_KEEPIDLE, 50)
+    84	        @server.setsockopt(Socket::SOL_TCP, Socket::TCP_KEEPINTVL, 10)
+    85	        @server.setsockopt(Socket::SOL_TCP, Socket::TCP_KEEPCNT, 5)
+    86	      end
+    87	
+    88	      logger.info "Listening on #{bind_address}:#{port}"
+    89	    end
+    90	
+    91	    def unlisten
+    92	      # Instruct the nio loop to unlisten and wake it
+    93	      @unlisten = true
+    94	      @io_selector.wakeup
+    95	    end
+    96	
+    97	    def run_event_loop
+    98	      # Set up an instance of nio4r to monitor for connections and data
+    99	      @io_selector = NIO::Selector.new
+   100	      # Register the SMTP listener
+   101	      @io_selector.register(@server, :r)
+   102	      # Create a hash to contain a buffer for each client.
+   103	      buffers = Hash.new { |h, k| h[k] = String.new.force_encoding("BINARY") }
+   104	      loop do
+   105	        # Wait for an event to occur
+   106	        @io_selector.select do |monitor|
+   107	          # Get the IO from the nio monitor
+   108	          io = monitor.io
+   109	          # Is this event an incoming connection?
+   110	          if io.is_a?(TCPServer)
+   111	            begin
+   112	              # Accept the connection
+   113	              new_io = io.accept
+   114	              increment_prometheus_counter :postal_smtp_server_connections_total
+   115	              # Get the client's IP address and strip `::ffff:` for consistency.
+   116	              client_ip_address = new_io.remote_address.ip_address.sub(/\A::ffff:/, "")
+   117	              if Postal::Config.smtp_server.proxy_protocol?
+   118	                # If we are using the haproxy proxy protocol, we will be sent the
+   119	                # client's IP later. Delay the welcome process.
+   120	                client = Client.new(nil)
+   121	                if Postal::Config.smtp_server.log_connections?
+   122	                  client.logger&.debug "Connection opened from #{client_ip_address}"
+   123	                end
+   124	              else
+   125	                # We're not using the proxy protocol so we already know the client's IP
+   126	                client = Client.new(client_ip_address)
+   127	                if Postal::Config.smtp_server.log_connections?
+   128	                  client.logger&.debug "Connection opened from #{client_ip_address}"
+   129	                end
+   130	                # We know who the client is, welcome them.
+   131	                client.logger&.debug "Client identified as #{client_ip_address}"
+   132	                new_io.print("220 #{Postal::Config.postal.smtp_hostname} ESMTP Postal/#{client.trace_id}")
+   133	              end
+   134	              # Register the client and its socket with nio4r
+   135	              monitor = @io_selector.register(new_io, :r)
+   136	              monitor.value = client
+   137	            rescue StandardError => e
+   138	              # If something goes wrong, log as appropriate and disconnect the client
+   139	              if defined?(Sentry)
+   140	                Sentry.capture_exception(e, extra: { trace_id: begin
+   141	                  client.trace_id
+   142	                rescue StandardError
+   143	                  nil
+   144	                end })
+   145	              end
+   146	              logger.error "An error occurred while accepting a new client."
+   147	              logger.error "#{e.class}: #{e.message}"
+   148	              e.backtrace.each do |line|
+   149	                logger.error line
+   150	              end
+   151	              increment_prometheus_counter :postal_smtp_server_exceptions_total,
+   152	                                           labels: { error: e.class.to_s, type: "client-accept" }
+   153	              begin
+   154	                new_io.close
+   155	              rescue StandardError
+   156	                nil
+   157	              end
+   158	            end
+   159	          else
+   160	            # This event is not an incoming connection so it must be data from a client
+   161	            begin
+   162	              # Get the client from the nio monitor
+   163	              client = monitor.value
+   164	              # For now we assume the connection isn't closed
+   165	              eof = false
+   166	              # Is the client negotiating a TLS handshake?
+   167	              if client.start_tls?
+   168	                begin
+   169	                  # Can we accept the TLS connection at this time?
+   170	                  io.accept_nonblock
+   171	                  # Increment prometheus
+   172	                  increment_prometheus_counter :postal_smtp_server_tls_connections_total
+   173	                  # We were able to accept the connection, the client is no longer handshaking
+   174	                  client.start_tls = false
+   175	                rescue IO::WaitReadable, IO::WaitWritable => e
+   176	                  # Could not accept without blocking
+   177	                  # We will try again later
+   178	                  next
+   179	                rescue OpenSSL::SSL::SSLError => e
+   180	                  client.logger&.debug "SSL Negotiation Failed: #{e.message}"
+   181	                  eof = true
+   182	                end
+   183	              else
+   184	                # The client is not negotiating a TLS handshake at this time
+   185	                begin
+   186	                  # Read 10kiB of data at a time from the socket.
+   187	                  buffers[io] << io.readpartial(10_240)
+   188	
+   189	                  # There is an extra step for SSL sockets
+   190	                  if io.is_a?(OpenSSL::SSL::SSLSocket)
+   191	                    buffers[io] << io.readpartial(10_240) while io.pending.positive?
+   192	                  end
+   193	                rescue EOFError, Errno::ECONNRESET, Errno::ETIMEDOUT
+   194	                  # Client went away
+   195	                  eof = true
+   196	                end
+   197	
+   198	                # We line buffer, so look to see if we have received a newline
+   199	                # and keep doing so until all buffered lines have been processed.
+   200	                while buffers[io].index("\n")
+   201	                  # Extract the line
+   202	                  line, buffers[io] = buffers[io].split("\n", 2)
+   203	                  # Send the received line to the client object for processing
+   204	                  result = client.handle(line)
+   205	                  # If the client object returned some data, write it back to the client
+   206	                  next if result.nil?
+   207	
+   208	                  result = [result] unless result.is_a?(Array)
+   209	                  result.compact.each do |iline|
+   210	                    client.logger&.debug "\e[34m=> #{iline.strip}\e[0m"
+   211	                    begin
+   212	                      io.write(iline.to_s + "\r\n")
+   213	                      io.flush
+   214	                    rescue Errno::ECONNRESET
+   215	                      # Client disconnected before we could write response
+   216	                      eof = true
+   217	                    end
+   218	                  end
+   219	                end
+   220	
+   221	                # Did the client request STARTTLS?
+   222	                if !eof && client.start_tls?
+   223	                  # Deregister the unencrypted IO
+   224	                  @io_selector.deregister(io)
+   225	                  buffers.delete(io)
+   226	                  io = OpenSSL::SSL::SSLSocket.new(io, ssl_context)
+   227	                  # Close the underlying IO when the TLS socket is closed
+   228	                  io.sync_close = true
+   229	                  # Register the new TLS socket with nio
+   230	                  monitor = @io_selector.register(io, :r)
+   231	                  monitor.value = client
+   232	                end
+   233	              end
+   234	
+   235	              # Has the client requested we close the connection?
+   236	              if client.finished? || eof
+   237	                client.logger&.debug "Connection closed"
+   238	                # Deregister the socket and close it
+   239	                @io_selector.deregister(io)
+   240	                buffers.delete(io)
+   241	                io.close
+   242	                # If we have no more clients or listeners left, exit the process
+   243	                if @io_selector.empty?
+   244	                  Process.exit(0)
+   245	                end
+   246	              end
+   247	            rescue StandardError => e
+   248	              # Something went wrong, log as appropriate
+   249	              client_id = client ? client.trace_id : "------"
+   250	              if defined?(Sentry)
+   251	                Sentry.capture_exception(e, extra: { trace_id: begin
+   252	                  client&.trace_id
+   253	                rescue StandardError
+   254	                  nil
+   255	                end })
+   256	              end
+   257	              logger.error "An error occurred while processing data from a client.", trace_id: client_id
+   258	              logger.error "#{e.class}: #{e.message}", trace_id: client_id
+   259	              e.backtrace.each do |iline|
+   260	                logger.error iline, trace_id: client_id
+   261	              end
+   262	
+   263	              increment_prometheus_counter :postal_smtp_server_exceptions_total,
+   264	                                           labels: { error: e.class.to_s, type: "data" }
+   265	
+   266	              # Close all IO and forget this client
+   267	              begin
+   268	                @io_selector.deregister(io)
+   269	              rescue StandardError
+   270	                nil
+   271	              end
+   272	              buffers.delete(io)
+   273	              begin
+   274	                io.close
+   275	              rescue StandardError
+   276	                nil
+   277	              end
+   278	              if @io_selector.empty?
+   279	                Process.exit(0)
+   280	              end
+   281	            end
+   282	          end
+   283	        end
+   284	        # If unlisten has been called, stop listening
+   285	        next unless @unlisten
+   286	
+   287	        @io_selector.deregister(@server)
+   288	        @server.close
+   289	        # If there's nothing left to do, shut down the process
+   290	        if @io_selector.empty?
+   291	          Process.exit(0)
+   292	        end
+   293	        # Clear the request
+   294	        @unlisten = false
+   295	      end
+   296	    end
+   297	
+   298	    def logger
+   299	      Postal.logger
+   300	    end
+   301	
+   302	    def register_prometheus_metrics
+   303	      register_prometheus_counter :postal_smtp_server_connections_total,
+   304	                                  docstring: "The number of connections made to the Postal SMTP server."
+   305	
+   306	      register_prometheus_counter :postal_smtp_server_exceptions_total,
+   307	                                  docstring: "The number of server exceptions encountered by the SMTP server",
+   308	                                  labels: [:type, :error]
+   309	
+   310	      register_prometheus_counter :postal_smtp_server_tls_connections_total,
+   311	                                  docstring: "The number of successfuly TLS connections established"
+   312	
+   313	      Client.register_prometheus_metrics
+   314	    end
+   315	
+   316	  end
+   317	end
+=== script/worker.rb
+     1	#!/usr/bin/env ruby
+     2	# frozen_string_literal: true
+     3	
+     4	$stdout.sync = true
+     5	$stderr.sync = true
+     6	
+     7	require_relative "../config/environment"
+     8	
+     9	HealthServer.start(
+    10	  name: "worker",
+    11	  default_port: Postal::Config.worker.default_health_server_port,
+    12	  default_bind_address: Postal::Config.worker.default_health_server_bind_address
+    13	)
+    14	
+    15	Worker::Process.new.run
+=== script/smtp_server.rb
+     1	# frozen_string_literal: true
+     2	
+     3	$stdout.sync = true
+     4	$stderr.sync = true
+     5	
+     6	require_relative "../config/environment"
+     7	
+     8	HealthServer.start(
+     9	  name: "smtp-server",
+    10	  default_port: Postal::Config.smtp_server.default_health_server_port,
+    11	  default_bind_address: Postal::Config.smtp_server.default_health_server_bind_address
+    12	)
+    13	SMTPServer::Server.new(debug: true).run
+=== app/models/webhook_request.rb
+     1	# frozen_string_literal: true
+     2	
+     3	# == Schema Information
+     4	#
+     5	# Table name: webhook_requests
+     6	#
+     7	#  id          :integer          not null, primary key
+     8	#  attempts    :integer          default(0)
+     9	#  error       :text(65535)
+    10	#  event       :string(255)
+    11	#  locked_at   :datetime
+    12	#  locked_by   :string(255)
+    13	#  payload     :text(65535)
+    14	#  retry_after :datetime
+    15	#  url         :string(255)
+    16	#  uuid        :string(255)
+    17	#  created_at  :datetime
+    18	#  server_id   :integer
+    19	#  webhook_id  :integer
+    20	#
+    21	# Indexes
+    22	#
+    23	#  index_webhook_requests_on_locked_by  (locked_by)
+    24	#
+    25	
+    26	class WebhookRequest < ApplicationRecord
+    27	
+    28	  include HasUUID
+    29	  include HasLocking
+    30	
+    31	  belongs_to :server
+    32	  belongs_to :webhook, optional: true
+    33	
+    34	  validates :url, presence: true
+    35	  validates :event, presence: true
+    36	
+    37	  serialize :payload, type: Hash
+    38	
+    39	  class << self
+    40	
+    41	    def trigger(server, event, payload = {})
+    42	      unless server.is_a?(Server)
+    43	        server = Server.find(server.to_i)
+    44	      end
+    45	
+    46	      webhooks = server.webhooks.enabled.includes(:webhook_events).references(:webhook_events).where("webhooks.all_events = ? OR webhook_events.event = ?", true, event)
+    47	      webhooks.each do |webhook|
+    48	        server.webhook_requests.create!(event: event, payload: payload, webhook: webhook, url: webhook.url)
+    49	      end
+    50	    end
+    51	
+    52	  end
+    53	
+    54	end
+=== app/models/credential.rb
+     1	# frozen_string_literal: true
+     2	
+     3	# == Schema Information
+     4	#
+     5	# Table name: credentials
+     6	#
+     7	#  id           :integer          not null, primary key
+     8	#  server_id    :integer
+     9	#  key          :string(255)
+    10	#  type         :string(255)
+    11	#  name         :string(255)
+    12	#  options      :text(65535)
+    13	#  last_used_at :datetime
+    14	#  created_at   :datetime
+    15	#  updated_at   :datetime
+    16	#  hold         :boolean          default(FALSE)
+    17	#  uuid         :string(255)
+    18	#
+    19	
+    20	class Credential < ApplicationRecord
+    21	
+    22	  include HasUUID
+    23	
+    24	  belongs_to :server
+    25	
+    26	  TYPES = %w[SMTP API SMTP-IP].freeze
+    27	
+    28	  validates :key, presence: true, uniqueness: { case_sensitive: false }
+    29	  validates :type, inclusion: { in: TYPES }
+    30	  validates :name, presence: true
+    31	  validate :validate_key_cannot_be_changed
+    32	  validate :validate_key_for_smtp_ip
+    33	
+    34	  serialize :options, type: Hash
+    35	
+    36	  before_validation :generate_key
+    37	
+    38	  def generate_key
+    39	    return if type == "SMTP-IP"
+    40	    return if persisted?
+    41	
+    42	    self.key = SecureRandom.alphanumeric(24)
+    43	  end
+    44	
+    45	  def to_param
+    46	    uuid
+    47	  end
+    48	
+    49	  def use
+    50	    update_column(:last_used_at, Time.now)
+    51	  end
+    52	
+    53	  def usage_type
+    54	    if last_used_at.nil?
+    55	      "Unused"
+    56	    elsif last_used_at < 1.year.ago
+    57	      "Inactive"
+    58	    elsif last_used_at < 6.months.ago
+    59	      "Dormant"
+    60	    elsif last_used_at < 1.month.ago
+    61	      "Quiet"
+    62	    else
+    63	      "Active"
+    64	    end
+    65	  end
+    66	
+    67	  def to_smtp_plain
+    68	    Base64.encode64("\0XX\0#{key}").strip
+    69	  end
+    70	
+    71	  def ipaddr
+    72	    return unless type == "SMTP-IP"
+    73	
+    74	    @ipaddr ||= IPAddr.new(key)
+    75	  rescue IPAddr::InvalidAddressError
+    76	    nil
+    77	  end
+    78	
+    79	  private
+    80	
+    81	  def validate_key_cannot_be_changed
+    82	    return if new_record?
+    83	    return unless key_changed?
+    84	    return if type == "SMTP-IP"
+    85	
+    86	    errors.add :key, "cannot be changed"
+    87	  end
+    88	
+    89	  def validate_key_for_smtp_ip
+    90	    return unless type == "SMTP-IP"
+    91	
+    92	    IPAddr.new(key.to_s)
+    93	  rescue IPAddr::InvalidAddressError
+    94	    errors.add :key, "must be a valid IPv4 or IPv6 address"
+    95	  end
+    96	
+    97	end
+=== app/models/scheduled_task.rb
+     1	# frozen_string_literal: true
+     2	
+     3	# == Schema Information
+     4	#
+     5	# Table name: scheduled_tasks
+     6	#
+     7	#  id             :bigint           not null, primary key
+     8	#  name           :string(255)
+     9	#  next_run_after :datetime
+    10	#
+    11	# Indexes
+    12	#
+    13	#  index_scheduled_tasks_on_name  (name) UNIQUE
+    14	#
+    15	class ScheduledTask < ApplicationRecord
+    16	end

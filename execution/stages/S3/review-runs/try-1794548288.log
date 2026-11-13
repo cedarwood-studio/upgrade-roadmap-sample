@@ -1,0 +1,39 @@
+ .upgrade/baseline/examples.json   |  3 +++
+ spec/requests/error_pages_spec.rb | 51 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 54 insertions(+)
+bundle
+dev
+postal
+rails
+rake
+rspec
+setup
+update
+setup=0
+10.11.19-MariaDB-0+deb12u1
+true
+ActiveRecord::ConnectionAdapters::Mysql2Adapter
+==== new specs on 7.2.4
+
+Finished in 2.88 seconds (files took 2.91 seconds to load)
+13 examples, 0 failures
+
+==== error pages spec twice with a seed, with the request specs around it
+
+Randomized with seed 4242
+
+
+Randomized with seed 7
+
+==== fix reverted
+       expected no Exception, got #<NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter> with backtrace:
+       expected SystemExit, got #<NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter> with backtrace:
+4 examples, 2 failures
+==== same spec files on the 7.1.6 lock
+       expected: "*/*; charset=UTF-8"
+            got: "text/html; charset=UTF-8"
+       expected: #<Encoding:UTF-8> "0"
+            got: #<Encoding:US-ASCII> "1564"
+4 examples, 2 failures
+rspec ./spec/requests/error_pages_spec.rb:35 # Error pages HEAD a path that does not exist answers 404 with an empty body in the requested format
+rspec ./spec/requests/error_pages_spec.rb:43 # Error pages HEAD a path that does not exist keeps the HTML content type for a client that asks for HTML

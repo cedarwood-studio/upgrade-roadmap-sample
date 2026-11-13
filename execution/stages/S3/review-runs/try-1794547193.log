@@ -1,0 +1,14 @@
+[dev-flags] setup exit=0
+[dev-flags] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=development eager_load=false key_from_credentials=true local_secret_file=false routes=205
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+[true, true, false, false, true, true]
+[Postal::MessageInspectors::SpamAssassin]
+[200, true, 1405]
+422
+404
+[404, "text/html; charset=UTF-8"]

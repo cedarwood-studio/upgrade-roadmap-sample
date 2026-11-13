@@ -1,0 +1,172 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794547061.log",
+   "found_by": "changelog | break-attempt",
+   "severity": "defect",
+   "what": "The stage says the Astana zone is its only behavior change. We measured a second one. In production, a HEAD request that ends in an error page (measured on missing paths; by the source the same holds for the 500 page) gets different headers after this stage: Content-Length goes from the size of the page (1564 for the 404 page) to 0 for every client, and Content-Type goes from 'text/html; charset=UTF-8' to '*/*; charset=UTF-8' for clients that send 'Accept: */*', which is what curl, most uptime monitors and link checkers send. Status codes do not change, GET responses do not change, and HEAD requests to pages that exist do not change. The cause is in Rails: since 7.2.3 the public exceptions application answers HEAD with an empty body in the format the request asked for. The Action Pack 7.2 changelog lists it as 'Always return empty body for HEAD requests in PublicExceptions and DebugExceptions' (https://github.com/rails/rails/blob/v7.2.4/actionpack/CHANGELOG.md). No recorded request could show it: the 170 recorded requests run in the test environment, where exceptions are raised and never rendered, and none is a HEAD. The impact is small and no application code is wrong. What has to change is text: declare the difference, sourced, so the count of declared changes is two, and say whether a monitor that reads Content-Type or Content-Length on HEAD needs telling. The author may also want one recorded request that renders an error page, so later hops are compared on this path.",
+   "where": "exec/stages/S3/notes.md and pr-body.md, 'Declared behavior changes' (source: actionpack 7.2.4 lib/action_dispatch/middleware/public_exceptions.rb:35)"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794546940.log",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "Carried from the first two reviews, still open: json is not pinned below 3 in the Gemfile, and the plan put the pin in S2. Active Support 7.2 and 8.0 pass an option that json 3 removed. Today the lock holds json 2.7.1, JSON encoding works on 7.2.4 (probe), and one thing does hold json back for now: rubocop 1.48.1 in the development group requires json ~> 2.3. That protection goes when rubocop is upgraded or when a bundle is installed without the development group and relocked. Belongs to S2's follow-up or to S4 before its relock. The notes list it as a follow-up.",
+   "where": "Gemfile"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "exec/stages/S3/review-runs/try-1794547241.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The second review's defect is fixed. The notes and the pull request text no longer declare a secret key change; they describe it as checked with no change, and the spec comment says the same. We confirmed it again and extended it to the branch nobody had run: with a secret key configured, 7.1.6 and 7.2.4 both use that key and write no local secret file. The migration waiter fix and the conservative lock from the first review also hold; we confirmed both independently. Still open, and the notes say so: bin/rails app:update was not run by the author (we ran it in pretend mode, see the break attempts), the client has column names for stored Astana values but no query, and the seventh change under S3 in out/plan.json still asks for the withdrawn declaration.",
+   "where": "exec/stages/S3/notes.md"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794546750.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The stage's diff adds 70 entries to the committed baseline. Five are the stage's new examples. The other 65 are examples that S1 added (session continuity, the scheduled tasks, the two serialized-column specs, the worker and SMTP server specs) and that the committed baseline on S2 did not list. result.json records baseline_examples_added as 0, and the notes do not mention it. The gate itself was not weakened: the check compared 916 examples one by one before and after, and the committed file now agrees with the suite (904 passed, 17 failed). It is a bookkeeping gap between S1, S2 and this stage that a reader of the diff will ask about. One sentence in the notes would answer it. result.json also shows 'attempts' as 2 at the top and 1 in the check.",
+   "where": ".upgrade/baseline/examples.json and exec/stages/S3/result.json"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794546940.log",
+   "found_by": "unexecuted-read",
+   "severity": "note",
+   "what": "Carried from the earlier reviews, and now run instead of only read: errors.each with a two-argument block yields an ActiveModel::Error and nil on 7.2.4, so the line copies a nil message onto the route. Active Model has behaved this way since 7.0, so it is the same before and after this stage. Worth a ticket outside the upgrade.",
+   "where": "app/models/route.rb:119"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794546853.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The notes say deprecation warnings that only appear in production mode were not measured. We measured them for the paths we ran: booting in production, 26 requests through the full stack and the three server processes produced 0 Rails deprecation notifications on 7.2.4. One Ruby warning that 7.1.6 printed in production (Rack's notice about the :unprocessable_entity status name, from Action Pack) is gone on 7.2.4.",
+   "where": "config/environments/production.rb"
+  }
+ ],
+ "method": {
+  "break_attempts": [
+   {
+    "command": "exec try --stage S3 -- 'git diff -U0 upgrade/s2-remove-the-annotate-blocker HEAD -- Gemfile.lock | grep ...; git diff --name-only ...'",
+    "result": "13 lines move to 7.2.4 (12 framework gems and the rails gem), connection_pool 3.0.2 to 2.5.5, minitest 6.0.6 to 5.27.0, useragent 0.16.11 added. Nothing else and nothing removed. Matches lock-diff.json. Loaded versions agree: psych 5.4.0, stringio 3.2.0, mail 2.9.0, nokogiri 1.19.3, rack 3.2.6, json 2.7.1. 8 files changed, the 8 the result names. Logs: review-runs/try-1794547156.log, try-1794546529.log",
+    "what": "check that the lock moved only what the stage says, against the S2 branch"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec rake db:create db:schema:load; bundle exec ruby /out/r3-probe.rb'",
+    "result": "28 of 28 pass, no deprecation raised. All 39 files the suite never loads are loaded after eager load. Log: review-runs/try-1794546940.log",
+    "what": "28-check probe on 7.2.4 with Rails deprecations set to raise: every unexecuted call site, the changelog entries that touch application code, eager load of every file"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production -- 'sh /out/r3-http.sh'",
+    "result": "Both versions answer all 26. 25 are identical in status, headers and body. One differs: HEAD /no/such/page returns no body on 7.2.4 and the 404 page on 7.1.6 (finding 1). No Rails deprecation on either. Log: review-runs/try-1794546853.log",
+    "what": "load config.ru the way a Rack server does, in production, and send 26 requests through the whole middleware stack on 7.2.4 and on 7.1.6 (the S2 branch): pages, a missing page, an unknown HTTP method, a POST without a CSRF token, malformed parameters, a wrong Host, malformed JSON to the API, the tracking middleware"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production --env LOGGING_SENTRY_DSN=... --env LOGGING_RAILS_LOG_ENABLED=true --env OIDC_ENABLED=true (plus issuer, identifier, endpoints) --env MIGRATION_WAITER_ENABLED=true --env RSPAMD_ENABLED=true --env CLAMAV_ENABLED=true -- 'sh /out/r3-http.sh ...'",
+    "result": "Boots and answers on both versions. Same single difference. No NoMethodError or ArgumentError in the 7.2.4 log with Sentry's middleware in the stack. Log: review-runs/try-1794547124.log",
+    "what": "the same 26 requests with every flag we can switch by environment on: Sentry DSN, Rails log, OIDC without discovery, migration waiter, rspamd, ClamAV"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production -- 'sh /out/r3-head.sh'",
+    "result": "HEAD to a missing page: Content-Length is 1564 on 7.1.6 and 0 on 7.2.4 for every client; Content-Type is 'text/html; charset=UTF-8' on 7.1.6 and '*/*; charset=UTF-8' on 7.2.4 when the client sends 'Accept: */*'. With a browser Accept header or none, Content-Type stays text/html. GET is identical. HEAD /login is identical. Log: review-runs/try-1794547061.log",
+    "what": "start puma in production on 7.2.4 and on 7.1.6 and print the headers a client receives for HEAD and GET requests to error pages"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production --env SMTP_SERVER_DEFAULT_PORT=2525 --env SMTP_SERVER_DEFAULT_BIND_ADDRESS=127.0.0.1 -- 'sh /out/r3-servers.sh'",
+    "result": "Worker: runs 14 seconds, health endpoint 200, stops cleanly on TERM, exit 0, no error line. SMTP server: greets, answers EHLO, MAIL FROM, RCPT TO (530), AUTH PLAIN with a wrong key (535, a database lookup), NOOP, QUIT; health 200; exit 0. Puma: GET /login 200, GET and HEAD of a missing page 404, POST to the API 200 JSON, the JWKS endpoint 200; stopped by TERM (exit 143). Log: review-runs/try-1794546957.log",
+    "what": "start the three server processes the way Procfile.dev does, in production on 7.2.4, talk to each over loopback, stop each with TERM"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=development --env SPAMD_ENABLED=true --env OIDC_ENABLED=true --env OIDC_LOCAL_AUTHENTICATION_ENABLED=false ... -- 'sh /out/r2-boot.sh dev-flags; bundle exec ruby -e ...'",
+    "result": "exit 0. Six flags read as set, the SpamAssassin inspector is built, the login page renders with the OIDC link (200), POST without a token 422, missing page 404. No deprecation raised. Log: review-runs/try-1794547193.log",
+    "what": "boot in development with the remaining flags on (SpamAssassin, OIDC with local authentication off, log highlighting, migration waiter), eager load, then four requests in process"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production --env RAILS_SECRET_KEY=... -- 'bundle exec ruby -e ...; git checkout -q upgrade/s2-...; bundle exec ruby -e ...'",
+    "result": "On both versions the application's secret key base, the credentials value and config.secret_key_base all equal the configured key and no tmp/local_secret.txt is written. The notes' 'checked, no change on this hop' holds for the configured branch too. Log: review-runs/try-1794547241.log",
+    "what": "boot in production with a configured secret key, on 7.2.4 and on 7.1.6 (config/initializers/secret_key.rb:4, the branch earlier rounds did not run)"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec rspec spec/lib/migration_waiter_spec.rb spec/lib/secret_key_spec.rb spec/requests/session_continuity_spec.rb; sed -i ... lib/migration_waiter.rb; bundle exec rspec spec/lib/migration_waiter_spec.rb; ...; bundle exec rake postal:update; bin/rails app:update --pretend --skip'",
+    "result": "As committed: 10 examples, 0 failures (cookies issued on 7.1.6 are still accepted on 7.2.4). With the fix reverted: 4 examples, 2 failures, both NoMethodError on migration_context, as the notes claim. postal:update finds the loaded schema and runs the migrations. app:update would create config/initializers/new_framework_defaults_7_2.rb, bin/rubocop, public/406-unsupported-browser.html and two icons, and offers changes to 14 existing files; nothing it offers is needed for the application to run on 7.2.4. The application still boots with show_exceptions = false on 7.2.4; we did not test how requests behave with that value, since the stage sets :none. Log: review-runs/try-1794547156.log",
+    "what": "run the stage's new specs and the session continuity spec; revert the fix and run again; put show_exceptions back to false; run rake postal:update; run bin/rails app:update with --pretend --skip"
+   },
+   {
+    "command": "exec try --stage S3 -- '...; grep -c passed .upgrade/baseline/examples.json; git show upgrade/s2-...:.upgrade/baseline/examples.json | grep -c passed'",
+    "result": "S3: 904 passed and 17 failed, 921 entries, equal to the check. S2: 834 passed and 17 failed, 851 entries, while the check gated 916 examples before. So 65 of the 70 lines this stage adds to .upgrade/baseline/examples.json are examples that already existed on S2 (finding 4). Log: review-runs/try-1794546750.log",
+    "what": "count the committed baseline against the suite"
+   }
+  ],
+  "changelogs_not_read": "actioncable, actionmailbox, actiontext, activejob and activestorage for 7.2 (53 entries) were not read: config/application.rb requires six railties and none of these five is among them (inventory.json, framework_config). Entry counts exclude the 'No changes' placeholders; 385 of 438 entries read. Entries that apply: the soft deprecation of ActiveRecord::Base.connection (lib/tasks/postal.rake:31, works, prints nothing); the Astana zone (declared); the 7.2.3 secret_key_base entry (checked, no change on this hop, as the notes now say); show_exceptions true/false removed (changed in test.rb); the Rack 3.2 :unprocessable_entity conversion (two render calls, converted by Rails; the Ruby warning 7.1.6 printed for it in production is gone on 7.2.4); the 7.2.3 entry 'Always return empty body for HEAD requests in PublicExceptions and DebugExceptions' (finding 1: it changes two response headers in production and the stage does not declare it); the HAML capture fix (recorded responses identical). We searched repo/ for the removed, renamed and deprecated names in the seven changelogs (connection and pool methods, enum, serialize, alias_attribute, the removed Active Support configuration names, Deprecation class methods, to_default_s, Rails.application.secrets, content security and permissions policy, parameters compared with a hash, tag helpers and others) and found no use. The environment files and config/initializers/new_framework_defaults_7_0.rb set none of the configuration names 7.2 removed (the defaults file has no active line). We searched the installed source of 23 gems that hook into Rails for nine removed or moved names. Hits besides plain uses of the soft-deprecated connection method in sentry-rails, database_cleaner and shoulda-matchers: kaminari-core (four ActiveSupport::Deprecation.warn calls), sprockets-rails (one), dynamic_form (one), nifty-utils (Rails.application.secrets). We read each and ran the two the application could reach: the kaminari previous and next page tags only warn when a params object is passed, and the one paginate call in the application (servers/queue.html.haml:23) passes none; the sprockets-rails call sits behind unknown_asset_fallback, which is false here. The other two are in helpers the application does not call.",
+  "changelogs_read": [
+   {
+    "entries_checked": 191,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activerecord.md"
+   },
+   {
+    "entries_checked": 67,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activesupport.md"
+   },
+   {
+    "entries_checked": 56,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/railties.md"
+   },
+   {
+    "entries_checked": 36,
+    "entries_that_apply": 3,
+    "file": "out/changelogs/7.2/actionpack.md"
+   },
+   {
+    "entries_checked": 25,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/actionview.md"
+   },
+   {
+    "entries_checked": 6,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/activemodel.md"
+   },
+   {
+    "entries_checked": 4,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionmailer.md"
+   }
+  ],
+  "unexecuted_call_sites_read": {
+   "at_risk": [],
+   "detail": "All 16 entries with priority 'read' (5 never-executed, 11 in files the suite does not load) were opened in repo/ on the stage branch and all 16 were run on 7.2.4. lib/migration_waiter.rb:18 and :47 by the probe and by boots with the waiter on. config/initializers/secret_key.rb:4 by a production boot with RAILS_SECRET_KEY set, on 7.2.4 and on 7.1.6 (earlier rounds only ran the branch with no key configured). lib/postal/message_db/database.rb:333 through the real slow-query path (a query that sleeps 80 ms, then EXPLAIN, 7 log lines). The five app/lib/worker/process.rb lines by the probe (pool resize to 11, one work tick, one tasks tick with all 9 scheduled tasks due and run) and by starting script/worker.rb for 14 seconds. config.ru:6 by loading config.ru with Rack::Builder and by starting puma. Rakefile:8 and lib/tasks/postal.rake:31 by rake postal:update. The two environment files by boots in development and production. app/models/route.rb:122 and app/controllers/ip_pools_controller.rb:36 by raising the errors they name (destroying an IP pool that has addresses raises DeleteRestrictionError on 7.2.4). We also read the text of the 6 'stable-surface' lines; two of them (config/initializers/omniauth.rb:16, config/environments/development.rb:18) ran in boots, the other four were not run. Outside the list we read the initializers that patch or configure the framework by hand (record_key_for_dom.rb, trusted_proxies.rb, logging.rb, secure_headers.rb, sentry.rb, zeitwerk.rb) and lib/tracking_middleware.rb, and ran each.",
+   "listed": 16,
+   "read": 16,
+   "why_not_all": null
+  },
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades, branch upgrade-rails-8.1.4 and the project's open pull request for Rails 8.1",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    "app/models/credential.rb",
+    "app/models/webhook_request.rb",
+    "app/helpers/error_messages_helper.rb",
+    "config/initializers/form_builder_extensions.rb",
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "config/initializers/new_framework_defaults_7_0.rb",
+    "config/initializers/new_framework_defaults_7_1.rb",
+    "config/initializers/new_framework_defaults_7_2.rb",
+    "db/schema.rb",
+    "lib/tasks/annotate_rb.rake",
+    "lib/tasks/auto_annotate_models.rake"
+   ],
+   "why_not": "We read every patch on the two branches. For the open pull request we read its Gemfile, test.rb, schema and migration waiter patches and compared the rest by file list, which is the same as the 8.1.4 branch. None of the 11 files is a break this stage needed. The explicit YAML coder on the two serialized columns is only required under the 7.1 defaults; under load_defaults 7.0 both columns resolve to the YAML coder on 7.2.4 and round trip, with psych 5.4.0 loaded (probe). Replacing dynamic_form is their choice: its helpers work on 7.2.4 and the recorded invalid-form responses match. The framework defaults files are the config stage's work; bin/rails app:update on this branch would create new_framework_defaults_7_2.rb and offers changes to 14 existing files, all optional (break attempt 9). db/schema.rb and the annotate rake files belong to the 8.1 hop and to S2. The two application files both sides change (lib/migration_waiter.rb, config/environments/test.rb) carry the same change as theirs. Their Gemfile pins json below 3 and this branch does not (finding 2). Their work does not mention the HEAD response difference in finding 1 either."
+  }
+ },
+ "round": 3,
+ "stage": "S3",
+ "verdict": "defect"
+}

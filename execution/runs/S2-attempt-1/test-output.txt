@@ -1,0 +1,300 @@
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+/cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/http_lib_adapters/net_http.rb:25: warning: constant Net::HTTPSession is deprecated
+.......................................................F/cache/bundle/ruby/3.4.0/gems/domain_name-0.6.20240107/lib/domain_name/punycode.rb:152: warning: literal string will be frozen in the future (run with --debug-frozen-string-literal for more information)
+F.F.F.F.F.F.F.F.F.F.F.F.F.F.F.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................F.......................................................
+
+Failures:
+
+  1) DNSResolver#a returns a list of IP addresses
+     Failure/Error: expect(resolver.a("www.dnstest.postalserver.io").sort).to eq ["1.2.3.4", "2.3.4.5"]
+
+       expected: ["1.2.3.4", "2.3.4.5"]
+            got: []
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:15:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  2) DNSResolver#a resolves a domain name containing an emoji
+     Failure/Error: expect(resolver.a("☺.dnstest.postalserver.io").sort).to eq ["3.4.5.6"]
+
+       expected: ["3.4.5.6"]
+            got: []
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:19:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  3) DNSResolver#a when raise_timeout_errors is true returns a list of IP addresses
+     Failure/Error: dns.getresources(encoded_name, type)
+
+     Resolv::ResolvError:
+       DNS resolv timeout: www.dnstest.postalserver.io
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+     # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+     # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+     # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:22:in 'DNSResolver#a'
+     # ./spec/lib/dns_resolver_spec.rb:29:in 'block (4 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  4) DNSResolver#aaaa returns a list of IP addresses
+     Failure/Error: expect(resolver.aaaa("www.dnstest.postalserver.io").sort).to eq ["2a00:67a0:a::1", "2a00:67a0:a::2"]
+
+       expected: ["2a00:67a0:a::1", "2a00:67a0:a::2"]
+            got: []
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:43:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  5) DNSResolver#aaaa when raise_timeout_errors is true returns a list of IP addresses
+     Failure/Error: dns.getresources(encoded_name, type)
+
+     Resolv::ResolvError:
+       DNS resolv timeout: www.dnstest.postalserver.io
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+     # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+     # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+     # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:32:in 'DNSResolver#aaaa'
+     # ./spec/lib/dns_resolver_spec.rb:53:in 'block (4 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  6) DNSResolver#txt returns a list of TXT records
+     Failure/Error:
+       expect(resolver.txt("dnstest.postalserver.io").sort).to eq [
+         "an example txt record",
+         "another example",
+       ]
+
+       expected: ["an example txt record", "another example"]
+            got: []
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:67:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  7) DNSResolver#txt when raise_timeout_errors is true returns a list of TXT records
+     Failure/Error: dns.getresources(encoded_name, type)
+
+     Resolv::ResolvError:
+       DNS resolv timeout: dnstest.postalserver.io
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+     # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+     # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+     # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:42:in 'DNSResolver#txt'
+     # ./spec/lib/dns_resolver_spec.rb:80:in 'block (4 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  8) DNSResolver#cname returns a list of CNAME records
+     Failure/Error: expect(resolver.cname("cname.dnstest.postalserver.io")).to eq ["www.dnstest.postalserver.io"]
+
+       expected: ["www.dnstest.postalserver.io"]
+            got: []
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:97:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  9) DNSResolver#cname when raise_timeout_errors is true returns a list of CNAME records
+     Failure/Error: dns.getresources(encoded_name, type)
+
+     Resolv::ResolvError:
+       DNS resolv timeout: cname.dnstest.postalserver.io
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+     # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+     # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+     # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+     # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+     # ./app/lib/dns_resolver.rb:52:in 'DNSResolver#cname'
+     # ./spec/lib/dns_resolver_spec.rb:107:in 'block (4 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  10) DNSResolver#mx returns a list of MX records
+      Failure/Error:
+        expect(resolver.mx("dnstest.postalserver.io")).to eq [
+          [10, "mx1.dnstest.postalserver.io"],
+          [20, "mx2.dnstest.postalserver.io"],
+        ]
+
+        expected: [[10, "mx1.dnstest.postalserver.io"], [20, "mx2.dnstest.postalserver.io"]]
+             got: []
+
+        (compared using ==)
+      # ./spec/lib/dns_resolver_spec.rb:121:in 'block (3 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  11) DNSResolver#mx when raise_timeout_errors is true returns a list of MX records
+      Failure/Error: dns.getresources(encoded_name, type)
+
+      Resolv::ResolvError:
+        DNS resolv timeout: dnstest.postalserver.io
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+      # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+      # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+      # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:62:in 'DNSResolver#mx'
+      # ./spec/lib/dns_resolver_spec.rb:134:in 'block (4 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  12) DNSResolver#effective_ns returns the nameserver names that are authoritative for the given domain
+      Failure/Error:
+        expect(resolver.effective_ns("postalserver.io").sort).to eq [
+          "prestigious-honeybadger.katapultdns.com",
+          "the-cake-is-a-lie.katapultdns.com",
+        ]
+
+        expected: ["prestigious-honeybadger.katapultdns.com", "the-cake-is-a-lie.katapultdns.com"]
+             got: []
+
+        (compared using ==)
+      # ./spec/lib/dns_resolver_spec.rb:151:in 'block (3 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  13) DNSResolver#effective_ns when raise_timeout_errors is true returns a list of NS records
+      Failure/Error: dns.getresources(encoded_name, type)
+
+      Resolv::ResolvError:
+        DNS resolv timeout: postalserver.io
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+      # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+      # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+      # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:84:in 'block in DNSResolver#effective_ns'
+      # ./app/lib/dns_resolver.rb:81:in 'DNSResolver#effective_ns'
+      # ./spec/lib/dns_resolver_spec.rb:164:in 'block (4 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  14) DNSResolver#ip_to_hostname returns the hostname for the given IP
+      Failure/Error: expect(resolver.ip_to_hostname("151.252.1.100")).to eq "ns1.katapultdns.com"
+
+        expected: "ns1.katapultdns.com"
+             got: "151.252.1.100"
+
+        (compared using ==)
+      # ./spec/lib/dns_resolver_spec.rb:181:in 'block (3 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  15) DNSResolver#ip_to_hostname when raise_timeout_errors is true returns the hostname for the given IP
+      Failure/Error: dns.getname(ip_address)&.to_s
+
+      Resolv::ResolvError:
+        DNS resolv timeout: 100.1.252.151.in-addr.arpa
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:477:in 'Resolv::DNS#each_name'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:441:in 'Resolv::DNS#getname'
+      # ./app/lib/dns_resolver.rb:101:in 'block in DNSResolver#ip_to_hostname'
+      # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+      # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+      # ./app/lib/dns_resolver.rb:100:in 'DNSResolver#ip_to_hostname'
+      # ./spec/lib/dns_resolver_spec.rb:191:in 'block (4 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  16) DNSResolver.for_domain finds the effective nameservers for a given domain and returns them
+      Failure/Error: expect(resolver.nameservers.sort).to eq ["151.252.1.100", "151.252.2.100"]
+
+        expected: ["151.252.1.100", "151.252.2.100"]
+             got: []
+
+        (compared using ==)
+      # ./spec/lib/dns_resolver_spec.rb:206:in 'block (3 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  17) SMTPSender#start when there are no servers to connect to returns false
+      Failure/Error: dns.getresources(encoded_name, type)
+
+      Resolv::ResolvError:
+        DNS resolv timeout: example.com
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1174:in 'block in Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Array#each'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:1163:in 'Resolv::DNS::Config#resolv'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:540:in 'Resolv::DNS#fetch_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:523:in 'Resolv::DNS#each_resource'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:514:in 'Resolv::DNS#getresources'
+      # ./app/lib/dns_resolver.rb:126:in 'block in DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:119:in 'block in DNSResolver#dns'
+      # /cache/bundle/ruby/3.4.0/gems/resolv-0.6.2/lib/resolv.rb:305:in 'Resolv::DNS.open'
+      # ./app/lib/dns_resolver.rb:112:in 'DNSResolver#dns'
+      # ./app/lib/dns_resolver.rb:125:in 'DNSResolver#get_resources'
+      # ./app/lib/dns_resolver.rb:62:in 'DNSResolver#mx'
+      # ./app/senders/smtp_sender.rb:165:in 'SMTPSender#resolve_mx_records_for_domain'
+      # ./app/senders/smtp_sender.rb:28:in 'SMTPSender#start'
+      # ./spec/senders/smtp_sender_spec.rb:151:in 'block (4 levels) in <top (required)>'
+      # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+Finished in 3 minutes 40 seconds (files took 6.38 seconds to load)
+916 examples, 17 failures
+
+Failed examples:
+
+rspec ./spec/lib/dns_resolver_spec.rb:14 # DNSResolver#a returns a list of IP addresses
+rspec ./spec/lib/dns_resolver_spec.rb:18 # DNSResolver#a resolves a domain name containing an emoji
+rspec ./spec/lib/dns_resolver_spec.rb:28 # DNSResolver#a when raise_timeout_errors is true returns a list of IP addresses
+rspec ./spec/lib/dns_resolver_spec.rb:42 # DNSResolver#aaaa returns a list of IP addresses
+rspec ./spec/lib/dns_resolver_spec.rb:52 # DNSResolver#aaaa when raise_timeout_errors is true returns a list of IP addresses
+rspec ./spec/lib/dns_resolver_spec.rb:66 # DNSResolver#txt returns a list of TXT records
+rspec ./spec/lib/dns_resolver_spec.rb:79 # DNSResolver#txt when raise_timeout_errors is true returns a list of TXT records
+rspec ./spec/lib/dns_resolver_spec.rb:96 # DNSResolver#cname returns a list of CNAME records
+rspec ./spec/lib/dns_resolver_spec.rb:106 # DNSResolver#cname when raise_timeout_errors is true returns a list of CNAME records
+rspec ./spec/lib/dns_resolver_spec.rb:120 # DNSResolver#mx returns a list of MX records
+rspec ./spec/lib/dns_resolver_spec.rb:133 # DNSResolver#mx when raise_timeout_errors is true returns a list of MX records
+rspec ./spec/lib/dns_resolver_spec.rb:150 # DNSResolver#effective_ns returns the nameserver names that are authoritative for the given domain
+rspec ./spec/lib/dns_resolver_spec.rb:163 # DNSResolver#effective_ns when raise_timeout_errors is true returns a list of NS records
+rspec ./spec/lib/dns_resolver_spec.rb:180 # DNSResolver#ip_to_hostname returns the hostname for the given IP
+rspec ./spec/lib/dns_resolver_spec.rb:190 # DNSResolver#ip_to_hostname when raise_timeout_errors is true returns the hostname for the given IP
+rspec ./spec/lib/dns_resolver_spec.rb:204 # DNSResolver.for_domain finds the effective nameservers for a given domain and returns them
+rspec ./spec/senders/smtp_sender_spec.rb:150 # SMTPSender#start when there are no servers to connect to returns false
+

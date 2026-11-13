@@ -1,0 +1,10 @@
+
+Finished in 3.3 seconds (files took 2.77 seconds to load)
+5 examples, 0 failures
+
+18:        pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size
+       expected no Exception, got #<NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter> with backtrace:
+       expected SystemExit, got #<NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter> with backtrace:
+4 examples, 2 failures
+rspec ./spec/lib/migration_waiter_spec.rb:8 # MigrationWaiter.wait returns when there are no pending migrations
+rspec ./spec/lib/migration_waiter_spec.rb:14 # MigrationWaiter.wait exits when migrations are still pending after the configured attempts

@@ -1,0 +1,14 @@
+{
+ "ecosystem": "rails",
+ "kit_version": "0.1.0",
+ "public_sample": true,
+ "started": "2026-11-13T03:56:28Z",
+ "target_requested": "8.1",
+ "timings": {
+  "baseline": 231.0,
+  "baseline-online": 26.4,
+  "install": 113.9,
+  "resolve": 24.9,
+  "static": 33.9
+ }
+}

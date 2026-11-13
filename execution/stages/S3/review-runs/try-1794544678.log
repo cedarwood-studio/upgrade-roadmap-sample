@@ -1,0 +1,39 @@
+exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+7.2.4
+booted
+---
+/cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:296:      def migration_context # :nodoc:
+/cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/connection_adapters/abstract_adapter.rb:880:        pool.migration_context.current_version
+---
+actioncable-7.1.6
+actioncable-7.2.4
+actionmailbox-7.1.6
+actionmailbox-7.2.4
+actionmailer-7.1.6
+actionmailer-7.2.4
+actionpack-7.1.6
+actionpack-7.2.4
+actiontext-7.1.6
+actiontext-7.2.4
+actionview-7.1.6
+actionview-7.2.4
+activejob-7.1.6
+activejob-7.2.4
+activemodel-7.1.6
+activemodel-7.2.4
+activerecord-7.1.6
+activerecord-7.2.4
+activestorage-7.1.6
+activestorage-7.2.4
+activesupport-7.1.6
+activesupport-7.2.4
+rails-7.1.6
+rails-7.2.4
+rails-dom-testing-2.3.0
+rails-html-sanitizer-1.7.0
+rails-html-sanitizer-1.7.2
+railties-7.1.6
+railties-7.2.4

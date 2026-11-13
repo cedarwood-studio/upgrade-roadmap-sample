@@ -1,0 +1,30 @@
+{
+ "requests_before": 170,
+ "requests_after": 170,
+ "identical": 170,
+ "different": 0,
+ "masked_as_noise": 2,
+ "noise_mask": {
+  "admin: POST credentials invalid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  },
+  "api: send/message valid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  }
+ },
+ "before_status_counts": {
+  "302": 24,
+  "200": 137,
+  "ActionController::RoutingError": 1,
+  "422": 3,
+  "ActiveRecord::RecordNotFound": 2,
+  "ActionController::UrlGenerationError": 1,
+  "Postal::MessageDB::Webhooks::RequestNotFound": 1,
+  "Postal::MessageDB::Message::NotFound": 1
+ },
+ "differences": []
+}

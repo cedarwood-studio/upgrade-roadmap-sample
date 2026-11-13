@@ -1,0 +1,111 @@
+{
+ "attempts": 1,
+ "base_branch": "upgrade/s1-record-the-baseline-on-rails-7-1-6",
+ "branch": "upgrade/s2-remove-the-annotate-blocker",
+ "check": {
+  "attempt": 1,
+  "deprecations": {
+   "after": {
+    "distinct": 0,
+    "occurrences": 0
+   },
+   "before": {
+    "distinct": 0,
+    "occurrences": 0
+   }
+  },
+  "green": true,
+  "max_attempts": 4,
+  "parity": {
+   "accepted_differences": [],
+   "diff_file": "runs/S2-attempt-1/parity-diff.json",
+   "different": 0,
+   "identical": 170,
+   "masked_as_noise": 2,
+   "requests": 170,
+   "unexplained": []
+  },
+  "problems": [],
+  "ruby_warnings_deprecated": {
+   "after": 3,
+   "before": 3
+  },
+  "run": "S2-attempt-1",
+  "stage": "S2",
+  "tests": {
+   "added": 0,
+   "added_failing": [],
+   "after_passed": 899,
+   "after_total": 916,
+   "before_passed": 899,
+   "before_total": 916,
+   "fixed": [],
+   "missing_passing": [],
+   "ok": true,
+   "regressed": []
+  },
+  "tree": "0d5cf67725c920664c2584e237c1a617bd5b3ea7"
+ },
+ "ci_runs": [
+  {
+   "comparisons": {
+    "bodies_compared_in_full": 163,
+    "bodies_compared_through_value_masks": 5,
+    "bodies_not_compared": 2,
+    "declared": 0,
+    "declared_observed": 0,
+    "examples_gated": 823,
+    "examples_reported_not_gated": 28,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "ci"
+   },
+   "conclusion": "success",
+   "parity_holds": true,
+   "recorded": "2026-11-13T07:07:49Z",
+   "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382977532"
+  }
+ ],
+ "commit": "a45dff22bd7d4230cd8ff4e95d7e03a1f414cd15",
+ "diff": {
+  "deletions": 65,
+  "files": 4,
+  "insertions": 0
+ },
+ "elapsed_seconds": 342,
+ "rebased_from": "687b92f521706e39eb1c75f3105d951176f044e3",
+ "review": {
+  "commit": "a45dff22bd7d4230cd8ff4e95d7e03a1f414cd15",
+  "declarations_owed": 0,
+  "declarations_recorded": 0,
+  "defects": 0,
+  "findings": 4,
+  "not_caught_by_checks": 4,
+  "recorded": "2026-11-13T06:20:18Z",
+  "reviewer": "review-S2-1",
+  "seconds": 231,
+  "verdict": "pass"
+ },
+ "reviews": [
+  {
+   "commit": "a45dff22bd7d4230cd8ff4e95d7e03a1f414cd15",
+   "declarations_owed": 0,
+   "declarations_recorded": 0,
+   "defects": 0,
+   "findings": 4,
+   "not_caught_by_checks": 4,
+   "recorded": "2026-11-13T06:20:18Z",
+   "reviewer": "review-S2-1",
+   "seconds": 231,
+   "verdict": "pass"
+  }
+ ],
+ "stage": "S2",
+ "status": "green",
+ "title": "Remove the annotate blocker",
+ "versions_after": {
+  "rails": "7.1.6",
+  "ruby": "3.4.6"
+ }
+}

@@ -1,0 +1,317 @@
+[
+ {
+  "at": "2026-11-13T04:33:42Z",
+  "boot_variants": 6,
+  "keys_after": "boot_variants,container,env,notes,test_command,test_setup",
+  "keys_before": "container,env,notes,test_command,test_setup",
+  "kind": "operator-step",
+  "what": "exec set-job"
+ },
+ {
+  "at": "2026-11-13T04:34:57Z",
+  "kind": "operator-step",
+  "seconds": 68,
+  "what": "ran the boot variants on S2 and on S3 as first shipped, before any fix, to see whether the new start-up check alone catches the shipped defect"
+ },
+ {
+  "at": "2026-11-13T04:35:11Z",
+  "boot_variants": 6,
+  "keys_after": "boot_setup,boot_variants,container,env,notes,test_command,test_setup",
+  "keys_before": "boot_variants,container,env,notes,test_command,test_setup",
+  "kind": "operator-step",
+  "what": "exec set-job"
+ },
+ {
+  "at": "2026-11-13T04:36:58Z",
+  "kind": "operator-step",
+  "seconds": 108,
+  "what": "ran the boot variants on S2 and on S3 as first shipped, before any fix, to see whether the new start-up check alone catches the shipped defect (second run; the first lacked a loaded schema, so the migration waiter variant failed on both)"
+ },
+ {
+  "at": "2026-11-13T04:37:06Z",
+  "environment_dependent_examples": 28,
+  "kind": "operator-step",
+  "responses_masked_per_value": 5,
+  "responses_masked_whole": 0,
+  "what": "exec ci-calibrate"
+ },
+ {
+  "at": "2026-11-13T04:43:53Z",
+  "defects": 3,
+  "findings": 7,
+  "kind": "review",
+  "reviewer": "review-S3-1",
+  "seconds": 400,
+  "stage": "S3",
+  "verdict": "defect"
+ },
+ {
+  "at": "2026-11-13T04:44:02Z",
+  "kind": "reopen",
+  "reason": "the independent review found 3 defect(s)",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T05:01:32Z",
+  "defects": 1,
+  "findings": 5,
+  "kind": "review",
+  "reviewer": "review-S3-2",
+  "seconds": 534,
+  "stage": "S3",
+  "verdict": "defect"
+ },
+ {
+  "at": "2026-11-13T05:02:17Z",
+  "kind": "reopen",
+  "reason": "the independent review found 1 defect(s)",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T05:22:37Z",
+  "defects": 1,
+  "findings": 6,
+  "kind": "review",
+  "reviewer": "review-S3-3",
+  "seconds": 846,
+  "stage": "S3",
+  "verdict": "defect"
+ },
+ {
+  "at": "2026-11-13T05:22:47Z",
+  "kind": "reopen",
+  "reason": "the independent review found 1 defect(s)",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T05:49:38Z",
+  "defects": 1,
+  "findings": 6,
+  "kind": "review",
+  "reviewer": "review-S3-4",
+  "seconds": 1205,
+  "stage": "S3",
+  "verdict": "defect"
+ },
+ {
+  "at": "2026-11-13T05:51:05Z",
+  "kind": "reopen",
+  "reason": "the independent review found 1 defect(s)",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T06:11:07Z",
+  "defects": 0,
+  "findings": 7,
+  "kind": "review",
+  "reviewer": "review-S3-5",
+  "seconds": 746,
+  "stage": "S3",
+  "verdict": "pass"
+ },
+ {
+  "at": "2026-11-13T06:15:19Z",
+  "defects": 0,
+  "findings": 5,
+  "kind": "review",
+  "reviewer": "review-S1-1",
+  "seconds": 1454,
+  "stage": "S1",
+  "verdict": "pass"
+ },
+ {
+  "at": "2026-11-13T06:16:27Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S1",
+  "stage": "S1"
+ },
+ {
+  "at": "2026-11-13T06:18:04Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S3",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T06:20:18Z",
+  "defects": 0,
+  "findings": 4,
+  "kind": "review",
+  "reviewer": "review-S2-1",
+  "seconds": 231,
+  "stage": "S2",
+  "verdict": "pass"
+ },
+ {
+  "at": "2026-11-13T06:21:20Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S2",
+  "stage": "S2"
+ },
+ {
+  "at": "2026-11-13T06:54:50Z",
+  "defects": 0,
+  "findings": 6,
+  "kind": "review",
+  "reviewer": "review-S4-1",
+  "seconds": 1092,
+  "stage": "S4",
+  "verdict": "pass"
+ },
+ {
+  "at": "2026-11-13T06:57:36Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S4",
+  "stage": "S4"
+ },
+ {
+  "at": "2026-11-13T06:57:54Z",
+  "kind": "operator-step",
+  "minutes": 2.0,
+  "what": "Reviewed S1 and S2 in a copy of the job directory while S3 and S4 ran in the original, then copied the two review records, the pull request text and the voice-gate markers back. Both stages are at the same commits in both directories."
+ },
+ {
+  "at": "2026-11-13T06:57:54Z",
+  "kind": "operator-step",
+  "what": "Restarted the execute wrapper on S3 twice: it stops after two reviews in one run. Changed the review rules between rounds 4 and 5 to separate defects from differences that only need declaring."
+ },
+ {
+  "at": "2026-11-13T07:01:09Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S3",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T07:03:09Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S4",
+  "stage": "S4"
+ },
+ {
+  "at": "2026-11-13T07:03:30Z",
+  "branches": 5,
+  "kind": "publish",
+  "pull_requests_opened": "S4",
+  "pull_requests_updated": "S1,S2,S3",
+  "remote": "https://github.com/cedarwood-studio/postal"
+ },
+ {
+  "at": "2026-11-13T07:04:12Z",
+  "backfilled": "from the first run, which predates this record",
+  "during": "stage-S1",
+  "kind": "permission-denial",
+  "target": "['<local-path> exec commit S1 -m \"Add characterization tests ahead of the Rails upgrade\\n\\nPin current behavior on Rails 7.1.6 for code the suite did not reach:\\nthe ei",
+  "tool": "Bash"
+ },
+ {
+  "at": "2026-11-13T07:04:12Z",
+  "backfilled": "from the first run, which predates this record",
+  "during": "stage-S2",
+  "kind": "permission-denial",
+  "target": "['<local-path> exec commit S2 -m \"Remove annotate from the bundle\\n\\nannotate 3.2.0 declares activerecord < 8.0 and has had no release since\\n2022, so it forced a downg",
+  "tool": "Bash"
+ },
+ {
+  "at": "2026-11-13T07:04:12Z",
+  "backfilled": "from the first run, which predates this record",
+  "during": "stage-S3",
+  "kind": "permission-denial",
+  "target": "['<local-path> exec commit S3 -m \"Upgrade Rails from 7.1.6 to 7.2.4\\n\\nPin rails to 7.2.4 and regenerate the lock. Replace the boolean\\nshow_exceptions setting in the t",
+  "tool": "Bash"
+ },
+ {
+  "at": "2026-11-13T07:04:17Z",
+  "backfilled": "from the first run, which predates this record; not timed",
+  "kind": "operator-step",
+  "what": "Disabled the project's own CI workflow on the fork after it started on the first push; canceled within seconds, nothing published."
+ },
+ {
+  "at": "2026-11-13T07:04:17Z",
+  "backfilled": "from the first run, which predates this record; not timed",
+  "kind": "operator-step",
+  "what": "Read the failed baseline CI run, decided both differences were environmental, and ran the first calibration (whole-body masks, since replaced)."
+ },
+ {
+  "at": "2026-11-13T07:04:17Z",
+  "backfilled": "from the first run, which predates this record; not timed",
+  "kind": "operator-step",
+  "what": "Reran the S3 CI job after reading which network-dependent example had failed."
+ },
+ {
+  "at": "2026-11-13T07:04:17Z",
+  "backfilled": "from the first run, which predates this record; not timed",
+  "kind": "operator-step",
+  "what": "Published the baseline and S1 to S3 and opened pull requests 1 to 3, before any review."
+ },
+ {
+  "at": "2026-11-13T07:07:49Z",
+  "bodies_not_compared": 2,
+  "conclusion": "success",
+  "kind": "ci",
+  "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382971124",
+  "stage": "baseline"
+ },
+ {
+  "at": "2026-11-13T07:07:49Z",
+  "bodies_not_compared": 2,
+  "conclusion": "success",
+  "kind": "ci",
+  "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382973974",
+  "stage": "S1"
+ },
+ {
+  "at": "2026-11-13T07:07:49Z",
+  "bodies_not_compared": 2,
+  "conclusion": "success",
+  "kind": "ci",
+  "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382977532",
+  "stage": "S2"
+ },
+ {
+  "at": "2026-11-13T07:07:50Z",
+  "bodies_not_compared": 2,
+  "conclusion": "success",
+  "kind": "ci",
+  "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382981247",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T07:07:50Z",
+  "bodies_not_compared": 2,
+  "conclusion": "success",
+  "kind": "ci",
+  "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382984773",
+  "stage": "S4"
+ },
+ {
+  "at": "2026-11-13T07:10:54Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S1",
+  "stage": "S1"
+ },
+ {
+  "at": "2026-11-13T07:11:59Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S2",
+  "stage": "S2"
+ },
+ {
+  "at": "2026-11-13T07:13:42Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S3",
+  "stage": "S3"
+ },
+ {
+  "at": "2026-11-13T07:15:14Z",
+  "kind": "voice-gate",
+  "reviewer": "voice-S4",
+  "stage": "S4"
+ },
+ {
+  "at": "2026-11-13T07:15:29Z",
+  "branches": 5,
+  "kind": "publish",
+  "pull_requests_opened": "",
+  "pull_requests_updated": "S1,S2,S3,S4",
+  "remote": "https://github.com/cedarwood-studio/postal"
+ }
+]

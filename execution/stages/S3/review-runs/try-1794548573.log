@@ -1,0 +1,70 @@
+setup exit=0
+assets exit=0
+######## s3: 7.2.4
+==== 1. the 500 page
+GET  accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="0" body=0b
+GET  accept="*/*"                            -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept="*/*"                            -> 500 content-type="*/*; charset=UTF-8" content-length="0" body=0b
+GET  accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="0" body=0b
+GET  accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="46" body=46b
+HEAD accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="0" body=0b
+==== 2. versioned migrations: schema load, then down and up again one at a time, newest first
+redone cleanly: 12
+-ActiveRecord::Schema[7.1].define(version: 2026_09_03_100000) do
++ActiveRecord::Schema[7.2].define(version: 2026_09_03_100000) do
+-    t.string "host"
+-    t.boolean "skip_two_factor", default: false
++    t.boolean "skip_two_factor", default: false
++    t.string "host"
+==== 3. every flag on, production, eager load, the never-loaded files
+No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=production eager=true
+flags: oidc=true local_auth=false waiter=true rails_log=true sentry="http://k@12 rspamd=true clamav=true spamd=true static=true
+never-loaded files now loaded: 39 of 39; missing: []
+omniauth in stack: ["Sentry::Rails::CaptureExceptions", "Sentry::Rails::RescuedExceptionInterceptor", "OmniAuth::Builder"]
+oidc route: true
+inspectors: ["Postal::MessageInspectors::Rspamd", "Postal::MessageInspectors::Clamav"]
+######## s2: 7.1.6
+==== 1. the 500 page
+GET  accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+GET  accept="*/*"                            -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept="*/*"                            -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+GET  accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+HEAD accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+GET  accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="46" body=46b
+HEAD accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="46" body=46b
+==== 2. versioned migrations: schema load, then down and up again one at a time, newest first
+redone cleanly: 12
+-    t.string "host"
+-    t.boolean "skip_two_factor", default: false
++    t.boolean "skip_two_factor", default: false
++    t.string "host"
+######## differences, 7.1.6 < > 7.2.4
+== 500 page
+2c2
+< HEAD accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+---
+> HEAD accept=nil                              -> 500 content-type="text/html; charset=UTF-8" content-length="0" body=0b
+4c4
+< HEAD accept="*/*"                            -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+---
+> HEAD accept="*/*"                            -> 500 content-type="*/*; charset=UTF-8" content-length="0" body=0b
+6c6
+< HEAD accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="1477" body=1477b
+---
+> HEAD accept="text/html,application/xhtml+xml" -> 500 content-type="text/html; charset=UTF-8" content-length="0" body=0b
+8c8
+< HEAD accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="46" body=46b
+---
+> HEAD accept="application/json"               -> 500 content-type="application/json; charset=UTF-8" content-length="0" body=0b
+== schema after redoing the versioned migrations
+13c13
+< ActiveRecord::Schema[7.1].define(version: 2026_09_03_100000) do
+---
+> ActiveRecord::Schema[7.2].define(version: 2026_09_03_100000) do
+384d383
+< 
+==== end

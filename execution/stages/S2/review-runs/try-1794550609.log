@@ -1,0 +1,57 @@
+a45dff2 Remove annotate from the bundle
+fe9e34c Add characterization tests ahead of the Rails upgrade
+db4e80e Mark environment-dependent checks from the baseline CI run
+ .rubocop.yml                        |  1 -
+ Gemfile                             |  1 -
+ Gemfile.lock                        |  4 ---
+ lib/tasks/auto_annotate_models.rake | 59 -------------------------------------
+ 4 files changed, 65 deletions(-)
+diff --git a/.rubocop.yml b/.rubocop.yml
+index 59d78f8..5f27d0b 100644
+--- a/.rubocop.yml
++++ b/.rubocop.yml
+@@ -6,7 +6,6 @@ AllCops:
+     - "db/schema.rb"
+     # Fixes missing gem exception when running Rubocop on GitHub Actions.
+     - "vendor/bundle/**/*"
+-    - lib/tasks/auto_annotate_models.rake
+ 
+ # Always use double quotes
+ Style/StringLiterals:
+diff --git a/Gemfile b/Gemfile
+index 4d3c0de..7e8fe4b 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -51,7 +51,6 @@ group :development, :assets do
+ end
+ 
+ group :development do
+-  gem "annotate"
+   gem "rubocop"
+   gem "rubocop-rails"
+ end
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 16adf02..8316de7 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -84,9 +84,6 @@ GEM
+     addressable (2.8.6)
+       public_suffix (>= 2.0.2, < 6.0)
+     aes_key_wrap (1.1.0)
+-    annotate (3.2.0)
+-      activerecord (>= 3.2, < 8.0)
+-      rake (>= 10.4, < 14.0)
+     ast (2.4.2)
+     attr_required (1.0.2)
+     authie (5.0.0)
+@@ -445,7 +442,6 @@ PLATFORMS
+ 
+ DEPENDENCIES
+   abbrev
+-  annotate
+   authie
+   autoprefixer-rails
+   bcrypt
+./CHANGELOG.md
+./app/models/concerns/has_authentication.rb
+./app/models/concerns/has_dns_checks.rb

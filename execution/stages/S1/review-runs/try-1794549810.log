@@ -1,0 +1,28 @@
+default: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+oidc: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+oidc-no-discovery: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+oidc-local-auth-off: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+migration-waiter: No configuration file found at config/postal/postal.yml Only using environment variables for configuration 
+rails-log: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+sentry: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+production: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 production 
+secret-key: Only using environment variables for configuration BOOT OK 7.1.6 test 
+clamav: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+rspamd: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+spamd: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+smtp-tls: No secret key was specified in the Postal config file. Using one for just this session BOOT OK 7.1.6 test 
+### eager load, test environment
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+EAGER OK, 16 of the never loaded constants resolved
+### eager load, production environment
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+EAGER OK production
+### rows the worker boot check leaves behind
+scheduled_tasks=0 worker_roles=0
+### new specs, random order, twice
+86 examples, 0 failures
+86 examples, 0 failures
+### lock and manifest against the base
+files changed outside spec/: 0

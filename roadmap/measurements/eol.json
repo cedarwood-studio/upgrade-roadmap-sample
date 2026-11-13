@@ -1,0 +1,137 @@
+{
+ "command": null,
+ "data": {
+  "as_of": "2026-11-13",
+  "lookups": [
+   {
+    "cycle": "7.1",
+    "days_to_eol": -408,
+    "eol": "2025-10-01",
+    "found": true,
+    "latest": "7.1.6",
+    "past_eol": true,
+    "product": "rails",
+    "released": "2023-10-05",
+    "source": "https://endoflife.date/rails",
+    "support": "2024-10-01",
+    "supported_cycles": [
+     "8.1"
+    ],
+    "version": "7.1.6",
+    "where": "rails (current)"
+   },
+   {
+    "cycle": "8.1",
+    "days_to_eol": 331,
+    "eol": "2027-10-10",
+    "found": true,
+    "latest": "8.1.4.1",
+    "past_eol": false,
+    "product": "rails",
+    "released": "2025-10-22",
+    "source": "https://endoflife.date/rails",
+    "support": "2026-10-10",
+    "supported_cycles": [
+     "8.1"
+    ],
+    "version": "8.1.4.1",
+    "where": "rails (target)"
+   },
+   {
+    "cycle": "3.4",
+    "days_to_eol": 504,
+    "eol": "2028-03-31",
+    "found": true,
+    "latest": "3.4.12",
+    "past_eol": false,
+    "product": "ruby",
+    "released": "2024-12-24",
+    "source": "https://endoflife.date/ruby",
+    "support": null,
+    "supported_cycles": [
+     "4.0",
+     "3.4",
+     "3.3"
+    ],
+    "version": "3.4.6",
+    "where": "ruby (current)"
+   },
+   {
+    "cycle": "7.2",
+    "days_to_eol": -96,
+    "eol": "2026-08-09",
+    "found": true,
+    "latest": "7.2.4",
+    "past_eol": true,
+    "product": "rails",
+    "released": "2024-08-09",
+    "source": "https://endoflife.date/rails",
+    "support": "2025-08-09",
+    "supported_cycles": [
+     "8.1"
+    ],
+    "version": "7.2.4",
+    "where": "rails (intermediate hop)"
+   },
+   {
+    "cycle": "8.0",
+    "days_to_eol": -6,
+    "eol": "2026-11-07",
+    "found": true,
+    "latest": "8.0.5.2",
+    "past_eol": true,
+    "product": "rails",
+    "released": "2024-11-07",
+    "source": "https://endoflife.date/rails",
+    "support": "2026-05-07",
+    "supported_cycles": [
+     "8.1"
+    ],
+    "version": "8.0.5.2",
+    "where": "rails (intermediate hop)"
+   },
+   {
+    "cycle": "3.4",
+    "days_to_eol": 504,
+    "eol": "2028-03-31",
+    "found": true,
+    "latest": "3.4.12",
+    "past_eol": false,
+    "product": "ruby",
+    "released": "2024-12-24",
+    "source": "https://endoflife.date/ruby",
+    "support": null,
+    "supported_cycles": [
+     "4.0",
+     "3.4",
+     "3.3"
+    ],
+    "version": "3.4.6",
+    "where": "Dockerfile (ruby:3.4.6-slim-bookworm)"
+   },
+   {
+    "cycle": "12",
+    "days_to_eol": 595,
+    "eol": "2028-06-30",
+    "found": true,
+    "latest": "12.15",
+    "past_eol": false,
+    "product": "debian",
+    "released": "2023-06-10",
+    "source": "https://endoflife.date/debian",
+    "support": "2026-07-11",
+    "supported_cycles": [
+     "13",
+     "12"
+    ],
+    "version": "12",
+    "where": "Dockerfile (ruby:3.4.6-slim-bookworm)"
+   }
+  ]
+ },
+ "method": "fetched",
+ "note": "endoflife.date API, cached under cache/http.",
+ "recorded": "2026-11-13T03:56:28Z",
+ "seconds": 0.4,
+ "step": "eol"
+}

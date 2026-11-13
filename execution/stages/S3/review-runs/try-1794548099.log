@@ -1,0 +1,339 @@
+setup exit=0
+assets exit=0
+s3 exit=0 rails 7.2.4 env production deprecations=0  
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s2 exit=0 rails 7.1.6 env production deprecations=0  
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb:174: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb:174: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+s3b exit=0 rails 7.2.4 env production deprecations=0  
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+==== summary on 7.2.4
+00 GET /login -> 200 text/html; charset=utf-8 1746b loc=
+01 POST /login -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/
+02 POST /login -> 422 text/html; charset=UTF-8 1547b loc=
+03 GET / -> 200 text/html; charset=utf-8 2899b loc=
+04 GET /settings -> 200 text/html; charset=utf-8 13300b loc=
+05 HEAD /settings -> 200 text/html; charset=utf-8 0b loc=
+06 GET /org/r4org -> 200 text/html; charset=utf-8 3734b loc=
+07 GET /org/r4org/settings -> 200 text/html; charset=utf-8 13100b loc=
+08 GET /org/r4org/servers/new -> 200 text/html; charset=utf-8 5131b loc=
+09 GET /org/r4org/ip_pools -> 200 text/html; charset=utf-8 4199b loc=
+10 GET /org/r4org/delete -> 200 text/html; charset=utf-8 4441b loc=
+11 GET /organizations/new -> 200 text/html; charset=utf-8 3411b loc=
+12 GET /users -> 200 text/html; charset=utf-8 2617b loc=
+13 GET /users/new -> 200 text/html; charset=utf-8 5344b loc=
+14 GET /ip_pools -> 200 text/html; charset=utf-8 2396b loc=
+15 GET /ip_pools/new -> 200 text/html; charset=utf-8 2715b loc=
+16 GET /ip -> 200 text/plain; charset=utf-8 16b loc=
+17 GET /org/nosuchorg -> 404 text/html; charset=UTF-8 1564b loc=
+18 HEAD /org/nosuchorg -> 404 text/html; charset=UTF-8 0b loc=
+19 GET /org/nosuchorg HTTP_ACCEPT=application/json -> 404 application/json; charset=UTF-8 34b loc=
+20 GET /users/99999999 -> 404 text/html; charset=UTF-8 1564b loc=
+21 GET /org/r4org/servers/nosuch/messages -> 404 text/html; charset=UTF-8 1564b loc=
+22 GET /settings.xml -> 406 application/xml; charset=UTF-8 124b loc=
+23 GET /settings.json -> 406 application/json; charset=UTF-8 39b loc=
+24 GET /settings HTTP_ACCEPT=application/json;q=0.9, text/html;level=1 -> 200 text/html; charset=utf-8 13300b loc=
+25 GET /settings HTTP_ACCEPT=text/html; charset=utf-8 -> 200 text/html; charset=utf-8 13300b loc=
+26 GET /settings HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+27 GET /settings HTTP_ACCEPT=text/javascript, application/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 13300b loc=
+28 FOO /settings -> 405 text/html; charset=UTF-8 0b loc=
+29 PROPFIND /settings -> 404 text/html; charset=UTF-8 1564b loc=
+30 OPTIONS /settings -> 404 text/html; charset=UTF-8 1564b loc=
+31 POST /settings -> 404 text/html; charset=UTF-8 1564b loc=
+32 PATCH /settings -> 422 text/html; charset=UTF-8 1547b loc=
+33 PATCH /settings -> 200 text/html; charset=utf-8 13631b loc=
+34 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 422 application/json; charset=utf-8 45b loc=
+35 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 200 application/json; charset=utf-8 27b loc=
+36 PATCH /settings HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 400 text/html; charset=UTF-8 0b loc=
+37 PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 200 text/html; charset=utf-8 13422b loc=
+38 POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 422 application/json; charset=utf-8 63b loc=
+39 POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 422 application/json; charset=utf-8 126b loc=
+40 POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 422 application/json; charset=utf-8 39b loc=
+41 POST /login/reset HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login/reset
+42 GET /login/reset -> 200 text/html; charset=utf-8 1901b loc=
+43 POST /persist HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 200 text/plain; charset=utf-8 2b loc=
+44 GET /settings?user[first_name]=x&user=y -> 200 text/html; charset=utf-8 13300b loc=
+45 GET /settings HTTP_X_FORWARDED_FOR=203.0.113.9, 10.0.0.1 HTTP_X_FORWARDED_PROTO=https -> 200 text/html; charset=utf-8 13300b loc=
+46 GET /settings HTTP_IF_NONE_MATCH=W/"nope" -> 200 text/html; charset=utf-8 13300b loc=
+47 GET /settings -> 200 text/html; charset=utf-8 13300b loc=
+48 DELETE /logout HTTP_X_CSRF_TOKEN=oc8RsFLJ4NEvbL-s_b7uQmzlgH90LiufmPAjEeaFJklBHltnmCr9fcyRg3z9xZ4L4pijsK_f4lzzxAxRPex3Hg -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login
+49 GET /settings -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login?return_to=%2Fsettings
+==== summaries, 7.1.6 < > 7.2.4 (first pass of each; cookie replay lines differ by design)
+19c19
+< 18 HEAD /org/nosuchorg -> 404 text/html; charset=UTF-8 1564b loc=
+---
+> 18 HEAD /org/nosuchorg -> 404 text/html; charset=UTF-8 0b loc=
+35,42c35,42
+< 34 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 422 application/json; charset=utf-8 45b loc=
+< 35 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 200 application/json; charset=utf-8 27b loc=
+< 36 PATCH /settings HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 400 text/html; charset=UTF-8 0b loc=
+< 37 PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 200 text/html; charset=utf-8 13422b loc=
+< 38 POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 422 application/json; charset=utf-8 63b loc=
+< 39 POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 422 application/json; charset=utf-8 126b loc=
+< 40 POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 422 application/json; charset=utf-8 39b loc=
+< 41 POST /login/reset HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login/reset
+---
+> 34 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 422 application/json; charset=utf-8 45b loc=
+> 35 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 200 application/json; charset=utf-8 27b loc=
+> 36 PATCH /settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 400 text/html; charset=UTF-8 0b loc=
+> 37 PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 200 text/html; charset=utf-8 13422b loc=
+> 38 POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 422 application/json; charset=utf-8 63b loc=
+> 39 POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 422 application/json; charset=utf-8 126b loc=
+> 40 POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 422 application/json; charset=utf-8 39b loc=
+> 41 POST /login/reset HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login/reset
+44c44
+< 43 POST /persist HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 200 text/plain; charset=utf-8 2b loc=
+---
+> 43 POST /persist HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 200 text/plain; charset=utf-8 2b loc=
+51c51
+< 50 DELETE /logout HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login
+---
+> 50 DELETE /logout HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login
+==== replay of the other version's cookies
+on 7.1.6 with 7.2.4 cookies: 48 GET /settings HTTP_X_R4=other-version-cookies -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login?return_to=%2Fsettings
+on 7.1.6 with 7.2.4 cookies: 49 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN= HTTP_X_R4=other-version-cookies -> 422 application/json; charset=UTF-8 46b loc=
+on 7.2.4 with 7.1.6 cookies: 48 GET /settings HTTP_X_R4=other-version-cookies -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/login?return_to=%2Fsettings
+on 7.2.4 with 7.1.6 cookies: 49 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN= HTTP_X_R4=other-version-cookies -> 422 application/json; charset=UTF-8 46b loc=
+==== response files that differ (7.1.6 < > 7.2.4)
+--- 04.txt: GET /settings
+183a184
+> <option value="Astana">(GMT+05:00) Astana</option>
+194d194
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 07.txt: GET /org/r4org/settings
+179a180
+> <option value="Astana">(GMT+05:00) Astana</option>
+190d190
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 18.txt: HEAD /org/nosuchorg
+12,13c12,13
+< content-length: 1564
+< body-bytes: 1564
+---
+> content-length: 0
+> body-bytes: 0
+15,81d14
+< <!DOCTYPE html>
+< <html>
+< <head>
+<   <title>The page you were looking for doesn't exist (404)</title>
+<   <meta name="viewport" content="width=device-width,initial-scale=1">
+<   <style>
+<   body {
+<     background-color: #EFEFEF;
+<     color: #2E2F30;
+--- 24.txt: GET /settings HTTP_ACCEPT=application/json;q=0.9, text/html;level=1
+184a185
+> <option value="Astana">(GMT+05:00) Astana</option>
+195d195
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 25.txt: GET /settings HTTP_ACCEPT=text/html; charset=utf-8
+184a185
+> <option value="Astana">(GMT+05:00) Astana</option>
+195d195
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 27.txt: GET /settings HTTP_ACCEPT=text/javascript, application/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest
+184a185
+> <option value="Astana">(GMT+05:00) Astana</option>
+195d195
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 33.txt: PATCH /settings
+184a185
+> <option value="Astana">(GMT+05:00) Astana</option>
+195d195
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 34.txt: PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 35.txt: PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 36.txt: PATCH /settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< PATCH /settings HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> PATCH /settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 37.txt: PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> PATCH /org/r4org/settings HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+179a180
+> <option value="Astana">(GMT+05:00) Astana</option>
+190d190
+< <option value="Astana">(GMT+06:00) Astana</option>
+--- 38.txt: POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> POST /organizations HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 39.txt: POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> POST /users HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 40.txt: POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> POST /ip_pools HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 41.txt: POST /login/reset HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< POST /login/reset HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> POST /login/reset HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 43.txt: POST /persist HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< POST /persist HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> POST /persist HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+--- 44.txt: GET /settings?user[first_name]=x&user=y
+183a184
+> <option selected="selected" value="Astana">(GMT+05:00) Astana</option>
+194d194
+< <option selected="selected" value="Astana">(GMT+06:00) Astana</option>
+--- 45.txt: GET /settings HTTP_X_FORWARDED_FOR=203.0.113.9, 10.0.0.1 HTTP_X_FORWARDED_PROTO=https
+183a184
+> <option selected="selected" value="Astana">(GMT+05:00) Astana</option>
+194d194
+< <option selected="selected" value="Astana">(GMT+06:00) Astana</option>
+--- 46.txt: GET /settings HTTP_IF_NONE_MATCH=W/"nope"
+183a184
+> <option selected="selected" value="Astana">(GMT+05:00) Astana</option>
+194d194
+< <option selected="selected" value="Astana">(GMT+06:00) Astana</option>
+--- 47.txt: GET /settings
+183a184
+> <option selected="selected" value="Astana">(GMT+05:00) Astana</option>
+194d194
+< <option selected="selected" value="Astana">(GMT+06:00) Astana</option>
+--- 50.txt: DELETE /logout HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+1c1
+< DELETE /logout HTTP_X_CSRF_TOKEN=w4ur83AfmoiB3YeM4XomE5mrcV7iDRlxudkrBHgFnx7UtYvndy0qPvD8YTyReHZfjbCeQQG-Eqbb0dV1WSC6Ew
+---
+> DELETE /logout HTTP_X_CSRF_TOKEN=PajhhQJl6z2Ugts6TTK7N7WX7DFDMySkaylkBUqN9Ldh9ZFFGEJidCaTvCRGwg70zqTAjSknSDzv7KwAS9JilA
+==== mails (7.1.6 < > 7.2.4)
+mails identical (7 mails, 2 raised)
+RAISED ActionView::Template::Error: Table 'postal-server-.live_stats' doesn't exist
+#### server_send_limit_exceeded
+RAISED ActionView::Template::Error: Table 'postal-server-.live_stats' doesn't exist
+#### server_suspended
+Date: X
+From: Postal <postal@example.com>
+==== schema dump (7.1.6 < > 7.2.4), then 7.2.4 dump against the committed db/schema.rb
+13c13
+< ActiveRecord::Schema[7.1].define(version: 2026_09_03_100000) do
+---
+> ActiveRecord::Schema[7.2].define(version: 2026_09_03_100000) do
+384d383
+< 
+13c13
+< ActiveRecord::Schema[7.1].define(version: 2026_09_03_100000) do
+---
+> ActiveRecord::Schema[7.2].define(version: 2026_09_03_100000) do
+384d383
+< 
+==== settings and middleware (7.1.6 < > 7.2.4)
+settings identical
+ActionDispatch::ContentSecurityPolicy::Middleware
+ActionDispatch::PermissionsPolicy::Middleware
+Rack::Head
+Rack::ConditionalGet
+Rack::ETag
+Rack::TempfileReaper
+default_headers: {}
+cookies_serializer: :json
+per_form_csrf_tokens: true
+forgery_protection_origin_check: true
+cookies_same_site_protection: :lax
+use_authenticated_cookie_encryption: true
+key_generator_hash_digest_class: OpenSSL::Digest::SHA256
+hash_digest_class: OpenSSL::Digest::SHA256
+message_serializer: :marshal
+use_message_serializer_for_metadata: nil
+default_charset: #<Encoding:UTF-8>
+time_zone default: "UTC"
+active_record: belongs_to_required=true partial_inserts=false default_column_serializer=ActiveRecord::Coders::YAMLColumn run_commit_callbacks_on_first=false
+eager_load: true cache_store: ActiveSupport::Cache::FileStore
+log_tags: [:request_id] logger: ActiveSupport::BroadcastLogger
+console defined at this point: false rake defined: "constant"
+==== Rails log, normalized (7.1.6 < > 7.2.4): 280 and 280 lines
+3,4c3,4
+< INFO -- :   Rendered layout layouts/sub.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/sub.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (1 query, 0 cached) | GC: Nms)
+9c9
+< INFO -- : Completed 302 Found in Nms (ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- : Completed 302 Found in Nms (ActiveRecord: Nms (4 queries, 0 cached) | GC: Nms)
+14c14
+< INFO -- : Completed 422 Unprocessable Content in Nms (ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- : Completed 422 Unprocessable Content in Nms (ActiveRecord: Nms (2 queries, 0 cached) | GC: Nms)
+21,22c21,22
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (4 queries, 0 cached) | GC: Nms)
+25,26c25,26
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (4 queries, 1 cached) | GC: Nms)
+29,30c29,30
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (4 queries, 1 cached) | GC: Nms)
+34,35c34,35
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (6 queries, 0 cached) | GC: Nms)
+39,40c39,40
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (6 queries, 0 cached) | GC: Nms)
+44,45c44,45
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (5 queries, 0 cached) | GC: Nms)
+49,50c49,50
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+> INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | GC: Nms)
+> INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms (6 queries, 0 cached) | GC: Nms)
+54,55c54,55
+< INFO -- :   Rendered layout layouts/application.html.haml (Duration: Nms | Allocations: N)
+< INFO -- : Completed 200 OK in Nms (Views: Nms | ActiveRecord: Nms | Allocations: N)
+---
+==== sample of the Rails log on 7.2.4
+I, [2026-11-13T05:35:29.690787 #197]  INFO -- : [aa6747cf-02ff-4237-8c81-0ab92c0dcb6e] Completed 200 OK in 39ms (Views: 23.2ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 13.1ms)
+I, [2026-11-13T05:35:29.970328 #197]  INFO -- : [0c2efef8-226f-4ca8-b518-35a240fac2bc] Completed 302 Found in 270ms (ActiveRecord: 2.7ms (4 queries, 0 cached) | GC: 1.5ms)
+I, [2026-11-13T05:35:29.977463 #197]  INFO -- : [a4e430c2-e90e-4311-98ec-7a14d6ab5d91] Completed 422 Unprocessable Content in 5ms (ActiveRecord: 0.9ms (2 queries, 0 cached) | GC: 0.0ms)
+I, [2026-11-13T05:35:23.360856 #182]  INFO -- : [14615ed9-6b88-4ae0-9614-ab65fdc38c27] Completed 200 OK in 39ms (Views: 26.1ms | ActiveRecord: 1.4ms | Allocations: 22156)
+I, [2026-11-13T05:35:23.646717 #182]  INFO -- : [9c7df495-1136-426d-bf36-8788a26a5dec] Completed 302 Found in 276ms (ActiveRecord: 2.6ms | Allocations: 14216)
+I, [2026-11-13T05:35:23.654226 #182]  INFO -- : [a802f243-0bf9-4968-bf47-061023697a20] Completed 422 Unprocessable Content in 5ms (ActiveRecord: 0.8ms | Allocations: 1343)
+==== application request log lines (7.1.6 < > 7.2.4): 0 and 0
+==== errors in output
+/tmp/s3.out:0
+/tmp/s2.out:10
+/tmp/s3b.out:0
+==== end

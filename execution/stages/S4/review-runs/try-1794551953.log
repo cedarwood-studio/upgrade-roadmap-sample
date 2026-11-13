@@ -1,0 +1,39 @@
+  main
+  upgrade/baseline
+  upgrade/s1-record-the-baseline-on-rails-7-1-6
+  upgrade/s2-remove-the-annotate-blocker
+  upgrade/s3-rails-7-1-6-to-7-2-4
+* upgrade/s4-rails-7-2-to-8-0
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/chore/rails-7-2-and-dependency-upgrades
+  remotes/origin/dependabot/bundler/crass-1.0.8
+  remotes/origin/dependabot/bundler/loofah-2.25.3
+  remotes/origin/dependabot/bundler/nokogiri-1.19.5
+  remotes/origin/dependabot/bundler/omniauth-2.2.0
+  remotes/origin/dependabot/bundler/rack-3.2.8
+  remotes/origin/main
+  remotes/origin/release-please--branches--main
+  remotes/origin/upgrade-rails-8.1.4
+a1b7fde Upgrade Rails from 7.2.4 to 8.0.5.2
+5fbdfb3 Upgrade Rails from 7.1.6 to 7.2.4
+4ab3682 Pin error page responses for GET and HEAD on Rails 7.2.4
+try-1794551953.log
+BUNDLE_APP_CONFIG=/tmp/upk-bundle-config
+RAILS_ENVIRONMENT=test
+BUNDLE_SILENCE_ROOT_WARNING=1
+GEM_HOME=/usr/local/bundle
+POSTAL_SIGNING_KEY_PATH=/work/docker/ci-config/signing.key
+RAILS_LOG_ENABLED=false
+BUNDLE_PATH=/cache/bundle
+PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RAILS_ENV=test
+ .upgrade/accepted-differences.json        |   6 ++
+ .upgrade/baseline/examples.json           |  10 +++
+ Gemfile                                   |   3 +-
+ Gemfile.lock                              | 144 +++++++++++++++---------------
+ app/models/concerns/has_authentication.rb |   2 +-
+ spec/lib/postal/config_schema_spec.rb     |  23 +++++
+ spec/lib/postal/message_parser_spec.rb    |  17 ++++
+ spec/requests/password_reset_spec.rb      |  84 +++++++++++++++++
+ spec/requests/vary_header_spec.rb         |  21 +++++
+ 9 files changed, 236 insertions(+), 74 deletions(-)

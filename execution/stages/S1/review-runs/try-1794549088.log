@@ -1,0 +1,294 @@
+Record the upgrade baseline and add the parity checks
+Adds .upgrade/ (baseline test results, recorded HTTP behaviors, the checker)
+and a workflow that repeats the checks on upgrade branches. No application
+code changes.
+
+
+ .github/workflows/upgrade-parity.yml     |   54 +
+ .upgrade/README.md                       |   11 +
+ .upgrade/accepted-differences.json       |    1 +
+ .upgrade/baseline/examples.json          |  853 ++++++++
+ .upgrade/baseline/meta.json              |   13 +
+ .upgrade/baseline/parity-noise-mask.json |   12 +
+ .upgrade/baseline/parity.json            | 3431 ++++++++++++++++++++++++++++++
+ .upgrade/check.py                        |  103 +
+ .upgrade/parity-inputs.json              | 1120 ++++++++++
+ .upgrade/parity-setup.rb                 |  199 ++
+ .upgrade/parity.py                       |  118 +
+ .upgrade/parity_record.rb                |   81 +
+ 12 files changed, 5996 insertions(+)
+Mark environment-dependent checks from the baseline CI run
+28 test examples and 5 recorded responses differ between the sandbox
+and CI on the same commit. They are reported and not gated.
+
+
+ .upgrade/baseline/environment-dependent.json | 114 +++++++++++++++++++++++++++
+ .upgrade/baseline/parity-noise-mask.json     |  32 +++++++-
+ .upgrade/check.py                            |  11 ++-
+ 3 files changed, 154 insertions(+), 3 deletions(-)
+Mark environment-dependent checks from the baseline CI run
+28 test examples differ between the sandbox and CI on the same commit;
+they are reported and not gated. 5 recorded responses differ in single
+values, which are masked one value at a time; 0 differ in ways a value
+mask cannot describe and are masked whole.
+
+
+ .upgrade/README.md                       |  5 +-
+ .upgrade/baseline/parity-noise-mask.json | 60 +++++++++++++++++++++--
+ .upgrade/check.py                        | 30 ++++++++++--
+ .upgrade/parity.py                       | 82 ++++++++++++++++++++++++++++++++
+ 4 files changed, 167 insertions(+), 10 deletions(-)
+spec/rails_helper.rb
+spec/spec_helper.rb
+
+spec:
+apis
+examples
+factories
+helpers
+lib
+models
+rails_helper.rb
+requests
+scheduled_tasks
+senders
+services
+spec_helper.rb
+views
+
+spec/apis:
+legacy_api
+
+spec/examples:
+dkim_signing
+full_legacy_config_file.yml
+
+spec/factories:
+address_endpoint_factory.rb
+credential_factory.rb
+domain_factory.rb
+http_endpoint_factory.rb
+ip_address_factory.rb
+ip_pool_factory.rb
+ip_pool_rule_factory.rb
+organization_factory.rb
+queued_message_factory.rb
+route_factory.rb
+server_factory.rb
+smtp_endpoint_factory.rb
+track_domain_factory.rb
+user_factory.rb
+webhook_factory.rb
+webhook_request_factory.rb
+worker_role_factory.rb
+
+spec/helpers:
+application_helper_spec.rb
+general_helpers.rb
+message_db_mocking.rb
+message_factory.rb
+process_helpers.rb
+test_logger.rb
+
+spec/lib:
+dkim_header_spec.rb
+dns_resolver_spec.rb
+message_dequeuer
+message_dequeuer_spec.rb
+postal
+postal_spec.rb
+query_string_spec.rb
+received_header_spec.rb
+smtp_client
+smtp_server
+tracking_middleware_spec.rb
+worker
+
+spec/models:
+credential_spec.rb
+domain_spec.rb
+http_endpoint_spec.rb
+organization_spec.rb
+outgoing_message_prototype_spec.rb
+queued_message_spec.rb
+server_spec.rb
+user
+user_spec.rb
+webhook_request_spec.rb
+worker_role_spec.rb
+
+spec/requests:
+domains_controller_spec.rb
+messages_controller_spec.rb
+session_continuity_spec.rb
+sessions_controller_spec.rb
+
+spec/scheduled_tasks:
+action_deletions_scheduled_task_spec.rb
+check_all_dns_scheduled_task_spec.rb
+cleanup_authie_sessions_scheduled_task_spec.rb
+expire_held_messages_scheduled_task_spec.rb
+process_message_retention_scheduled_task_spec.rb
+prune_suppression_lists_scheduled_task_spec.rb
+prune_webhook_requests_scheduled_task_spec.rb
+send_notifications_scheduled_task_spec.rb
+tidy_queued_messages_task_spec.rb
+
+spec/senders:
+smtp_sender_spec.rb
+
+spec/services:
+webhook_delivery_service_spec.rb
+
+spec/views:
+domains
+# frozen_string_literal: true
+
+require "socket"
+require "tempfile"
+require "timeout"
+
+module ProcessHelpers
+
+  # Run one of the scripts in script/ as a child process for the duration of
+  # the block. The child is killed if it is still running when the block ends.
+  def run_script(script, env = {})
+    output = Tempfile.new("postal-process")
+    pid = Process.spawn(env.transform_values(&:to_s), "bundle", "exec", "ruby", script,
+                        chdir: Rails.root.to_s, out: output.path, err: [:child, :out])
+    yield pid, output
+  ensure
+    kill_process(pid) if pid
+    output&.close!
+  end
+
+  def kill_process(pid)
+    return unless Process.waitpid(pid, Process::WNOHANG).nil?
+
+    Process.kill("KILL", pid)
+    Process.wait(pid)
+  rescue Errno::ECHILD
+    # The process has already exited and been waited for.
+  end
+
+  # Send TERM to the process and return its exit status
+  def terminate_process(pid, timeout: 30)
+    Process.kill("TERM", pid)
+    Timeout.timeout(timeout) { Process.wait2(pid).last }
+  end
+
+  def free_port
+    server = TCPServer.new("127.0.0.1", 0)
+    server.addr[1]
+  ensure
+    server&.close
+  end
+
+  def wait_until(timeout: 60, interval: 0.2)
+    deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+    loop do
+      result = yield
+      return result if result
+      raise "timed out after #{timeout} seconds" if Process.clock_gettime(Process::CLOCK_MONOTONIC) > deadline
+
+      sleep interval
+    end
+  end
+
+  def connect_when_listening(port, **options)
+    wait_until(**options) do
+      TCPSocket.new("127.0.0.1", port)
+    rescue Errno::ECONNREFUSED
+      nil
+    end
+  end
+
+  def health_check(port, **options)
+    socket = connect_when_listening(port, **options)
+    socket.write("GET /health HTTP/1.0\r\n\r\n")
+    socket.read
+  ensure
+    socket&.close
+  end
+
+end
+# frozen_string_literal: true
+
+require "rails_helper"
+
+module SMTPServer
+
+  describe Server do
+    include ProcessHelpers
+
+    describe "running script/smtp_server.rb" do
+      let(:port) { free_port }
+      let(:health_server_port) { free_port }
+
+      it "boots, serves a client and shuts down on TERM" do
+        env = { "BIND_ADDRESS" => "127.0.0.1", "PORT" => port, "HEALTH_SERVER_PORT" => health_server_port }
+        run_script("script/smtp_server.rb", env) do |pid, output|
+          socket = connect_when_listening(port)
+          expect(socket.gets).to match(/\A220 #{Regexp.escape(Postal::Config.postal.smtp_hostname)} ESMTP Postal\/\S+\r\n\z/)
+          socket.write("QUIT\r\n")
+          expect(socket.gets).to eq "221 Closing Connection\r\n"
+          socket.close
+
+          response = health_check(health_server_port)
+          expect(response).to start_with("HTTP/1.1 200 OK")
+          expect(response).to end_with("OK")
+
+          status = terminate_process(pid)
+          expect(status.exitstatus).to eq 0
+          expect(output.read).to include("Received TERM signal, shutting down.")
+        end
+      end
+    end
+  end
+
+end
+# frozen_string_literal: true
+
+require "rails_helper"
+
+module Worker
+
+  describe Process do
+    include ProcessHelpers
+
+    describe "running script/worker.rb" do
+      # The worker is another process, so what it writes is only visible, and
+      # can only be removed, outside of a test transaction.
+      self.use_transactional_tests = false
+
+      let(:health_server_port) { free_port }
+      let(:task_names) { described_class::TASKS.map(&:to_s) }
+
+      def remove_worker_records
+        ScheduledTask.where(name: task_names).delete_all
+        WorkerRole.where(role: "tasks").delete_all
+      end
+
+      before { remove_worker_records }
+      after { remove_worker_records }
+
+      it "boots, acquires the tasks role, schedules every task and shuts down on TERM" do
+        run_script("script/worker.rb", { "HEALTH_SERVER_PORT" => health_server_port }) do |pid, output|
+          response = health_check(health_server_port)
+          expect(response).to start_with("HTTP/1.1 200 OK")
+          expect(response).to end_with("OK")
+
+          wait_until { ScheduledTask.where(name: task_names).count == task_names.size }
+          expect(ScheduledTask.where(name: task_names).pluck(:next_run_after)).to all(be > Time.current)
+          expect(WorkerRole.where(role: "tasks").count).to eq 1
+
+          status = terminate_process(pid)
+          expect(status.exitstatus).to eq 0
+          expect(output.read).to include("Received TERM signal. Stopping when able.")
+          expect(WorkerRole.where(role: "tasks").count).to eq 0
+        end
+      end
+    end
+  end
+
+end

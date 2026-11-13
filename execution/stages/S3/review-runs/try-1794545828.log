@@ -1,0 +1,41 @@
+[default] setup exit=0
+[default] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=test eager_load=false key_from_credentials=true local_secret_file=false routes=197
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+rails 7.2.4 env test ruby 3.4.6
+OK    deprecators set to raise: 10
+OK    migration_waiter.rb:18 as committed: 0
+OK    MigrationWaiter.wait: :returned
+OK    migration_waiter.rb:47 console?/rake_task?/rails_command?: [false, false, false]
+OK    secret key: app == credentials, length, local_secret file, ENV set: [true, 256, false, false, 0]
+OK    database.rb:333 ExplainPrettyPrinter#pp(result, time): 6
+OK    worker/process.rb:105 connection_pool.size: 5
+OK    worker/process.rb:159 with_connection + query: 0
+OK    worker/process.rb:217 WorkerRole.acquire in with_connection: :created
+OK    worker/process.rb:203 WorkerRole.release in with_connection: true
+OK    with_connection in a second thread returns the connection to the pool: [0, 0]
+OK    config.rb:150 change_database_connection_pool_size(9): [9, 0]
+OK    Worker::Process: pool check, one work tick, one tasks tick: [13, false, 9]
+OK    postal.rake:31 Base.connection.table_exists? / select_all: [true, true]
+OK    route.rb:122 raise ActiveRecord::RecordInvalid with no record: "Record invalid"
+OK    ip_pools_controller.rb:36 DeleteRestrictionError is defined: true
+OK    UserInvite#accept transaction commits: false
+OK    Astana zone: ["Asia/Almaty", "+05:00"]
+OK    to_json through Active Support: ["2.7.1", "{\"a\":[1,null,\"1970-01-01T00:00:00.000Z\"]}"]
+OK    number helpers with the value types the views pass: ["0.00", "12.35", "1,234,567", "2 GB", "0.0%", "0 Bytes"]
+OK    to_fs(:long) and humanize: ["January 02, 2026 03:04", "January 02, 2026", "Hard fail"]
+OK    serialize coders and YAML round trip: ["ActiveRecord::Coders::YAMLColumn", "ActiveRecord::Coders::YAMLColumn", "---\na: 1\n", {"a" => 1}, {}, "5.4.0"]
+OK    has_secure_password with validations: false: [:first_name, :last_name, :email_address]
+OK    show_exceptions, load_defaults, default_column_serializer: [:none, 7.0, "ActiveRecord::Coders::YAMLColumn"]
+OK    gems the hop moved: {"connection_pool" => "2.5.5", "minitest" => "5.27.0", "useragent" => "0.16.11", "psych" => "5.4.0", "stringio" => "3.2.0", "mail" => "2.9.0", "nokogiri" => "1.19.3", "rack" => "3.2.6", "json" => "2.7.1"}
+FAIL  the message database pool uses connection_pool 2.x: NameError: uninitialized constant ConnectionPool
+OK    Rails.application.eager_load!: :loaded
+OK    Zeitwerk::Loader.eager_load_all: :loaded
+OK    files the suite never loads are now loaded: [22, [], 20, 24]
+OK    routes build and every route's controller resolves: [22, []]
+OK    dynamic_form helpers present: [true, true]

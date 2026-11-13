@@ -1,0 +1,7 @@
+[
+ {
+  "field": "header:vary",
+  "name": "*",
+  "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+ }
+]

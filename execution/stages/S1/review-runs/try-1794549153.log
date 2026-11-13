@@ -1,0 +1,41 @@
+MESSAGE_DB_USERNAME=root
+RAILS_ENVIRONMENT=test
+MESSAGE_DB_HOST=127.0.0.1
+POSTAL_SIGNING_KEY_PATH=/work/docker/ci-config/signing.key
+RAILS_LOG_ENABLED=false
+MAIN_DB_USERNAME=root
+LOGGING_ENABLED=false
+RAILS_ENV=test
+MAIN_DB_HOST=127.0.0.1
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+....................................................................
+
+Finished in 14.73 seconds (files took 7.55 seconds to load)
+68 examples, 0 failures
+
+
+real	0m22.656s
+user	0m16.904s
+sys	0m3.585s
+# frozen_string_literal: true
+
+# This file is used by Rack-based servers to start the application.
+
+require_relative "config/environment"
+run Rails.application
+  task generate_helm_env_vars: :environment do
+    puts Postal::HelmConfigExporter.new(Postal::ConfigSchema).export
+  end
+
+  desc "Update the database"
+  task update: :environment do
+    mysql = ActiveRecord::Base.connection
+    if mysql.table_exists?("schema_migrations") &&
+       mysql.select_all("select * from schema_migrations").any?
+      puts "Database schema is already loaded. Running migrations with db:migrate"
+      Rake::Task["db:migrate"].invoke

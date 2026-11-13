@@ -1,0 +1,72 @@
+{
+ "attempt": 1,
+ "deprecations": {
+  "after": {
+   "distinct": 0,
+   "occurrences": 0
+  },
+  "before": {
+   "distinct": 0,
+   "occurrences": 0
+  }
+ },
+ "green": false,
+ "max_attempts": 4,
+ "parity": {
+  "accepted_differences": [],
+  "diff_file": "runs/S3-attempt-1/parity-diff.json",
+  "different": 5,
+  "identical": 165,
+  "masked_as_noise": 2,
+  "requests": 170,
+  "unexplained": [
+   {
+    "field": "body",
+    "name": "admin: GET /org/acme/settings",
+    "reason": null
+   },
+   {
+    "field": "body",
+    "name": "admin: GET /settings",
+    "reason": null
+   },
+   {
+    "field": "body",
+    "name": "admin: PATCH /org/acme/settings invalid",
+    "reason": null
+   },
+   {
+    "field": "body",
+    "name": "admin: PATCH /settings invalid",
+    "reason": null
+   },
+   {
+    "field": "body",
+    "name": "member: GET /org/acme/settings",
+    "reason": null
+   }
+  ]
+ },
+ "problems": [
+  "5 behavior difference(s) with no declared reason"
+ ],
+ "ruby_warnings_deprecated": {
+  "after": 3,
+  "before": 3
+ },
+ "run": "S3-attempt-1",
+ "stage": "S3",
+ "tests": {
+  "added": 0,
+  "added_failing": [],
+  "after_passed": 899,
+  "after_total": 916,
+  "before_passed": 899,
+  "before_total": 916,
+  "fixed": [],
+  "missing_passing": [],
+  "ok": true,
+  "regressed": []
+ },
+ "tree": "c82110e1fa91a2e677a2f073fd7ec63cee2f170c"
+}

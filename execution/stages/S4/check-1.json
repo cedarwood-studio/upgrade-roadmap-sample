@@ -1,0 +1,273 @@
+{
+ "attempt": 1,
+ "boot": [
+  {
+   "after": true,
+   "before": true,
+   "flags": [],
+   "name": "default"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.oidc.enabled?"
+   ],
+   "name": "oidc"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.oidc.enabled?",
+    "config.discovery?"
+   ],
+   "name": "oidc-no-discovery"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.migration_waiter.enabled?"
+   ],
+   "name": "migration-waiter"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.logging.rails_log_enabled?"
+   ],
+   "name": "rails-log"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.logging.sentry_dsn"
+   ],
+   "name": "sentry"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.rails.environment"
+   ],
+   "name": "production"
+  }
+ ],
+ "comparisons": {
+  "sandbox": {
+   "bodies_compared_in_full": 168,
+   "bodies_compared_through_value_masks": 0,
+   "bodies_not_compared": 2,
+   "examples_gated": 927,
+   "examples_reported_not_gated": 0,
+   "headers_masked": 0,
+   "requests": 170,
+   "status_compared": 170,
+   "where": "sandbox"
+  }
+ },
+ "deprecations": {
+  "after": {
+   "distinct": 1,
+   "occurrences": 4
+  },
+  "before": {
+   "distinct": 0,
+   "occurrences": 0
+  }
+ },
+ "green": false,
+ "lock": {
+  "declared": 2,
+  "forced": 3,
+  "moved_outside_framework": 5,
+  "unexplained": []
+ },
+ "max_attempts": 4,
+ "parity": {
+  "accepted_differences": [],
+  "diff_file": "runs/S4-attempt-1/parity-diff.json",
+  "different": 134,
+  "identical": 36,
+  "masked_as_noise": 2,
+  "requests": 170,
+  "unexplained": [
+   {
+    "field": "header:vary",
+    "name": "GET /.well-known/jwks.json",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /api/v1/messages/deliveries",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /api/v1/messages/message",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /api/v1/send/message",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /api/v1/send/raw",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /ip",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /login",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "GET /login/reset",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /ip_pools",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /ip_pools/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/delete",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/domains",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/domains/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/ip_pool_rules",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/ip_pool_rules/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/ip_pools",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/servers/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /org/acme/settings",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /organizations/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /settings",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /users",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET /users/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET address_endpoint edit",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET address_endpoints",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET address_endpoints/new",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET credential edit",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET credentials",
+    "reason": null
+   },
+   {
+    "field": "header:vary",
+    "name": "admin: GET credentials/new",
+    "reason": null
+   }
+  ]
+ },
+ "problems": [
+  "134 behavior difference(s) with no declared reason"
+ ],
+ "ruby_warnings_deprecated": {
+  "after": 3,
+  "before": 3
+ },
+ "run": "S4-attempt-1",
+ "stage": "S4",
+ "tests": {
+  "added": 8,
+  "added_failing": [],
+  "after_passed": 918,
+  "after_total": 935,
+  "before_passed": 910,
+  "before_total": 927,
+  "fixed": [],
+  "missing_passing": [],
+  "ok": true,
+  "regressed": []
+ },
+ "tree": "2895c22bdb82b0eaa5668b38aeca841acb1b691e"
+}

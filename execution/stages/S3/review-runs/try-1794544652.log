@@ -1,0 +1,38 @@
+730195a Upgrade Rails from 7.1.6 to 7.2.4
+a45dff2 Remove annotate from the bundle
+fe9e34c Add characterization tests ahead of the Rails upgrade
+db4e80e Mark environment-dependent checks from the baseline CI run
+257d79e Mark environment-dependent checks from the baseline CI run
+ .upgrade/accepted-differences.json |  33 +++++-
+ Gemfile                            |   2 +-
+ Gemfile.lock                       | 215 ++++++++++++++++++-------------------
+ config/environments/test.rb        |   2 +-
+ 4 files changed, 140 insertions(+), 112 deletions(-)
+try-1794544652.log
+CHANGELOG.md
+CONTRIBUTING.md
+Dockerfile
+Gemfile
+Gemfile.lock
+MIT-LICENCE
+Procfile.dev
+README.md
+Rakefile
+SECURITY.md
+app
+bin
+config
+config.ru
+db
+doc
+docker
+docker-compose.yml
+lib
+log
+public
+release-please-config.json
+resource
+script
+spec
+tmp
+vendor

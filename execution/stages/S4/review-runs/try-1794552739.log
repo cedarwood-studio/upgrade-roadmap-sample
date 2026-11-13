@@ -1,0 +1,21 @@
+setup exit=0
+assets exit=0
+==== deploy: 8.0.5.2 reads a 7.2.4 session
+rails 8.0.5.2 with cookies from 7.2.4: GET / 200, GET /settings 200 (has address: true), POST /persist with their CSRF token 200 "OK", PATCH /settings 302 http://postal.example.com/settings
+rails 8.0.5.2 own sign-in: POST /login 302, GET / 200, cookies _postal_session,browser_id,user_session
+rails 8.0.5.2 POST domains with no parameters: 400 body 0b
+==== rollback: 7.2.4 reads an 8.0.5.2 session
+rails 7.2.4 with cookies from 8.0.5.2: GET / 200, GET /settings 200 (has address: true), POST /persist with their CSRF token 200 "OK", PATCH /settings 302 http://postal.example.com/settings
+rails 7.2.4 own sign-in: POST /login 302, GET / 200, cookies _postal_session,browser_id,user_session
+rails 7.2.4 POST domains with no parameters: 400 body 0b
+==== Postal's own log, lines for requests that raised (7.2.4, then 8.0.5.2)
+lines: 1 and 1; all log lines: 4 and 8
+TIME ERROR  POST /org/ckorg/servers/ckserver/domains (400) event=request transaction=HEX controller=DomainsController action=create format=html method=POST path=/org/ckorg/servers/ckserver/domains request_id=UUID status=400 db_runtime=F exception_class=ActionController::ParameterMissing exception_message=param is missing or the value is empty: domain exception_backtrace=/cache/bundle/ruby/F.0/gems/actionpack-F.4/lib/action_controller/metal/strong_parameters.rb:N:in 'ActionController::Parameters#require'\n/work/app/controllers/domains_controller.rb:N:in 'DomainsController#create'\n/cache/bundle/ruby/F.0/gems/actionpack-F.4/lib/action_controller/metal/basic_implicit_render.rb:N:in 'ActionController::BasicImplicitRender#send_action'\n/cache/bundle/ruby/F.0/gems/actionpack-F.4/lib/abstract_controller/base.rb:N:in 'AbstractController::Base#process_action'
+TIME ERROR  POST /org/ckorg/servers/ckserver/domains (400) event=request transaction=HEX controller=DomainsController action=create format=html method=POST path=/org/ckorg/servers/ckserver/domains request_id=UUID status=400 db_runtime=F exception_class=ActionController::ParameterMissing exception_message=param is missing or the value is empty or invalid: domain exception_backtrace=/cache/bundle/ruby/F.0/gems/actionpack-F.F/lib/action_controller/metal/strong_parameters.rb:N:in 'ActionController::Parameters#require'\n/work/app/controllers/domains_controller.rb:N:in 'DomainsController#create'\n/cache/bundle/ruby/F.0/gems/actionpack-F.F/lib/action_controller/metal/basic_implicit_render.rb:N:in 'ActionController::BasicImplicitRender#send_action'\n/cache/bundle/ruby/F.0/gems/actionpack-F.F/lib/abstract_controller/base.rb:N:in 'AbstractController::Base#process_action'
+==== all own log lines, normalized, diff (7.2.4 first run < > 8.0.5.2)
+4c4
+< TIME ERROR  POST /org/ckorg/servers/ckserver/domains (400) event=request transaction=HEX controller=DomainsController action=create format=html method=POST path=/org/ckorg/servers/ckserver/domains request_id=UUID status=400 db_runtime=R exception_class=ActionController::ParameterMissing exception_message=param is missing or the value is empty: domain exception_backtrace=/cache/bundle/ruby/F.0/gems/actionpack-F.4/lib/action_controller/metal/strong_parameters.rb:528:in 'ActionController::Paramet
+---
+> TIME ERROR  POST /org/ckorg/servers/ckserver/domains (400) event=request transaction=HEX controller=DomainsController action=create format=html method=POST path=/org/ckorg/servers/ckserver/domains request_id=UUID status=400 db_runtime=R exception_class=ActionController::ParameterMissing exception_message=param is missing or the value is empty or invalid: domain exception_backtrace=/cache/bundle/ruby/F.0/gems/actionpack-F.F/lib/action_controller/metal/strong_parameters.rb:533:in 'ActionControll
+(end of own log diff)
+==== end

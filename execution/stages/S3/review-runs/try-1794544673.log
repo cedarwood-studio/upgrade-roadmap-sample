@@ -1,0 +1,9 @@
+exit=1
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+/work/lib/migration_waiter.rb:18:in 'block in MigrationWaiter.wait': undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)
+
+        pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size
+                                                          ^^^^^^^^^^^^^^^^^^
+	from <internal:kernel>:168:in 'Kernel#loop'
+	from /work/lib/migration_waiter.rb:17:in 'MigrationWaiter.wait'

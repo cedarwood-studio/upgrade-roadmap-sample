@@ -1,0 +1,79 @@
+==== application log, first lines on each version
+2026-11-13 05:37:07 +0000 INFO   GET /login (200) event=request transaction=55cc236ecb0b96eee29d controller=SessionsController action=new format=html method=GET path=/login request_id=b647d397-f3c5-46a3-b742-ec49df486f80 status=200 view_runtime=20.548133850097656 db_runtime=1.229025423526764
+2026-11-13 05:37:08 +0000 INFO   POST /login (302) event=request transaction=55cc236ecb0b96eee29d controller=SessionsController action=create format=html method=POST path=/login request_id=09bb093a-b422-4ca3-970b-cb5827ff8985 status=302 db_runtime=2.881571650505066
+2026-11-13 05:37:08 +0000 ERROR  POST /login (422) event=request transaction=55cc236ecb0b96eee29d controller=SessionsController action=create format=html method=POST path=/login request_id=2597012b-6b41-4b47-aec1-6d8178db1b42 status=422 db_runtime=0.856492668390274 exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby/
+2026-11-13 05:37:08 +0000 INFO   GET / (200) event=request transaction=55cc236ecb0b96eee29d controller=OrganizationsController action=index format=html method=GET path=/ request_id=7bb43e08-ec9c-4dce-8939-0620e7601bba status=200 view_runtime=21.07394027709961 db_runtime=1.487869769334793
+2026-11-13 05:37:08 +0000 INFO   GET /settings (200) event=request transaction=55cc236ecb0b96eee29d controller=UserController action=edit format=html method=GET path=/settings request_id=5399d037-52a4-4320-bf25-d6540ab6d5bf status=200 view_runtime=231.55978775024414 db_runtime=1.524943858385086
+2026-11-13 05:37:08 +0000 INFO   HEAD /settings (200) event=request transaction=55cc236ecb0b96eee29d controller=UserController action=edit format=html method=HEAD path=/settings request_id=e8e1ad91-ffbb-4a8d-bac3-eeeef62835d1 status=200 view_runtime=5.858097076416016 db_runtime=1.3698674738407135
+--
+2026-11-13 05:37:01 +0000 INFO   GET /login (200) event=request transaction=1ac4fa1a97d971e28b6e controller=SessionsController action=new format=html method=GET path=/login request_id=49ee66c1-85cb-4833-8eba-a5e34d163f34 status=200 view_runtime=22.395003587007523 db_runtime=1.2291818857192993
+2026-11-13 05:37:01 +0000 INFO   POST /login (302) event=request transaction=1ac4fa1a97d971e28b6e controller=SessionsController action=create format=html method=POST path=/login request_id=aa6dfbe6-80c2-4bbe-b274-ac4abdd3be2d status=302 db_runtime=2.812430262565613
+2026-11-13 05:37:01 +0000 ERROR  POST /login (422) event=request transaction=1ac4fa1a97d971e28b6e controller=SessionsController action=create format=html method=POST path=/login request_id=3a038a74-ce14-4a02-8dc0-5f5274481f3a status=422 db_runtime=1.0535717010498047 exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby
+2026-11-13 05:37:01 +0000 INFO   GET / (200) event=request transaction=1ac4fa1a97d971e28b6e controller=OrganizationsController action=index format=html method=GET path=/ request_id=d0ee0b5f-d2a4-4350-85b0-ab95caad36eb status=200 view_runtime=21.47066965699196 db_runtime=1.531507819890976
+2026-11-13 05:37:01 +0000 INFO   GET /settings (200) event=request transaction=1ac4fa1a97d971e28b6e controller=UserController action=edit format=html method=GET path=/settings request_id=2137d163-5fc2-4cf3-9a83-b2a96801fba5 status=200 view_runtime=244.8463998734951 db_runtime=1.3722144067287445
+2026-11-13 05:37:01 +0000 INFO   HEAD /settings (200) event=request transaction=1ac4fa1a97d971e28b6e controller=UserController action=edit format=html method=HEAD path=/settings request_id=cbbee639-ed14-468d-9755-936c0261792b status=200 view_runtime=5.53373247385025 db_runtime=1.1895857751369476
+==== application log with volatile values masked (7.1.6 < > 7.2.4): 55 and 46 lines
+3c3
+< T +0000 ERROR  POST /login (422) event=request transaction=X controller=SessionsController action=create format=html method=POST path=/login request_id=UUID status=422 db_runtime=N exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby/N.0/gems/actionpack-N.6/lib/action_controller/metal/request_for
+---
+> T +0000 ERROR  POST /login (422) event=request transaction=X controller=SessionsController action=create format=html method=POST path=/login request_id=UUID status=422 db_runtime=N exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby/N.0/gems/actionpack-N.4/lib/action_controller/metal/request_for
+18,22c18,22
+< T +0000 ERROR  GET /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=html method=GET path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/bu
+< T +0000 ERROR  HEAD /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=html method=HEAD path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/
+< T +0000 ERROR  GET /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=json method=GET path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/bu
+< T +0000 ERROR  GET /settings.xml (406) event=request transaction=X controller=UserController action=edit format=xml method=GET path=/settings.xml request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/xml"]\nrequest.variant: [] except
+< T +0000 ERROR  GET /settings.json (406) event=request transaction=X controller=UserController action=edit format=json method=GET path=/settings.json request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/json"]\nrequest.variant: [] ex
+---
+> T +0000 ERROR  GET /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=html method=GET path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/bu
+> T +0000 ERROR  HEAD /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=html method=HEAD path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/
+> T +0000 ERROR  GET /org/nosuchorg (404) event=request transaction=X controller=ServersController action=index format=json method=GET path=/org/nosuchorg request_id=UUID status=404 db_runtime=N exception_class=ActiveRecord::RecordNotFound exception_message=Couldn't find Organization with [WHERE `organizations`.`deleted_at` IS NULL AND `organizations`.`permalink` = ?] exception_backtrace=/cache/bu
+> T +0000 ERROR  GET /settings.xml (406) event=request transaction=X controller=UserController action=edit format=xml method=GET path=/settings.xml request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/xml"]\nrequest.variant: [] except
+> T +0000 ERROR  GET /settings.json (406) event=request transaction=X controller=UserController action=edit format=json method=GET path=/settings.json request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/json"]\nrequest.variant: [] ex
+25c25
+< T +0000 ERROR  GET /settings (406) event=request transaction=X controller=UserController action=edit format=json method=GET path=/settings request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/json"]\nrequest.variant: [] exception_ba
+---
+> T +0000 ERROR  GET /settings (406) event=request transaction=X controller=UserController action=edit format=json method=GET path=/settings request_id=UUID status=406 db_runtime=N exception_class=ActionController::UnknownFormat exception_message=UserController#edit is missing a template for this request format and variant.\n\nrequest.formats: ["application/json"]\nrequest.variant: [] exception_ba
+27c27
+< T +0000 ERROR  PATCH /settings (422) event=request transaction=X controller=UserController action=update format=html method=PATCH path=/settings request_id=UUID status=422 db_runtime=N exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby/N.0/gems/actionpack-N.6/lib/action_controller/metal/request
+---
+> T +0000 ERROR  PATCH /settings (422) event=request transaction=X controller=UserController action=update format=html method=PATCH path=/settings request_id=UUID status=422 db_runtime=N exception_class=ActionController::InvalidAuthenticityToken exception_message=Can't verify CSRF token authenticity. exception_backtrace=/cache/bundle/ruby/N.0/gems/actionpack-N.4/lib/action_controller/metal/request
+31c31
+< T +0000 ERROR  PATCH /settings (400) event=request transaction=X controller=UserController action=update format=html method=PATCH path=/settings request_id=UUID status=400 db_runtime=N exception_class=ActionController::ParameterMissing exception_message=param is missing or the value is empty: user exception_backtrace=/cache/bundle/ruby/N.0/gems/actionpack-N.6/lib/action_controller/metal/strong_p
+==== 49 on 7.1.6 with 7.2.4 cookies
+status: 422
+cache-control: no-cache
+content-security-policy: child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'
+content-type: application/json; charset=utf-8
+vary: Accept
+x-content-type-options: nosniff
+x-download-options: noopen
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
+cookies: _postal_session
+cookie-attributes: httponly,path=/,samesite=lax
+content-length: 
+body-bytes: 45
+
+{"form_errors":["First name can't be blank"]}
+==== 49 on 7.2.4 with 7.1.6 cookies
+status: 422
+cache-control: no-cache
+content-security-policy: child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'
+content-type: application/json; charset=utf-8
+vary: Accept
+x-content-type-options: nosniff
+x-download-options: noopen
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
+cookies: _postal_session
+cookie-attributes: httponly,path=/,samesite=lax
+content-length: 
+body-bytes: 45
+
+{"form_errors":["First name can't be blank"]}
+==== 34 for reference
+body-bytes: 45
+
+{"form_errors":["First name can't be blank"]}

@@ -1,0 +1,32 @@
+{
+ "commit": "d96eddbadeda600595d6247486f9ceb8e99cbc15",
+ "ecosystem": "rails",
+ "human_interventions": 0,
+ "human_interventions_note": "none: every step ran unattended",
+ "independent_review_recorded": true,
+ "independent_review_seconds": 711.3,
+ "kit_timings_seconds": {
+  "baseline": 231.0,
+  "baseline-online": 26.4,
+  "install": 113.9,
+  "resolve": 24.9,
+  "static": 33.9
+ },
+ "outputs": [
+  "out/roadmap.md",
+  "out/roadmap.html",
+  "out/plan.json",
+  "out/measurements/"
+ ],
+ "scope_verdict": "in-scope",
+ "subject": "https://github.com/postalserver/postal.git",
+ "target": "8.1",
+ "verify_problems": [],
+ "voice_gate_passed": true,
+ "wall_seconds_total": 2215.4,
+ "wrapper_timings_seconds": {
+  "clone": 0.8,
+  "measure_run": 450.9,
+  "measure_static": 34.0
+ }
+}

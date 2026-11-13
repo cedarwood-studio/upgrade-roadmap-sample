@@ -1,0 +1,5486 @@
+{
+ "command": null,
+ "data": {
+  "declared_compatible_open_ended": 25,
+  "dependencies": [
+   {
+    "current": "0.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-16T05:04:20Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.1.2",
+    "latest_released": "2023-12-16T05:04:20Z",
+    "links": {
+     "homepage_uri": "https://github.com/ruby/abbrev",
+     "source_code_uri": "https://github.com/ruby/abbrev"
+    },
+    "majors_behind": 0,
+    "name": "abbrev",
+    "registry_page": "https://rubygems.org/gems/abbrev/versions/0.1.2",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.8.6",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-09T10:32:48Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.9.2",
+    "latest_released": "2026-11-01T00:22:38Z",
+    "majors_behind": 0,
+    "name": "addressable",
+    "registry_page": "https://rubygems.org/gems/addressable/versions/2.8.6",
+    "required_ruby": ">= 2.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2020-07-11T15:11:47Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.1.0",
+    "latest_released": "2020-07-11T15:11:47Z",
+    "majors_behind": 0,
+    "name": "aes_key_wrap",
+    "registry_page": "https://rubygems.org/gems/aes_key_wrap/versions/1.1.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2022-02-10T06:20:44Z",
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activerecord": "< 8.0&>= 3.2"
+      },
+      "open_ended": false,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activerecord": "< 8.0&>= 3.2"
+      },
+      "status": "blocked",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activerecord": "< 8.0&>= 3.2"
+      },
+      "status": "blocked",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.2.0",
+    "latest_released": "2022-02-10T06:20:44Z",
+    "links": {
+     "homepage_uri": "https://github.com/ctran/annotate_models",
+     "source_code_uri": "https://github.com/ctran/annotate_models.git"
+    },
+    "majors_behind": 0,
+    "name": "annotate",
+    "registry_page": "https://rubygems.org/gems/annotate/versions/3.2.0",
+    "required_ruby": ">= 2.4.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "blocked"
+   },
+   {
+    "current": "2.4.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-01-23T18:56:53Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.4.3",
+    "latest_released": "2025-03-19T18:49:27Z",
+    "majors_behind": 0,
+    "name": "ast",
+    "registry_page": "https://rubygems.org/gems/ast/versions/2.4.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-27T07:43:03Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.0.2",
+    "latest_released": "2023-12-27T07:43:03Z",
+    "majors_behind": 0,
+    "name": "attr_required",
+    "registry_page": "https://rubygems.org/gems/attr_required/versions/1.0.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-02-20T13:28:35Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activerecord": "< 9.0&>= 6.1"
+      },
+      "open_ended": false,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activerecord": "< 9.0&>= 6.1"
+      },
+      "open_ended": false,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activerecord": "< 9.0&>= 6.1"
+      },
+      "open_ended": false,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.0.0",
+    "latest_released": "2025-02-20T13:28:35Z",
+    "links": {
+     "homepage_uri": "https://github.com/adamcooke/authie"
+    },
+    "majors_behind": 0,
+    "name": "authie",
+    "registry_page": "https://rubygems.org/gems/authie/versions/5.0.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "10.4.13.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-03-01T13:07:39Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "10.6.1.0",
+    "latest_released": "2026-10-05T16:03:05Z",
+    "links": {
+     "changelog_uri": "https://github.com/ai/autoprefixer-rails/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/ai/autoprefixer-rails",
+     "source_code_uri": "https://github.com/ai/autoprefixer-rails"
+    },
+    "majors_behind": 0,
+    "name": "autoprefixer-rails",
+    "registry_page": "https://rubygems.org/gems/autoprefixer-rails/versions/10.4.13.0",
+    "required_ruby": ">= 2.4",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-30T06:24:37Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.3.0",
+    "latest_released": "2025-05-30T06:24:37Z",
+    "majors_behind": 0,
+    "name": "base64",
+    "registry_page": "https://rubygems.org/gems/base64/versions/0.3.0",
+    "required_ruby": ">= 2.4",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.1.20",
+    "current_known_to_registry": true,
+    "current_released": "2023-11-17T17:00:33Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.1.22",
+    "latest_released": "2026-03-18T22:48:51Z",
+    "links": {
+     "changelog_uri": "https://github.com/bcrypt-ruby/bcrypt-ruby/blob/master/CHANGELOG",
+     "homepage_uri": "https://github.com/bcrypt-ruby/bcrypt-ruby"
+    },
+    "majors_behind": 0,
+    "name": "bcrypt",
+    "registry_page": "https://rubygems.org/gems/bcrypt/versions/3.1.20",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.5.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-10-21T21:47:46Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.5.0",
+    "latest_released": "2025-10-21T21:47:46Z",
+    "majors_behind": 0,
+    "name": "benchmark",
+    "registry_page": "https://rubygems.org/gems/benchmark/versions/0.5.0",
+    "required_ruby": ">= 2.1.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "4.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-18T15:00:28Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "4.1.3",
+    "latest_released": "2026-09-13T11:01:23Z",
+    "majors_behind": 0,
+    "name": "bigdecimal",
+    "registry_page": "https://rubygems.org/gems/bigdecimal/versions/4.1.2",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.5.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-16T08:44:35Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.0.1",
+    "latest_released": "2026-09-27T05:26:59Z",
+    "majors_behind": 1,
+    "name": "bindata",
+    "registry_page": "https://rubygems.org/gems/bindata/versions/2.5.0",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-06-06T16:22:32Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.3.0",
+    "latest_released": "2024-06-06T16:22:32Z",
+    "majors_behind": 0,
+    "name": "builder",
+    "registry_page": "https://rubygems.org/gems/builder/versions/3.3.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.5.1",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-10T06:46:32Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.5.2",
+    "latest_released": "2026-06-23T07:07:06Z",
+    "majors_behind": 0,
+    "name": "cgi",
+    "registry_page": "https://rubygems.org/gems/cgi/versions/0.5.1",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.10.2",
+    "current_known_to_registry": true,
+    "current_released": "2013-09-09T07:05:55Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.10.2",
+    "latest_released": "2013-09-09T07:05:55Z",
+    "links": {
+     "homepage_uri": "http://github.com/mojombo/chronic"
+    },
+    "majors_behind": 0,
+    "name": "chronic",
+    "registry_page": "https://rubygems.org/gems/chronic/versions/0.10.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2019-04-23T18:41:19Z",
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "railties": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "railties": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "railties": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.0.0",
+    "latest_released": "2019-04-23T18:41:19Z",
+    "links": {
+     "homepage_uri": "https://github.com/rails/coffee-rails",
+     "source_code_uri": "https://github.com/rails/coffee-rails"
+    },
+    "majors_behind": 0,
+    "name": "coffee-rails",
+    "registry_page": "https://rubygems.org/gems/coffee-rails/versions/5.0.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.4.1",
+    "current_known_to_registry": true,
+    "current_released": "2015-04-06T18:58:00Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.4.1",
+    "latest_released": "2015-04-06T18:58:00Z",
+    "majors_behind": 0,
+    "name": "coffee-script",
+    "registry_page": "https://rubygems.org/gems/coffee-script/versions/2.4.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.12.2",
+    "current_known_to_registry": true,
+    "current_released": "2016-12-16T14:55:38Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.12.2",
+    "latest_released": "2016-12-16T14:55:38Z",
+    "majors_behind": 0,
+    "name": "coffee-script-source",
+    "registry_page": "https://rubygems.org/gems/coffee-script-source/versions/1.12.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.3.6",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-13T12:30:21Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.8",
+    "latest_released": "2026-07-19T13:35:54Z",
+    "majors_behind": 0,
+    "name": "concurrent-ruby",
+    "registry_page": "https://rubygems.org/gems/concurrent-ruby/versions/1.3.6",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.0.2",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-05T17:57:11Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.0.2",
+    "latest_released": "2025-12-05T17:57:11Z",
+    "majors_behind": 0,
+    "name": "connection_pool",
+    "registry_page": "https://rubygems.org/gems/connection_pool/versions/3.0.2",
+    "required_ruby": ">= 3.2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-09T22:53:26Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.0.1",
+    "latest_released": "2025-10-22T14:13:45Z",
+    "majors_behind": 0,
+    "name": "crack",
+    "registry_page": "https://rubygems.org/gems/crack/versions/1.0.0",
+    "required_ruby": ">= 2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.6",
+    "current_known_to_registry": true,
+    "current_released": "2020-01-12T22:24:38Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.0.8",
+    "latest_released": "2026-10-21T21:35:16Z",
+    "majors_behind": 0,
+    "name": "crass",
+    "registry_page": "https://rubygems.org/gems/crass/versions/1.0.6",
+    "required_ruby": ">= 1.9.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2025-07-30T18:01:54Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activerecord": ">= 5.a"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activerecord": ">= 5.a"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activerecord": ">= 5.a"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.2.2",
+    "latest_released": "2025-07-30T18:01:54Z",
+    "links": {
+     "changelog_uri": "https://github.com/DatabaseCleaner/database_cleaner-active_record/blob/main/CHANGELOG.md",
+     "homepage_uri": "https://github.com/DatabaseCleaner/database_cleaner-active_record"
+    },
+    "majors_behind": 0,
+    "name": "database_cleaner-active_record",
+    "registry_page": "https://rubygems.org/gems/database_cleaner-active_record/versions/2.2.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.0.1",
+    "current_known_to_registry": true,
+    "current_released": "2021-02-04T17:15:50Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.0",
+    "latest_released": "2026-06-01T17:44:29Z",
+    "majors_behind": 0,
+    "name": "database_cleaner-core",
+    "registry_page": "https://rubygems.org/gems/database_cleaner-core/versions/2.0.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.5.1",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-10T05:45:41Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.6.0",
+    "latest_released": "2026-10-08T03:18:22Z",
+    "majors_behind": 0,
+    "name": "date",
+    "registry_page": "https://rubygems.org/gems/date/versions/3.5.1",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.6.2",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-12T02:32:47Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.0.0",
+    "latest_released": "2026-02-02T04:49:06Z",
+    "majors_behind": 1,
+    "name": "diff-lcs",
+    "registry_page": "https://rubygems.org/gems/diff-lcs/versions/1.6.2",
+    "required_ruby": ">= 1.8",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.20240107",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-09T08:09:48Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.7.20261031",
+    "latest_released": "2026-11-02T15:32:42Z",
+    "links": {
+     "changelog_uri": "https://github.com/knu/ruby-domain_name/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/knu/ruby-domain_name",
+     "source_code_uri": "https://github.com/knu/ruby-domain_name"
+    },
+    "majors_behind": 0,
+    "name": "domain_name",
+    "registry_page": "https://rubygems.org/gems/domain_name/versions/0.6.20240107",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.0.2",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-15T22:41:11Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.2.0",
+    "latest_released": "2025-12-03T16:27:55Z",
+    "links": {
+     "changelog_uri": "https://github.com/bkeepers/dotenv/releases",
+     "homepage_uri": "https://github.com/bkeepers/dotenv"
+    },
+    "majors_behind": 0,
+    "name": "dotenv",
+    "registry_page": "https://rubygems.org/gems/dotenv/versions/3.0.2",
+    "required_ruby": ">= 3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.2.3",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-21T06:39:51Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.2.3",
+    "latest_released": "2025-05-21T06:39:51Z",
+    "majors_behind": 0,
+    "name": "drb",
+    "registry_page": "https://rubygems.org/gems/drb/versions/2.2.3",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-05-16T11:46:43Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.1",
+    "latest_released": "2023-12-29T10:26:50Z",
+    "links": {
+     "homepage_uri": "https://github.com/payrollhero/dynamic_form"
+    },
+    "majors_behind": 0,
+    "name": "dynamic_form",
+    "registry_page": "https://rubygems.org/gems/dynamic_form/versions/1.2.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.2.4",
+    "current_known_to_registry": true,
+    "current_released": "2022-11-09T21:28:39Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.2.4",
+    "latest_released": "2022-11-09T21:28:39Z",
+    "majors_behind": 0,
+    "name": "email_validator",
+    "registry_page": "https://rubygems.org/gems/email_validator/versions/2.2.4",
+    "required_ruby": ">= 2.4.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "6.0.4",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-21T07:40:36Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.0.7",
+    "latest_released": "2026-08-04T23:32:56Z",
+    "majors_behind": 0,
+    "name": "erb",
+    "registry_page": "https://rubygems.org/gems/erb/versions/6.0.4",
+    "required_ruby": ">= 3.2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.13.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-12-19T17:12:27Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.13.1",
+    "latest_released": "2024-12-19T17:12:27Z",
+    "majors_behind": 0,
+    "name": "erubi",
+    "registry_page": "https://rubygems.org/gems/erubi/versions/1.13.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.7.0",
+    "current_known_to_registry": true,
+    "current_released": "2016-05-20T03:58:31Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.10.2",
+    "latest_released": "2026-08-12T06:44:13Z",
+    "links": {
+     "homepage_uri": "https://github.com/rails/execjs"
+    },
+    "majors_behind": 0,
+    "name": "execjs",
+    "registry_page": "https://rubygems.org/gems/execjs/versions/2.7.0",
+    "required_ruby": ">= 1.9.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "6.4.6",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-30T15:44:14Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.6.0",
+    "latest_released": "2026-05-04T20:15:42Z",
+    "majors_behind": 0,
+    "name": "factory_bot",
+    "registry_page": "https://rubygems.org/gems/factory_bot/versions/6.4.6",
+    "required_ruby": ">= 3.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "6.4.3",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-30T00:30:11Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "railties": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "railties": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "railties": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.5.1",
+    "latest_released": "2025-09-05T21:24:12Z",
+    "links": {
+     "changelog_uri": "https://github.com/thoughtbot/factory_bot_rails/blob/main/NEWS.md",
+     "homepage_uri": "https://github.com/thoughtbot/factory_bot_rails"
+    },
+    "majors_behind": 0,
+    "name": "factory_bot_rails",
+    "registry_page": "https://rubygems.org/gems/factory_bot_rails/versions/6.4.3",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.9.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-09T10:58:48Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.15.1",
+    "latest_released": "2026-10-26T10:01:47Z",
+    "majors_behind": 0,
+    "name": "faraday",
+    "registry_page": "https://rubygems.org/gems/faraday/versions/2.9.0",
+    "required_ruby": ">= 3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2022-04-02T14:45:18Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.5.0",
+    "latest_released": "2025-12-27T09:04:11Z",
+    "majors_behind": 0,
+    "name": "faraday-follow_redirects",
+    "registry_page": "https://rubygems.org/gems/faraday-follow_redirects/versions/0.3.0",
+    "required_ruby": "< 4&>= 2.6",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-09T10:19:30Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.5.0",
+    "latest_released": "2026-10-11T10:45:51Z",
+    "majors_behind": 0,
+    "name": "faraday-net_http",
+    "registry_page": "https://rubygems.org/gems/faraday-net_http/versions/3.1.0",
+    "required_ruby": ">= 3.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.15.5",
+    "current_known_to_registry": true,
+    "current_released": "2022-01-10T14:52:39Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.17.4",
+    "latest_released": "2026-03-26T13:26:17Z",
+    "majors_behind": 0,
+    "name": "ffi",
+    "registry_page": "https://rubygems.org/gems/ffi/versions/1.15.5",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2018-09-05T21:25:46Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.1.0",
+    "latest_released": "2018-09-05T21:25:46Z",
+    "links": {
+     "homepage_uri": "https://github.com/graylog-labs/gelf-rb",
+     "source_code_uri": "https://github.com/graylog-labs/gelf-rb"
+    },
+    "majors_behind": 0,
+    "name": "gelf",
+    "registry_page": "https://rubygems.org/gems/gelf/versions/3.1.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-09-23T21:35:35Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.4.0",
+    "latest_released": "2026-06-23T15:17:15Z",
+    "majors_behind": 0,
+    "name": "globalid",
+    "registry_page": "https://rubygems.org/gems/globalid/versions/1.3.0",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "6.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-10T07:18:47Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "7.5.2",
+    "latest_released": "2026-11-03T06:34:12Z",
+    "links": {
+     "changelog_uri": "https://github.com/haml/haml/blob/main/CHANGELOG.md",
+     "homepage_uri": "https://haml.info/",
+     "source_code_uri": "https://github.com/haml/haml"
+    },
+    "majors_behind": 1,
+    "name": "haml",
+    "registry_page": "https://rubygems.org/gems/haml/versions/6.3.0",
+    "required_ruby": ">= 2.1.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-14T23:22:11Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.2.2",
+    "latest_released": "2026-11-08T19:40:34Z",
+    "majors_behind": 0,
+    "name": "hashdiff",
+    "registry_page": "https://rubygems.org/gems/hashdiff/versions/1.1.0",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2021-11-08T19:46:13Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.0.0",
+    "latest_released": "2026-11-11T11:22:32Z",
+    "links": {
+     "changelog_uri": "https://github.com/hashie/hashie/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/hashie/hashie",
+     "source_code_uri": "https://github.com/hashie/hashie"
+    },
+    "majors_behind": 1,
+    "name": "hashie",
+    "registry_page": "https://rubygems.org/gems/hashie/versions/5.0.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2022-12-31T23:20:41Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.1.2",
+    "latest_released": "2025-01-06T04:25:07Z",
+    "links": {
+     "changelog_uri": "https://github.com/JEG2/highline/blob/master/Changelog.md",
+     "homepage_uri": "https://github.com/JEG2/highline"
+    },
+    "majors_behind": 1,
+    "name": "highline",
+    "registry_page": "https://rubygems.org/gems/highline/versions/2.1.0",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.14.8",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-21T22:20:35Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.15.2",
+    "latest_released": "2026-06-19T21:55:59Z",
+    "majors_behind": 0,
+    "name": "i18n",
+    "registry_page": "https://rubygems.org/gems/i18n/versions/1.14.8",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.8.2",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-14T02:59:14Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.9.5",
+    "latest_released": "2026-10-28T09:36:00Z",
+    "majors_behind": 0,
+    "name": "io-console",
+    "registry_page": "https://rubygems.org/gems/io-console/versions/0.8.2",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.18.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-22T00:56:28Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.19.0",
+    "latest_released": "2026-11-07T15:33:00Z",
+    "majors_behind": 0,
+    "name": "irb",
+    "registry_page": "https://rubygems.org/gems/irb/versions/1.18.0",
+    "required_ruby": ">= 2.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "4.5.1",
+    "current_known_to_registry": true,
+    "current_released": "2022-11-10T18:30:43Z",
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "railties": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "railties": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "railties": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "4.6.1",
+    "latest_released": "2025-10-21T20:23:15Z",
+    "links": {
+     "homepage_uri": "https://github.com/rails/jquery-rails",
+     "source_code_uri": "https://github.com/rails/jquery-rails"
+    },
+    "majors_behind": 0,
+    "name": "jquery-rails",
+    "registry_page": "https://rubygems.org/gems/jquery-rails/versions/4.5.1",
+    "required_ruby": ">= 1.9.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.7.1",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-05T04:12:42Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.1.0",
+    "latest_released": "2026-10-13T08:04:46Z",
+    "majors_behind": 1,
+    "name": "json",
+    "registry_page": "https://rubygems.org/gems/json/versions/2.7.1",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.16.6",
+    "current_known_to_registry": true,
+    "current_released": "2024-03-03T15:35:06Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.17.2",
+    "latest_released": "2026-08-04T05:59:25Z",
+    "majors_behind": 0,
+    "name": "json-jwt",
+    "registry_page": "https://rubygems.org/gems/json-jwt/versions/1.16.6",
+    "required_ruby": ">= 2.4",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.8.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-29T06:32:28Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.3.0",
+    "latest_released": "2026-09-11T20:34:50Z",
+    "links": {
+     "changelog_uri": "https://github.com/jwt/ruby-jwt/blob/v3.3.0/CHANGELOG.md",
+     "homepage_uri": "https://github.com/jwt/ruby-jwt"
+    },
+    "majors_behind": 1,
+    "name": "jwt",
+    "registry_page": "https://rubygems.org/gems/jwt/versions/2.8.1",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-12-25T03:28:38Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 4.1.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 4.1.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 4.1.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.3",
+    "latest_released": "2026-11-05T23:51:27Z",
+    "links": {
+     "changelog_uri": "https://github.com/kaminari/kaminari/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/kaminari/kaminari",
+     "source_code_uri": "https://github.com/kaminari/kaminari/"
+    },
+    "majors_behind": 0,
+    "name": "kaminari",
+    "registry_page": "https://rubygems.org/gems/kaminari/versions/1.2.2",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "1.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-12-25T03:28:48Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "actionview": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "actionview": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "actionview": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.3",
+    "latest_released": "2026-11-05T23:51:43Z",
+    "majors_behind": 0,
+    "name": "kaminari-actionview",
+    "registry_page": "https://rubygems.org/gems/kaminari-actionview/versions/1.2.2",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "1.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-12-25T03:28:50Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activerecord": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activerecord": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activerecord": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.3",
+    "latest_released": "2026-11-05T23:51:48Z",
+    "majors_behind": 0,
+    "name": "kaminari-activerecord",
+    "registry_page": "https://rubygems.org/gems/kaminari-activerecord/versions/1.2.2",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "1.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-12-25T03:28:43Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.3.3",
+    "latest_released": "2026-11-05T23:51:37Z",
+    "majors_behind": 0,
+    "name": "kaminari-core",
+    "registry_page": "https://rubygems.org/gems/kaminari-core/versions/1.2.2",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.4.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-03-01T09:50:58Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.5.0",
+    "latest_released": "2024-09-16T10:25:59Z",
+    "links": {
+     "homepage_uri": "https://github.com/krystal/klogger"
+    },
+    "majors_behind": 0,
+    "name": "klogger-logger",
+    "registry_page": "https://rubygems.org/gems/klogger-logger/versions/1.4.0",
+    "required_ruby": ">= 2.6",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-03-08T15:59:20Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.0.0",
+    "latest_released": "2024-03-08T15:59:20Z",
+    "links": {
+     "homepage_uri": "https://github.com/krystal/konfig"
+    },
+    "majors_behind": 0,
+    "name": "konfig-config",
+    "registry_page": "https://rubygems.org/gems/konfig-config/versions/3.0.0",
+    "required_ruby": ">= 2.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.7.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-03-27T01:33:44Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.7.0",
+    "latest_released": "2025-03-27T01:33:44Z",
+    "links": {
+     "changelog_uri": "https://github.com/ruby/logger/releases",
+     "homepage_uri": "https://github.com/ruby/logger"
+    },
+    "majors_behind": 0,
+    "name": "logger",
+    "registry_page": "https://rubygems.org/gems/logger/versions/1.7.0",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.25.1",
+    "current_known_to_registry": true,
+    "current_released": "2026-03-17T17:35:19Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.25.3",
+    "latest_released": "2026-11-02T05:00:45Z",
+    "majors_behind": 0,
+    "name": "loofah",
+    "registry_page": "https://rubygems.org/gems/loofah/versions/2.25.1",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.9.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-10-22T22:14:03Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.9.1",
+    "latest_released": "2026-07-01T06:23:27Z",
+    "links": {
+     "homepage_uri": "https://github.com/mikel/mail",
+     "source_code_uri": "http://github.com/mikel/mail/"
+    },
+    "majors_behind": 0,
+    "name": "mail",
+    "registry_page": "https://rubygems.org/gems/mail/versions/2.9.0",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.2.1",
+    "current_known_to_registry": true,
+    "current_released": "2026-05-20T11:04:53Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.0",
+    "latest_released": "2026-08-22T20:41:13Z",
+    "majors_behind": 1,
+    "name": "marcel",
+    "registry_page": "https://rubygems.org/gems/marcel/versions/1.2.1",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.1.5",
+    "current_known_to_registry": true,
+    "current_released": "2023-08-08T09:46:39Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.1.5",
+    "latest_released": "2023-08-08T09:46:39Z",
+    "majors_behind": 0,
+    "name": "mini_mime",
+    "registry_page": "https://rubygems.org/gems/mini_mime/versions/1.1.5",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "6.0.6",
+    "current_known_to_registry": true,
+    "current_released": "2026-05-01T00:19:41Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.1.0",
+    "latest_released": "2026-11-06T20:57:34Z",
+    "majors_behind": 0,
+    "name": "minitest",
+    "registry_page": "https://rubygems.org/gems/minitest/versions/6.0.6",
+    "required_ruby": ">= 3.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-11-20T01:49:02Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.3.0",
+    "latest_released": "2024-11-20T01:49:02Z",
+    "links": {
+     "homepage_uri": "https://github.com/ruby/mutex_m",
+     "source_code_uri": "https://github.com/ruby/mutex_m"
+    },
+    "majors_behind": 0,
+    "name": "mutex_m",
+    "registry_page": "https://rubygems.org/gems/mutex_m/versions/0.3.0",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.5.6",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-08T22:34:01Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.5.7",
+    "latest_released": "2025-09-22T16:03:10Z",
+    "links": {
+     "changelog_uri": "https://github.com/brianmario/mysql2/releases/tag/0.5.7",
+     "homepage_uri": "https://github.com/brianmario/mysql2",
+     "source_code_uri": "https://github.com/brianmario/mysql2/tree/0.5.7"
+    },
+    "majors_behind": 0,
+    "name": "mysql2",
+    "registry_page": "https://rubygems.org/gems/mysql2/versions/0.5.6",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.4.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-05T08:25:04Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.10.0",
+    "latest_released": "2026-10-08T03:24:24Z",
+    "majors_behind": 0,
+    "name": "net-http",
+    "registry_page": "https://rubygems.org/gems/net-http/versions/0.4.1",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.4",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-23T20:08:33Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.6.8",
+    "latest_released": "2026-10-12T17:50:19Z",
+    "majors_behind": 0,
+    "name": "net-imap",
+    "registry_page": "https://rubygems.org/gems/net-imap/versions/0.6.4",
+    "required_ruby": ">= 3.2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2022-09-28T09:37:33Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.1.2",
+    "latest_released": "2022-09-28T09:37:33Z",
+    "majors_behind": 0,
+    "name": "net-pop",
+    "registry_page": "https://rubygems.org/gems/net-pop/versions/0.1.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-11-07T04:06:58Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.4.0",
+    "latest_released": "2026-09-17T03:30:04Z",
+    "majors_behind": 0,
+    "name": "net-protocol",
+    "registry_page": "https://rubygems.org/gems/net-protocol/versions/0.2.2",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.5.1",
+    "current_known_to_registry": true,
+    "current_released": "2025-02-05T04:35:44Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.5.2",
+    "latest_released": "2026-09-30T04:37:26Z",
+    "majors_behind": 0,
+    "name": "net-smtp",
+    "registry_page": "https://rubygems.org/gems/net-smtp/versions/0.5.1",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.1.7",
+    "current_known_to_registry": true,
+    "current_released": "2015-06-08T13:35:51Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.1.7",
+    "latest_released": "2015-06-08T13:35:51Z",
+    "links": {
+     "homepage_uri": "https://github.com/atech/nifty-utils"
+    },
+    "majors_behind": 0,
+    "name": "nifty-utils",
+    "registry_page": "https://rubygems.org/gems/nifty-utils/versions/1.1.7",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.4.0",
+    "current_known_to_registry": true,
+    "current_released": "2020-04-19T01:40:30Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activerecord": ">= 4.0.0",
+       "activesupport": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activerecord": ">= 4.0.0",
+       "activesupport": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activerecord": ">= 4.0.0",
+       "activesupport": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.0.0",
+    "latest_released": "2026-10-14T18:01:14Z",
+    "links": {
+     "changelog_uri": "https://github.com/rubiety/nilify_blanks/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/rubiety/nilify_blanks",
+     "source_code_uri": "https://github.com/rubiety/nilify_blanks"
+    },
+    "majors_behind": 1,
+    "name": "nilify_blanks",
+    "registry_page": "https://rubygems.org/gems/nilify_blanks/versions/1.4.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.7.5",
+    "current_known_to_registry": true,
+    "current_released": "2025-10-31T07:03:36Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.7.5",
+    "latest_released": "2025-10-31T07:03:36Z",
+    "links": {
+     "changelog_uri": "https://github.com/socketry/nio4r/blob/main/releases.md",
+     "homepage_uri": "https://github.com/socketry/nio4r",
+     "source_code_uri": "https://github.com/socketry/nio4r.git"
+    },
+    "majors_behind": 0,
+    "name": "nio4r",
+    "registry_page": "https://rubygems.org/gems/nio4r/versions/2.7.5",
+    "required_ruby": ">= 2.6",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.19.3",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-27T21:16:23Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.19.7",
+    "latest_released": "2026-11-02T18:22:56Z",
+    "majors_behind": 0,
+    "name": "nokogiri",
+    "registry_page": "https://rubygems.org/gems/nokogiri/versions/1.19.3",
+    "required_ruby": ">= 3.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-19T21:37:45Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.1",
+    "latest_released": "2026-10-22T17:23:37Z",
+    "majors_behind": 0,
+    "name": "omniauth",
+    "registry_page": "https://rubygems.org/gems/omniauth/versions/2.1.2",
+    "required_ruby": ">= 2.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.1",
+    "current_known_to_registry": true,
+    "current_released": "2022-02-07T07:47:49Z",
+    "direct": true,
+    "groups": [
+     "oidc"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "actionpack": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "actionpack": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "actionpack": ">= 4.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.0.1",
+    "latest_released": "2025-12-10T18:51:06Z",
+    "links": {
+     "homepage_uri": "https://github.com/cookpad/omniauth-rails_csrf_protection"
+    },
+    "majors_behind": 1,
+    "name": "omniauth-rails_csrf_protection",
+    "registry_page": "https://rubygems.org/gems/omniauth-rails_csrf_protection/versions/1.0.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "0.7.1",
+    "current_known_to_registry": true,
+    "current_released": "2023-04-26T18:00:55Z",
+    "direct": true,
+    "groups": [
+     "oidc"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.8.0",
+    "latest_released": "2024-07-04T22:06:16Z",
+    "links": {
+     "changelog_uri": "https://github.com/omniauth/omniauth_openid_connect/releases",
+     "homepage_uri": "https://github.com/m0n9oose/omniauth_openid_connect",
+     "source_code_uri": "https://github.com/omniauth/omniauth_openid_connect/tree/v0.8.0"
+    },
+    "majors_behind": 0,
+    "name": "omniauth_openid_connect",
+    "registry_page": "https://rubygems.org/gems/omniauth_openid_connect/versions/0.7.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-03T16:46:54Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activemodel": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.5.0",
+    "latest_released": "2026-06-03T06:56:19Z",
+    "majors_behind": 0,
+    "name": "openid_connect",
+    "registry_page": "https://rubygems.org/gems/openid_connect/versions/2.3.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "0.6.3",
+    "current_known_to_registry": true,
+    "current_released": "2025-07-17T03:30:46Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.6.3",
+    "latest_released": "2025-07-17T03:30:46Z",
+    "links": {
+     "changelog_uri": "https://github.com/ruby/ostruct/releases",
+     "homepage_uri": "https://github.com/ruby/ostruct"
+    },
+    "majors_behind": 0,
+    "name": "ostruct",
+    "registry_page": "https://rubygems.org/gems/ostruct/versions/0.6.3",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.22.1",
+    "current_known_to_registry": true,
+    "current_released": "2022-03-25T23:34:40Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.0",
+    "latest_released": "2026-10-03T03:23:32Z",
+    "majors_behind": 1,
+    "name": "parallel",
+    "registry_page": "https://rubygems.org/gems/parallel/versions/1.22.1",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.2.1.1",
+    "current_known_to_registry": true,
+    "current_released": "2023-03-08T00:00:47Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.3.13.0",
+    "latest_released": "2026-10-23T16:47:47Z",
+    "majors_behind": 0,
+    "name": "parser",
+    "registry_page": "https://rubygems.org/gems/parser/versions/3.2.1.1",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.3",
+    "current_known_to_registry": true,
+    "current_released": "2025-10-06T10:03:37Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.6.4",
+    "latest_released": "2026-06-22T01:17:26Z",
+    "majors_behind": 0,
+    "name": "pp",
+    "registry_page": "https://rubygems.org/gems/pp/versions/0.6.3",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-11-07T01:10:15Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.2.1",
+    "latest_released": "2026-10-08T02:45:14Z",
+    "majors_behind": 0,
+    "name": "prettyprint",
+    "registry_page": "https://rubygems.org/gems/prettyprint/versions/0.2.0",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.9.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-01-27T20:31:15Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.0",
+    "latest_released": "2026-10-28T05:19:16Z",
+    "majors_behind": 1,
+    "name": "prism",
+    "registry_page": "https://rubygems.org/gems/prism/versions/1.9.0",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "4.2.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-10-31T17:30:09Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.0.0",
+    "latest_released": "2026-08-29T23:18:50Z",
+    "links": {
+     "homepage_uri": "https://github.com/prometheus/client_ruby"
+    },
+    "majors_behind": 1,
+    "name": "prometheus-client",
+    "registry_page": "https://rubygems.org/gems/prometheus-client/versions/4.2.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.4.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-06-02T06:12:09Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.5.0",
+    "latest_released": "2026-08-21T01:51:41Z",
+    "majors_behind": 0,
+    "name": "psych",
+    "registry_page": "https://rubygems.org/gems/psych/versions/5.4.0",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.0.4",
+    "current_known_to_registry": true,
+    "current_released": "2023-11-17T12:40:07Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "7.0.5",
+    "latest_released": "2026-03-03T08:27:05Z",
+    "majors_behind": 2,
+    "name": "public_suffix",
+    "registry_page": "https://rubygems.org/gems/public_suffix/versions/5.0.4",
+    "required_ruby": ">= 2.6",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "7.0.4",
+    "current_known_to_registry": true,
+    "current_released": "2025-09-23T15:29:53Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "8.0.2",
+    "latest_released": "2026-05-26T23:27:56Z",
+    "links": {
+     "changelog_uri": "https://github.com/puma/puma/blob/main/History.md",
+     "homepage_uri": "https://puma.io",
+     "source_code_uri": "https://github.com/puma/puma"
+    },
+    "majors_behind": 1,
+    "name": "puma",
+    "registry_page": "https://rubygems.org/gems/puma/versions/7.0.4",
+    "required_ruby": ">= 3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.8.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-07-30T07:12:16Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.8.1",
+    "latest_released": "2024-07-30T07:12:16Z",
+    "majors_behind": 0,
+    "name": "racc",
+    "registry_page": "https://rubygems.org/gems/racc/versions/1.8.1",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.2.6",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-01T06:36:49Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.2.8",
+    "latest_released": "2026-10-30T02:15:59Z",
+    "majors_behind": 0,
+    "name": "rack",
+    "registry_page": "https://rubygems.org/gems/rack/versions/3.2.6",
+    "required_ruby": ">= 2.4.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.2.1",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-27T07:45:06Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.0",
+    "latest_released": "2025-11-05T23:23:03Z",
+    "majors_behind": 0,
+    "name": "rack-oauth2",
+    "registry_page": "https://rubygems.org/gems/rack-oauth2/versions/2.2.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "4.1.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-11-20T15:49:10Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "4.2.1",
+    "latest_released": "2025-10-10T15:20:34Z",
+    "majors_behind": 0,
+    "name": "rack-protection",
+    "registry_page": "https://rubygems.org/gems/rack-protection/versions/4.1.1",
+    "required_ruby": ">= 2.7.8",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-06T23:59:53Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.2",
+    "latest_released": "2026-04-06T23:59:53Z",
+    "majors_behind": 0,
+    "name": "rack-session",
+    "registry_page": "https://rubygems.org/gems/rack-session/versions/2.1.2",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-12-23T18:51:11Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.0",
+    "latest_released": "2026-10-21T15:42:19Z",
+    "majors_behind": 0,
+    "name": "rack-test",
+    "registry_page": "https://rubygems.org/gems/rack-test/versions/2.2.0",
+    "required_ruby": ">= 2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.3.1",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-05T10:07:57Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.1",
+    "latest_released": "2025-12-05T10:07:57Z",
+    "links": {
+     "changelog_uri": "https://github.com/rack/rackup/blob/main/releases.md",
+     "homepage_uri": "https://github.com/rack/rackup",
+     "source_code_uri": "https://github.com/rack/rackup.git"
+    },
+    "majors_behind": 0,
+    "name": "rackup",
+    "registry_page": "https://rubygems.org/gems/rackup/versions/2.3.1",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-20T18:02:39Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 5.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.3.0",
+    "latest_released": "2025-05-20T18:02:39Z",
+    "majors_behind": 0,
+    "name": "rails-dom-testing",
+    "registry_page": "https://rubygems.org/gems/rails-dom-testing/versions/2.3.0",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "1.7.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-02-24T18:46:02Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.7.2",
+    "latest_released": "2026-11-02T06:05:33Z",
+    "majors_behind": 0,
+    "name": "rails-html-sanitizer",
+    "registry_page": "https://rubygems.org/gems/rails-html-sanitizer/versions/1.7.0",
+    "required_ruby": ">= 2.7.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.1.1",
+    "current_known_to_registry": true,
+    "current_released": "2022-01-11T09:11:07Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.1.1",
+    "latest_released": "2022-01-11T09:11:07Z",
+    "majors_behind": 0,
+    "name": "rainbow",
+    "registry_page": "https://rubygems.org/gems/rainbow/versions/3.1.1",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "13.4.2",
+    "current_known_to_registry": true,
+    "current_released": "2026-04-16T04:47:46Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "13.4.2",
+    "latest_released": "2026-04-16T04:47:46Z",
+    "majors_behind": 0,
+    "name": "rake",
+    "registry_page": "https://rubygems.org/gems/rake/versions/13.4.2",
+    "required_ruby": ">= 2.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "7.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-02-09T21:17:41Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "8.1.0",
+    "latest_released": "2026-09-28T18:44:08Z",
+    "majors_behind": 1,
+    "name": "rdoc",
+    "registry_page": "https://rubygems.org/gems/rdoc/versions/7.2.0",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.7.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-02-08T22:21:22Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.13.1",
+    "latest_released": "2026-09-28T20:49:58Z",
+    "majors_behind": 0,
+    "name": "regexp_parser",
+    "registry_page": "https://rubygems.org/gems/regexp_parser/versions/2.7.0",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.3",
+    "current_known_to_registry": true,
+    "current_released": "2025-11-10T13:48:08Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.7.0",
+    "latest_released": "2026-08-07T05:11:47Z",
+    "majors_behind": 0,
+    "name": "reline",
+    "registry_page": "https://rubygems.org/gems/reline/versions/0.6.3",
+    "required_ruby": ">= 2.6",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.2",
+    "current_known_to_registry": true,
+    "current_released": "2025-07-08T07:26:18Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.8.1",
+    "latest_released": "2026-10-08T03:04:27Z",
+    "links": {
+     "homepage_uri": "https://github.com/ruby/resolv",
+     "source_code_uri": "https://github.com/ruby/resolv"
+    },
+    "majors_behind": 0,
+    "name": "resolv",
+    "registry_page": "https://rubygems.org/gems/resolv/versions/0.6.2",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.4.4",
+    "current_known_to_registry": true,
+    "current_released": "2025-09-10T11:56:10Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.4.4",
+    "latest_released": "2025-09-10T11:56:10Z",
+    "majors_behind": 0,
+    "name": "rexml",
+    "registry_page": "https://rubygems.org/gems/rexml/versions/3.4.4",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "4.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-10-25T05:26:56Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.1.0",
+    "latest_released": "2026-08-06T01:51:05Z",
+    "majors_behind": 1,
+    "name": "rouge",
+    "registry_page": "https://rubygems.org/gems/rouge/versions/4.2.0",
+    "required_ruby": ">= 2.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.13.1",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-27T12:06:24Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.13.2",
+    "latest_released": "2025-10-21T09:50:39Z",
+    "links": {
+     "homepage_uri": "https://rspec.info",
+     "source_code_uri": "https://github.com/rspec/rspec/tree/rspec-v3.13.2/rspec"
+    },
+    "majors_behind": 0,
+    "name": "rspec",
+    "registry_page": "https://rubygems.org/gems/rspec/versions/3.13.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.13.5",
+    "current_known_to_registry": true,
+    "current_released": "2025-06-25T16:46:12Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.13.7",
+    "latest_released": "2026-11-06T19:39:52Z",
+    "majors_behind": 0,
+    "name": "rspec-core",
+    "registry_page": "https://rubygems.org/gems/rspec-core/versions/3.13.5",
+    "required_ruby": ">= 1.8.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.13.5",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-27T12:04:40Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.13.6",
+    "latest_released": "2026-11-06T19:24:37Z",
+    "majors_behind": 0,
+    "name": "rspec-expectations",
+    "registry_page": "https://rubygems.org/gems/rspec-expectations/versions/3.13.5",
+    "required_ruby": ">= 1.8.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.13.5",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-27T12:02:00Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.13.9",
+    "latest_released": "2026-11-06T19:03:54Z",
+    "majors_behind": 0,
+    "name": "rspec-mocks",
+    "registry_page": "https://rubygems.org/gems/rspec-mocks/versions/3.13.5",
+    "required_ruby": ">= 1.8.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "6.1.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-25T11:08:45Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "actionpack": ">= 6.1",
+       "activesupport": ">= 6.1",
+       "railties": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "actionpack": ">= 6.1",
+       "activesupport": ">= 6.1",
+       "railties": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "actionpack": ">= 6.1",
+       "activesupport": ">= 6.1",
+       "railties": ">= 6.1"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "8.1.0",
+    "latest_released": "2026-11-06T17:54:42Z",
+    "links": {
+     "changelog_uri": "https://github.com/rspec/rspec-rails/blob/v8.1.0/Changelog.md",
+     "homepage_uri": "https://github.com/rspec/rspec-rails",
+     "source_code_uri": "https://github.com/rspec/rspec-rails"
+    },
+    "majors_behind": 2,
+    "name": "rspec-rails",
+    "registry_page": "https://rubygems.org/gems/rspec-rails/versions/6.1.1",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "3.13.6",
+    "current_known_to_registry": true,
+    "current_released": "2025-09-16T19:21:54Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.13.8",
+    "latest_released": "2026-11-06T18:49:40Z",
+    "majors_behind": 0,
+    "name": "rspec-support",
+    "registry_page": "https://rubygems.org/gems/rspec-support/versions/3.13.6",
+    "required_ruby": ">= 1.8.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.48.1",
+    "current_known_to_registry": true,
+    "current_released": "2023-03-13T06:59:23Z",
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.92.2",
+    "latest_released": "2026-10-29T09:50:00Z",
+    "links": {
+     "changelog_uri": "https://github.com/rubocop/rubocop/releases/tag/v1.92.2",
+     "homepage_uri": "https://rubocop.org/",
+     "source_code_uri": "https://github.com/rubocop/rubocop/"
+    },
+    "majors_behind": 0,
+    "name": "rubocop",
+    "registry_page": "https://rubygems.org/gems/rubocop/versions/1.48.1",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.27.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-02-28T05:32:48Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.51.0",
+    "latest_released": "2026-11-09T21:21:49Z",
+    "majors_behind": 0,
+    "name": "rubocop-ast",
+    "registry_page": "https://rubygems.org/gems/rubocop-ast/versions/1.27.0",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.18.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-02-25T08:55:29Z",
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 4.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.38.0",
+    "latest_released": "2026-09-20T13:42:20Z",
+    "links": {
+     "changelog_uri": "https://github.com/rubocop/rubocop-rails/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://docs.rubocop.org/rubocop-rails/",
+     "source_code_uri": "https://github.com/rubocop/rubocop-rails/"
+    },
+    "majors_behind": 0,
+    "name": "rubocop-rails",
+    "registry_page": "https://rubygems.org/gems/rubocop-rails/versions/2.18.0",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "1.13.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-03-04T06:44:46Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.13.0",
+    "latest_released": "2023-03-04T06:44:46Z",
+    "majors_behind": 0,
+    "name": "ruby-progressbar",
+    "registry_page": "https://rubygems.org/gems/ruby-progressbar/versions/1.13.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "6.0.0",
+    "current_known_to_registry": true,
+    "current_released": "2019-08-16T21:16:20Z",
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "6.0.0",
+    "latest_released": "2019-08-16T21:16:20Z",
+    "links": {
+     "homepage_uri": "https://github.com/rails/sass-rails",
+     "source_code_uri": "https://github.com/rails/sass-rails"
+    },
+    "majors_behind": 0,
+    "name": "sass-rails",
+    "registry_page": "https://rubygems.org/gems/sass-rails/versions/6.0.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.4.0",
+    "current_known_to_registry": true,
+    "current_released": "2020-06-02T13:15:58Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.4.0",
+    "latest_released": "2020-06-02T13:15:58Z",
+    "majors_behind": 0,
+    "name": "sassc",
+    "registry_page": "https://rubygems.org/gems/sassc/versions/2.4.0",
+    "required_ruby": ">= 2.0.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.1.2",
+    "current_known_to_registry": true,
+    "current_released": "2019-06-18T13:16:31Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "railties": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "railties": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "railties": ">= 4.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.2",
+    "latest_released": "2019-06-18T13:16:31Z",
+    "majors_behind": 0,
+    "name": "sassc-rails",
+    "registry_page": "https://rubygems.org/gems/sassc-rails/versions/2.1.2",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "6.5.0",
+    "current_known_to_registry": true,
+    "current_released": "2022-10-25T03:33:32Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "7.3.0",
+    "latest_released": "2026-06-03T11:47:19Z",
+    "links": {
+     "changelog_uri": "https://github.com/github/secure_headers/blob/master/CHANGELOG.md",
+     "homepage_uri": "https://github.com/github/secure_headers",
+     "source_code_uri": "https://github.com/github/secure_headers"
+    },
+    "majors_behind": 1,
+    "name": "secure_headers",
+    "registry_page": "https://rubygems.org/gems/secure_headers/versions/6.5.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.4.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-12-16T05:43:29Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.4.1",
+    "latest_released": "2024-12-16T05:43:29Z",
+    "majors_behind": 0,
+    "name": "securerandom",
+    "registry_page": "https://rubygems.org/gems/securerandom/versions/0.4.1",
+    "required_ruby": ">= 3.1.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.16.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-09T14:20:34Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "railties": ">= 5.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "railties": ">= 5.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "railties": ">= 5.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "7.2.0",
+    "latest_released": "2026-10-28T14:55:29Z",
+    "links": {
+     "changelog_uri": "https://github.com/getsentry/sentry-ruby/blob/7.2.0/CHANGELOG.md",
+     "homepage_uri": "https://github.com/getsentry/sentry-ruby/tree/7.2.0/sentry-rails",
+     "source_code_uri": "https://github.com/getsentry/sentry-ruby/tree/7.2.0/sentry-rails"
+    },
+    "majors_behind": 2,
+    "name": "sentry-rails",
+    "registry_page": "https://rubygems.org/gems/sentry-rails/versions/5.16.1",
+    "required_ruby": ">= 2.4",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "5.16.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-09T14:20:34Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "7.2.0",
+    "latest_released": "2026-10-28T14:55:30Z",
+    "majors_behind": 2,
+    "name": "sentry-ruby",
+    "registry_page": "https://rubygems.org/gems/sentry-ruby/versions/5.16.1",
+    "required_ruby": ">= 2.4",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "6.1.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-01-19T14:56:49Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 5.2.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "8.0.1",
+    "latest_released": "2026-06-12T18:37:10Z",
+    "links": {
+     "changelog_uri": "https://github.com/thoughtbot/shoulda-matchers/blob/main/CHANGELOG.md",
+     "homepage_uri": "https://matchers.shoulda.io",
+     "source_code_uri": "https://github.com/thoughtbot/shoulda-matchers"
+    },
+    "majors_behind": 2,
+    "name": "shoulda-matchers",
+    "registry_page": "https://rubygems.org/gems/shoulda-matchers/versions/6.1.0",
+    "required_ruby": ">= 3.0.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "4.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2022-12-20T14:29:55Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "4.4.1",
+    "latest_released": "2026-08-25T14:29:45Z",
+    "majors_behind": 0,
+    "name": "sprockets",
+    "registry_page": "https://rubygems.org/gems/sprockets/versions/4.2.0",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "3.4.2",
+    "current_known_to_registry": true,
+    "current_released": "2021-12-11T07:31:18Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "actionpack": ">= 5.2",
+       "activesupport": ">= 5.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "actionpack": ">= 5.2",
+       "activesupport": ">= 5.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "actionpack": ">= 5.2",
+       "activesupport": ">= 5.2"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.5.2",
+    "latest_released": "2024-07-31T20:26:01Z",
+    "majors_behind": 0,
+    "name": "sprockets-rails",
+    "registry_page": "https://rubygems.org/gems/sprockets-rails/versions/3.4.2",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "3.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-12-17T05:18:17Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.2.0",
+    "latest_released": "2025-12-17T05:18:17Z",
+    "majors_behind": 0,
+    "name": "stringio",
+    "registry_page": "https://rubygems.org/gems/stringio/versions/3.2.0",
+    "required_ruby": ">= 2.7",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.0.3",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-27T07:54:28Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 3"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 3"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 3"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.0.3",
+    "latest_released": "2023-12-27T07:54:28Z",
+    "majors_behind": 0,
+    "name": "swd",
+    "registry_page": "https://rubygems.org/gems/swd/versions/2.0.3",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "0.10.3",
+    "current_known_to_registry": true,
+    "current_released": "2023-10-04T05:34:39Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.10.7",
+    "latest_released": "2026-08-17T20:43:42Z",
+    "majors_behind": 0,
+    "name": "temple",
+    "registry_page": "https://rubygems.org/gems/temple/versions/0.10.3",
+    "required_ruby": ">= 2.5.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.5.0",
+    "current_known_to_registry": true,
+    "current_released": "2026-01-06T22:32:36Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.5.0",
+    "latest_released": "2026-01-06T22:32:36Z",
+    "majors_behind": 0,
+    "name": "thor",
+    "registry_page": "https://rubygems.org/gems/thor/versions/1.5.0",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.3.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-09-14T18:30:40Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.9.0",
+    "latest_released": "2026-08-17T19:38:53Z",
+    "majors_behind": 0,
+    "name": "tilt",
+    "registry_page": "https://rubygems.org/gems/tilt/versions/2.3.0",
+    "required_ruby": ">= 2.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.9.8",
+    "current_known_to_registry": true,
+    "current_released": "2023-08-14T15:16:46Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.9.11",
+    "latest_released": "2026-04-12T15:28:04Z",
+    "links": {
+     "homepage_uri": "https://github.com/travisjeffery/timecop",
+     "source_code_uri": "https://github.com/travisjeffery/timecop"
+    },
+    "majors_behind": 0,
+    "name": "timecop",
+    "registry_page": "https://rubygems.org/gems/timecop/versions/0.9.8",
+    "required_ruby": ">= 1.9.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.6.1",
+    "current_known_to_registry": true,
+    "current_released": "2026-03-09T22:04:12Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.6.1",
+    "latest_released": "2026-03-09T22:04:12Z",
+    "majors_behind": 0,
+    "name": "timeout",
+    "registry_page": "https://rubygems.org/gems/timeout/versions/0.6.1",
+    "required_ruby": ">= 2.6.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2023-11-07T01:59:20Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.2.0",
+    "latest_released": "2023-11-07T01:59:20Z",
+    "majors_behind": 0,
+    "name": "tsort",
+    "registry_page": "https://rubygems.org/gems/tsort/versions/0.2.0",
+    "required_ruby": ">= 2.3.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.2.1",
+    "current_known_to_registry": true,
+    "current_released": "2019-09-18T15:24:12Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.2.1",
+    "latest_released": "2019-09-18T15:24:12Z",
+    "links": {
+     "homepage_uri": "https://github.com/turbolinks/turbolinks",
+     "source_code_uri": "https://github.com/turbolinks/turbolinks-rails"
+    },
+    "majors_behind": 0,
+    "name": "turbolinks",
+    "registry_page": "https://rubygems.org/gems/turbolinks/versions/5.2.1",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "5.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2018-08-20T15:54:41Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "5.2.0",
+    "latest_released": "2018-08-20T15:54:41Z",
+    "majors_behind": 0,
+    "name": "turbolinks-source",
+    "registry_page": "https://rubygems.org/gems/turbolinks-source/versions/5.2.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.0.6",
+    "current_known_to_registry": true,
+    "current_released": "2023-01-28T20:27:53Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.0.6",
+    "latest_released": "2023-01-28T20:27:53Z",
+    "majors_behind": 0,
+    "name": "tzinfo",
+    "registry_page": "https://rubygems.org/gems/tzinfo/versions/2.0.6",
+    "required_ruby": ">= 1.9.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "4.2.0",
+    "current_known_to_registry": true,
+    "current_released": "2019-09-25T19:50:40Z",
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "4.2.1",
+    "latest_released": "2024-09-22T10:00:18Z",
+    "links": {
+     "homepage_uri": "http://github.com/lautis/uglifier",
+     "source_code_uri": "https://github.com/lautis/uglifier"
+    },
+    "majors_behind": 0,
+    "name": "uglifier",
+    "registry_page": "https://rubygems.org/gems/uglifier/versions/4.2.0",
+    "required_ruby": ">= 1.9.3",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.4.2",
+    "current_known_to_registry": true,
+    "current_released": "2023-01-04T11:17:40Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.3.0",
+    "latest_released": "2026-09-20T08:01:05Z",
+    "majors_behind": 1,
+    "name": "unicode-display_width",
+    "registry_page": "https://rubygems.org/gems/unicode-display_width/versions/2.4.2",
+    "required_ruby": ">= 2.4.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.3",
+    "current_known_to_registry": true,
+    "current_released": "2025-02-26T07:13:32Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.1.2",
+    "latest_released": "2026-10-08T02:35:23Z",
+    "majors_behind": 0,
+    "name": "uri",
+    "registry_page": "https://rubygems.org/gems/uri/versions/1.0.3",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.0.15",
+    "current_known_to_registry": true,
+    "current_released": "2022-05-13T06:01:33Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activemodel": ">= 3.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activemodel": ">= 3.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activemodel": ">= 3.0.0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.0.15",
+    "latest_released": "2022-05-13T06:01:33Z",
+    "majors_behind": 0,
+    "name": "validate_url",
+    "registry_page": "https://rubygems.org/gems/validate_url/versions/1.0.15",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "2.1.3",
+    "current_known_to_registry": true,
+    "current_released": "2023-12-27T07:57:04Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {
+       "activesupport": ">= 0"
+      },
+      "open_ended": true,
+      "status": "declared-compatible",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.1.3",
+    "latest_released": "2023-12-27T07:57:04Z",
+    "majors_behind": 0,
+    "name": "webfinger",
+    "registry_page": "https://rubygems.org/gems/webfinger/versions/2.1.3",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "declared-compatible"
+   },
+   {
+    "current": "3.20.0",
+    "current_known_to_registry": true,
+    "current_released": "2024-02-06T21:12:50Z",
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "3.34.0",
+    "latest_released": "2026-10-14T21:52:57Z",
+    "links": {
+     "changelog_uri": "https://github.com/bblimke/webmock/blob/v3.34.0/CHANGELOG.md",
+     "homepage_uri": "https://github.com/bblimke/webmock",
+     "source_code_uri": "https://github.com/bblimke/webmock/tree/v3.34.0"
+    },
+    "majors_behind": 0,
+    "name": "webmock",
+    "registry_page": "https://rubygems.org/gems/webmock/versions/3.20.0",
+    "required_ruby": ">= 2.5",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "1.9.1",
+    "current_known_to_registry": true,
+    "current_released": "2024-12-02T05:48:56Z",
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "1.9.2",
+    "latest_released": "2025-11-26T07:48:19Z",
+    "links": {
+     "homepage_uri": "https://github.com/ruby/webrick"
+    },
+    "majors_behind": 0,
+    "name": "webrick",
+    "registry_page": "https://rubygems.org/gems/webrick/versions/1.9.1",
+    "required_ruby": ">= 2.4.0",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.8.0",
+    "current_known_to_registry": true,
+    "current_released": "2025-05-25T17:41:25Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.8.2",
+    "latest_released": "2026-06-23T11:22:50Z",
+    "majors_behind": 0,
+    "name": "websocket-driver",
+    "registry_page": "https://rubygems.org/gems/websocket-driver/versions/0.8.0",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "0.1.5",
+    "current_known_to_registry": true,
+    "current_released": "2020-06-02T13:00:18Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "0.1.5",
+    "latest_released": "2020-06-02T13:00:18Z",
+    "majors_behind": 0,
+    "name": "websocket-extensions",
+    "registry_page": "https://rubygems.org/gems/websocket-extensions/versions/0.1.5",
+    "required_ruby": "",
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   },
+   {
+    "current": "2.8.2",
+    "current_known_to_registry": true,
+    "current_released": "2026-05-23T21:24:18Z",
+    "direct": false,
+    "groups": [],
+    "hops": {
+     "7.2": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "7.2.4"
+     },
+     "8.0": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.0.5.2"
+     },
+     "8.1": {
+      "constraints": {},
+      "status": "no-declared-constraint",
+      "version": "8.1.4.1"
+     }
+    },
+    "latest": "2.8.3",
+    "latest_released": "2026-08-01T18:33:29Z",
+    "majors_behind": 0,
+    "name": "zeitwerk",
+    "registry_page": "https://rubygems.org/gems/zeitwerk/versions/2.8.2",
+    "required_ruby": ">= 3.2",
+    "ruby_ok": true,
+    "source": "GEM",
+    "status": "no-declared-constraint"
+   }
+  ],
+  "direct_with_no_release_since_2022": [
+   "annotate",
+   "chronic",
+   "coffee-rails",
+   "gelf",
+   "nifty-utils",
+   "sass-rails",
+   "turbolinks"
+  ],
+  "hops": [
+   {
+    "series": "7.2",
+    "version": "7.2.4"
+   },
+   {
+    "series": "8.0",
+    "version": "8.0.5.2"
+   },
+   {
+    "series": "8.1",
+    "version": "8.1.4.1"
+   }
+  ],
+  "method_note": "Compatibility here is what each gem version declares in its gemspec, read from the RubyGems compact index. A gem with no declared Rails dependency is unknown, not compatible.",
+  "status_counts": {
+   "blocked": 1,
+   "declared-compatible": 26,
+   "no-declared-constraint": 122
+  },
+  "status_meaning": {
+   "declared-compatible": "The gem's declared range admits the hop version. Where open_ended is true the range has no upper bound and was written before the hop version existed.",
+   "no-declared-constraint": "The gem does not depend on any framework gem, so its gemspec says nothing either way. Most such gems never touch the framework. Unknown, not compatible."
+  },
+  "target_runtime": "3.4.6"
+ },
+ "method": "fetched",
+ "note": "Declared constraints from the package registry, cached under cache/http.",
+ "recorded": "2026-11-13T03:56:45Z",
+ "seconds": 16.7,
+ "step": "registry"
+}

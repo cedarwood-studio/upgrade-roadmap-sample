@@ -1,0 +1,8 @@
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Created database 'postal'
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+upk-boot-ok rails=7.1.6 env=test

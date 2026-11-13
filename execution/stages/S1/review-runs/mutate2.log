@@ -1,0 +1,38 @@
+### A: worker job run and task run call a constant that does not exist (stands in for Benchmark going away)
+            time = NoSuchBenchmark.realtime { job.call }
+          time = NoSuchBenchmark.realtime do
+51 examples, 0 failures
+### B: migration waiter calls a method that does not exist
+307 examples, 0 failures
+boot with the waiter on, mutated:
+/work/lib/migration_waiter.rb:18:in 'block in MigrationWaiter.wait': undefined method 'no_such_migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)
+boot with the waiter on, unmodified (schema loaded by the spec run above): 
+BOOT OK
+exit 0
+### C: YAML columns switched to JSON
+     Failure/Error: expect(stored_options).to eq %(---\na: b\n"n": 1\n)
+     Failure/Error: expect(stored_options).to eq "---\n:a: b\n:list:\n- x\n- 2\n:nested:\n  :t: true\n"
+     Failure/Error: expect(credential.reload.options).to eq({ "a" => "b", "n" => 1 })
+     JSON::ParserError:
+     Failure/Error: expect(credential.reload.options).to eq({ a: "b", list: ["x", 2], nested: { t: true } })
+     JSON::ParserError:
+     Failure/Error: expect(stored_payload(webhook_request)).to eq send_limit_payload_yaml
+     Failure/Error: expect(stored_payload(webhook_request)).to eq "---\nhello: world\nsize: 1.5\nbounce:\n"
+     Failure/Error: expect(webhook_request.reload.payload).to eq send_limit_payload
+     JSON::ParserError:
+### D: key generator digest switched to SHA256
+5 examples, 0 failures
+### D2: cookies serializer switched to marshal
+
+
+Rails.application.config.action_dispatch.cookies_serializer = :json
+5 examples, 0 failures
+### F: explain path and tracked link rewrite broken
+ lib/postal/message_db/database.rb | 2 +-
+ lib/postal/message_parser.rb      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+14 examples, 0 failures
+### E: SMTP server no longer sets the output record separator
+TIMED OUT after 100s (exit 124)
+1 example, 0 failures
+### done

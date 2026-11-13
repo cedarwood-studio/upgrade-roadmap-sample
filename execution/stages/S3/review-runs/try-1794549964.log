@@ -1,0 +1,129 @@
+==== 1. lock against S2
+- actioncable (7.1.6);+ actioncable (7.2.4);- actionmailbox (7.1.6);+ actionmailbox (7.2.4);- actionmailer (7.1.6);+ actionmailer (7.2.4);- actionpack (7.1.6);+ actionpack (7.2.4);- actiontext (7.1.6);+ actiontext (7.2.4);- actionview (7.1.6);+ actionview (7.2.4);- activejob (7.1.6);+ activejob (7.2.4);- activemodel (7.1.6);+ activemodel (7.2.4);- activerecord (7.1.6);+ activerecord (7.2.4);- activestorage (7.1.6);+ activestorage (7.2.4);- activesupport (7.1.6);+ activesupport (7.2.4);+ connection_pool (2.5.5);- connection_pool (3.0.2);+ minitest (5.27.0);- minitest (6.0.6);- rails (7.1.6);+ rails (7.2.4);- railties (7.1.6);+ railties (7.2.4);+ useragent (0.16.11);- rails (= 7.1.6);+ rails (= 7.2.4);
+spec lines moved: 31  files changed since the fourth review's commit:  2 files changed, 60 insertions(+)
+-gem "rails", "= 7.1.6"
++gem "rails", "= 7.2.4"
+setup exit=0
+==== 2. boots
+default: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+production: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=production never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+development: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=development never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+oidc: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=true local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+oidc-no-discovery: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=true local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+oidc-local-off: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=true local=false waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+migration-waiter: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=true railslog=false sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+rails-log: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=true sentry=false rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+sentry: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=true rspamd=false clamav=false spamd=false tls=false static=true inspectors=0
+rspamd: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=true clamav=false spamd=false tls=false static=true inspectors=1
+clamav: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=true spamd=false tls=false static=true inspectors=1
+spamd: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=true tls=false static=true inspectors=1
+smtp-tls: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=test never-loaded=39/39 oidc=false local=true waiter=false railslog=false sentry=false rspamd=false clamav=false spamd=false tls=true static=true inspectors=0
+everything-production: exit=0 No secret key was specified in the Postal config file. Using one for just this session
+boot-ok rails=7.2.4 env=production never-loaded=39/39 oidc=true local=false waiter=true railslog=true sentry=true rspamd=true clamav=true spamd=true tls=true static=true inspectors=2
+==== 3. specs
+16 examples, 0 failures
+-- Rails log spec in three random orders with the other request specs
+29 examples, 0 failures
+29 examples, 0 failures
+29 examples, 0 failures
+-- against the 7.1.6 lock
+11 examples, 7 failures
+rspec ./spec/requests/rails_log_spec.rb:39 # Rails log writes the Completed line with a query count and a GC time
+rspec ./spec/requests/rails_log_spec.rb:48 # Rails log ends each Rendered line with a GC time
+rspec ./spec/requests/rails_log_spec.rb:54 # Rails log writes no allocation count
+rspec ./spec/requests/error_pages_spec.rb:35 # Error pages HEAD a path that does not exist answers 404 with an empty body in the requested format
+rspec ./spec/requests/error_pages_spec.rb:43 # Error pages HEAD a path that does not exist keeps the HTML content type for a client that asks for HTML
+rspec ./spec/lib/migration_waiter_spec.rb:8 # MigrationWaiter.wait returns when there are no pending migrations
+rspec ./spec/lib/migration_waiter_spec.rb:14 # MigrationWaiter.wait exits when migrations are still pending after the configured attempts
+==== 4 and 5. Sentry and the console, per version
+######## s3: 7.2.4
+No secret key was specified in the Postal config file. Using one for just this session
+GET /login HTTP_X_R5_BOOM -> 500
+HEAD /login HTTP_X_R5_BOOM -> 500
+GET /login HTTP_X_R5_MISSING -> 404
+POST /api/v1/send/message  -> 200
+GET /no/such/page  -> 404
+GET /login  -> 500
+sentry events: 3
+event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "80f5c2ac-e5cc-4bbb-b39b-765a91c53df0"} request=GET http://postal.example.com/login
+event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "5ee81cb2-bb4f-4116-8448-7f56c0ab120c"} request=HEAD http://postal.example.com/login
+event type="event" level=error transaction="SessionsController#new" exceptions=Sprockets::Rails::Helper::AssetNotFound(The asset "application/application.css" ) handled=nil mech=nil <- ActionView::Template::Error(The asset "application/application.css" ) handled=nil mech=nil tags={request_id: "0ef2ca42-8efc-4050-9617-3bbd1a6f1bd0"} request=GET http://postal.example.com/login
+envelopes: 0 {}
+-- console
+No secret key was specified in the Postal config file. Using one for just this session
+Loading production environment (Rails 7.2.4)
+Switch to inspect mode.
+puts "users=#{User.count}"
+users=0
+nil
+User.new(first_name: "A")
+
+#<User:0x0000f4762c9de350
+ id: nil,
+ uuid: nil,
+ first_name: "A",
+ last_name: nil,
+ email_address: nil,
+######## s2: 7.1.6
+No secret key was specified in the Postal config file. Using one for just this session
+GET /login HTTP_X_R5_BOOM -> 500
+HEAD /login HTTP_X_R5_BOOM -> 500
+GET /login HTTP_X_R5_MISSING -> 404
+POST /api/v1/send/message  -> 200
+GET /no/such/page  -> 404
+GET /login  -> 500
+sentry events: 3
+event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "fab74af0-575b-425b-863e-b95cf9f03a64"} request=GET http://postal.example.com/login
+event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "8897928c-ece1-4ed8-9885-957482d000e2"} request=HEAD http://postal.example.com/login
+event type="event" level=error transaction="SessionsController#new" exceptions=Sprockets::Rails::Helper::AssetNotFound(The asset "application/application.css" ) handled=nil mech=nil <- ActionView::Template::Error(The asset "application/application.css" ) handled=nil mech=nil tags={request_id: "d8228ee7-0f95-4ee0-b128-ebc35fb53d72"} request=GET http://postal.example.com/login
+envelopes: 0 {}
+-- console
+No secret key was specified in the Postal config file. Using one for just this session
+Loading production environment (Rails 7.1.6)
+Switch to inspect mode.
+puts "users=#{User.count}"
+users=0
+nil
+User.new(first_name: "A")
+
+#<User:0x0000e2c7d4e54fc8
+ id: nil,
+ uuid: nil,
+ first_name: "A",
+ last_name: nil,
+ email_address: nil,
+######## differences, 7.1.6 < > 7.2.4
+== sentry
+9,11c9,11
+< event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "fab74af0-575b-425b-863e-b95cf9f03a64"} request=GET http://postal.example.com/login
+< event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "8897928c-ece1-4ed8-9885-957482d000e2"} request=HEAD http://postal.example.com/login
+< event type="event" level=error transaction="SessionsController#new" exceptions=Sprockets::Rails::Helper::AssetNotFound(The asset "application/application.css" ) handled=nil mech=nil <- ActionView::Template::Error(The asset "application/application.css" ) handled=nil mech=nil tags={request_id: "d8228ee7-0f95-4ee0-b128-ebc35fb53d72"} request=GET http://postal.example.com/login
+---
+> event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "80f5c2ac-e5cc-4bbb-b39b-765a91c53df0"} request=GET http://postal.example.com/login
+> event type="event" level=error transaction="/login" exceptions=RuntimeError(r5 boom (RuntimeError)) handled=nil mech=nil tags={request_id: "5ee81cb2-bb4f-4116-8448-7f56c0ab120c"} request=HEAD http://postal.example.com/login
+> event type="event" level=error transaction="SessionsController#new" exceptions=Sprockets::Rails::Helper::AssetNotFound(The asset "application/application.css" ) handled=nil mech=nil <- ActionView::Template::Error(The asset "application/application.css" ) handled=nil mech=nil tags={request_id: "0ef2ca42-8efc-4050-9617-3bbd1a6f1bd0"} request=GET http://postal.example.com/login
+identical
+== console
+2c2
+< Loading production environment (Rails 7.1.6)
+---
+> Loading production environment (Rails 7.2.4)
+9c9
+< #<User:0x0000e2c7d4e54fc8
+---
+> #<User:0x0000f4762c9de350
+identical
+==== end

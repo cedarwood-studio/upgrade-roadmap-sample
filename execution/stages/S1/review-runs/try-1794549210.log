@@ -1,0 +1,32 @@
+### A: worker job run and task run call a constant that does not exist (stands in for Benchmark going away)
+            time = NoSuchBenchmark.realtime { job.call }
+          time = NoSuchBenchmark.realtime do
+51 examples, 0 failures
+### B: migration waiter calls a method that does not exist
+        pending_migrations = ActiveRecord::Base.connection.no_such_migration_context.open.pending_migrations.size
+7 examples, 0 failures
+boot with the waiter on:
+	from /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'
+	from /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'
+	from -e:1:in '<main>'
+### C: YAML columns switched to JSON
+Failures:
+     Failure/Error: expect(stored_options).to eq %(---\na: b\n"n": 1\n)
+     Failure/Error: expect(stored_options).to eq "---\n:a: b\n:list:\n- x\n- 2\n:nested:\n  :t: true\n"
+     Failure/Error: expect(credential.reload.options).to eq({ "a" => "b", "n" => 1 })
+     JSON::ParserError:
+     Failure/Error: expect(credential.reload.options).to eq({ a: "b", list: ["x", 2], nested: { t: true } })
+     JSON::ParserError:
+     Failure/Error: expect(stored_payload(webhook_request)).to eq send_limit_payload_yaml
+     Failure/Error: expect(stored_payload(webhook_request)).to eq "---\nhello: world\nsize: 1.5\nbounce:\n"
+     Failure/Error: expect(webhook_request.reload.payload).to eq send_limit_payload
+     JSON::ParserError:
+     Failure/Error: expect(webhook_request.reload.payload).to eq({ "hello" => "world", "size" => 1.5, "bounce" => nil })
+### D: key generator digest switched to SHA256 (what a newer load_defaults does)
+5 examples, 0 failures
+### D2: cookies serializer switched to marshal
+
+
+Rails.application.config.action_dispatch.cookies_serializer = :json
+5 examples, 0 failures
+### E: SMTP server no longer sets the output record separator

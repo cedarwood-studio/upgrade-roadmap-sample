@@ -1,0 +1,8 @@
+a45dff2 Remove annotate from the bundle
+[s2-test-7.1.6] setup exit=0
+[s2-test-7.1.6] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.1.6 env=test eager_load=false key_from_credentials=true local_secret_file=false routes=197
+ls: cannot access 'tmp/local_secret.txt': No such file or directory

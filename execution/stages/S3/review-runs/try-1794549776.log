@@ -1,0 +1,46 @@
+setup exit=0
+assets exit=0
+s3 exit=1 
+  241 |     kept = headers.reject { |k, _| VOLATILE.include?(k) }.sort.map { |k, v| "#{k}: #{v}" }
+  242 |     text = [label, "status: #{res.status}", *kept, "body-bytes: #{body.bytesize}", "", body].join("\n")
+
+s2 exit=1 
+  241 |     kept = headers.reject { |k, _| VOLATILE.include?(k) }.sort.map { |k, v| "#{k}: #{v}" }
+  242 |     text = [label, "status: #{res.status}", *kept, "body-bytes: #{body.bytesize}", "", body].join("\n")
+
+s3b exit=1 
+  241 |     kept = headers.reject { |k, _| VOLATILE.include?(k) }.sort.map { |k, v| "#{k}: #{v}" }
+  242 |     text = [label, "status: #{res.status}", *kept, "body-bytes: #{body.bytesize}", "", body].join("\n")
+
+==== summary on 7.2.4 (third run)
+cut: /tmp/s3b/summary.txt: No such file or directory
+==== status counts on 7.2.4
+sed: can't read /tmp/s3b/summary.txt: No such file or directory
+
+==== summaries, 7.1.6 < > 7.2.4
+diff: /tmp/s2/summary.txt: No such file or directory
+diff: /tmp/s3b/summary.txt: No such file or directory
+(end of summary diff)
+==== response files that differ (7.1.6 < > 7.2.4)
+head: cannot open '/tmp/s3b/[0-9]*.txt' for reading: No such file or directory
+--- [0-9]*.txt: 
+diff: /tmp/s2/[0-9]*.txt: No such file or directory
+diff: /tmp/s3b/[0-9]*.txt: No such file or directory
+compared 1 response files, 1 differ
+==== mails (7.1.6 < > 7.2.4)
+diff: /tmp/s2/mails.txt: No such file or directory
+diff: /tmp/s3b/mails.txt: No such file or directory
+grep: /tmp/s3b/mails.txt: No such file or directory
+grep: /tmp/s3b/mails.txt: No such file or directory
+mails: , raised: 
+==== facts (7.1.6 < > 7.2.4)
+diff: /tmp/s2/facts.txt: No such file or directory
+diff: /tmp/s3b/facts.txt: No such file or directory
+(end of facts diff)
+cut: /tmp/s3b/facts.txt: No such file or directory
+==== Rails log, normalized with the declared Completed/Rendered difference masked (7.1.6 < > 7.2.4): 0 and 0 lines
+==== errors in output
+/tmp/s3.out:0
+/tmp/s2.out:0
+/tmp/s3b.out:0
+==== end

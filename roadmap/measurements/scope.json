@@ -1,0 +1,37 @@
+{
+ "command": null,
+ "data": {
+  "gui_signals": [],
+  "reason": "Tests or a recordable HTTP or command-line surface are present.",
+  "recordable_signals": [
+   {
+    "file": "Dockerfile",
+    "signal": "container image"
+   },
+   {
+    "file": "config.ru",
+    "signal": "Rack web application"
+   },
+   {
+    "file": "docker-compose.yml",
+    "signal": "compose services"
+   },
+   {
+    "file": "bin/",
+    "signal": "command-line entry points"
+   }
+  ],
+  "test_signals": [
+   {
+    "dir": "spec",
+    "files": 81
+   }
+  ],
+  "verdict": "in-scope"
+ },
+ "method": "static",
+ "note": null,
+ "recorded": "2026-11-13T03:56:28Z",
+ "seconds": 0.0,
+ "step": "scope"
+}

@@ -1,0 +1,330 @@
+{
+ "command": null,
+ "data": {
+  "boot_variants_run": [
+   {
+    "exit_code": 0,
+    "flags": [],
+    "name": "default",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?"
+    ],
+    "name": "oidc",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?",
+     "config.discovery?"
+    ],
+    "name": "oidc-no-discovery",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.migration_waiter.enabled?"
+    ],
+    "name": "migration-waiter",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.rails_log_enabled?"
+    ],
+    "name": "rails-log",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.sentry_dsn"
+    ],
+    "name": "sentry",
+    "ok": true
+   },
+   {
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.rails.environment"
+    ],
+    "name": "production",
+    "ok": true
+   }
+  ],
+  "flags": [
+   {
+    "branch_behind_it_executed": true,
+    "exercised": true,
+    "exercised_by": [
+     "suite"
+    ],
+    "name": "Config.logging.enabled?",
+    "sites": [
+     {
+      "branch_executed": true,
+      "file": "lib/postal/config.rb",
+      "line": 85,
+      "state": "executed",
+      "text": "k = Klogger.new(nil, destination: Config.logging.enabled? ? $stdout : \"/dev/null\", highlight: Config.logging.highlighting_enabled?)"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": true,
+    "exercised": true,
+    "exercised_by": [
+     "suite"
+    ],
+    "name": "Config.logging.highlighting_enabled?",
+    "sites": [
+     {
+      "branch_executed": true,
+      "file": "lib/postal/config.rb",
+      "line": 85,
+      "state": "executed",
+      "text": "k = Klogger.new(nil, destination: Config.logging.enabled? ? $stdout : \"/dev/null\", highlight: Config.logging.highlighting_enabled?)"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "Postal::Config.clamav.enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "lib/postal/message_inspector.rb",
+      "line": 33,
+      "state": "executed",
+      "text": "if Postal::Config.clamav.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": true,
+    "exercised": true,
+    "exercised_by": [
+     "suite",
+     "boot:rails-log"
+    ],
+    "name": "Postal::Config.logging.rails_log_enabled?",
+    "sites": [
+     {
+      "branch_executed": true,
+      "file": "config/application.rb",
+      "line": 45,
+      "state": "executed",
+      "text": "unless Postal::Config.logging.rails_log_enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": true,
+    "exercised_by": [
+     "boot:migration-waiter"
+    ],
+    "name": "Postal::Config.migration_waiter.enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "lib/migration_waiter.rb",
+      "line": 38,
+      "state": "executed",
+      "text": "return unless Postal::Config.migration_waiter.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": true,
+    "exercised": true,
+    "exercised_by": [
+     "suite",
+     "boot:oidc",
+     "boot:oidc-no-discovery"
+    ],
+    "name": "Postal::Config.oidc.enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 33,
+      "state": "never-executed",
+      "text": "user_scope = Postal::Config.oidc.enabled? ? User.with_password : User"
+     },
+     {
+      "branch_executed": false,
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 71,
+      "state": "never-executed",
+      "text": "unless Postal::Config.oidc.enabled?"
+     },
+     {
+      "branch_executed": false,
+      "file": "app/models/concerns/has_authentication.rb",
+      "line": 38,
+      "state": "never-executed",
+      "text": "if Postal::Config.oidc.enabled? && (oidc_uid.present? || password_digest.blank?)"
+     },
+     {
+      "branch_executed": true,
+      "file": "app/models/concerns/has_authentication.rb",
+      "line": 58,
+      "state": "executed",
+      "text": "return if password_digest.present? || Postal::Config.oidc.enabled?"
+     },
+     {
+      "branch_executed": true,
+      "file": "config/application.rb",
+      "line": 16,
+      "state": "executed",
+      "text": "gem_groups << :oidc if Postal::Config.oidc.enabled?"
+     },
+     {
+      "branch_executed": false,
+      "file": "config/routes.rb",
+      "line": 98,
+      "state": "executed",
+      "text": "if Postal::Config.oidc.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "Postal::Config.oidc.local_authentication_enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 94,
+      "state": "executed",
+      "text": "return if Postal::Config.oidc.local_authentication_enabled?"
+     },
+     {
+      "branch_executed": null,
+      "file": "app/controllers/user_controller.rb",
+      "line": 35,
+      "state": "file-not-loaded-by-suite",
+      "text": "if @user.password? && Postal::Config.oidc.local_authentication_enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "Postal::Config.rspamd.enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "lib/postal/message_inspector.rb",
+      "line": 27,
+      "state": "executed",
+      "text": "if Postal::Config.rspamd.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": true,
+    "exercised": true,
+    "exercised_by": [
+     "suite"
+    ],
+    "name": "Postal::Config.smtp_server.tls_enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "app/lib/smtp_server/client.rb",
+      "line": 140,
+      "state": "never-executed",
+      "text": "if Postal::Config.smtp_server.tls_enabled?"
+     },
+     {
+      "branch_executed": true,
+      "file": "app/lib/smtp_server/client.rb",
+      "line": 158,
+      "state": "executed",
+      "text": "Postal::Config.smtp_server.tls_enabled? && !@tls ? \"250-STARTTLS\" : nil,"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "Postal::Config.spamd.enabled?",
+    "sites": [
+     {
+      "branch_executed": null,
+      "file": "lib/postal/message_inspector.rb",
+      "line": 29,
+      "state": "executed",
+      "text": "elsif Postal::Config.spamd.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "config.enabled?",
+    "sites": [
+     {
+      "branch_executed": false,
+      "file": "config/initializers/omniauth.rb",
+      "line": 4,
+      "state": "executed",
+      "text": "if config.enabled?"
+     }
+    ]
+   },
+   {
+    "branch_behind_it_executed": false,
+    "exercised": false,
+    "exercised_by": [],
+    "name": "config.public_file_server.enabled",
+    "sites": [
+     {
+      "branch_executed": null,
+      "file": "config/environments/production.rb",
+      "line": 21,
+      "state": "file-not-loaded-by-suite",
+      "text": "config.public_file_server.enabled = true"
+     },
+     {
+      "branch_executed": null,
+      "file": "config/environments/test.rb",
+      "line": 18,
+      "state": "executed",
+      "text": "config.public_file_server.enabled = true"
+     }
+    ]
+   }
+  ],
+  "method_note": "A flag is a configuration test found by text search. 'Exercised' means the suite ran the line right behind the test, or a boot check ran with the flag switched on. A flag that is not exercised guards code no measurement here has run.",
+  "not_exercised": [
+   "Postal::Config.clamav.enabled?",
+   "Postal::Config.oidc.local_authentication_enabled?",
+   "Postal::Config.rspamd.enabled?",
+   "Postal::Config.spamd.enabled?",
+   "config.enabled?",
+   "config.public_file_server.enabled"
+  ],
+  "total": 12
+ },
+ "method": "derived",
+ "note": "Configuration tests for optional features, joined with coverage and with the boot variants that ran.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "flags"
+}

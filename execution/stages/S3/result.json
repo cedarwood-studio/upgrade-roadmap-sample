@@ -1,0 +1,317 @@
+{
+ "attempts": 6,
+ "attempts_this_round": 1,
+ "base_branch": "upgrade/s2-remove-the-annotate-blocker",
+ "baseline_examples_added": 76,
+ "baseline_examples_added_this_round": 3,
+ "branch": "upgrade/s3-rails-7-1-6-to-7-2-4",
+ "check": {
+  "attempt": 1,
+  "boot": [
+   {
+    "after": true,
+    "before": true,
+    "flags": [],
+    "name": "default"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.oidc.enabled?"
+    ],
+    "name": "oidc"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.oidc.enabled?",
+     "config.discovery?"
+    ],
+    "name": "oidc-no-discovery"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.migration_waiter.enabled?"
+    ],
+    "name": "migration-waiter"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.logging.rails_log_enabled?"
+    ],
+    "name": "rails-log"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.logging.sentry_dsn"
+    ],
+    "name": "sentry"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.rails.environment"
+    ],
+    "name": "production"
+   }
+  ],
+  "comparisons": {
+   "sandbox": {
+    "bodies_compared_in_full": 168,
+    "bodies_compared_through_value_masks": 0,
+    "bodies_not_compared": 2,
+    "examples_gated": 916,
+    "examples_reported_not_gated": 0,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "sandbox"
+   }
+  },
+  "deprecations": {
+   "after": {
+    "distinct": 0,
+    "occurrences": 0
+   },
+   "before": {
+    "distinct": 0,
+    "occurrences": 0
+   }
+  },
+  "green": true,
+  "lock": {
+   "declared": 0,
+   "forced": 3,
+   "moved_outside_framework": 3,
+   "unexplained": []
+  },
+  "max_attempts": 4,
+  "parity": {
+   "accepted_differences": [
+    {
+     "field": "body",
+     "name": "admin: GET /org/acme/settings",
+     "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+    },
+    {
+     "field": "body",
+     "name": "admin: GET /settings",
+     "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+    },
+    {
+     "field": "body",
+     "name": "admin: PATCH /org/acme/settings invalid",
+     "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+    },
+    {
+     "field": "body",
+     "name": "admin: PATCH /settings invalid",
+     "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+    },
+    {
+     "field": "body",
+     "name": "member: GET /org/acme/settings",
+     "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+    }
+   ],
+   "diff_file": "runs/S3-r5-attempt-1/parity-diff.json",
+   "different": 5,
+   "identical": 165,
+   "masked_as_noise": 2,
+   "requests": 170,
+   "unexplained": []
+  },
+  "problems": [],
+  "ruby_warnings_deprecated": {
+   "after": 3,
+   "before": 3
+  },
+  "run": "S3-r5-attempt-1",
+  "stage": "S3",
+  "tests": {
+   "added": 11,
+   "added_failing": [],
+   "after_passed": 910,
+   "after_total": 927,
+   "before_passed": 899,
+   "before_total": 916,
+   "fixed": [],
+   "missing_passing": [],
+   "ok": true,
+   "regressed": []
+  },
+  "tree": "dd4f413bf8c84b0644c3a3a5687d9496a6e31425"
+ },
+ "ci_runs": [
+  {
+   "comparisons": {
+    "bodies_compared_in_full": 163,
+    "bodies_compared_through_value_masks": 5,
+    "bodies_not_compared": 2,
+    "declared": 5,
+    "declared_observed": 5,
+    "examples_gated": 899,
+    "examples_reported_not_gated": 28,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "ci"
+   },
+   "conclusion": "success",
+   "parity_holds": true,
+   "recorded": "2026-11-13T07:07:50Z",
+   "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382981247"
+  }
+ ],
+ "commit": "5fbdfb3a3cb5fa1d7362256131794e62d0ca568d",
+ "diff": {
+  "deletions": 77,
+  "files": 10,
+  "insertions": 338
+ },
+ "elapsed_seconds": 2591,
+ "lock": {
+  "changed": true,
+  "declared": 0,
+  "forced": 3,
+  "framework_gems_moved": 13,
+  "moved_outside_framework": 3,
+  "moves": [
+   {
+    "declared_reason": null,
+    "forced_by": [
+     "activesupport 7.2.4 requires connection_pool (>= 2.2.5, < 3)"
+    ],
+    "from": "3.0.2",
+    "kind": "forced",
+    "name": "connection_pool",
+    "to": "2.5.5",
+    "why": "activesupport 7.2.4 requires connection_pool (>= 2.2.5, < 3)"
+   },
+   {
+    "declared_reason": null,
+    "forced_by": [
+     "activesupport 7.2.4 requires minitest (>= 5.1, < 6)"
+    ],
+    "from": "6.0.6",
+    "kind": "forced",
+    "name": "minitest",
+    "to": "5.27.0",
+    "why": "activesupport 7.2.4 requires minitest (>= 5.1, < 6)"
+   },
+   {
+    "from": null,
+    "kind": "forced",
+    "name": "useragent",
+    "to": "0.16.11",
+    "why": "new dependency of actionpack"
+   }
+  ],
+  "unexplained": []
+ },
+ "reopened": [
+  {
+   "at": "2026-11-13T04:44:02Z",
+   "from_commit": "730195a87b89425990b6fb8956a339e8b8b5f80d",
+   "reason": "the independent review found 3 defect(s)"
+  },
+  {
+   "at": "2026-11-13T05:02:17Z",
+   "from_commit": "329324c488161b0f4ef1d5f288dc1c8a8a2d2b9d",
+   "reason": "the independent review found 1 defect(s)"
+  },
+  {
+   "at": "2026-11-13T05:22:47Z",
+   "from_commit": "01be7c8fc2537a8a49fa2ba819a6148696027e36",
+   "reason": "the independent review found 1 defect(s)"
+  },
+  {
+   "at": "2026-11-13T05:51:05Z",
+   "from_commit": "4ab36822c4e72c46f6a2eddefa441f45674c5ad3",
+   "reason": "the independent review found 1 defect(s)"
+  }
+ ],
+ "review": {
+  "commit": "5fbdfb3a3cb5fa1d7362256131794e62d0ca568d",
+  "declarations_owed": 2,
+  "declarations_recorded": 2,
+  "defects": 0,
+  "findings": 7,
+  "not_caught_by_checks": 6,
+  "recorded": "2026-11-13T06:11:07Z",
+  "reviewer": "review-S3-5",
+  "seconds": 746,
+  "verdict": "pass"
+ },
+ "reviews": [
+  {
+   "commit": "730195a87b89425990b6fb8956a339e8b8b5f80d",
+   "defects": 3,
+   "findings": 7,
+   "not_caught_by_checks": 7,
+   "recorded": "2026-11-13T04:43:53Z",
+   "reviewer": "review-S3-1",
+   "seconds": 400,
+   "verdict": "defect"
+  },
+  {
+   "commit": "329324c488161b0f4ef1d5f288dc1c8a8a2d2b9d",
+   "defects": 1,
+   "findings": 5,
+   "not_caught_by_checks": 4,
+   "recorded": "2026-11-13T05:01:32Z",
+   "reviewer": "review-S3-2",
+   "seconds": 534,
+   "verdict": "defect"
+  },
+  {
+   "commit": "01be7c8fc2537a8a49fa2ba819a6148696027e36",
+   "defects": 1,
+   "findings": 6,
+   "not_caught_by_checks": 5,
+   "recorded": "2026-11-13T05:22:37Z",
+   "reviewer": "review-S3-3",
+   "seconds": 846,
+   "verdict": "defect"
+  },
+  {
+   "commit": "4ab36822c4e72c46f6a2eddefa441f45674c5ad3",
+   "defects": 1,
+   "findings": 6,
+   "not_caught_by_checks": 5,
+   "recorded": "2026-11-13T05:49:38Z",
+   "reviewer": "review-S3-4",
+   "seconds": 1205,
+   "verdict": "defect"
+  },
+  {
+   "commit": "5fbdfb3a3cb5fa1d7362256131794e62d0ca568d",
+   "declarations_owed": 2,
+   "declarations_recorded": 0,
+   "defects": 0,
+   "findings": 7,
+   "not_caught_by_checks": 6,
+   "recorded": "2026-11-13T06:11:07Z",
+   "reviewer": "review-S3-5",
+   "seconds": 746,
+   "verdict": "pass"
+  }
+ ],
+ "round": 5,
+ "stage": "S3",
+ "status": "green",
+ "title": "Rails 7.1.6 to 7.2.4",
+ "versions_after": {
+  "rails": "7.2.4",
+  "ruby": "3.4.6"
+ }
+}

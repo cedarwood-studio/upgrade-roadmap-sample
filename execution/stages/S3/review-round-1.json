@@ -1,0 +1,203 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794544789.log",
+   "found_by": "unexecuted-read | upstream-diff | break-attempt",
+   "severity": "defect",
+   "what": "The line calls ActiveRecord::Base.connection.migration_context. Active Record 7.2 moved migration_context to the connection pool, so with the migration waiter enabled (MIGRATION_WAITER_ENABLED=true, the clustered deployment mode) every server, worker and SMTP process raises NoMethodError during boot and exits 1. The plan lists this change for S3 and names the migration waiter boot in the pass condition; the stage did not make it, and its notes say no application code needed to change. The same call through ActiveRecord::Base.connection_pool works on 7.2.4. The suite loads this file and never runs the line, and the stage's recorded check has no boot result, so nothing automated showed it.",
+   "where": "lib/migration_waiter.rb:18"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794544869.log",
+   "found_by": "break-attempt",
+   "severity": "defect",
+   "what": "The lock moved far more than the plan accepts for this hop. The plan and the roadmap's resolve (bundle lock --update rails --conservative) change connection_pool and minitest and add useragent, next to the 12 framework gems. The stage ran bundle lock --update rails without --conservative and also moved 26 other gems, among them mail 2.9.0 to 2.9.1, nokogiri 1.19.3 to 1.19.7, loofah, rails-html-sanitizer 1.7.0 to 1.7.2 and rack 3.2.6 to 3.2.8 (the plan schedules the sanitizer, loofah and nokogiri moves for S4), i18n 1.14.8 to 1.15.2, net-smtp, net-imap, net-protocol 0.2.2 to 0.4.0, and two major versions: prism 1.9.0 to 2.1.0 and rdoc 7.2.0 to 8.1.0. psych and stringio left the lock, so the YAML library is no longer pinned and the running version went down from psych 5.4.0 to the 5.2.2 inside Ruby 3.4.6 (stringio 3.2.0 to 3.1.2); this application stores two columns as YAML. The notes list the counts but say the result 'matches the roadmap's resolve for this hop gem for gem' and that 'the roadmap said psych and stringio leave the lock'. Neither statement is true: resolve.json records 2 non-framework changes and no removals, and the roadmap does not mention psych. Tests and recorded responses did not change, but each of these moves is a change the stage does not source.",
+   "where": "Gemfile.lock"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794544840.log",
+   "found_by": "changelog | unexecuted-read",
+   "severity": "defect",
+   "what": "The plan requires this stage to declare that from Rails 7.2.3 the development and test environments take secret_key_base from credentials, which this initializer sets (to the configured key, or to a random key per process when none is configured), instead of the generated tmp/local_secret.txt. The notes and the pull request text do not mention it. On 7.2.4 we measured that the key equals the credentials value in test, development and production and that no tmp/local_secret.txt is written. The effect is limited to development and test: with no key configured, sessions and signed cookies there no longer survive a restart. Production is not affected. We could not run the 7.1.6 side from this stage's sandbox; the 'before' rests on the Railties 7.2.3 changelog entry.",
+   "where": "config/initializers/secret_key.rb:4"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794544762.log",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "json is not pinned below 3. Active Support 7.2 and 8.0 pass an option that json 3 removed, and the plan put the pin in S2; the Gemfile on this branch has no json line and the S2 notes do not mention one. Today the lock holds json 2.7.1 and to_json works on 7.2.4 (probe). A later relock that is not conservative, like the one this stage ran, could move it. Belongs to the S2 author or to S4 before the next relock.",
+   "where": "Gemfile"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/check-2.json",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The plan's check for S3 lists resolve, tests, parity, boot and deprecations. The recorded check holds tests, parity and deprecations only: no boot variant result and no lock-diff.json. The notes cite one bin/rails runner call as the boot check. The green status therefore does not cover the pass condition 'all boot variants start, the migration waiter's included'. Also, result.json records commit 606ebe8 and tree b01447f, while the branch tip is 730195a with tree 3511307 and 606ebe8 is not in the repository; we could not tell whether the checked tree is the delivered one.",
+   "where": "exec/stages/S3/check-2.json"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S3/review-runs/try-1794544762.log",
+   "found_by": "unexecuted-read",
+   "severity": "note",
+   "what": "Three planned items are not recorded as done or skipped: running bin/rails app:update and reviewing its output, reading the unexecuted call sites (the worker's connection pool calls first), and handing the client a query for stored Astana values (the notes suggest checking the columns but give no query). We read and ran the worker's pool calls on 7.2.4 and they work. The Astana declaration itself is correct and sourced: Active Support 7.2.4 maps Astana to Asia/Almaty at +05:00 (probe), and the five declared differences match the changelog entry.",
+   "where": "exec/stages/S3/notes.md"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "repo/app/models/route.rb",
+   "found_by": "unexecuted-read",
+   "severity": "note",
+   "what": "Read on the way to the unexecuted line 122: errors.each is called with a two-argument block, a form Active Model stopped supporting in 7.0, so the copied message is likely nil. This is not caused by this stage and behaves the same before and after it; we read it and did not run it. Worth a ticket outside the upgrade.",
+   "where": "app/models/route.rb:119"
+  }
+ ],
+ "method": {
+  "break_attempts": [
+   {
+    "command": "exec try --stage S3 --env MIGRATION_WAITER_ENABLED=true --env MIGRATION_WAITER_ATTEMPTS=2 --env MIGRATION_WAITER_SLEEP_TIME=1 -- 'sh /out/boot.sh migration-waiter'",
+    "result": "exit 1. lib/migration_waiter.rb:18: NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter. The application does not start. Log: review-runs/try-1794544789.log",
+    "what": "boot as a server process with the migration waiter on, schema loaded"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec ruby -e \"require %q(./config/environment); ...\"'",
+    "result": "exit 0, Rails 7.2.4. Log: review-runs/try-1794544678.log",
+    "what": "boot as a server process, default configuration"
+   },
+   {
+    "command": "exec try --stage S3 --env OIDC_ENABLED=true --env OIDC_ISSUER=https://oidc.example.com --env OIDC_IDENTIFIER=postal-sandbox -- 'sh /out/boot.sh oidc'",
+    "result": "exit 0. Log: review-runs/try-1794544797.log",
+    "what": "boot with OIDC on"
+   },
+   {
+    "command": "exec try --stage S3 --env OIDC_ENABLED=true --env OIDC_DISCOVERY=false (plus the four endpoint variables) -- 'sh /out/boot.sh oidc-no-discovery'",
+    "result": "exit 0. Log: review-runs/try-1794544805.log",
+    "what": "boot with OIDC on and discovery off"
+   },
+   {
+    "command": "exec try --stage S3 --env LOGGING_RAILS_LOG_ENABLED=true -- 'sh /out/boot.sh rails-log'",
+    "result": "exit 0. Log: review-runs/try-1794544812.log",
+    "what": "boot with the Rails log on"
+   },
+   {
+    "command": "exec try --stage S3 --env LOGGING_SENTRY_DSN=http://placeholder@127.0.0.1:9/1 -- 'sh /out/boot.sh sentry'",
+    "result": "exit 0. Log: review-runs/try-1794544820.log",
+    "what": "boot with a Sentry DSN set"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=production -- 'sh /out/boot.sh production; bundle exec ruby /out/probe.rb'",
+    "result": "boot exit 0 with eager_load=true. Probe: only the two migration waiter checks fail. Log: review-runs/try-1794544828.log",
+    "what": "boot in production (eager loading on), then the probe"
+   },
+   {
+    "command": "exec try --stage S3 --env RAILS_ENVIRONMENT=development -- 'sh /out/boot.sh development; bundle exec ruby /out/probe.rb'",
+    "result": "boot exit 0. Probe: only the two migration waiter checks fail. The secret key equals the credentials value and no tmp/local_secret.txt is written. Log: review-runs/try-1794544840.log",
+    "what": "boot in development, then the probe"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec rake db:create db:schema:load; bundle exec ruby /out/probe.rb'",
+    "result": "23 pass, 3 fail. Two failures are the migration waiter (line 18 as written, and MigrationWaiter.wait). The third was a mistake in the probe's own serializer check, corrected and passing in the production and development runs. The same call through connection_pool returns 0 pending migrations. Log: review-runs/try-1794544762.log",
+    "what": "probe that calls each at-risk line on 7.2.4 (26 checks): the migration waiter, the worker's connection pool calls and one tick of work and of tasks, the pool resize, the EXPLAIN printer, the update rake task's connection calls, the secret key, JSON encoding, the Astana zone, the serialized column coders"
+   },
+   {
+    "command": "inside probe.rb: Rails.application.eager_load! and Zeitwerk::Loader.eager_load_all, in test, production and development",
+    "result": "All files load in all three environments; 20 controllers and 24 models resolve. Scripts under script/ and config.ru are outside the autoloader and were not loaded.",
+    "what": "load every file the suite never loads, eager loading on"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec rake -T; bin/rails runner \"puts Rails.version\"; bin/rails boot'",
+    "result": "52 tasks listed including the four postal tasks; runner prints 7.2.4; bin/rails boot exits 0. Log: review-runs/try-1794544762.log",
+    "what": "load the rake tasks and the two Rails entry commands"
+   },
+   {
+    "command": "exec try --stage S3 -- 'git diff -U0 HEAD~1 HEAD -- Gemfile.lock | grep ...'",
+    "result": "exec/stages/S3/lock-diff.json does not exist, so the diff was computed from the stage commit. 12 framework gems move to 7.2.4; 28 other gems change; rbs and useragent are added; psych and stringio are removed. The plan and out/measurements/resolve.json accept connection_pool, minitest and useragent only. Log: review-runs/try-1794544869.log",
+    "what": "check that the lock moved only what the stage and the plan say"
+   },
+   {
+    "command": "exec try --stage S3 -- 'bundle exec ruby -e \"require %q(./config/environment); puts Psych::VERSION ...\"'",
+    "result": "psych 5.2.2 and stringio 3.1.2 (the copies shipped inside Ruby 3.4.6) are loaded in place of the locked psych 5.4.0 and stringio 3.2.0. mail is 2.9.1, nokogiri 1.19.7, prism 2.1.0. Log: review-runs/try-1794544882.log",
+    "what": "which YAML library runs now that psych is out of the lock"
+   },
+   {
+    "command": "exec try --stage S3 -- 'git rev-parse HEAD \"HEAD^{tree}\"; git cat-file -t 606ebe86...'",
+    "result": "Branch tip is 730195a with tree 3511307. result.json records commit 606ebe8 and checked tree b01447f; commit 606ebe8 is not in the repository.",
+    "what": "compare the branch tip with the commit the checks recorded"
+   }
+  ],
+  "changelogs_not_read": "actioncable, actionmailbox, actiontext, activejob and activestorage for 7.2 were not read: config/application.rb requires six railties and none of these five is among them (inventory.json, framework_config). Entry counts exclude the 'No changes' placeholders. The move of migration_context from the connection to the connection pool has no entry in the Active Record 7.2 changelog; it was found through the unexecuted read and the upstream comparison, not the changelog.",
+  "changelogs_read": [
+   {
+    "entries_checked": 191,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activerecord.md"
+   },
+   {
+    "entries_checked": 67,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activesupport.md"
+   },
+   {
+    "entries_checked": 56,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/railties.md"
+   },
+   {
+    "entries_checked": 36,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/7.2/actionpack.md"
+   },
+   {
+    "entries_checked": 25,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionview.md"
+   },
+   {
+    "entries_checked": 6,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/activemodel.md"
+   },
+   {
+    "entries_checked": 4,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionmailer.md"
+   }
+  ],
+  "unexecuted_call_sites_read": {
+   "at_risk": [
+    "lib/migration_waiter.rb:18",
+    "config/initializers/secret_key.rb:4"
+   ],
+   "detail": "All 16 entries with priority 'read' (5 never-executed, 11 in files the suite does not load) were opened in repo/ and, except config.ru:6, called on 7.2.4 by exec/stages/S3/review-runs/probe.rb or by a boot or rake run. config.ru:6 was read only; no server was started. The 6 'stable-surface' entries were not read.",
+   "listed": 16,
+   "read": 16,
+   "why_not_all": null
+  },
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades, branch upgrade-rails-8.1.4 and the project's open pull request for Rails 8.1",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    "lib/migration_waiter.rb",
+    "app/models/credential.rb",
+    "app/models/webhook_request.rb",
+    "app/helpers/error_messages_helper.rb",
+    "config/initializers/form_builder_extensions.rb",
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "config/initializers/new_framework_defaults_7_0.rb",
+    "config/initializers/new_framework_defaults_7_1.rb",
+    "config/initializers/new_framework_defaults_7_2.rb",
+    "db/schema.rb",
+    "lib/tasks/annotate_rb.rake",
+    "lib/tasks/auto_annotate_models.rake"
+   ],
+   "why_not": "lib/migration_waiter.rb is a break this stage also needed (finding 1). The rest are choices of theirs or belong to other stages: the explicit YAML coder on the two serialized columns is only required under the 7.1 defaults, and under load_defaults 7.0 both columns still resolve to the YAML coder on 7.2.4 (probe); their replacement of dynamic_form is a choice, since the gem's helpers are present on 7.2.4 and the recorded invalid-form responses are identical apart from the declared time zone lines; the framework defaults files are the config stage's work; db/schema.rb and the annotate rake files belong to the 8.1 hop and to S2. Their Gemfile also pins json below 3, which this branch does not (finding 4)."
+  }
+ },
+ "stage": "S3",
+ "verdict": "defect"
+}

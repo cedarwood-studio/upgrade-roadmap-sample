@@ -1,0 +1,43 @@
+{
+ "command": null,
+ "data": {
+  "build_seconds": 0.0,
+  "containerfile": "FROM docker.io/library/ruby:3.4.6-slim-bookworm\nRUN apt-get update && apt-get install -y --no-install-recommends build-essential git libffi-dev libmariadb-dev libssl-dev libyaml-dev mariadb-server nodejs pkg-config zlib1g-dev && rm -rf /var/lib/apt/lists/*\nRUN gem install bundler -v 2.7.2 --no-document\n",
+  "note": null,
+  "spec": {
+   "base_image": "docker.io/library/ruby:3.4.6-slim-bookworm",
+   "env": {
+    "BUNDLE_APP_CONFIG": "/tmp/upk-bundle-config",
+    "BUNDLE_PATH": "/cache/bundle",
+    "CI": "true",
+    "RACK_ENV": "test",
+    "RAILS_ENV": "test"
+   },
+   "image_setup": [
+    "gem install bundler -v 2.7.2 --no-document"
+   ],
+   "packages": [
+    "build-essential",
+    "git",
+    "libyaml-dev",
+    "pkg-config",
+    "nodejs",
+    "libffi-dev",
+    "zlib1g-dev",
+    "libssl-dev",
+    "libmariadb-dev"
+   ],
+   "service_setup": [],
+   "services": [
+    "mariadb"
+   ],
+   "unsupported_services": []
+  },
+  "tag": "localhost/upk:1d2989aeae69"
+ },
+ "method": "measured",
+ "note": null,
+ "recorded": "2026-11-13T03:58:53Z",
+ "seconds": 0.0,
+ "step": "image"
+}

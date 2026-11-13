@@ -1,0 +1,55 @@
+setup exit=0
+==== worker (script/worker.rb), 14 seconds, then TERM
+worker health: 200 OK
+worker exit=0
+worker lines=4 errors=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Received TERM signal. Stopping when able.
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Received TERM signal. Stopping when able.
+==== smtp server (script/smtp_server.rb) on port 2525, then TERM
+S: 220 postal.example.com ESMTP Postal/ZJLFR1ZP
+C: EHLO r3.example.com  S: 250-My capabilities are |250 AUTH CRAM-MD5 PLAIN LOGIN
+C: MAIL FROM:<sender@example.com>  S: 250 OK
+C: RCPT TO:<nobody@unknown-domain.example.org>  S: 530 Authentication required
+C: AUTH PLAIN AHVzZXIAd3Jvbmc=  S: 535 Invalid credential
+C: NOOP  S: 250 OK
+C: QUIT  S: 221 Closing Connection
+smtp health: 200 OK
+smtp exit=0
+smtp lines=4 errors=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Received TERM signal, shutting down.
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Received TERM signal, shutting down.
+==== web server (puma -C config/puma.rb) on port 5055, then TERM
+assets exit=0
+GET /login -> 200 text/html; charset=utf-8 1916b
+HEAD /no/such/page -> 404 */*; charset=UTF-8 0b
+GET /no/such/page -> 404 text/html; charset=UTF-8 1564b
+POST /api/v1/send/message -> 200 application/json; charset=utf-8 118b
+GET /.well-known/jwks.json -> 200 application/json; charset=utf-8 312b
+web exit=143
+web lines=18 errors=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+Puma starting in single mode...
+* Puma version: 7.0.4 ("Romantic Warrior")
+* Ruby version: ruby 3.4.6 (2025-09-16 revision dbd83256b1) +PRISM [aarch64-linux]
+*  Min threads: 5
+*  Max threads: 5
+*  Environment: production
+*          PID: 235
+No secret key was specified in the Postal config file. Using one for just this session
+* Listening on http://127.0.0.1:5055
+Use Ctrl-C to stop
+127.0.0.1 - - [13/Nov/2026:05:16:55 +0000] "GET /login HTTP/1.1" 200 - 0.0551
+127.0.0.1 - - [13/Nov/2026:05:16:55 +0000] "HEAD /no/such/page HTTP/1.1" 404 - 0.0019

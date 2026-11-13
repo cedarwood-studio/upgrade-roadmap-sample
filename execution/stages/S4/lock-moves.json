@@ -1,0 +1,5 @@
+{
+ "cgi": "Stays in the lock at 0.5.1 because the Gemfile now names it. Rails 8.0 no longer depends on cgi, and the application calls CGI in lib/postal/config_schema.rb and lib/postal/message_parser.rb.",
+ "connection_pool": "Restores the major version the lock held before the 7.2 hop (3.0.2). Active Support 7.2.4 required connection_pool below 3 and forced it down to 2.5.5; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back.",
+ "minitest": "Restores the major version the lock held before the 7.2 hop (6.0.6 then, 6.1.0 now, the version the roadmap's resolve for 8.0 predicted). Active Support 7.2.4 required minitest below 6 and forced it down to 5.27.0; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back."
+}

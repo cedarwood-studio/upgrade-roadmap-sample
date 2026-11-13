@@ -1,0 +1,217 @@
+> This pull request lives in Cedarwood Studio's fork and stays there. It's one stage of an unsolicited sample upgrade, published so the work can be read. Nobody at the Postal project asked for it, and nothing has been sent to the project. Corrections go to hello@cedarwood.studio.
+
+## S3: Rails 7.1.6 to 7.2.4
+
+### What changed
+
+- `Gemfile`: the rails pin moves from `= 7.1.6` to `= 7.2.4`.
+- `Gemfile.lock`: regenerated with `bundle lock --update rails --conservative`. The 12 framework gems move to 7.2.4 (13 lock lines when the `rails` gem itself is counted, which is how the lock table in the pull request text counts them). Outside the framework exactly three gems change: connection_pool 3.0.2 to 2.5.5, minitest 6.0.6 to 5.27.0, and useragent 0.16.11 is added. This matches the roadmap's resolve for this hop. Nothing else moves and nothing leaves the lock; psych and stringio stay pinned at the versions the S2 lock holds.
+- `lib/migration_waiter.rb`: line 18 reads `migration_context` from `ActiveRecord::Base.connection_pool` instead of `ActiveRecord::Base.connection`. Active Record 7.2 moved this method to the pool. Without the change every server, worker and SMTP process started with `MIGRATION_WAITER_ENABLED=true` raises `NoMethodError` during boot and exits 1.
+- `spec/lib/migration_waiter_spec.rb` (new, 4 examples): runs `MigrationWaiter.wait` against the test database, runs the path that exits after the configured attempts, and runs both branches of `wait_if_appropriate`. With the fix reverted, the two `wait` examples fail with the `NoMethodError` above.
+- `spec/lib/secret_key_spec.rb` (new, 1 example): pins that the application's secret key base is the value `config/initializers/secret_key.rb` puts in the credentials. This is not a change made by the hop: the example passes on 7.1.6 as well. See "Checked, no change on this hop" below.
+- `spec/requests/error_pages_spec.rb` (new, 3 examples): switches error page rendering on for the request, the way production runs, and pins what a client receives for a path that does not exist, for GET and for HEAD. No application line changed here; the examples pin the second declared behavior change below. On 7.1.6 the GET example passes and the two HEAD examples fail.
+- `spec/requests/rails_log_spec.rb` (new, 3 examples): points the Action Controller and Action View loggers at a string for one signed-in JSON request and pins the shape of the "Completed" and "Rendered" lines Rails writes. No application line changed here; the examples pin the third declared behavior change below. On 7.1.6 all three fail.
+- `config/environments/test.rb`: `config.action_dispatch.show_exceptions = false` becomes `:none`. Rails 7.2 no longer accepts `true` or `false` for this setting. `:none` is the documented equivalent of `false`, so exceptions are still raised in tests instead of rendered.
+- `load_defaults` is untouched and stays at 7.0.
+
+### Declared behavior changes
+
+- **Astana time zone.** Five recorded responses differ, all in the same way: in the time zone drop-down on the user settings page and the organization settings page, "Astana" moves from "(GMT+06:00)" to "(GMT+05:00)" and is listed in the new position. That is the whole difference, 10 diff lines per response. The cause is in Rails: Active Support 7.1.6 maps the zone name "Astana" to `Asia/Dhaka`, and 7.2.4 maps it to `Asia/Almaty`. We confirmed this by reading both installed versions of `active_support/values/time_zone.rb`. The Active Support 7.2 changelog lists it as "Updating Astana with Western Kazakhstan TZInfo identifier" (https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md). We declared the difference for exactly those five requests, on the body only, in `expected-differences.json`. It needs client sign-off because it changes more than the label. Any user or organization whose stored `time_zone` is "Astana" will have times computed at UTC+5 instead of UTC+6 after this stage. That matches Kazakhstan's move to a single UTC+5 zone in March 2024, so the new value is the correct one, but it is a visible change for those accounts.
+
+- **HEAD requests that end in an error page.** In production, a HEAD request for a path that does not exist gets two different response headers after this stage. `Content-Length` goes from the size of the 404 page (1564) to 0 for every client. `Content-Type` goes from `text/html; charset=UTF-8` to `*/*; charset=UTF-8` for clients that send `Accept: */*`, which is what curl, most uptime monitors and link checkers send. With a browser `Accept` header, or none, `Content-Type` stays `text/html`. The status code does not change, GET responses do not change, and HEAD requests to pages that exist do not change. The third review measured this on missing paths with puma in production on 7.1.6 and 7.2.4. The fourth review measured the 500 page as well, along with a 406 and a 404 raised by a missing record: GET is identical on both versions (1477 bytes for the 500 page), and HEAD differs in the same two headers, `Content-Length` 1477 on 7.1.6 and 0 on 7.2.4. The cause is in Rails: since 7.2.3 the public exceptions application answers HEAD with an empty body in the format the request asked for (`action_dispatch/middleware/public_exceptions.rb` in the installed Action Pack 7.2.4). The Action Pack 7.2 changelog lists it as "Always return empty body for HEAD requests in PublicExceptions and DebugExceptions" (https://github.com/rails/rails/blob/v7.2.4/actionpack/CHANGELOG.md). The new answer is the more correct one for HEAD, and the impact is small, but it needs client sign-off because a monitor or link checker that sends HEAD to a path it expects to be missing, and reads `Content-Type` or `Content-Length` and not only the status, will see different values. Anything that reads only the status code is unaffected.
+
+- **The Rails request log, when it is switched on.** The Rails log is off by default. It is on when `logging.rails_log_enabled` is set (`LOGGING_RAILS_LOG_ENABLED=true`), which `config/examples/development.yml` does. With it on, the line Rails writes at the end of every request changes shape. On 7.1.6: `Completed 200 OK in 39ms (Views: 26.1ms | ActiveRecord: 1.4ms | Allocations: 22156)`. On 7.2.4: `Completed 200 OK in 39ms (Views: 23.2ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 13.1ms)`. The `Rendered ...` lines change the same way at the end: `Allocations: N` becomes `GC: N ms`. So there are two differences: a query count is added after the Active Record time, and the allocation count is replaced by a garbage collection time. The review ran 52 production requests on each version: of 280 log lines per side, all 46 "Completed" lines and all 24 "Rendered" lines differ in this way and no other line differs. The cause is in Rails. The query count is in the Action View 7.2 changelog as "Add queries count to template rendering instrumentation" (https://github.com/rails/rails/blob/v7.2.4/actionview/CHANGELOG.md). The replacement of the allocation count by a GC time is in none of the seven changelogs the review read, and the changelog's own example still shows `Allocations`; the source for it is the installed code, `action_controller/log_subscriber.rb` in Action Pack 7.2.4 and `active_record/railties/controller_runtime.rb` in Active Record 7.2.4, compared with the same files in 7.1.6. The application's own request log, the one `config/initializers/logging.rb` writes and that is on by default, is the same on both versions; the review compared it. No response changes. The impact is small, but it needs client sign-off because anything that feeds the Rails log to a parser, a dashboard or an alert, and reads the "Completed" or "Rendered" line beyond the status, will stop finding `Allocations` and will meet the new query count and `GC` fields.
+
+That makes three declared changes. The first shows in five recorded requests, body only, and is declared in `expected-differences.json`. The second shows in no recorded request and cannot: the 170 recorded requests run in the test environment, where exceptions are raised and never rendered, and none is a HEAD. So it is declared here and pinned by `spec/requests/error_pages_spec.rb`, not in `expected-differences.json`. The third is not in any response at all, so no recorded request can show it either: the boot check starts the application with the Rails log on and does not read what it writes. It is declared here and pinned by `spec/requests/rails_log_spec.rb`.
+
+The fifth review passed the stage and asked for two more differences to be declared. They are under "Declared after review" below: one more part in the Rails log entry for an error that has a cause, which adds to the third change above, and the Rails console prompt. With those the stage declares four changes, the third of them in two parts.
+
+### Checked, no change on this hop
+
+- **Secret key handling.** An earlier version of these notes declared that this hop changes where the development and test environments take `secret_key_base` from. That declaration was wrong and is withdrawn. There is nothing here for the client to sign off. The Railties changelog entry for 7.2.3 describes a change between 7.2.2 and 7.2.3, for applications that leave the credentials value unset. This application never does: `config/initializers/secret_key.rb` always sets it, to `rails.secret_key` from the Postal configuration when one is configured and to a new random key for each process when none is. The independent review measured both sides. On Rails 7.1.6 (the S2 branch) and on 7.2.4, in test and in development, the application's secret key equals the credentials value and no `tmp/local_secret.txt` is written. The installed 7.1.6 source agrees: it reads the environment variable, then the credentials, and only then generates a local secret. The example in `spec/lib/secret_key_spec.rb` passes unchanged on 7.1.6 and on 7.2.4. So the behavior when no `rails.secret_key` is configured (a new key for each process, sessions that do not survive a restart) is the application's own, and it is the same before and after this stage.
+
+### What needed judgment
+
+- **The two downgrades.** connection_pool goes from 3.0.2 to 2.5.5 and minitest from 6.0.6 to 5.27.0. Our normal rule is that a downgrade is a blocker to fix in the Gemfile. Here it can't be fixed that way: activesupport 7.2.4 itself declares `connection_pool (>= 2.2.5, < 3)` and `minitest (>= 5.1, < 6)`, so the only way to keep the newer versions is to not move Rails. The plan lists both downgrades as accepted for this hop only, so we accepted them. The check reports all three moves outside the framework as forced by a framework constraint. Neither gem is named in the Gemfile. The suite result is unchanged with the older versions. The roadmap's 8.0 resolve puts connection_pool back at 3.0.2 and minitest at 6.1.0, so S4 should confirm both are restored.
+- **The three rules that cannot be found by search.** We read the code for each.
+  - Transaction early exits: there is one `transaction` block in the application, `UserInvite#accept` (`app/models/user_invite.rb:45`). It has no `return`, `break` or `throw`. Not affected.
+  - Plural names for singular associations: we read all 29 `belongs_to` declarations (there is no `has_one`) and every `joins`, `includes`, `references` and hash `where`. `Server.joins(:organization)` uses the singular name. The four `where(domains: { ... })` calls in `route.rb` and `incoming_message_prototype.rb`, and `where(organizations: { ... })` in `smtp_server/client.rb`, use the table name next to `includes(:domain)` or `includes(:organization)`. Rails 7.2 still accepts a table name there, 7.1.6 printed no deprecation warning for them, and the specs that run those queries pass. Not affected.
+  - Durations in SQL: every time-based bind value is a `Time` (`5.minutes.ago`, `1.hour.ago`, `Time.now`), not a duration. The bare durations in `webhook_delivery_service.rb` and `has_locking.rb` are added to a time in Ruby before they reach the database. The message database code builds its own SQL and does not go through Active Record. Not affected.
+- **A test for the secret key.** No application line was wrong here, so there is no unfixed line for a test to fail on. We kept the one example that executes the path. It pins behavior that is the same on 7.1.6 and 7.2.4, so later hops are gated on it staying that way.
+
+### Results
+
+These are from the check run after the fourth review (`S3-r5-attempt-1`), green on the first of four attempts.
+
+- **Resolve:** the conservative update succeeded with no conflict. 3 gems moved outside the framework, 3 forced by the framework, 0 unexplained.
+- **Boot:** all 7 boot variants start before and after: default, oidc, oidc-no-discovery, migration-waiter, rails-log, sentry, production. We also started the application as a server process (`require ./config/environment`) with the migration waiter enabled and the schema loaded; it prints 7.2.4 and exits 0.
+- **Tests:** 916 examples before, 927 after (11 added, all passing). 899 passing before, 910 after, 0 regressed, 0 missing. The 17 that do not pass are the same 17 as before (16 in `spec/lib/dns_resolver_spec.rb`, 1 in `spec/senders/smtp_sender_spec.rb`); they need live DNS and the sandbox runs with the network off.
+- **Recorded requests:** 170 requests, 165 identical, 5 different and declared (the Astana change above), 2 masked as noise, 0 unexplained. The HEAD change and the Rails log change above are outside what the recorded requests can show.
+- **Committed baseline:** the stage's diff adds more entries to `.upgrade/baseline/examples.json` than the stage adds examples. At the third review it added 70: 5 were this stage's new examples and 65 were examples S1 added (session continuity, the scheduled tasks, the two serialized-column specs, the worker and SMTP server specs) that the committed file on S2 did not list. The 3 examples added after that review and the 3 added after the fourth come on top. The gate was not weakened by the gap: each check compared the 916 examples that exist on S2 one by one, and the committed file now agrees with the suite.
+- **Deprecation warnings:** 0 before, 0 after. Ruby deprecation warnings: 3 before, 3 after.
+
+### After review
+
+The independent review returned three defects that the checks had not caught. We fixed those three and nothing else.
+
+- **The migration waiter did not start on 7.2.** The plan listed the change to `lib/migration_waiter.rb:18` for this stage and the first pass did not make it; its notes said no application code needed to change, which was wrong. The suite loads the file and never ran the line, and the first pass's recorded check had no boot result. We made the change and added a spec that runs the line and fails without the fix. The check now records the migration waiter boot variant as starting.
+- **The lock moved 26 gems nobody asked to move.** The first pass ran the framework update without `--conservative`. That moved mail, nokogiri, loofah, rails-html-sanitizer, rack, i18n, the net-* gems and others, took prism and rdoc up a major version each, and dropped psych and stringio from the lock so that the YAML library fell back to the older copy shipped with Ruby. The earlier notes also said this matched the roadmap's resolve and that the roadmap predicted psych and stringio leaving the lock. Neither statement was true and both are removed. We restored the lock from the S2 branch and reran the update conservatively. The lock now differs from S2 only in the 12 framework gems, connection_pool, minitest and useragent.
+- **The secret key change was not declared.** The plan required it, and we declared it with one example. The second review showed the declaration itself was wrong; see below.
+
+The review also recorded one risk and three notes. We didn't act on them here because they're outside what the review sent back as defects; they're listed under follow-ups.
+
+### After the second review
+
+The second review returned one defect, in the text and not in the code. The checks could not have caught it, because they compare behavior and the behavior was right.
+
+- **We declared a behavior change that this hop does not make.** The first review, working from the changelog alone, asked us to declare that development and test stop using a key kept in `tmp/local_secret.txt`. We declared it and said the 7.1.6 side was not measured. The second review measured it: on 7.1.6 and on 7.2.4, in test and in development, the key equals the credentials value and no local secret file is written. The handling is identical before and after the hop in all three environments.
+- **What we changed.** We withdrew the declaration from these notes and replaced it with the "Checked, no change on this hop" section, corrected the comment in `spec/lib/secret_key_spec.rb` so that it no longer describes a change, and kept the example itself unchanged. No application code changed. We also added one clause to the lock description saying that 12 framework gems and 13 lock lines are the same count, which the review noted.
+- **What we could not change.** The seventh change in the S3 entry of `out/plan.json` still asks for this declaration. The roadmap bundle isn't ours to edit during execution, so the plan item needs correcting by whoever maintains the roadmap. It should read as "checked, no change on this hop, measured on both versions".
+- **Test for the fix.** The method asks for a test that fails without the fix. There's no such test to write here, because the fix is to prose and a comment. The existing example runs the path and passes on both versions, which is the evidence that there is no change.
+
+The risk and the notes from the second review (the `json` pin, `bin/rails app:update`, the Astana query, `route.rb:119`) are unchanged and remain under follow-ups.
+
+### After the third review
+
+The third review returned one defect, again in the text and not in the code. The checks had not caught it and could not have: the recorded requests run in the test environment, where exceptions are raised and never rendered, and none of them is a HEAD.
+
+- **We said the Astana zone was the only behavior change, and there is a second.** The review started puma in production on 7.1.6 and on 7.2.4 and compared the headers a client receives. A HEAD request that ends in an error page gets `Content-Length: 0` where it got the size of the page, and `Content-Type: */*` where it got `text/html` when the client sends `Accept: */*`. The review found it by reading the Action Pack 7.2 changelog and then measuring.
+- **What we changed.** We declared the difference under "Declared behavior changes", with its source and with who needs telling, and corrected the count of declared changes from one to two. No application code changed, because no application line is wrong.
+- **Test for the fix.** We added `spec/requests/error_pages_spec.rb` (3 examples). It switches error page rendering on for the request and sends GET and HEAD to a missing path through the whole middleware stack. We ran it against the 7.1.6 lock in a throwaway copy: the GET example passes and the two HEAD examples fail, one on `Content-Type` and one on `Content-Length`, which are the two headers the review measured. On 7.2.4 all 3 pass. Later hops are now gated on this path.
+- **What we did not do.** The review suggested a recorded request that renders an error page. A recorded request cannot do that with the current recorder, because it runs in the test environment with exceptions raised. The spec covers the path in its place. If the client wants error pages in the recorded set, the recorder needs a way to switch rendering on for a request; that is the operator's decision.
+- **Two notes answered in passing.** We added one sentence under Results about the 65 baseline entries that came from S1, and corrected the line about production deprecation warnings with the review's measurement.
+
+The risk and the other notes from the third review (the `json` pin, `route.rb:119`, `bin/rails app:update`, the Astana query, the plan item that still asks for the withdrawn secret key declaration) are unchanged and remain under follow-ups.
+
+### After the fourth review
+
+The fourth review returned one defect, a third time in the text and not in the code. The checks had not caught it and could not have: the change is in a log file, not in a response, and the boot check starts the application with the Rails log on without reading what it writes.
+
+- **We said the stage makes two behavior changes, and the review measured a third.** With the Rails log switched on, the "Completed" line gains a query count and both the "Completed" and the "Rendered" lines end in a GC time where they ended in an allocation count. The review found it by diffing the request log subscribers of the two installed versions and then running 52 production requests on each. Only half of it is in a changelog.
+- **What we changed.** We declared the difference under "Declared behavior changes", with both sources and with who needs telling, corrected the count of declared changes from two to three, and added a follow-up asking the client whether anything reads those lines. No application code changed, because no application line is wrong.
+- **Test for the fix.** We added `spec/requests/rails_log_spec.rb` (3 examples). It signs in, points the Action Controller and Action View loggers at a string, requests the outgoing messages list as JSON, and matches the "Completed" line and the two "Rendered" lines it produces. We ran it against the 7.1.6 lock in a throwaway copy: all 3 examples fail, each on `Allocations` where the example expects the 7.2 shape. On 7.2.4 all 3 pass. Later hops are now gated on the shape of these lines, so the next change to them will fail a check instead of passing unseen.
+- **One limit of that test.** The example asks for JSON because the HTML layout needs the asset pipeline, which the test environment does not have. The "Rendered" lines it pins are for two partials. It pins no layout line; the review's production run covered those.
+- **A note answered in passing.** The review measured the 500 page on GET and HEAD, which these notes had listed as read and not measured. We changed the sentence in the HEAD declaration to say measured, with the review's numbers, and removed the follow-up that asked for the measurement.
+
+The risk and the other notes from the fourth review are unchanged and are listed under follow-ups: the `json` pin, the `db/schema.rb` header, the old migrations without a version, `bin/rails app:update`, the Astana query, the plan item that still asks for the withdrawn secret key declaration, and `route.rb:119`.
+
+### Declared after review
+
+The fifth review passed the stage and found two differences that the notes had not declared. Neither is in a response, so no recorded request can show them. No code changed for either, because no application line is wrong.
+
+- **The Rails log entry for an error that has a cause.** This adds to the Rails request log declaration above and applies only when the Rails log is switched on (`LOGGING_RAILS_LOG_ENABLED=true`); it is off by default. When Rails logs an error that was raised while handling another error, the entry has one more part on 7.2.4: after the first line of the entry come a blank line, a line `Causes:` and one line per cause, and then the trace as before. The review measured it with a malformed JSON body sent to the API. On 7.1.6 the log has `ActionDispatch::Http::Parameters::ParseError (...)` and the trace. On 7.2.4 it has the same and, in between, `Causes:` and `JSON::ParserError (unexpected token at '{not json')`. The review compared 1060 Rails log lines on 7.1.6 with 1063 on 7.2.4, with the Completed and Rendered difference masked: these 3 extra lines under one logged error are the only other difference. Our earlier sentence that no other log line differs was true of the fourth review's sample of 280 lines, which had no error with a cause; it is not true in general. The response is the same on both versions (400), and the application's own request log is the same. Who it affects: anything that feeds the Rails log to a parser, a dashboard or an alert and reads error entries line by line, for example one that expects the trace to start on the line after the error. Nothing else. It is in none of the seven changelogs the review read. The source is the installed code, `log_error` in `action_dispatch/middleware/debug_exceptions.rb` in Action Pack 7.2.4 (https://github.com/rails/rails/blob/v7.2.4/actionpack/lib/action_dispatch/middleware/debug_exceptions.rb), and the measurement is `exec/stages/S3/review-runs/try-1794549866.log`. No spec pins this part; `spec/requests/rails_log_spec.rb` covers the Completed and Rendered lines only.
+
+- **The Rails console prompt.** `bin/rails console`, which is what `postal console` starts, shows a different prompt. On 7.1.6 an operator sees `irb(main):001>`. On 7.2.4 they see `postal(prod)>` in production: the application name and the environment, with no line number. The banner line and the results of what is typed are the same. No response, no stored data and no server process is affected. Who it affects: operators, who will see the new prompt, and any script that drives the console and waits for the old prompt, which would need updating. The Railties 7.2 changelog lists it as "Rails console now indicates application name and the current Rails environment" (https://github.com/rails/rails/blob/v7.2.4/railties/CHANGELOG.md). The review measured it on a pseudo terminal in production on both versions (`exec/stages/S3/review-runs/try-1794550114.log`).
+
+The same review recorded one risk and three notes. The risk (the `json` pin) and the open items it lists were already under follow-ups. The new note is that 9 of the 187 requests the review ran answer 500 on 7.1.6 and on 7.2.4 alike; we added it to the follow-ups.
+
+### Where the roadmap was wrong or silent
+
+- The roadmap did not predict the HEAD change on error pages. It is in the Action Pack 7.2 changelog under 7.2.3. The roadmap should add it to this hop's declared differences.
+- The roadmap did not predict the change to the Rails request log lines. The query count is in the Action View 7.2 changelog; the replacement of the allocation count by a GC time is in no changelog and shows only in a diff of the installed source. The roadmap should add both to this hop's declared differences, and its method should compare what the Rails log writes when a boot variant switches it on.
+- The roadmap did not predict the `Causes:` block in Rails log error entries (in no changelog) or the console prompt change (in the Railties 7.2 changelog). The roadmap should add both to this hop's declared differences.
+- The plan asked us to accept two downgrades, while the general rule says never to accept one. The plan was right for this hop, because the limits come from Rails 7.2.4 itself, but the roadmap should say that in so many words.
+- The five direct gems flagged as unreleased since 2022 (chronic, gelf, nifty-utils, sass-rails, turbolinks) caused no problem on 7.2.4.
+- The roadmap predicted the migration waiter break, the show_exceptions change, the Astana change and the lock result correctly. The errors in the first pass of this stage were ours.
+
+### Deprecation warnings that remain
+
+- None from Rails on 7.2.4 (0 distinct, 0 occurrences), so S4 has no deprecation fixes carried over from this stage.
+- 3 Ruby deprecation warnings, unchanged by this stage.
+- The suite runs with the test environment only. The third review measured production mode for the paths it ran: a production boot, 26 requests through the full stack and the three server processes produced 0 Rails deprecation notifications on 7.2.4. Production paths outside those were not measured.
+
+### Follow-ups we noticed and did not do
+
+- From the review, a risk: `json` is not pinned below 3 in the Gemfile. Active Support 7.2 and 8.0 pass an option that json 3 removed, and the plan put the pin in S2. The lock holds json 2.7.1 today and a conservative relock does not move it. This should be settled in S2's follow-up or in S4 before its relock.
+- From the review, a note: three planned items are not recorded as done. We did not run `bin/rails app:update` in this stage. The review read and ran the unexecuted call sites on 7.2.4, the worker's connection pool calls included, and they work. The client still needs a query for stored Astana values; the columns to check are `users.time_zone` and `organizations.time_zone`, for the value "Astana".
+- From the review, a note: `app/models/route.rb:119` calls `errors.each` with a two-argument block, a form Active Model stopped supporting in 7.0, so the copied message is likely nil. This stage did not cause it and it behaves the same before and after. Worth a ticket outside the upgrade.
+- From the review, a note: the first pass's recorded result named a commit that is not in the repository. The check after review ran on the tree that is committed with this fix.
+- Tell users and organizations whose time zone is "Astana" about the one hour shift.
+- Ask the client whether any monitor or link checker sends HEAD requests and reads `Content-Type` or `Content-Length` on error responses.
+- Ask the client whether anything reads the Rails log (a parser, a dashboard, an alert) and looks at the "Completed" or "Rendered" lines beyond the status. If so, it needs updating for the query count and for `GC` in place of `Allocations` before this stage is deployed.
+- The 500 page on HEAD is now measured by the review but has no spec. A spec for it needs a route that raises, which the application does not have.
+- From the fourth review, a note: `db/schema.rb` still says `ActiveRecord::Schema[7.1]`. Rails 7.2.4 loads it as it is. The next time a developer runs a migration, Rails rewrites that line to `[7.2]` and drops the blank line before the final `end`: a two-line diff with no schema change. The review redid all 12 versioned migrations on both versions and the tables come out identical.
+- From the fourth review, a note: building a database by running every migration from nothing fails on 7.1.6 and on 7.2.4 alike, because 7 migrations from 2016 and 2017 name no Rails version. This is older than the upgrade. New installs load the schema instead, which works on 7.2.4.
+- From the fourth review, a note: rollback is safe for signed-in users. With the same secret key, cookies issued on 7.2.4 are accepted on 7.1.6 and the other way around, and a form post with a CSRF token from the other version's session is accepted. Our session continuity spec covers the forward direction only.
+- From the fourth review, a note: the rake task list loses `rake app:update` on 7.2.4; the command is `bin/rails app:update` there. Nothing in the repository calls the rake form.
+- Ask the client whether anything reads error entries in the Rails log, or drives the Rails console from a script and waits for the `irb(main)` prompt. Both are declared after the fifth review.
+- From the fifth review, a note: 9 requests answer 500 on 7.1.6 and on 7.2.4 alike, none caused by this stage: the raw HTML view of a message that has no HTML part (3), a message id that does not exist (2), the deliveries list asked for as JSON (1), a route posted with an unknown endpoint type (2), and the new message form posted with blank fields (1). Worth a ticket outside the upgrade, next to `route.rb:119`.
+- From the fifth review, a note: what the application sends to Sentry is the same on both versions for the six requests the review tried (3 events each, same exception types, cause chain, transaction names and level).
+- In S4, confirm that connection_pool returns to 3.x and minitest to 6.x.
+- `config/environments/test.rb` and the other environment files still follow the 7.0 layout. Adopting the new defaults is the config stage's work.
+
+### Checks, before and after
+
+| Check | Before | After |
+|---|---|---|
+| Examples run | 916 | 927 |
+| Examples passing | 899 | 910 |
+| Passing examples that now fail or are gone | | 0 |
+| Rails deprecation warnings (distinct / occurrences) | 0 / 0 | 0 / 0 |
+| Ruby deprecation warnings | 3 | 3 |
+| Recorded HTTP behaviors identical | | 165 of 170 |
+
+### Start-up checks
+
+The application was loaded the way a server process loads it, once per configuration.
+
+| Configuration | Before | After |
+|---|---|---|
+| default | starts | starts |
+| oidc (`Postal::Config.oidc.enabled?`) | starts | starts |
+| oidc-no-discovery (`Postal::Config.oidc.enabled?`, `config.discovery?`) | starts | starts |
+| migration-waiter (`Postal::Config.migration_waiter.enabled?`) | starts | starts |
+| rails-log (`Postal::Config.logging.rails_log_enabled?`) | starts | starts |
+| sentry (`Postal::Config.logging.sentry_dsn`) | starts | starts |
+| production (`Postal::Config.rails.environment`) | starts | starts |
+
+### Which comparisons ran
+
+In the sandbox: 916 examples compared one by one; 170 requests, with status compared on 170, bodies compared in full on 168 and not at all on 2.
+
+On GitHub Actions (https://github.com/cedarwood-studio/postal/actions/runs/43382981247, success): 899 examples gated and 28 reported without gating; bodies compared in full on 163, through a single-value mask on 5 and not at all on 2; 5 of 5 declared differences observed there.
+
+### Lock file
+
+13 framework gems moved. 3 other gems moved, were added or were dropped, each for the reason given.
+
+| Gem | From | To | Why |
+|---|---|---|---|
+| `connection_pool` | 3.0.2 | 2.5.5 | activesupport 7.2.4 requires connection_pool (>= 2.2.5, < 3) |
+| `minitest` | 6.0.6 | 5.27.0 | activesupport 7.2.4 requires minitest (>= 5.1, < 6) |
+| `useragent` |  | 0.16.11 | new dependency of actionpack |
+
+### Independent review
+
+An independent review pass, which had no part in writing this stage, read the framework's component changelogs for the hop and every framework call the test suite loads and never runs, compared the change with any upgrade work the project has in flight, and tried to break it. It is a timed and recorded step of our process. No person has reviewed this stage yet.
+
+- **Verdict:** pass
+- **Findings:** 7, of which 6 the checks had not caught
+- **Differences the review asked us to declare:** 2, all declared below
+- **Rounds:** 5
+- **Review time:** 12 minutes for the round that passed, 62 minutes over all rounds
+
+### Behavior differences this stage declares
+
+These need a person's sign-off. Each is a change in a recorded response that the stage explains.
+
+- body, in 5 recorded requests (`admin: GET /org/acme/settings`, `admin: GET /settings`, `admin: PATCH /org/acme/settings invalid`, `admin: PATCH /settings invalid`, `member: GET /org/acme/settings`): Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md
+
+### Diff
+
+```
+.upgrade/accepted-differences.json |  33 ++++++++++++++++++-
+ .upgrade/baseline/examples.json    |  76 ++++++++++++++++++++++++++++++++++++++++++
+ Gemfile                            |   2 +-
+ Gemfile.lock                       | 139 +++++++++++++++++++++++++++++++++++++----------------------------------------
+ config/environments/test.rb        |   2 +-
+ lib/migration_waiter.rb            |   2 +-
+ spec/lib/migration_waiter_spec.rb  |  40 ++++++++++++++++++++++
+ spec/lib/secret_key_spec.rb        |  13 ++++++++
+ spec/requests/error_pages_spec.rb  |  51 ++++++++++++++++++++++++++++
+ spec/requests/rails_log_spec.rb    |  57 ++++++++++++++++++++++++++++++++
+ 10 files changed, 338 insertions(+), 77 deletions(-)
+```
+
+- **Attempts:** 6
+- **Versions after:** rails 7.2.4, ruby 3.4.6

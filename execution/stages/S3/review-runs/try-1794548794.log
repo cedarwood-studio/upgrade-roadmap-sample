@@ -1,0 +1,81 @@
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+rails 7.2.4 env test ruby 3.4.6
+OK    deprecators set to raise: 10
+OK    migration_waiter.rb:18 pending migrations through the pool: 0
+OK    MigrationWaiter.wait, then console?/rake_task?/rails_command?: [false, false, false, "nil"]
+OK    the old call is gone from the connection (why line 18 had to change): false
+OK    secret_key.rb: app key == credentials, no local secret file: [true, false]
+OK    database.rb:333 a slow message database query prints its EXPLAIN: [7, 1, "  [3M898srd] 1 row in set (0.08 sec)"]
+OK    worker/process.rb:105 pool size: 5
+OK    worker/process.rb:159 with_connection in a thread hands the connection back: [1, 1, 0]
+OK    worker/process.rb:217/203 acquire and release a role: [:created, true]
+OK    Worker::Process: resize the pool, one work tick, one real tasks tick with every task due: [11, false, 9, 9, []]
+OK    postal.rake:31 Base.connection.table_exists? and select_all: [true, true]
+OK    route.rb:119-122 errors.each with a two-argument block, then RecordInvalid with no record: [["ActiveModel::Error", "nil"], "Record invalid"]
+OK    ip_pools_controller.rb:36 destroying a pool that is in use raises DeleteRestrictionError: "ActiveRecord::DeleteRestrictionError"
+OK    Astana zone and a time rendered in it: ["Asia/Almaty", "+05:00", "January 01, 1970 06:00"]
+OK    to_json through Active Support: ["2.7.1", "{\"a\":[1,null,\"1970-01-01T00:00:00.000Z\"]}"]
+OK    number helpers with the values the views pass: ["0.0%", "12.3%", "2 GB", "121 KB", "0 Bytes"]
+OK    serialize coders, YAML round trip, loaded psych: ["ActiveRecord::Coders::YAMLColumn", "ActiveRecord::Coders::YAMLColumn", "---\na: 1\n", {"a" => 1}, "5.4.0"]
+OK    has_secure_password validations: false, blank password with a confirmation: [:first_name, :last_name, :email_address]
+OK    kaminari previous and next page tags (they call a removed deprecation API when given params): [1, 3]
+OK    dom_id override in record_key_for_dom.rb: ["new_user", "initializers/record_key_for_dom.rb"]
+OK    sprockets-rails unknown asset fallback is off (its fallback path calls a removed deprecation API): false
+OK    AppMailer delivery through the deliver.action_mailer subscriber in logging.rb: [1, "Reset your Postal password"]
+OK    UserInvite#accept, the one transaction block: false
+OK    settings the hop could have moved: [:none, 7.0, "ActiveRecord::Coders::YAMLColumn", nil, :json, :all]
+OK    gems the hop moved or must not move: {"rails" => "7.2.4", "connection_pool" => "2.5.5", "minitest" => "5.27.0", "useragent" => "0.16.11", "psych" => "5.4.0", "stringio" => "3.2.0", "mail" => "2.9.0", "nokogiri" => "1.19.3", "rack" => "3.2.6", "json" => "2.7.1", "mutex_m" => "0.3.0"}
+OK    Rails.application.eager_load! and Zeitwerk::Loader.eager_load_all: [20, 24]
+OK    the 39 files the suite never loads: their constants resolve: [39, []]
+==== development boot
+No secret key was specified in the Postal config file. Using one for just this session
+dev-boot-ok 7.2.4 development hosts=5 cache=ActiveSupport::Cache::NullStore
+/cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/connection_adapters/mysql/database_statements.rb:33:          MySQL::ExplainPrettyPrinter.new.pp(result, elapsed)
+/cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/connection_adapters/mysql/explain_pretty_printer.rb:6:      class ExplainPrettyPrinter # :nodoc:
+/cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/connection_adapters/postgresql/database_statements.rb:10:          PostgreSQL::ExplainPrettyPrinter.new.pp(result)
+          end
+        end
+      else
+        parse_parts(@mail.parts)
+      end
+      @mail.to_s
+    rescue StandardError => e
+      raise if Rails.env.development?
+
+      if defined?(Sentry)
+        Sentry.capture_exception(e)
+  puts "usage: #{__FILE__} [server-id] [message-id]"
+  exit 1
+end
+
+require_relative "../config/environment"
+
+server = Server.find(ARGV[0])
+puts "Got server #{server.name}"
+
+template = File.read(Rails.root.join("resource/postfix-bounce.msg"))
+
+# frozen_string_literal: true
+
+config = Postal::Config.oidc
+if config.enabled?
+  client_options = { identifier: config.identifier, secret: config.secret }
+
+  client_options[:redirect_uri] = "#{Postal::Config.postal.web_protocol}://#{Postal::Config.postal.web_hostname}/auth/oidc/callback"
+
+  unless config.discovery?
+    client_options[:authorization_endpoint] = config.authorization_endpoint
+    client_options[:token_endpoint] = config.token_endpoint
+    client_options[:userinfo_endpoint] = config.userinfo_endpoint
+    client_options[:jwks_uri] = config.jwks_uri
+  end
+
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :openid_connect, name: :oidc,
+                              scope: config.scopes.map(&:to_sym),
+                              uid_field: config.uid_field,
+                              issuer: config.issuer,
+                              discovery: config.discovery?,
+                              client_options: client_options

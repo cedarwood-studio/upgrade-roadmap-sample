@@ -1,0 +1,1 @@
+{"url": "https://rubygems.org/api/v1/gems/rackup.json", "fetched": "2026-11-13T03:56:40Z", "status": 200, "body": "{\"name\": \"rackup\", \"version\": \"2.3.1\", \"ruby_abi\": null, \"homepage_uri\": \"https://github.com/rack/rackup\", \"source_code_uri\": \"https://github.com/rack/rackup.git\", \"changelog_uri\": \"https://github.com/rack/rackup/blob/main/releases.md\"}"}

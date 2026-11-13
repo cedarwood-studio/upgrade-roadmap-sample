@@ -1,0 +1,16 @@
+a45dff2 Remove annotate from the bundle
+[s2-development-7.1.6] setup exit=0
+[s2-development-7.1.6] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.1.6 env=development eager_load=false key_from_credentials=true local_secret_file=false routes=204
+ls: cannot access 'tmp/local_secret.txt': No such file or directory
+329324c Fix migration waiter on Rails 7.2 and relock conservatively
+[s3-development-7.2.4] setup exit=1
+[s3-development-7.2.4] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=development eager_load=false key_from_credentials=true local_secret_file=false routes=204
+ls: cannot access 'tmp/local_secret.txt': No such file or directory

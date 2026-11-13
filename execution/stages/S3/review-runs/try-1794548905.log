@@ -1,0 +1,9 @@
+lines: 280 280
+diff lines: 140; Completed: 92; Rendered: 48; other: 0
+Completed lines per side: 46 46; Rendered per side: 24 24
+/tmp/s2/summary.txt:52
+/tmp/s3b/summary.txt:52
+I, [2026-11-13T05:48:55.333890 #194]  INFO -- : [32a05b48-a51b-4f0a-a337-0df379395bc1]   Rendered layout layouts/sub.html.haml (Duration: 20.2ms | GC: 2.9ms)
+I, [2026-11-13T05:48:55.651158 #194]  INFO -- : [feb0a918-8d79-4b3e-ab4c-31b5f6629e7f]   Rendered layout layouts/application.html.haml (Duration: 20.1ms | GC: 1.3ms)
+I, [2026-11-13T05:48:49.165532 #179]  INFO -- : [4a886aec-8032-48b3-9b52-2a449224cab2]   Rendered layout layouts/sub.html.haml (Duration: 19.8ms | Allocations: 19551)
+I, [2026-11-13T05:48:49.482049 #179]  INFO -- : [27c193ca-08bd-4488-92cd-c4ba336827b4]   Rendered layout layouts/application.html.haml (Duration: 20.2ms | Allocations: 29903)

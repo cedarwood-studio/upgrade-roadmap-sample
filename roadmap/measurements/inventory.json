@@ -1,0 +1,2230 @@
+{
+ "command": null,
+ "data": {
+  "adapter_capabilities": {
+   "baseline": true,
+   "coverage": true,
+   "deprecations": true,
+   "eol": true,
+   "inventory": true,
+   "parity": true,
+   "registry": true,
+   "resolve": true,
+   "scan": true
+  },
+  "agent_instruction_files": [],
+  "app_shape": {
+   "controllers": 25,
+   "initializers": 25,
+   "jobs": 0,
+   "lib_ruby_files": 53,
+   "mailers": 2,
+   "migrations": 19,
+   "models": 34,
+   "views": 109
+  },
+  "ci": [
+   {
+    "file": ".github/workflows/ci.yml",
+    "images": [],
+    "runs_on": [
+     "ubuntu-latest"
+    ],
+    "runtime_versions": [],
+    "secrets_referenced": [
+     "GITHUB_TOKEN"
+    ],
+    "system": "GitHub Actions",
+    "uses": [
+     "actions/checkout@v4",
+     "docker/build-push-action@v4",
+     "docker/login-action@v2",
+     "docker/setup-buildx-action@v2",
+     "docker/setup-qemu-action@v3",
+     "google-github-actions/release-please-action@v3"
+    ]
+   },
+   {
+    "file": ".github/workflows/close.yml",
+    "images": [],
+    "runs_on": [
+     "ubuntu-latest"
+    ],
+    "runtime_versions": [],
+    "secrets_referenced": [],
+    "system": "GitHub Actions",
+    "uses": [
+     "actions/stale@v9"
+    ]
+   }
+  ],
+  "code_size": {
+   ".erb": {
+    "by_top_dir": {
+     "app": {
+      "files": 6,
+      "lines": 75
+     }
+    },
+    "files": 6,
+    "lines": 75
+   },
+   ".haml": {
+    "by_top_dir": {
+     "app": {
+      "files": 103,
+      "lines": 3047
+     }
+    },
+    "files": 103,
+    "lines": 3047
+   },
+   ".html": {
+    "by_top_dir": {
+     "public": {
+      "files": 3,
+      "lines": 200
+     }
+    },
+    "files": 3,
+    "lines": 200
+   },
+   ".js": {
+    "by_top_dir": {
+     "app": {
+      "files": 1,
+      "lines": 5
+     }
+    },
+    "files": 1,
+    "lines": 5
+   },
+   ".rake": {
+    "by_top_dir": {
+     "lib": {
+      "files": 2,
+      "lines": 104
+     }
+    },
+    "files": 2,
+    "lines": 104
+   },
+   ".rb": {
+    "by_top_dir": {
+     "app": {
+      "files": 101,
+      "lines": 8471
+     },
+     "config": {
+      "files": 33,
+      "lines": 1000
+     },
+     "db": {
+      "files": 21,
+      "lines": 923
+     },
+     "lib": {
+      "files": 53,
+      "lines": 4221
+     },
+     "script": {
+      "files": 10,
+      "lines": 215
+     },
+     "spec": {
+      "files": 78,
+      "lines": 8988
+     }
+    },
+    "files": 296,
+    "lines": 23818
+   }
+  },
+  "commit": "d96eddbadeda600595d6247486f9ceb8e99cbc15",
+  "commit_date": "2026-10-01T12:32:46+01:00",
+  "database_gems": [
+   "mysql2"
+  ],
+  "dependencies": [
+   {
+    "current": "0.1.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "abbrev",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "nio4r": "~> 2.0",
+     "websocket-driver": ">= 0.6.1",
+     "zeitwerk": "~> 2.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actioncable",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "activejob": "= 7.1.6",
+     "activerecord": "= 7.1.6",
+     "activestorage": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "mail": ">= 2.7.1",
+     "net-imap": "",
+     "net-pop": "",
+     "net-smtp": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actionmailbox",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "actionview": "= 7.1.6",
+     "activejob": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "mail": "~> 2.5, >= 2.5.4",
+     "net-imap": "",
+     "net-pop": "",
+     "net-smtp": "",
+     "rails-dom-testing": "~> 2.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actionmailer",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionview": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "cgi": "",
+     "nokogiri": ">= 1.8.5",
+     "racc": "",
+     "rack": ">= 2.2.4",
+     "rack-session": ">= 1.0.1",
+     "rack-test": ">= 0.6.3",
+     "rails-dom-testing": "~> 2.2",
+     "rails-html-sanitizer": "~> 1.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actionpack",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "activerecord": "= 7.1.6",
+     "activestorage": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "globalid": ">= 0.6.0",
+     "nokogiri": ">= 1.8.5"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actiontext",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": "= 7.1.6",
+     "builder": "~> 3.1",
+     "cgi": "",
+     "erubi": "~> 1.11",
+     "rails-dom-testing": "~> 2.2",
+     "rails-html-sanitizer": "~> 1.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "actionview",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": "= 7.1.6",
+     "globalid": ">= 0.3.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "activejob",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": "= 7.1.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "activemodel",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activemodel": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "timeout": ">= 0.4.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "activerecord",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "activejob": "= 7.1.6",
+     "activerecord": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "marcel": "~> 1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "activestorage",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "base64": "",
+     "benchmark": ">= 0.3",
+     "bigdecimal": "",
+     "concurrent-ruby": "~> 1.0, >= 1.0.2",
+     "connection_pool": ">= 2.2.5",
+     "drb": "",
+     "i18n": ">= 1.6, < 2",
+     "logger": ">= 1.4.2",
+     "minitest": ">= 5.1",
+     "mutex_m": "",
+     "securerandom": ">= 0.3",
+     "tzinfo": "~> 2.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "activesupport",
+    "source": "GEM"
+   },
+   {
+    "current": "2.8.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "public_suffix": ">= 2.0.2, < 6.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "addressable",
+    "source": "GEM"
+   },
+   {
+    "current": "1.1.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "aes_key_wrap",
+    "source": "GEM"
+   },
+   {
+    "current": "3.2.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activerecord": ">= 3.2, < 8.0",
+     "rake": ">= 10.4, < 14.0"
+    },
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "name": "annotate",
+    "source": "GEM"
+   },
+   {
+    "current": "2.4.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "ast",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "attr_required",
+    "source": "GEM"
+   },
+   {
+    "current": "5.0.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activerecord": ">= 6.1, < 9.0"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "authie",
+    "source": "GEM"
+   },
+   {
+    "current": "10.4.13.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "execjs": "~> 2"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "autoprefixer-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "0.3.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "base64",
+    "source": "GEM"
+   },
+   {
+    "current": "3.1.20",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "bcrypt",
+    "source": "GEM"
+   },
+   {
+    "current": "0.5.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "benchmark",
+    "source": "GEM"
+   },
+   {
+    "current": "4.1.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "bigdecimal",
+    "source": "GEM"
+   },
+   {
+    "current": "2.5.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "bindata",
+    "source": "GEM"
+   },
+   {
+    "current": "3.3.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "builder",
+    "source": "GEM"
+   },
+   {
+    "current": "0.5.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "cgi",
+    "source": "GEM"
+   },
+   {
+    "current": "0.10.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "chronic",
+    "source": "GEM"
+   },
+   {
+    "current": "5.0.0",
+    "declared_requirement": "~> 5.0",
+    "depends_on": {
+     "coffee-script": ">= 2.2.0",
+     "railties": ">= 5.2.0"
+    },
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "name": "coffee-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "2.4.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "coffee-script-source": "",
+     "execjs": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "coffee-script",
+    "source": "GEM"
+   },
+   {
+    "current": "1.12.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "coffee-script-source",
+    "source": "GEM"
+   },
+   {
+    "current": "1.3.6",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "concurrent-ruby",
+    "source": "GEM"
+   },
+   {
+    "current": "3.0.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "connection_pool",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "bigdecimal": "",
+     "rexml": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "crack",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.6",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "crass",
+    "source": "GEM"
+   },
+   {
+    "current": "2.2.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "activerecord": ">= 5.a",
+     "database_cleaner-core": "~> 2.0"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "database_cleaner-active_record",
+    "source": "GEM"
+   },
+   {
+    "current": "2.0.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "database_cleaner-core",
+    "source": "GEM"
+   },
+   {
+    "current": "3.5.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "date",
+    "source": "GEM"
+   },
+   {
+    "current": "1.6.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "diff-lcs",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.20240107",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "domain_name",
+    "source": "GEM"
+   },
+   {
+    "current": "3.0.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "dotenv",
+    "source": "GEM"
+   },
+   {
+    "current": "2.2.3",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "drb",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "dynamic_form",
+    "source": "GEM"
+   },
+   {
+    "current": "2.2.4",
+    "declared_requirement": "",
+    "depends_on": {
+     "activemodel": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "email_validator",
+    "source": "GEM"
+   },
+   {
+    "current": "6.0.4",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "erb",
+    "source": "GEM"
+   },
+   {
+    "current": "1.13.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "erubi",
+    "source": "GEM"
+   },
+   {
+    "current": "2.7.0",
+    "declared_requirement": "~> 2.7, < 2.8",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "execjs",
+    "source": "GEM"
+   },
+   {
+    "current": "6.4.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 5.0.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "factory_bot",
+    "source": "GEM"
+   },
+   {
+    "current": "6.4.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "factory_bot": "~> 6.4",
+     "railties": ">= 5.0.0"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "factory_bot_rails",
+    "source": "GEM"
+   },
+   {
+    "current": "2.9.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "faraday-net_http": ">= 2.0, < 3.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "faraday",
+    "source": "GEM"
+   },
+   {
+    "current": "0.3.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "faraday": ">= 1, < 3"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "faraday-follow_redirects",
+    "source": "GEM"
+   },
+   {
+    "current": "3.1.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "net-http": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "faraday-net_http",
+    "source": "GEM"
+   },
+   {
+    "current": "1.15.5",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "ffi",
+    "source": "GEM"
+   },
+   {
+    "current": "3.1.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "json": ""
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "gelf",
+    "source": "GEM"
+   },
+   {
+    "current": "1.3.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 6.1"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "globalid",
+    "source": "GEM"
+   },
+   {
+    "current": "6.3.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "temple": ">= 0.8.2",
+     "thor": "",
+     "tilt": ""
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "haml",
+    "source": "GEM"
+   },
+   {
+    "current": "1.1.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "hashdiff",
+    "source": "GEM"
+   },
+   {
+    "current": "5.0.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "hashie",
+    "source": "GEM"
+   },
+   {
+    "current": "2.1.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "highline",
+    "source": "GEM"
+   },
+   {
+    "current": "1.14.8",
+    "declared_requirement": "",
+    "depends_on": {
+     "concurrent-ruby": "~> 1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "i18n",
+    "source": "GEM"
+   },
+   {
+    "current": "0.8.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "io-console",
+    "source": "GEM"
+   },
+   {
+    "current": "1.18.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "pp": ">= 0.6.0",
+     "prism": ">= 1.3.0",
+     "rdoc": ">= 4.0.0",
+     "reline": ">= 0.4.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "irb",
+    "source": "GEM"
+   },
+   {
+    "current": "4.5.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "rails-dom-testing": ">= 1, < 3",
+     "railties": ">= 4.2.0",
+     "thor": ">= 0.14, < 2.0"
+    },
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "name": "jquery-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "2.7.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "json",
+    "source": "GEM"
+   },
+   {
+    "current": "1.16.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 4.2",
+     "aes_key_wrap": "",
+     "base64": "",
+     "bindata": "",
+     "faraday": "~> 2.0",
+     "faraday-follow_redirects": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "json-jwt",
+    "source": "GEM"
+   },
+   {
+    "current": "2.8.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "base64": ""
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "jwt",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 4.1.0",
+     "kaminari-actionview": "= 1.2.2",
+     "kaminari-activerecord": "= 1.2.2",
+     "kaminari-core": "= 1.2.2"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "kaminari",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionview": "",
+     "kaminari-core": "= 1.2.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "kaminari-actionview",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "activerecord": "",
+     "kaminari-core": "= 1.2.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "kaminari-activerecord",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "kaminari-core",
+    "source": "GEM"
+   },
+   {
+    "current": "1.4.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "concurrent-ruby": ">= 1.0, < 2.0",
+     "json": "",
+     "rouge": ">= 3.30, < 5.0"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "klogger-logger",
+    "source": "GEM"
+   },
+   {
+    "current": "3.0.0",
+    "declared_requirement": "~> 3.0",
+    "depends_on": {
+     "hashie": ""
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "konfig-config",
+    "source": "GEM"
+   },
+   {
+    "current": "1.7.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "logger",
+    "source": "GEM"
+   },
+   {
+    "current": "2.25.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "crass": "~> 1.0.2",
+     "nokogiri": ">= 1.12.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "loofah",
+    "source": "GEM"
+   },
+   {
+    "current": "2.9.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "logger": "",
+     "mini_mime": ">= 0.1.1",
+     "net-imap": "",
+     "net-pop": "",
+     "net-smtp": ""
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "mail",
+    "source": "GEM"
+   },
+   {
+    "current": "1.2.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "marcel",
+    "source": "GEM"
+   },
+   {
+    "current": "1.1.5",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "mini_mime",
+    "source": "GEM"
+   },
+   {
+    "current": "6.0.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "drb": "~> 2.0",
+     "prism": "~> 1.5"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "minitest",
+    "source": "GEM"
+   },
+   {
+    "current": "0.3.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "mutex_m",
+    "source": "GEM"
+   },
+   {
+    "current": "0.5.6",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "mysql2",
+    "source": "GEM"
+   },
+   {
+    "current": "0.4.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "uri": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "net-http",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.4",
+    "declared_requirement": "",
+    "depends_on": {
+     "date": "",
+     "net-protocol": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "net-imap",
+    "source": "GEM"
+   },
+   {
+    "current": "0.1.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "net-protocol": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "net-pop",
+    "source": "GEM"
+   },
+   {
+    "current": "0.2.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "timeout": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "net-protocol",
+    "source": "GEM"
+   },
+   {
+    "current": "0.5.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "net-protocol": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "net-smtp",
+    "source": "GEM"
+   },
+   {
+    "current": "1.1.7",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "nifty-utils",
+    "source": "GEM"
+   },
+   {
+    "current": "1.4.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activerecord": ">= 4.0.0",
+     "activesupport": ">= 4.0.0"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "nilify_blanks",
+    "source": "GEM"
+   },
+   {
+    "current": "2.7.5",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "nio4r",
+    "source": "GEM"
+   },
+   {
+    "current": "1.19.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "racc": "~> 1.4"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "nokogiri",
+    "source": "GEM"
+   },
+   {
+    "current": "2.1.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "hashie": ">= 3.4.6",
+     "rack": ">= 2.2.3",
+     "rack-protection": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "omniauth",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": ">= 4.2",
+     "omniauth": "~> 2.0"
+    },
+    "direct": true,
+    "groups": [
+     "oidc"
+    ],
+    "name": "omniauth-rails_csrf_protection",
+    "source": "GEM"
+   },
+   {
+    "current": "0.7.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "omniauth": ">= 1.9, < 3",
+     "openid_connect": "~> 2.2"
+    },
+    "direct": true,
+    "groups": [
+     "oidc"
+    ],
+    "name": "omniauth_openid_connect",
+    "source": "GEM"
+   },
+   {
+    "current": "2.3.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activemodel": "",
+     "attr_required": ">= 1.0.0",
+     "email_validator": "",
+     "faraday": "~> 2.0",
+     "faraday-follow_redirects": "",
+     "json-jwt": ">= 1.16",
+     "mail": "",
+     "rack-oauth2": "~> 2.2",
+     "swd": "~> 2.0",
+     "tzinfo": "",
+     "validate_url": "",
+     "webfinger": "~> 2.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "openid_connect",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.3",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "ostruct",
+    "source": "GEM"
+   },
+   {
+    "current": "1.22.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "parallel",
+    "source": "GEM"
+   },
+   {
+    "current": "3.2.1.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "ast": "~> 2.4.1"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "parser",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "prettyprint": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "pp",
+    "source": "GEM"
+   },
+   {
+    "current": "0.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "prettyprint",
+    "source": "GEM"
+   },
+   {
+    "current": "1.9.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "prism",
+    "source": "GEM"
+   },
+   {
+    "current": "4.2.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "prometheus-client",
+    "source": "GEM"
+   },
+   {
+    "current": "5.4.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "date": "",
+     "stringio": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "psych",
+    "source": "GEM"
+   },
+   {
+    "current": "5.0.4",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "public_suffix",
+    "source": "GEM"
+   },
+   {
+    "current": "7.0.4",
+    "declared_requirement": "",
+    "depends_on": {
+     "nio4r": "~> 2.0"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "puma",
+    "source": "GEM"
+   },
+   {
+    "current": "1.8.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "racc",
+    "source": "GEM"
+   },
+   {
+    "current": "3.2.6",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rack",
+    "source": "GEM"
+   },
+   {
+    "current": "2.2.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": "",
+     "attr_required": "",
+     "faraday": "~> 2.0",
+     "faraday-follow_redirects": "",
+     "json-jwt": ">= 1.11.0",
+     "rack": ">= 2.1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rack-oauth2",
+    "source": "GEM"
+   },
+   {
+    "current": "4.1.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "base64": ">= 0.1.0",
+     "logger": ">= 1.6.0",
+     "rack": ">= 3.0.0, < 4"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rack-protection",
+    "source": "GEM"
+   },
+   {
+    "current": "2.1.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "base64": ">= 0.1.0",
+     "rack": ">= 3.0.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rack-session",
+    "source": "GEM"
+   },
+   {
+    "current": "2.2.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "rack": ">= 1.3"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rack-test",
+    "source": "GEM"
+   },
+   {
+    "current": "2.3.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "rack": ">= 3"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "rackup",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "= 7.1.6",
+    "depends_on": {
+     "actioncable": "= 7.1.6",
+     "actionmailbox": "= 7.1.6",
+     "actionmailer": "= 7.1.6",
+     "actionpack": "= 7.1.6",
+     "actiontext": "= 7.1.6",
+     "actionview": "= 7.1.6",
+     "activejob": "= 7.1.6",
+     "activemodel": "= 7.1.6",
+     "activerecord": "= 7.1.6",
+     "activestorage": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "bundler": ">= 1.15.0",
+     "railties": "= 7.1.6"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "rails",
+    "source": "GEM"
+   },
+   {
+    "current": "2.3.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 5.0.0",
+     "minitest": "",
+     "nokogiri": ">= 1.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rails-dom-testing",
+    "source": "GEM"
+   },
+   {
+    "current": "1.7.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "loofah": "~> 2.25",
+     "nokogiri": ">= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rails-html-sanitizer",
+    "source": "GEM"
+   },
+   {
+    "current": "7.1.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": "= 7.1.6",
+     "activesupport": "= 7.1.6",
+     "cgi": "",
+     "irb": "",
+     "rackup": ">= 1.0.0",
+     "rake": ">= 12.2",
+     "thor": "~> 1.0, >= 1.2.2",
+     "tsort": ">= 0.2",
+     "zeitwerk": "~> 2.6"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "railties",
+    "source": "GEM"
+   },
+   {
+    "current": "3.1.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rainbow",
+    "source": "GEM"
+   },
+   {
+    "current": "13.4.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rake",
+    "source": "GEM"
+   },
+   {
+    "current": "7.2.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "erb": "",
+     "psych": ">= 4.0.0",
+     "tsort": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rdoc",
+    "source": "GEM"
+   },
+   {
+    "current": "2.7.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "regexp_parser",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "io-console": "~> 0.5"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "reline",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "resolv",
+    "source": "GEM"
+   },
+   {
+    "current": "3.4.4",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rexml",
+    "source": "GEM"
+   },
+   {
+    "current": "4.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rouge",
+    "source": "GEM"
+   },
+   {
+    "current": "3.13.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "rspec-core": "~> 3.13.0",
+     "rspec-expectations": "~> 3.13.0",
+     "rspec-mocks": "~> 3.13.0"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "rspec",
+    "source": "GEM"
+   },
+   {
+    "current": "3.13.5",
+    "declared_requirement": "",
+    "depends_on": {
+     "rspec-support": "~> 3.13.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rspec-core",
+    "source": "GEM"
+   },
+   {
+    "current": "3.13.5",
+    "declared_requirement": "",
+    "depends_on": {
+     "diff-lcs": ">= 1.2.0, < 2.0",
+     "rspec-support": "~> 3.13.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rspec-expectations",
+    "source": "GEM"
+   },
+   {
+    "current": "3.13.5",
+    "declared_requirement": "",
+    "depends_on": {
+     "diff-lcs": ">= 1.2.0, < 2.0",
+     "rspec-support": "~> 3.13.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rspec-mocks",
+    "source": "GEM"
+   },
+   {
+    "current": "6.1.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": ">= 6.1",
+     "activesupport": ">= 6.1",
+     "railties": ">= 6.1",
+     "rspec-core": "~> 3.12",
+     "rspec-expectations": "~> 3.12",
+     "rspec-mocks": "~> 3.12",
+     "rspec-support": "~> 3.12"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "rspec-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "3.13.6",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "rspec-support",
+    "source": "GEM"
+   },
+   {
+    "current": "1.48.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "json": "~> 2.3",
+     "parallel": "~> 1.10",
+     "parser": ">= 3.2.0.0",
+     "rainbow": ">= 2.2.2, < 4.0",
+     "regexp_parser": ">= 1.8, < 3.0",
+     "rexml": ">= 3.2.5, < 4.0",
+     "rubocop-ast": ">= 1.26.0, < 2.0",
+     "ruby-progressbar": "~> 1.7",
+     "unicode-display_width": ">= 2.4.0, < 3.0"
+    },
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "name": "rubocop",
+    "source": "GEM"
+   },
+   {
+    "current": "1.27.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "parser": ">= 3.2.1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "rubocop-ast",
+    "source": "GEM"
+   },
+   {
+    "current": "2.18.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 4.2.0",
+     "rack": ">= 1.1",
+     "rubocop": ">= 1.33.0, < 2.0"
+    },
+    "direct": true,
+    "groups": [
+     "development"
+    ],
+    "name": "rubocop-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "1.13.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "ruby-progressbar",
+    "source": "GEM"
+   },
+   {
+    "current": "6.0.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "sassc-rails": "~> 2.1, >= 2.1.1"
+    },
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "name": "sass-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "2.4.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "ffi": "~> 1.9"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "sassc",
+    "source": "GEM"
+   },
+   {
+    "current": "2.1.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "railties": ">= 4.0.0",
+     "sassc": ">= 2.0",
+     "sprockets": "> 3.0",
+     "sprockets-rails": "",
+     "tilt": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "sassc-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "6.5.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "secure_headers",
+    "source": "GEM"
+   },
+   {
+    "current": "0.4.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "securerandom",
+    "source": "GEM"
+   },
+   {
+    "current": "5.16.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "railties": ">= 5.0",
+     "sentry-ruby": "~> 5.16.1"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "sentry-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "5.16.1",
+    "declared_requirement": "",
+    "depends_on": {
+     "concurrent-ruby": "~> 1.0, >= 1.0.2"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "sentry-ruby",
+    "source": "GEM"
+   },
+   {
+    "current": "6.1.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 5.2.0"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "shoulda-matchers",
+    "source": "GEM"
+   },
+   {
+    "current": "4.2.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "concurrent-ruby": "~> 1.0",
+     "rack": ">= 2.2.4, < 4"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "sprockets",
+    "source": "GEM"
+   },
+   {
+    "current": "3.4.2",
+    "declared_requirement": "",
+    "depends_on": {
+     "actionpack": ">= 5.2",
+     "activesupport": ">= 5.2",
+     "sprockets": ">= 3.0.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "sprockets-rails",
+    "source": "GEM"
+   },
+   {
+    "current": "3.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "stringio",
+    "source": "GEM"
+   },
+   {
+    "current": "2.0.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": ">= 3",
+     "attr_required": ">= 0.0.5",
+     "faraday": "~> 2.0",
+     "faraday-follow_redirects": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "swd",
+    "source": "GEM"
+   },
+   {
+    "current": "0.10.3",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "temple",
+    "source": "GEM"
+   },
+   {
+    "current": "1.5.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "thor",
+    "source": "GEM"
+   },
+   {
+    "current": "2.3.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "tilt",
+    "source": "GEM"
+   },
+   {
+    "current": "0.9.8",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "timecop",
+    "source": "GEM"
+   },
+   {
+    "current": "0.6.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "timeout",
+    "source": "GEM"
+   },
+   {
+    "current": "0.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "tsort",
+    "source": "GEM"
+   },
+   {
+    "current": "5.2.1",
+    "declared_requirement": "~> 5",
+    "depends_on": {
+     "turbolinks-source": "~> 5.2"
+    },
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "turbolinks",
+    "source": "GEM"
+   },
+   {
+    "current": "5.2.0",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "turbolinks-source",
+    "source": "GEM"
+   },
+   {
+    "current": "2.0.6",
+    "declared_requirement": "",
+    "depends_on": {
+     "concurrent-ruby": "~> 1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "tzinfo",
+    "source": "GEM"
+   },
+   {
+    "current": "4.2.0",
+    "declared_requirement": ">= 1.3.0",
+    "depends_on": {
+     "execjs": ">= 0.3.0, < 3"
+    },
+    "direct": true,
+    "groups": [
+     "development",
+     "assets"
+    ],
+    "name": "uglifier",
+    "source": "GEM"
+   },
+   {
+    "current": "2.4.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "unicode-display_width",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.3",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "uri",
+    "source": "GEM"
+   },
+   {
+    "current": "1.0.15",
+    "declared_requirement": "",
+    "depends_on": {
+     "activemodel": ">= 3.0.0",
+     "public_suffix": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "validate_url",
+    "source": "GEM"
+   },
+   {
+    "current": "2.1.3",
+    "declared_requirement": "",
+    "depends_on": {
+     "activesupport": "",
+     "faraday": "~> 2.0",
+     "faraday-follow_redirects": ""
+    },
+    "direct": false,
+    "groups": [],
+    "name": "webfinger",
+    "source": "GEM"
+   },
+   {
+    "current": "3.20.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "addressable": ">= 2.8.0",
+     "crack": ">= 0.3.2",
+     "hashdiff": ">= 0.4.0, < 2.0.0"
+    },
+    "direct": true,
+    "groups": [
+     "test"
+    ],
+    "name": "webmock",
+    "source": "GEM"
+   },
+   {
+    "current": "1.9.1",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": true,
+    "groups": [
+     "default"
+    ],
+    "name": "webrick",
+    "source": "GEM"
+   },
+   {
+    "current": "0.8.0",
+    "declared_requirement": "",
+    "depends_on": {
+     "base64": "",
+     "websocket-extensions": ">= 0.1.0"
+    },
+    "direct": false,
+    "groups": [],
+    "name": "websocket-driver",
+    "source": "GEM"
+   },
+   {
+    "current": "0.1.5",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "websocket-extensions",
+    "source": "GEM"
+   },
+   {
+    "current": "2.8.2",
+    "declared_requirement": "",
+    "depends_on": {},
+    "direct": false,
+    "groups": [],
+    "name": "zeitwerk",
+    "source": "GEM"
+   }
+  ],
+  "deploy": [
+   {
+    "content": "3.4.6",
+    "file": ".ruby-version",
+    "kind": "runtime pin"
+   },
+   {
+    "file": "Dockerfile",
+    "from": [
+     "ruby:3.4.6-slim-bookworm"
+    ],
+    "kind": "container image"
+   },
+   {
+    "file": "Procfile.dev",
+    "kind": "Procfile"
+   },
+   {
+    "file": "docker-compose.yml",
+    "kind": "compose file"
+   }
+  ],
+  "deprecation_reporting": {
+   "harvestable": true,
+   "note": "The harvest reads test output and logs. It sees Rails deprecations only when the test environment prints or logs them.",
+   "report_deprecations_false": false,
+   "test_env_behavior": ":stderr"
+  },
+  "ecosystem": "rails",
+  "file_count": 590,
+  "framework_config": {
+   "autoloader": "zeitwerk",
+   "load_defaults": "7.0",
+   "new_framework_defaults_files": [
+    "config/initializers/new_framework_defaults_7_0.rb"
+   ],
+   "rails_all": false,
+   "railties_required": [
+    "active_model/railtie",
+    "active_record/railtie",
+    "action_controller/railtie",
+    "action_mailer/railtie",
+    "action_view/railtie",
+    "sprockets/railtie"
+   ]
+  },
+  "images": [
+   {
+    "distro": {
+     "codename": "bookworm",
+     "product": "debian",
+     "version": "12"
+    },
+    "file": "Dockerfile",
+    "name": "ruby",
+    "ref": "ruby:3.4.6-slim-bookworm",
+    "tag": "3.4.6-slim-bookworm",
+    "version": "3.4.6"
+   },
+   {
+    "distro": null,
+    "file": "docker-compose.yml",
+    "name": "mariadb",
+    "ref": "mariadb",
+    "tag": null,
+    "version": null
+   }
+  ],
+  "javascript": {
+   "asset_pipeline": [
+    "sprockets"
+   ],
+   "package_json": false
+  },
+  "license_files": [
+   "MIT-LICENCE"
+  ],
+  "lockfile": {
+   "bundler": "2.7.2",
+   "direct_count": 50,
+   "file": "Gemfile.lock",
+   "gem_count": 162,
+   "gemfile_only": [],
+   "lock_only": [],
+   "non_registry_sources": [],
+   "platforms": [
+    "aarch64-linux",
+    "arm64-darwin",
+    "x86_64-darwin",
+    "x86_64-linux"
+   ],
+   "present": true,
+   "ruby": null
+  },
+  "other_ecosystems_detected": [],
+  "path": [
+   {
+    "series": "7.2",
+    "version": "7.2.4"
+   },
+   {
+    "series": "8.0",
+    "version": "8.0.5.2"
+   },
+   {
+    "series": "8.1",
+    "version": "8.1.4.1"
+   }
+  ],
+  "path_subject": "rails",
+  "services": [
+   "mariadb"
+  ],
+  "subjects": {
+   "rails": {
+    "current": "7.1.6",
+    "declared": "= 7.1.6",
+    "defaults_current": "7.0",
+    "role": "framework",
+    "source": "Gemfile.lock",
+    "target": "8.1.4.1",
+    "target_requested": "8.1"
+   },
+   "ruby": {
+    "agree": true,
+    "current": "3.4.6",
+    "role": "runtime",
+    "sources": {
+     ".ruby-version": "3.4.6",
+     "Dockerfile": "3.4.6"
+    },
+    "target": "3.4.6"
+   }
+  },
+  "tests": {
+   "browser_tests": false,
+   "by_directory": {
+    "apis": 4,
+    "helpers": 1,
+    "lib": 32,
+    "models": 10,
+    "requests": 3,
+    "scheduled_tasks": 1,
+    "senders": 1,
+    "services": 1,
+    "views": 2
+   },
+   "coverage_tool": null,
+   "files": 55,
+   "framework": "rspec",
+   "http_stubbing": [
+    "webmock"
+   ]
+  }
+ },
+ "method": "static",
+ "note": "Read from files in the checkout. Target versions were resolved against the registry.",
+ "recorded": "2026-11-13T03:56:28Z",
+ "seconds": 0.4,
+ "step": "inventory"
+}

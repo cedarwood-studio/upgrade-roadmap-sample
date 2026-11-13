@@ -1,0 +1,113 @@
+{
+ "command": "load the application the way a server process does, once per variant, network off",
+ "data": {
+  "note": "Each variant loads config/environment outside a rails command, in the job's environment plus the variant's settings. It proves the process starts, and nothing about requests.",
+  "seconds": 54.1,
+  "variants": [
+   {
+    "env": {},
+    "exit_code": 0,
+    "flags": [],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "default",
+    "ok": true,
+    "seconds": 7.9
+   },
+   {
+    "env": {
+     "OIDC_ENABLED": "true",
+     "OIDC_IDENTIFIER": "postal-sandbox",
+     "OIDC_ISSUER": "https://oidc.example.com"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "oidc",
+    "ok": true,
+    "seconds": 7.7
+   },
+   {
+    "env": {
+     "OIDC_AUTHORIZATION_ENDPOINT": "https://oidc.example.com/authorize",
+     "OIDC_DISCOVERY": "false",
+     "OIDC_ENABLED": "true",
+     "OIDC_IDENTIFIER": "postal-sandbox",
+     "OIDC_ISSUER": "https://oidc.example.com",
+     "OIDC_JWKS_URI": "https://oidc.example.com/jwks",
+     "OIDC_TOKEN_ENDPOINT": "https://oidc.example.com/token",
+     "OIDC_USERINFO_ENDPOINT": "https://oidc.example.com/userinfo"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?",
+     "config.discovery?"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "oidc-no-discovery",
+    "ok": true,
+    "seconds": 7.5
+   },
+   {
+    "env": {
+     "MIGRATION_WAITER_ATTEMPTS": "2",
+     "MIGRATION_WAITER_ENABLED": "true",
+     "MIGRATION_WAITER_SLEEP_TIME": "1"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.migration_waiter.enabled?"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "migration-waiter",
+    "ok": true,
+    "seconds": 7.7
+   },
+   {
+    "env": {
+     "LOGGING_RAILS_LOG_ENABLED": "true"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.rails_log_enabled?"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "rails-log",
+    "ok": true,
+    "seconds": 7.7
+   },
+   {
+    "env": {
+     "LOGGING_SENTRY_DSN": "http://placeholder@127.0.0.1:9/1"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.sentry_dsn"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=test",
+    "name": "sentry",
+    "ok": true,
+    "seconds": 7.5
+   },
+   {
+    "env": {
+     "RAILS_ENVIRONMENT": "production"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.rails.environment"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nCreated database 'postal'\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=7.1.6 env=production",
+    "name": "production",
+    "ok": true,
+    "seconds": 7.8
+   }
+  ]
+ },
+ "method": "measured",
+ "note": null,
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": 54.1,
+ "step": "boot"
+}

@@ -1,0 +1,640 @@
+{
+ "command": null,
+ "data": {
+  "covered_lines": 4349,
+  "files": {
+   "app/controllers/application_controller.rb": {
+    "covered": 44,
+    "relevant": 65
+   },
+   "app/controllers/concerns/within_organization.rb": {
+    "covered": 10,
+    "relevant": 10
+   },
+   "app/controllers/domains_controller.rb": {
+    "covered": 33,
+    "relevant": 76
+   },
+   "app/controllers/legacy_api/base_controller.rb": {
+    "covered": 38,
+    "relevant": 38
+   },
+   "app/controllers/legacy_api/messages_controller.rb": {
+    "covered": 45,
+    "relevant": 45
+   },
+   "app/controllers/legacy_api/send_controller.rb": {
+    "covered": 58,
+    "relevant": 60
+   },
+   "app/controllers/messages_controller.rb": {
+    "covered": 27,
+    "relevant": 135
+   },
+   "app/controllers/sessions_controller.rb": {
+    "covered": 18,
+    "relevant": 58
+   },
+   "app/helpers/application_helper.rb": {
+    "covered": 28,
+    "relevant": 73
+   },
+   "app/lib/dkim_header.rb": {
+    "covered": 58,
+    "relevant": 58
+   },
+   "app/lib/dns_resolver.rb": {
+    "covered": 53,
+    "relevant": 63
+   },
+   "app/lib/message_dequeuer.rb": {
+    "covered": 5,
+    "relevant": 5
+   },
+   "app/lib/message_dequeuer/base.rb": {
+    "covered": 51,
+    "relevant": 52
+   },
+   "app/lib/message_dequeuer/incoming_message_processor.rb": {
+    "covered": 130,
+    "relevant": 132
+   },
+   "app/lib/message_dequeuer/initial_processor.rb": {
+    "covered": 40,
+    "relevant": 40
+   },
+   "app/lib/message_dequeuer/outgoing_message_processor.rb": {
+    "covered": 114,
+    "relevant": 115
+   },
+   "app/lib/message_dequeuer/single_message_processor.rb": {
+    "covered": 39,
+    "relevant": 49
+   },
+   "app/lib/message_dequeuer/state.rb": {
+    "covered": 12,
+    "relevant": 13
+   },
+   "app/lib/query_string.rb": {
+    "covered": 17,
+    "relevant": 19
+   },
+   "app/lib/received_header.rb": {
+    "covered": 11,
+    "relevant": 12
+   },
+   "app/lib/smtp_client/endpoint.rb": {
+    "covered": 67,
+    "relevant": 68
+   },
+   "app/lib/smtp_client/server.rb": {
+    "covered": 16,
+    "relevant": 16
+   },
+   "app/lib/smtp_client/ssl_modes.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "app/lib/smtp_server/client.rb": {
+    "covered": 344,
+    "relevant": 370
+   },
+   "app/lib/worker/jobs/base_job.rb": {
+    "covered": 12,
+    "relevant": 12
+   },
+   "app/lib/worker/jobs/process_queued_messages_job.rb": {
+    "covered": 28,
+    "relevant": 28
+   },
+   "app/lib/worker/jobs/process_webhook_requests_job.rb": {
+    "covered": 18,
+    "relevant": 18
+   },
+   "app/mailers/app_mailer.rb": {
+    "covered": 13,
+    "relevant": 21
+   },
+   "app/mailers/application_mailer.rb": {
+    "covered": 3,
+    "relevant": 3
+   },
+   "app/models/additional_route_endpoint.rb": {
+    "covered": 13,
+    "relevant": 32
+   },
+   "app/models/address_endpoint.rb": {
+    "covered": 13,
+    "relevant": 15
+   },
+   "app/models/application_record.rb": {
+    "covered": 4,
+    "relevant": 4
+   },
+   "app/models/bounce_message.rb": {
+    "covered": 29,
+    "relevant": 29
+   },
+   "app/models/concerns/has_authentication.rb": {
+    "covered": 25,
+    "relevant": 34
+   },
+   "app/models/concerns/has_dns_checks.rb": {
+    "covered": 59,
+    "relevant": 92
+   },
+   "app/models/concerns/has_locking.rb": {
+    "covered": 20,
+    "relevant": 20
+   },
+   "app/models/concerns/has_message.rb": {
+    "covered": 12,
+    "relevant": 25
+   },
+   "app/models/concerns/has_soft_destroy.rb": {
+    "covered": 7,
+    "relevant": 10
+   },
+   "app/models/concerns/has_uuid.rb": {
+    "covered": 5,
+    "relevant": 6
+   },
+   "app/models/credential.rb": {
+    "covered": 30,
+    "relevant": 45
+   },
+   "app/models/domain.rb": {
+    "covered": 117,
+    "relevant": 118
+   },
+   "app/models/http_endpoint.rb": {
+    "covered": 29,
+    "relevant": 30
+   },
+   "app/models/ip_address.rb": {
+    "covered": 15,
+    "relevant": 15
+   },
+   "app/models/ip_pool.rb": {
+    "covered": 10,
+    "relevant": 10
+   },
+   "app/models/ip_pool_rule.rb": {
+    "covered": 27,
+    "relevant": 38
+   },
+   "app/models/organization.rb": {
+    "covered": 34,
+    "relevant": 50
+   },
+   "app/models/organization_ip_pool.rb": {
+    "covered": 3,
+    "relevant": 3
+   },
+   "app/models/organization_user.rb": {
+    "covered": 3,
+    "relevant": 3
+   },
+   "app/models/outgoing_message_prototype.rb": {
+    "covered": 119,
+    "relevant": 122
+   },
+   "app/models/queued_message.rb": {
+    "covered": 28,
+    "relevant": 28
+   },
+   "app/models/route.rb": {
+    "covered": 81,
+    "relevant": 122
+   },
+   "app/models/server.rb": {
+    "covered": 154,
+    "relevant": 163
+   },
+   "app/models/smtp_endpoint.rb": {
+    "covered": 17,
+    "relevant": 19
+   },
+   "app/models/statistic.rb": {
+    "covered": 3,
+    "relevant": 3
+   },
+   "app/models/track_domain.rb": {
+    "covered": 22,
+    "relevant": 36
+   },
+   "app/models/user.rb": {
+    "covered": 49,
+    "relevant": 49
+   },
+   "app/models/webhook.rb": {
+    "covered": 18,
+    "relevant": 23
+   },
+   "app/models/webhook_event.rb": {
+    "covered": 4,
+    "relevant": 4
+   },
+   "app/models/webhook_request.rb": {
+    "covered": 15,
+    "relevant": 15
+   },
+   "app/models/worker_role.rb": {
+    "covered": 13,
+    "relevant": 13
+   },
+   "app/scheduled_tasks/application_scheduled_task.rb": {
+    "covered": 11,
+    "relevant": 25
+   },
+   "app/scheduled_tasks/tidy_queued_messages_task.rb": {
+    "covered": 7,
+    "relevant": 8
+   },
+   "app/senders/base_sender.rb": {
+    "covered": 4,
+    "relevant": 4
+   },
+   "app/senders/http_sender.rb": {
+    "covered": 10,
+    "relevant": 60
+   },
+   "app/senders/send_result.rb": {
+    "covered": 13,
+    "relevant": 13
+   },
+   "app/senders/smtp_sender.rb": {
+    "covered": 115,
+    "relevant": 117
+   },
+   "app/services/webhook_delivery_service.rb": {
+    "covered": 44,
+    "relevant": 44
+   },
+   "app/util/has_prometheus_metrics.rb": {
+    "covered": 12,
+    "relevant": 18
+   },
+   "config/application.rb": {
+    "covered": 27,
+    "relevant": 27
+   },
+   "config/boot.rb": {
+    "covered": 4,
+    "relevant": 4
+   },
+   "config/environment.rb": {
+    "covered": 2,
+    "relevant": 2
+   },
+   "config/environments/test.rb": {
+    "covered": 12,
+    "relevant": 12
+   },
+   "config/initializers/_wait_for_migrations.rb": {
+    "covered": 2,
+    "relevant": 2
+   },
+   "config/initializers/application_controller_renderer.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/assets.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "config/initializers/backtrace_silencers.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/content_security_policy.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/cookies_serializer.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "config/initializers/filter_parameter_logging.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "config/initializers/inflections.rb": {
+    "covered": 14,
+    "relevant": 14
+   },
+   "config/initializers/logging.rb": {
+    "covered": 13,
+    "relevant": 17
+   },
+   "config/initializers/mail_extensions.rb": {
+    "covered": 53,
+    "relevant": 68
+   },
+   "config/initializers/mime_types.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/new_framework_defaults_7_0.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/omniauth.rb": {
+    "covered": 2,
+    "relevant": 13
+   },
+   "config/initializers/permissions_policy.rb": {
+    "covered": 0,
+    "relevant": 0
+   },
+   "config/initializers/postal.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "config/initializers/record_key_for_dom.rb": {
+    "covered": 3,
+    "relevant": 7
+   },
+   "config/initializers/secret_key.rb": {
+    "covered": 3,
+    "relevant": 4
+   },
+   "config/initializers/secure_headers.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "config/initializers/sentry.rb": {
+    "covered": 2,
+    "relevant": 4
+   },
+   "config/initializers/session_store.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "config/initializers/smtp.rb": {
+    "covered": 4,
+    "relevant": 4
+   },
+   "config/initializers/smtp_extensions.rb": {
+    "covered": 12,
+    "relevant": 17
+   },
+   "config/initializers/trusted_proxies.rb": {
+    "covered": 3,
+    "relevant": 4
+   },
+   "config/initializers/wrap_parameters.rb": {
+    "covered": 2,
+    "relevant": 2
+   },
+   "config/initializers/zeitwerk.rb": {
+    "covered": 2,
+    "relevant": 2
+   },
+   "config/routes.rb": {
+    "covered": 83,
+    "relevant": 84
+   },
+   "lib/migration_waiter.rb": {
+    "covered": 10,
+    "relevant": 27
+   },
+   "lib/postal.rb": {
+    "covered": 1,
+    "relevant": 1
+   },
+   "lib/postal/config.rb": {
+    "covered": 72,
+    "relevant": 98
+   },
+   "lib/postal/config_schema.rb": {
+    "covered": 362,
+    "relevant": 364
+   },
+   "lib/postal/error.rb": {
+    "covered": 9,
+    "relevant": 10
+   },
+   "lib/postal/helpers.rb": {
+    "covered": 5,
+    "relevant": 5
+   },
+   "lib/postal/http.rb": {
+    "covered": 37,
+    "relevant": 43
+   },
+   "lib/postal/http/address_guard.rb": {
+    "covered": 66,
+    "relevant": 69
+   },
+   "lib/postal/http/blocked_destination_error.rb": {
+    "covered": 3,
+    "relevant": 3
+   },
+   "lib/postal/legacy_config_source.rb": {
+    "covered": 86,
+    "relevant": 86
+   },
+   "lib/postal/message_db/click.rb": {
+    "covered": 12,
+    "relevant": 12
+   },
+   "lib/postal/message_db/connection_pool.rb": {
+    "covered": 33,
+    "relevant": 33
+   },
+   "lib/postal/message_db/database.rb": {
+    "covered": 159,
+    "relevant": 178
+   },
+   "lib/postal/message_db/delivery.rb": {
+    "covered": 39,
+    "relevant": 39
+   },
+   "lib/postal/message_db/live_stats.rb": {
+    "covered": 20,
+    "relevant": 21
+   },
+   "lib/postal/message_db/load.rb": {
+    "covered": 10,
+    "relevant": 10
+   },
+   "lib/postal/message_db/message.rb": {
+    "covered": 212,
+    "relevant": 236
+   },
+   "lib/postal/message_db/migration.rb": {
+    "covered": 23,
+    "relevant": 26
+   },
+   "lib/postal/message_db/migrations/01_create_migrations.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/02_create_messages.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/03_create_deliveries.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/04_create_live_stats.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/05_create_raw_message_sizes.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/06_create_clicks.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/07_create_loads.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/08_create_stats.rb": {
+    "covered": 7,
+    "relevant": 7
+   },
+   "lib/postal/message_db/migrations/09_create_links.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/10_create_spam_checks.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/11_add_time_to_deliveries.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/12_add_hold_expiry.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/13_add_index_to_message_status.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/14_create_suppressions.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/15_create_webhook_requests.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/16_add_url_and_hook_to_webhooks.rb": {
+    "covered": 8,
+    "relevant": 8
+   },
+   "lib/postal/message_db/migrations/17_add_replaced_link_count_to_messages.rb": {
+    "covered": 8,
+    "relevant": 8
+   },
+   "lib/postal/message_db/migrations/18_add_endpoints_to_messages.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/migrations/19_convert_database_to_utf8mb4.rb": {
+    "covered": 21,
+    "relevant": 21
+   },
+   "lib/postal/message_db/migrations/20_increase_links_url_size.rb": {
+    "covered": 6,
+    "relevant": 6
+   },
+   "lib/postal/message_db/provisioner.rb": {
+    "covered": 50,
+    "relevant": 82
+   },
+   "lib/postal/message_db/statistics.rb": {
+    "covered": 26,
+    "relevant": 29
+   },
+   "lib/postal/message_db/suppression_list.rb": {
+    "covered": 17,
+    "relevant": 20
+   },
+   "lib/postal/message_db/webhooks.rb": {
+    "covered": 37,
+    "relevant": 45
+   },
+   "lib/postal/message_inspection.rb": {
+    "covered": 21,
+    "relevant": 23
+   },
+   "lib/postal/message_inspector.rb": {
+    "covered": 12,
+    "relevant": 17
+   },
+   "lib/postal/message_parser.rb": {
+    "covered": 55,
+    "relevant": 93
+   },
+   "lib/postal/signer.rb": {
+    "covered": 18,
+    "relevant": 18
+   },
+   "lib/tracking_middleware.rb": {
+    "covered": 28,
+    "relevant": 47
+   }
+  },
+  "files_loaded": 145,
+  "never_loaded": [
+   "app/controllers/address_endpoints_controller.rb",
+   "app/controllers/credentials_controller.rb",
+   "app/controllers/help_controller.rb",
+   "app/controllers/http_endpoints_controller.rb",
+   "app/controllers/ip_addresses_controller.rb",
+   "app/controllers/ip_pool_rules_controller.rb",
+   "app/controllers/ip_pools_controller.rb",
+   "app/controllers/organization_ip_pools_controller.rb",
+   "app/controllers/organizations_controller.rb",
+   "app/controllers/routes_controller.rb",
+   "app/controllers/servers_controller.rb",
+   "app/controllers/smtp_endpoints_controller.rb",
+   "app/controllers/track_domains_controller.rb",
+   "app/controllers/user_controller.rb",
+   "app/controllers/users_controller.rb",
+   "app/controllers/webhooks_controller.rb",
+   "app/controllers/well_known_controller.rb",
+   "app/lib/reply_separator.rb",
+   "app/lib/smtp_server/server.rb",
+   "app/lib/worker/process.rb",
+   "app/models/incoming_message_prototype.rb",
+   "app/models/scheduled_task.rb",
+   "app/models/user_invite.rb",
+   "app/scheduled_tasks/action_deletions_scheduled_task.rb",
+   "app/scheduled_tasks/check_all_dns_scheduled_task.rb",
+   "app/scheduled_tasks/cleanup_authie_sessions_scheduled_task.rb",
+   "app/scheduled_tasks/expire_held_messages_scheduled_task.rb",
+   "app/scheduled_tasks/process_message_retention_scheduled_task.rb",
+   "app/scheduled_tasks/prune_suppression_lists_scheduled_task.rb",
+   "app/scheduled_tasks/prune_webhook_requests_scheduled_task.rb",
+   "app/scheduled_tasks/send_notifications_scheduled_task.rb",
+   "app/util/health_server.rb",
+   "app/util/user_creator.rb",
+   "lib/postal/helm_config_exporter.rb",
+   "lib/postal/message_inspectors/clamav.rb",
+   "lib/postal/message_inspectors/rspamd.rb",
+   "lib/postal/message_inspectors/spam_assassin.rb",
+   "lib/postal/spam_check.rb",
+   "lib/postal/yaml_config_exporter.rb"
+  ],
+  "percent_of_loaded": 83.7,
+  "relevant_lines": 5198,
+  "source_files_in_app_and_lib": 154,
+  "source_files_never_loaded": 39,
+  "tool": "Ruby Coverage module (line coverage), loaded by the kit"
+ },
+ "method": "measured",
+ "note": "Line coverage of application files the test run loaded. Files the run never loaded are absent, which is itself a finding.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "coverage"
+}

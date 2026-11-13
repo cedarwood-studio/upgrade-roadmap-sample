@@ -1,0 +1,136 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S1/review-runs/mutate2.log",
+   "found_by": "break-attempt",
+   "severity": "risk",
+   "what": "The worker boot check passes when every job run and every task run raises. The plan asked for tests of the worker's job and task runs with errors raised instead of swallowed, because Rails 8.1 stops loading the benchmark gem that lines 164 and 256 call. The stage delivered a boot check instead: it proves the process starts, takes the tasks role, schedules nine tasks and stops on TERM. It does not prove a job or a task can run. The notes do not list this as not done. It belongs to the stage that moves to 8.1 and has to be closed before that stage is trusted.",
+   "where": "app/lib/worker/process.rb:164"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S1/review-runs/mutate2.log",
+   "found_by": "break-attempt",
+   "severity": "risk",
+   "what": "Plan items for S1 that the stage did not deliver and the notes do not mention: a test that forces the slow query explain path (database.rb:333), a test that asserts the rewritten tracked link (message_parser.rb:121, where an error is rescued and the message goes out untracked), the password reset flow to its end (the recorded requests open the reset form and submit a blank password; none completes a reset or reads the reset email), the asset precompile file list, and a boot variant with a configured secret key (config/initializers/secret_key.rb:4; it does boot on 7.1.6 when we try it by hand, but it is not among the six variants the checks run). With the explain line and the link rewrite both broken, the existing specs for those files still pass. Each of these belongs to a later hop; none is covered when that hop arrives unless someone adds it.",
+   "where": "lib/postal/message_db/database.rb:333"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "exec/stages/S1/review-runs/mutate2.log",
+   "found_by": "upstream-diff",
+   "severity": "note",
+   "what": "No example runs the migration waiter's real call, which the plan asked for in S1 and which both of the project's upgrade branches added a test for. The line is covered only by the migration waiter boot variant, which was added to the checks after this stage was committed and which needs the schema loaded first to mean anything. With that variant in place the line is protected; the notes should say that this is where the protection is.",
+   "where": "lib/migration_waiter.rb:18"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S1/review-runs/probe-e.out",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The SMTP boot check reads from the socket with no time limit. If the greeting ever arrives without its line ending, the example hangs instead of failing, and when the run is killed RSpec reports 0 failures. That is the exact change the notes warn about for the output record separator at server.rb:46, so the test that should catch it would stall the suite instead. A read timeout in spec/helpers/process_helpers.rb would turn the hang into a failure.",
+   "where": "spec/lib/smtp_server/server_spec.rb:18"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "exec/stages/S1/review-runs/probe-d.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "Of the five session examples, one depends on the cookie Rails encrypts; it fails when the key generator digest changes, so it does its job. The 'treats the request as signed in' and 'updates the stored session' examples pass through the sign-in cookie alone, which Rails does not encrypt, and would stay green if the session cookie became unreadable. Readers should count one example, not three, as the guard on the cookie format.",
+   "where": "spec/requests/session_continuity_spec.rb:63"
+  }
+ ],
+ "method": {
+  "break_attempts": [
+   {
+    "command": "exec try --stage S1 -- 'git diff --stat upgrade/baseline HEAD ...' and boots.sh (last section)",
+    "result": "14 files, 914 insertions, 0 deletions. 0 files changed outside spec/. Gemfile and Gemfile.lock identical to the base.",
+    "what": "Confirm the diff: 14 files, all under spec/, nothing else moved against upgrade/baseline. There is no lock-diff.json for this stage, so the lock was checked with git."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bundle exec rspec spec/lib/worker/process_spec.rb spec/lib/smtp_server/server_spec.rb spec/requests/session_continuity_spec.rb spec/models/credential_spec.rb spec/models/webhook_request_spec.rb spec/scheduled_tasks' ; boots.sh with --order random --seed 1 and --seed 4242",
+    "result": "68 examples, 0 failures (65 new plus the 3 that were already in spec/scheduled_tasks). Random order: 86 examples, 0 failures, both seeds. After the worker boot check: 0 rows left in scheduled_tasks and 0 in worker_roles.",
+    "what": "Run the 14 new spec files on their own, then twice more in random order with the existing request specs."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/boots.sh'",
+    "result": "12 of 13 printed BOOT OK on Rails 7.1.6. The migration waiter variant exited without it on the first run, because the throwaway database had no schema yet; run again after the schema was loaded (mutate2.sh) it printed BOOT OK, exit 0. This matches the operator's own note about that variant.",
+    "what": "Boot the application the way a server process does, once per optional feature an environment variable can switch on: default, OIDC, OIDC without discovery, OIDC with local authentication off, migration waiter, Rails log, Sentry, production, a configured secret key, ClamAV, rspamd, SpamAssassin, SMTP TLS."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/boots.sh'",
+    "result": "Eager load succeeded in both. 16 constants from the never loaded list were resolved by name.",
+    "what": "Load every file the suite never loads, with eager loading on, in the test and the production environment."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/mutate2.sh'",
+    "result": "51 examples, 0 failures. The new tests do not notice. The error is swallowed at process.rb:284 and logging is off in the test environment.",
+    "what": "Probe A. Make the worker's job run (process.rb:164) and task run (process.rb:256) call a constant that does not exist, standing in for Benchmark going away on Rails 8.1, then run the worker boot check and all scheduled task specs."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/mutate2.sh'",
+    "result": "307 examples, 0 failures: no example reaches that line. The boot with MIGRATION_WAITER_ENABLED=true does fail with NoMethodError, so the boot variant the checks now run is what covers it.",
+    "what": "Probe B. Make the migration waiter (lib/migration_waiter.rb:18) call a method that does not exist, then run the new specs and all model specs, then boot with the waiter on."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/mutate2.sh'",
+    "result": "Failures in both files, on the stored text and on reading existing rows. The tests are sensitive, as the notes claim.",
+    "what": "Probe C. Switch both YAML columns to a JSON coder and run the two new model specs."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/probe-d.sh'",
+    "result": "SHA1 digest: 5 examples, 1 failure (the example that reads the encrypted session cookie). Encryption flag off and metadata format on: 5 examples, 0 failures, which is right because both still read old cookies. load_defaults 7.1 on top: the application did not load (1 error outside examples); we did not chase the cause, it belongs to the stage that moves the defaults. An earlier try with the digest set to SHA256 and the serializer set to marshal changed nothing the cookie depends on and proves nothing.",
+    "what": "Probe D. Change settings a later load_defaults step touches and run the session cookie spec: key generator digest to SHA1, authenticated cookie encryption off, the 7.1 message metadata format on, and load_defaults 7.1 added on top of 7.0."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/probe-e.sh'",
+    "result": "The example did not fail. It waited on the greeting for 84 seconds until our time limit killed it, and RSpec then printed '1 example, 0 failures' with exit 124. Our first probe script had no time limit and was stopped by the harness after about 20 minutes at this same step; it produced no output.",
+    "what": "Probe E. Remove the line that sets the output record separator in the SMTP server (server.rb:46) and run the SMTP boot check."
+   },
+   {
+    "command": "exec try --stage S1 -- 'bash /out/mutate2.sh'",
+    "result": "14 examples, 0 failures. Neither path is pinned, before or after this stage.",
+    "what": "Probe F. Break the slow query explain line (database.rb:333) and the tracked link rewrite (message_parser.rb:121) and run the existing parser and message database specs."
+   }
+  ],
+  "changelogs_note": "S1 is not a framework hop and upgrades no gem: Rails stays on 7.1.6, the Gemfile and the lock are untouched, and all 14 changed files are under spec/. The framework changelogs under out/changelogs/ do not apply to this stage and none was read for it. No gem changelog applies either.",
+  "changelogs_read": [],
+  "unexecuted_call_sites_read": {
+   "at_risk": [
+    "app/lib/worker/process.rb:164",
+    "app/lib/worker/process.rb:256",
+    "lib/postal/message_db/database.rb:333",
+    "lib/postal/message_parser.rb:121",
+    "lib/migration_waiter.rb:18",
+    "config/initializers/secret_key.rb:4"
+   ],
+   "listed": 16,
+   "read": 14,
+   "why_not_all": "config/environments/development.rb:3 and config/environments/production.rb:3 were not opened; both are the 'Rails.application.configure do' line. The production file was run instead (boot and eager load in the production environment, both fine). The development file was neither opened nor run. The stage stays on Rails 7.1.6, so no call changes meaning here; the read was used to see which of these lines the new tests now cover."
+  },
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades and branch upgrade-rails-8.1.4 (the project's open pull request for Rails 8.1 carries the same files as the second branch)",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    "Gemfile",
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "app/helpers/error_messages_helper.rb",
+    "app/models/credential.rb",
+    "app/models/webhook_request.rb",
+    "config/environments/test.rb",
+    "config/initializers/form_builder_extensions.rb",
+    "config/initializers/new_framework_defaults_7_0.rb",
+    "config/initializers/new_framework_defaults_7_1.rb",
+    "config/initializers/new_framework_defaults_7_2.rb",
+    "db/schema.rb",
+    "lib/migration_waiter.rb",
+    "lib/tasks/annotate_rb.rake",
+    "lib/tasks/auto_annotate_models.rake"
+   ],
+   "why_not": "Every one of these is a change for a version move or a gem swap, and S1 moves no version, so none is a break this stage needed. What matters for S1 is their tests, not their application changes. Their serialized column tests have an equivalent here (stricter: exact stored text, symbol keys). Their header, rendering and form error tests are covered by the 170 recorded requests rather than by examples. Their migration waiter test and their worker test that raises swallowed errors have no equivalent in this stage; see the findings. The first 305 of 434 lines of upstream.json were read in full; the rest was read by its headings only, and it is the tail of the 8.1 branch and the pull request that repeats it."
+  }
+ },
+ "stage": "S1",
+ "verdict": "pass"
+}

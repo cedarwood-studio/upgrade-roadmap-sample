@@ -1,0 +1,412 @@
+
+
+FactoryBot.define do
+  factory :user do
+    first_name { "John" }
+    last_name { "Doe" }
+    password { "passw0rd" }
+    email_verified_at { Time.now }
+    sequence(:email_address) { |n| "user#{n}@example.com" }
+  end
+end
+
+
+FactoryBot.define do
+  factory :organization do
+    name { "Acme Inc" }
+    sequence(:permalink) { |n| "org#{n}" }
+    association :owner, factory: :user
+
+    trait :suspended do
+      suspended_at { 1.day.ago }
+      suspension_reason { "test" }
+    end
+  end
+end
+
+
+Rails.application.config.session_store :cookie_store, key: "_postal_session"
+
+
+Rails.application.config.action_dispatch.cookies_serializer = :json
+
+if Postal::Config.rails.secret_key
+  Rails.application.credentials.secret_key_base = Postal::Config.rails.secret_key
+else
+  warn "No secret key was specified in the Postal config file. Using one for just this session"
+  Rails.application.credentials.secret_key_base = SecureRandom.hex(128)
+end
+
+SecureHeaders::Configuration.default do |config|
+  config.hsts = SecureHeaders::OPT_OUT
+
+  config.csp[:default_src] = []
+  config.csp[:script_src] = ["'self'"]
+  config.csp[:child_src] = ["'self'"]
+  config.csp[:connect_src] = ["'self'"]
+end
+# frozen_string_literal: true
+
+Rails.application.routes.draw do
+  # Legacy API Routes
+  match "/api/v1/send/message" => "legacy_api/send#message", via: [:get, :post, :patch, :put]
+  match "/api/v1/send/raw" => "legacy_api/send#raw", via: [:get, :post, :patch, :put]
+  match "/api/v1/messages/message" => "legacy_api/messages#message", via: [:get, :post, :patch, :put]
+  match "/api/v1/messages/deliveries" => "legacy_api/messages#deliveries", via: [:get, :post, :patch, :put]
+
+  scope "org/:org_permalink", as: "organization" do
+    resources :domains, only: [:index, :new, :create, :destroy] do
+      match :verify, on: :member, via: [:get, :post]
+      get :setup, on: :member
+      post :check, on: :member
+      post :regenerate_dkim, on: :member
+      post :cancel_dkim_regeneration, on: :member
+    end
+    resources :servers, except: [:index] do
+      resources :domains, only: [:index, :new, :create, :destroy] do
+        match :verify, on: :member, via: [:get, :post]
+        get :setup, on: :member
+        post :check, on: :member
+        post :regenerate_dkim, on: :member
+        post :cancel_dkim_regeneration, on: :member
+      end
+      resources :track_domains do
+        post :toggle_ssl, on: :member
+        post :check, on: :member
+      end
+      resources :credentials
+      resources :routes
+      resources :http_endpoints
+      resources :smtp_endpoints
+      resources :address_endpoints
+      resources :ip_pool_rules
+      resources :messages do
+        get :incoming, on: :collection
+        get :outgoing, on: :collection
+        get :held, on: :collection
+        get :activity, on: :member
+        get :plain, on: :member
+        get :html, on: :member
+        get :html_raw, on: :member
+        get :attachments, on: :member
+        get :headers, on: :member
+        get :attachment, on: :member
+        get :download, on: :member
+        get :spam_checks, on: :member
+        post :retry, on: :member
+        post :cancel_hold, on: :member
+        get :suppressions, on: :collection
+        delete :remove_from_queue, on: :member
+        get :deliveries, on: :member
+      end
+      resources :webhooks do
+        get :history, on: :collection
+        get "history/:uuid", on: :collection, action: "history_request", as: "history_request"
+      end
+      get :limits, on: :member
+      get :retention, on: :member
+      get :queue, on: :member
+      get :spam, on: :member
+      get :delete, on: :member
+      get "help/outgoing" => "help#outgoing"
+      get "help/incoming" => "help#incoming"
+      get :advanced, on: :member
+      post :suspend, on: :member
+      post :unsuspend, on: :member
+    end
+
+    resources :ip_pool_rules
+    resources :ip_pools, controller: "organization_ip_pools" do
+      put :assignments, on: :collection
+    end
+    root "servers#index"
+    get "settings" => "organizations#edit"
+    patch "settings" => "organizations#update"
+    get "delete" => "organizations#delete"
+    delete "delete" => "organizations#destroy"
+  end
+
+  resources :organizations, except: [:index]
+  resources :users
+  resources :ip_pools do
+    resources :ip_addresses
+  end
+
+  get "settings" => "user#edit"
+  patch "settings" => "user#update"
+  post "persist" => "sessions#persist"
+
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
+  delete "logout" => "sessions#destroy"
+  match "login/reset" => "sessions#begin_password_reset", :via => [:get, :post]
+  match "login/reset/:token" => "sessions#finish_password_reset", :via => [:get, :post]
+
+  if Postal::Config.oidc.enabled?
+    get "auth/oidc/callback", to: "sessions#create_from_oidc"
+  end
+
+  get ".well-known/jwks.json" => "well_known#jwks"
+
+  get "ip" => "sessions#ip"
+
+  root "organizations#index"
+end
+# frozen_string_literal: true
+
+require "authie/session"
+
+class ApplicationController < ActionController::Base
+
+  protect_from_forgery with: :exception
+
+  before_action :login_required
+  before_action :set_timezone
+
+  rescue_from Authie::Session::InactiveSession, with: :auth_session_error
+  rescue_from Authie::Session::ExpiredSession, with: :auth_session_error
+  rescue_from Authie::Session::BrowserMismatch, with: :auth_session_error
+
+  private
+
+  def login_required
+    return if logged_in?
+
+    redirect_to login_path(return_to: request.fullpath)
+  end
+
+  def admin_required
+    if logged_in?
+      unless current_user.admin?
+        render plain: "Not permitted"
+      end
+    else
+      redirect_to login_path(return_to: request.fullpath)
+    end
+  end
+
+  def require_organization_owner
+    return if organization.owner == current_user
+
+    redirect_to organization_root_path(organization), alert: "This page can only be accessed by the organization's owner (#{organization.owner.name})"
+  end
+
+  def auth_session_error(exception)
+    Rails.logger.info "AuthSessionError: #{exception.class}: #{exception.message}"
+    redirect_to login_path(return_to: request.fullpath)
+  end
+
+  def page_title
+    @page_title ||= ["Postal"]
+  end
+  helper_method :page_title
+
+  def redirect_to_with_return_to(url, *args)
+    redirect_to url_with_return_to(url), *args
+  end
+
+  def set_timezone
+    Time.zone = logged_in? ? current_user.time_zone : "UTC"
+  end
+
+  def append_info_to_payload(payload)
+    super
+    payload[:ip] = request.ip
+    payload[:user] = logged_in? ? current_user.id : nil
+  end
+
+  def url_with_return_to(url)
+    return_to = params[:return_to]
+    if return_to.blank? ||
+       !return_to.start_with?("/") ||
+       return_to.start_with?("//", "/\\")
+      url_for(url)
+    else
+      return_to
+    end
+  end
+
+  def redirect_to_with_json(url, flash_messages = {})
+    if url.is_a?(Array) && url[0] == :return_to
+      url = url_with_return_to(url[1])
+    else
+      url = url_for(url)
+    end
+
+    flash_messages.each do |key, value|
+      flash[key] = value
+    end
+    respond_to do |wants|
+      wants.html { redirect_to url }
+      wants.json { render json: { redirect_to: url } }
+    end
+  end
+
+  def render_form_errors(action_name, object)
+    respond_to do |wants|
+      wants.html { render action_name }
+      wants.json { render json: { form_errors: object.errors.map(&:full_message) }, status: :unprocessable_entity }
+    end
+  end
+
+  def flash_now(type, message, options = {})
+    respond_to do |wants|
+      wants.html do
+        flash.now[type] = message
+        if options[:render_action]
+          render options[:render_action]
+        end
+      end
+      wants.json { render json: { flash: { type => message } } }
+    end
+  end
+
+  def login(user)
+    if logged_in?
+      auth_session.invalidate!
+      reset_session
+    end
+
+    create_auth_session(user)
+    @current_user = user
+  end
+
+end
+# frozen_string_literal: true
+
+class AppMailer < ApplicationMailer
+
+  def verify_domain(domain, email_address, user)
+    @domain = domain
+    @email_address = email_address
+    @user = user
+    mail to: email_address, subject: "Verify your ownership of #{@domain.name}"
+  end
+
+  def password_reset(user, return_to = nil)
+    @user = user
+    @return_to = return_to
+    mail to: @user.email_address, subject: "Reset your Postal password"
+  end
+
+  def server_send_limit_approaching(server)
+    @server = server
+    mail to: @server.organization.notification_addresses, subject: "[#{server.full_permalink}] Mail server is approaching its send limit"
+  end
+
+  def server_send_limit_exceeded(server)
+    @server = server
+    mail to: @server.organization.notification_addresses, subject: "[#{server.full_permalink}] Mail server has exceeded its send limit"
+  end
+
+  def server_suspended(server)
+    @server = server
+    mail to: @server.organization.notification_addresses, subject: "[#{server.full_permalink}] Your mail server has been suspended"
+  end
+
+  def test_message(recipient)
+    mail to: recipient, subject: "Postal SMTP Test Message"
+  end
+
+end
+# frozen_string_literal: true
+
+class ApplicationMailer < ActionMailer::Base
+
+  default from: "#{Postal::Config.smtp.from_name} <#{Postal::Config.smtp.from_address}>"
+  layout false
+
+end
+password_reset.text.erb
+server_send_limit_approaching.text.erb
+server_send_limit_exceeded.text.erb
+server_suspended.text.erb
+test_message.text.erb
+verify_domain.text.erb
+default: &default
+  adapter: mysql2
+  reconnect: true
+  encoding: "<%= Postal::Config.main_db.encoding %>"
+  pool: <%= Postal::Config.main_db.pool_size %>
+  username: "<%= Postal::Config.main_db.username %>"
+  password: "<%= Postal::Config.main_db.password %>"
+  host: "<%= Postal::Config.main_db.host %>"
+  port: <%= Postal::Config.main_db.port %>
+  database: "<%= Postal::Config.main_db.database %>"
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default
+web: unset PORT; bundle exec puma -C config/puma.rb
+worker: bundle exec ruby script/worker.rb
+smtp: unset PORT; bundle exec ruby script/smtp_server.rb
+default_dkim_record.rb
+generate_tls_certificate.rb
+insert-bounce.rb
+make_user.rb
+queue_size.rb
+send_html_email.rb
+smtp_server.rb
+test_app_smtp.rb
+version.rb
+worker.rb
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$stdout.sync = true
+$stderr.sync = true
+
+require_relative "../config/environment"
+
+HealthServer.start(
+  name: "worker",
+  default_port: Postal::Config.worker.default_health_server_port,
+  default_bind_address: Postal::Config.worker.default_health_server_bind_address
+)
+
+Worker::Process.new.run
+[
+ {
+  "field": "body",
+  "name": "admin: GET /org/acme/settings",
+  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+  "stage": "S3"
+ },
+ {
+  "field": "body",
+  "name": "admin: GET /settings",
+  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+  "stage": "S3"
+ },
+ {
+  "field": "body",
+  "name": "admin: PATCH /org/acme/settings invalid",
+  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+  "stage": "S3"
+ },
+ {
+  "field": "body",
+  "name": "admin: PATCH /settings invalid",
+  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+  "stage": "S3"
+ },
+ {
+  "field": "body",
+  "name": "member: GET /org/acme/settings",
+  "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+  "stage": "S3"
+ }
+]
+README.md
+accepted-differences.json
+baseline
+check.py
+parity-inputs.json
+parity-setup.rb
+parity.py
+parity_record.rb

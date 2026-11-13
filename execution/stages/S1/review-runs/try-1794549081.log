@@ -1,0 +1,51 @@
+fe9e34c Add characterization tests ahead of the Rails upgrade
+db4e80e Mark environment-dependent checks from the baseline CI run
+257d79e Mark environment-dependent checks from the baseline CI run
+20aa830 Record the upgrade baseline and add the parity checks
+d96eddb feat(dkim): make key size configurable and allow keys to be rotated
+ced77a3 feat: add configurable Postal logger level defaulting to INFO
+3be663d fix: give each worker process a unique locker identity
+d038eaa chore(main): release 3.3.7
+ spec/helpers/process_helpers.rb                    | 70 ++++++++++++++++
+ spec/lib/smtp_server/server_spec.rb                | 35 ++++++++
+ spec/lib/worker/process_spec.rb                    | 45 ++++++++++
+ spec/models/credential_spec.rb                     | 51 ++++++++++++
+ spec/models/webhook_request_spec.rb                | 74 +++++++++++++++++
+ spec/requests/session_continuity_spec.rb           | 96 ++++++++++++++++++++++
+ .../action_deletions_scheduled_task_spec.rb        | 70 ++++++++++++++++
+ .../check_all_dns_scheduled_task_spec.rb           | 67 +++++++++++++++
+ .../cleanup_authie_sessions_scheduled_task_spec.rb | 53 ++++++++++++
+ .../expire_held_messages_scheduled_task_spec.rb    | 60 ++++++++++++++
+ ...rocess_message_retention_scheduled_task_spec.rb | 94 +++++++++++++++++++++
+ .../prune_suppression_lists_scheduled_task_spec.rb | 38 +++++++++
+ .../prune_webhook_requests_scheduled_task_spec.rb  | 68 +++++++++++++++
+ .../send_notifications_scheduled_task_spec.rb      | 93 +++++++++++++++++++++
+ 14 files changed, 914 insertions(+)
+CHANGELOG.md
+CONTRIBUTING.md
+Dockerfile
+Gemfile
+Gemfile.lock
+MIT-LICENCE
+Procfile.dev
+README.md
+Rakefile
+SECURITY.md
+app
+bin
+config
+config.ru
+db
+doc
+docker
+docker-compose.yml
+lib
+log
+public
+release-please-config.json
+resource
+script
+spec
+tmp
+vendor
+try-1794549081.log

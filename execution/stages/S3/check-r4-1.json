@@ -1,0 +1,146 @@
+{
+ "attempt": 1,
+ "boot": [
+  {
+   "after": true,
+   "before": true,
+   "flags": [],
+   "name": "default"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.oidc.enabled?"
+   ],
+   "name": "oidc"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.oidc.enabled?",
+    "config.discovery?"
+   ],
+   "name": "oidc-no-discovery"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.migration_waiter.enabled?"
+   ],
+   "name": "migration-waiter"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.logging.rails_log_enabled?"
+   ],
+   "name": "rails-log"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.logging.sentry_dsn"
+   ],
+   "name": "sentry"
+  },
+  {
+   "after": true,
+   "before": true,
+   "flags": [
+    "Postal::Config.rails.environment"
+   ],
+   "name": "production"
+  }
+ ],
+ "comparisons": {
+  "sandbox": {
+   "bodies_compared_in_full": 168,
+   "bodies_compared_through_value_masks": 0,
+   "bodies_not_compared": 2,
+   "examples_gated": 916,
+   "examples_reported_not_gated": 0,
+   "headers_masked": 0,
+   "requests": 170,
+   "status_compared": 170,
+   "where": "sandbox"
+  }
+ },
+ "deprecations": {
+  "after": {
+   "distinct": 0,
+   "occurrences": 0
+  },
+  "before": {
+   "distinct": 0,
+   "occurrences": 0
+  }
+ },
+ "green": true,
+ "lock": {
+  "declared": 0,
+  "forced": 3,
+  "moved_outside_framework": 3,
+  "unexplained": []
+ },
+ "max_attempts": 4,
+ "parity": {
+  "accepted_differences": [
+   {
+    "field": "body",
+    "name": "admin: GET /org/acme/settings",
+    "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+   },
+   {
+    "field": "body",
+    "name": "admin: GET /settings",
+    "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+   },
+   {
+    "field": "body",
+    "name": "admin: PATCH /org/acme/settings invalid",
+    "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+   },
+   {
+    "field": "body",
+    "name": "admin: PATCH /settings invalid",
+    "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+   },
+   {
+    "field": "body",
+    "name": "member: GET /org/acme/settings",
+    "reason": "Active Support 7.2 changed the time zone named Astana from Asia/Dhaka (GMT+06:00) to Asia/Almaty (GMT+05:00), so the time zone select lists Astana under +05:00. Listed in the Rails 7.2 Active Support changelog as 'Updating Astana with Western Kazakhstan TZInfo identifier': https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md"
+   }
+  ],
+  "diff_file": "runs/S3-r4-attempt-1/parity-diff.json",
+  "different": 5,
+  "identical": 165,
+  "masked_as_noise": 2,
+  "requests": 170,
+  "unexplained": []
+ },
+ "problems": [],
+ "ruby_warnings_deprecated": {
+  "after": 3,
+  "before": 3
+ },
+ "run": "S3-r4-attempt-1",
+ "stage": "S3",
+ "tests": {
+  "added": 8,
+  "added_failing": [],
+  "after_passed": 907,
+  "after_total": 924,
+  "before_passed": 899,
+  "before_total": 916,
+  "fixed": [],
+  "missing_passing": [],
+  "ok": true,
+  "regressed": []
+ },
+ "tree": "091d415cb35d0cc3cec14d7ae64db965913ccece"
+}

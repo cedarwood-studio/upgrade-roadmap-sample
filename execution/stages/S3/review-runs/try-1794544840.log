@@ -1,0 +1,14 @@
+[development] setup exit=0
+[development] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=development eager_load=false
+No secret key was specified in the Postal config file. Using one for just this session
+rails 7.2.4 env development ruby 3.4.6
+FAIL  migration_waiter.rb:18 as written (Base.connection.migration_context): NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter
+FAIL  MigrationWaiter.wait: NoMethodError: undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter
+OK    secret_key_base comes from credentials: [true, 256, false]
+OK    serialize coder on Credential#options and WebhookRequest#payload: ["ActiveRecord::Coders::YAMLColumn", "ActiveRecord::Coders::YAMLColumn", {}, "ActiveRecord::Coders::YAMLColumn"]
+OK    Rails.application.eager_load!: :loaded
+OK    Zeitwerk::Loader.eager_load_all: :loaded

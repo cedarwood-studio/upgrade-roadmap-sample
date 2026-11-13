@@ -1,0 +1,416 @@
+{
+ "command": null,
+ "data": {
+  "application_files_changed_upstream": 20,
+  "application_files_with_no_signal_of_ours": [
+   "app/assets/stylesheets/application/components/_error_explanation.scss",
+   "app/helpers/error_messages_helper.rb",
+   "config/initializers/form_builder_extensions.rb",
+   "config/initializers/new_framework_defaults_7_0.rb",
+   "config/initializers/new_framework_defaults_7_1.rb",
+   "config/initializers/new_framework_defaults_7_2.rb",
+   "lib/tasks/annotate_rb.rake",
+   "lib/tasks/auto_annotate_models.rake"
+  ],
+  "available": true,
+  "files_changed_upstream": 44,
+  "method_note": "A join by file path. It says where the subject's own upgrade work touches code our measurements are silent on. Each such file's change is read in upstream.json and judged.",
+  "rows": [
+   {
+    "application_code": false,
+    "file": ".rubocop.yml",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": ".ruby-version",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "CONTRIBUTING.md",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "Dockerfile",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "Gemfile",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "app/helpers/error_messages_helper.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "app/models/credential.rb",
+    "our_signals": [
+     "rule rails-7.1-default-column-serializer at line 34",
+     "rule rails-8.1-ipaddr-json-prefix at line 74",
+     "rule rails-8.1-ipaddr-json-prefix at line 75",
+     "rule rails-8.1-ipaddr-json-prefix at line 92",
+     "rule rails-8.1-ipaddr-json-prefix at line 93"
+    ],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "app/models/webhook_request.rb",
+    "our_signals": [
+     "rule rails-7.1-default-column-serializer at line 37"
+    ],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "config/environments/test.rb",
+    "our_signals": [
+     "rule rails-7.2-show-exceptions-boolean at line 28",
+     "flag config.public_file_server.enabled not exercised, line 18"
+    ],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "config/initializers/form_builder_extensions.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "config/initializers/new_framework_defaults_7_0.rb",
+    "our_signals": [],
+    "status": "removed",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "config/initializers/new_framework_defaults_7_1.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "config/initializers/new_framework_defaults_7_2.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "lib/migration_waiter.rb",
+    "our_signals": [
+     "rule rails-7.2-connection-migration-methods-moved-to-pool at line 18",
+     "rule rails-7.2-base-connection-soft-deprecated at line 18",
+     "unexecuted framework call at line 18",
+     "unexecuted framework call at line 47"
+    ],
+    "status": "modified",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": false,
+    "file": "spec/helpers/error_messages_helper_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/json_encoding_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/migration_waiter_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/models/serialized_columns_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/requests/rendering_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/requests/security_headers_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/views/haml_templates_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch chore/rails-7-2-and-dependency-upgrades",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": ".annotaterb.yml",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": ".rubocop.yml",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "Gemfile",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "config/environments/test.rb",
+    "our_signals": [
+     "rule rails-7.2-show-exceptions-boolean at line 28",
+     "flag config.public_file_server.enabled not exercised, line 18"
+    ],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "db/schema.rb",
+    "our_signals": [
+     "rule rails-8.1-schema-columns-sorted at line 13",
+     "rule rails-8.0-has-secure-password-reset-token at line 332"
+    ],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "lib/migration_waiter.rb",
+    "our_signals": [
+     "rule rails-7.2-connection-migration-methods-moved-to-pool at line 18",
+     "rule rails-7.2-base-connection-soft-deprecated at line 18",
+     "unexecuted framework call at line 18",
+     "unexecuted framework call at line 47"
+    ],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "lib/tasks/annotate_rb.rake",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "lib/tasks/auto_annotate_models.rake",
+    "our_signals": [],
+    "status": "removed",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/migration_waiter_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/worker/process_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/models/http_endpoint_spec.rb",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "branch upgrade-rails-8.1.4",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": ".annotaterb.yml",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": ".rubocop.yml",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "Gemfile",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "config/environments/test.rb",
+    "our_signals": [
+     "rule rails-7.2-show-exceptions-boolean at line 28",
+     "flag config.public_file_server.enabled not exercised, line 18"
+    ],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "db/schema.rb",
+    "our_signals": [
+     "rule rails-8.1-schema-columns-sorted at line 13",
+     "rule rails-8.0-has-secure-password-reset-token at line 332"
+    ],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "lib/migration_waiter.rb",
+    "our_signals": [
+     "rule rails-7.2-connection-migration-methods-moved-to-pool at line 18",
+     "rule rails-7.2-base-connection-soft-deprecated at line 18",
+     "unexecuted framework call at line 18",
+     "unexecuted framework call at line 47"
+    ],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": true
+   },
+   {
+    "application_code": true,
+    "file": "lib/tasks/annotate_rb.rake",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": true,
+    "file": "lib/tasks/auto_annotate_models.rake",
+    "our_signals": [],
+    "status": "removed",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/migration_waiter_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/lib/worker/process_spec.rb",
+    "our_signals": [],
+    "status": "added",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   },
+   {
+    "application_code": false,
+    "file": "spec/models/http_endpoint_spec.rb",
+    "our_signals": [],
+    "status": "modified",
+    "upstream": "pull request opened 2026-11-04",
+    "we_have_a_signal": false
+   }
+  ]
+ },
+ "method": "derived",
+ "note": "The subject's own upgrade work joined by file with our signals.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "answer_key"
+}

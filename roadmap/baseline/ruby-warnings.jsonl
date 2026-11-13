@@ -1,0 +1,5 @@
+{"category":"","message":"No configuration file found at config/postal/postal.test.yml\n"}
+{"category":"","message":"Only using environment variables for configuration\n"}
+{"category":"","message":"No secret key was specified in the Postal config file. Using one for just this session\n"}
+{"category":"deprecated","message":"/cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/http_lib_adapters/net_http.rb:25: warning: constant Net::HTTPSession is deprecated\n"}
+{"category":"deprecated","message":"/cache/bundle/ruby/3.4.0/gems/domain_name-0.6.20240107/lib/domain_name/punycode.rb:152: warning: literal string will be frozen in the future (run with --debug-frozen-string-literal for more information)\n"}

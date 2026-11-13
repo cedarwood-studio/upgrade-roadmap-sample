@@ -1,0 +1,19 @@
+setup exit=0
+assets exit=0
+s3 exit=0 rails 7.2.4 env production deprecations=0
+s2 exit=0 rails 7.1.6 env production deprecations=0
+s3b exit=0 rails 7.2.4 env production deprecations=0
+==== replay of the other version's cookies
+on 7.1.6 with 7.2.4 cookies: 48 GET /settings HTTP_X_R4=other-version-cookies -> 200 text/html; charset=utf-8 13300b loc=
+on 7.1.6 with 7.2.4 cookies: 49 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=K6kPdqdAnA6VVoT9HjCw8y1q0po35nX8bxJBQ0PkbtAtkAt1ld8Rbw0Ie9ENW2KzqBhZ3WeO7mvLv5-xuTpX1A HTTP_X_R4=other-version-cookies -> 422 applicat
+on 7.2.4 with 7.1.6 cookies: 48 GET /settings HTTP_X_R4=other-version-cookies -> 200 text/html; charset=utf-8 13300b loc=
+on 7.2.4 with 7.1.6 cookies: 49 PATCH /settings HTTP_ACCEPT=application/json HTTP_X_CSRF_TOKEN=CUENSzJmzK_hJd0uH8sKx2iBWu-2TYJ-F1lmMVDXfuApJsieFKvbkg58oUVnw0DQKnl04AAxHUKYmC1nPZEHyg HTTP_X_R4=other-version-cookies -> 422 applicat
+==== cookie names in each jar
+{"browser_id":"450ebcbe-6497-46ac-bae8-a7dde51befde"
+"_postal_session":"5r0EwqRedniLwfrmafYoRSnFuVlt1BGgRF5aPfA%2
+"user_session":"bCo4ztBctNGmhnO1IS1kp2ckyK8Ez6LrZMIAay5mtt7x
+==== application log, first lines on each version
+--
+==== application log with volatile values masked (7.1.6 < > 7.2.4): 11 and 2 lines
+(end of diff)
+==== end

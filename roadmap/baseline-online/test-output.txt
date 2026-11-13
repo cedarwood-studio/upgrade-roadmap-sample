@@ -1,0 +1,70 @@
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+/cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/http_lib_adapters/net_http.rb:25: warning: constant Net::HTTPSession is deprecated
+./cache/bundle/ruby/3.4.0/gems/domain_name-0.6.20240107/lib/domain_name/punycode.rb:152: warning: literal string will be frozen in the future (run with --debug-frozen-string-literal for more information)
+.F.F.............F...F...F................................................
+
+Failures:
+
+  1) DNSResolver#a returns an empty array when timeout is exceeded
+     Failure/Error: expect(resolver.a("www.dnstest.postalserver.io")).to eq []
+
+       expected: []
+            got: ["1.2.3.4", "2.3.4.5"]
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:24:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  2) DNSResolver#a when raise_timeout_errors is true raises an error when the timeout is exceeded
+     Failure/Error:
+       expect do
+         resolver.a("www.dnstest.postalserver.io", raise_timeout_errors: true)
+       end.to raise_error(Resolv::ResolvError, /timeout/)
+
+       expected Resolv::ResolvError with message matching /timeout/ but nothing was raised
+     # ./spec/lib/dns_resolver_spec.rb:36:in 'block (4 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  3) DNSResolver#mx returns an empty array when timeout is exceeded
+     Failure/Error: expect(resolver.mx("dnstest.postalserver.io")).to eq []
+
+       expected: []
+            got: [[10, "mx1.dnstest.postalserver.io"], [20, "mx2.dnstest.postalserver.io"]]
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:129:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  4) DNSResolver#effective_ns returns an empty array when timeout is exceeded
+     Failure/Error: expect(resolver.effective_ns("postalserver.io")).to eq []
+
+       expected: []
+            got: ["the-cake-is-a-lie.katapultdns.com", "prestigious-honeybadger.katapultdns.com"]
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:159:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+  5) DNSResolver#ip_to_hostname returns the IP when the timeout is exceeded
+     Failure/Error: expect(resolver.ip_to_hostname("151.252.1.100")).to eq "151.252.1.100"
+
+       expected: #<Encoding:UTF-8> "151.252.1.100"
+            got: #<Encoding:ASCII-8BIT> "ns1.katapultdns.com"
+
+       (compared using ==)
+     # ./spec/lib/dns_resolver_spec.rb:186:in 'block (3 levels) in <top (required)>'
+     # /cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/rspec.rb:39:in 'block (2 levels) in <top (required)>'
+
+Finished in 18.59 seconds (files took 2.72 seconds to load)
+75 examples, 5 failures
+
+Failed examples:
+
+rspec ./spec/lib/dns_resolver_spec.rb:22 # DNSResolver#a returns an empty array when timeout is exceeded
+rspec ./spec/lib/dns_resolver_spec.rb:32 # DNSResolver#a when raise_timeout_errors is true raises an error when the timeout is exceeded
+rspec ./spec/lib/dns_resolver_spec.rb:127 # DNSResolver#mx returns an empty array when timeout is exceeded
+rspec ./spec/lib/dns_resolver_spec.rb:157 # DNSResolver#effective_ns returns an empty array when timeout is exceeded
+rspec ./spec/lib/dns_resolver_spec.rb:184 # DNSResolver#ip_to_hostname returns the IP when the timeout is exceeded
+

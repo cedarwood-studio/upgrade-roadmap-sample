@@ -1,0 +1,125 @@
+{
+ "command": null,
+ "data": {
+  "hops": [
+   {
+    "removed": [],
+    "resolved": true,
+    "series": "7.2",
+    "version": "7.2.4"
+   },
+   {
+    "removed": [
+     {
+      "constants": [
+       "CGI"
+      ],
+      "declared_in_manifest": false,
+      "from": "0.5.1",
+      "name": "cgi",
+      "runtime_default_gem": true,
+      "use_count": 2,
+      "uses": [
+       {
+        "file": "lib/postal/config_schema.rb",
+        "file_requires_it": false,
+        "line": 80,
+        "state": "executed",
+        "text": "query = uri.query ? CGI.parse(uri.query) : {}"
+       },
+       {
+        "file": "lib/postal/message_parser.rb",
+        "file_requires_it": false,
+        "line": 121,
+        "state": "never-executed",
+        "text": "url = CGI.unescapeHTML($~[:url])"
+       }
+      ],
+      "uses_without_require": 2
+     }
+    ],
+    "resolved": true,
+    "series": "8.0",
+    "version": "8.0.5.2"
+   },
+   {
+    "removed": [
+     {
+      "constants": [
+       "Benchmark"
+      ],
+      "declared_in_manifest": false,
+      "from": "0.5.0",
+      "name": "benchmark",
+      "runtime_default_gem": true,
+      "use_count": 2,
+      "uses": [
+       {
+        "file": "app/lib/worker/process.rb",
+        "file_requires_it": false,
+        "line": 164,
+        "state": "file-not-loaded-by-suite",
+        "text": "time = Benchmark.realtime { job.call }"
+       },
+       {
+        "file": "app/lib/worker/process.rb",
+        "file_requires_it": false,
+        "line": 256,
+        "state": "file-not-loaded-by-suite",
+        "text": "time = Benchmark.realtime do"
+       }
+      ],
+      "uses_without_require": 2
+     },
+     {
+      "constants": [
+       "CGI"
+      ],
+      "declared_in_manifest": false,
+      "from": "0.5.1",
+      "name": "cgi",
+      "runtime_default_gem": true,
+      "use_count": 2,
+      "uses": [
+       {
+        "file": "lib/postal/config_schema.rb",
+        "file_requires_it": false,
+        "line": 80,
+        "state": "executed",
+        "text": "query = uri.query ? CGI.parse(uri.query) : {}"
+       },
+       {
+        "file": "lib/postal/message_parser.rb",
+        "file_requires_it": false,
+        "line": 121,
+        "state": "never-executed",
+        "text": "url = CGI.unescapeHTML($~[:url])"
+       }
+      ],
+      "uses_without_require": 2
+     }
+    ],
+    "resolved": true,
+    "series": "8.1",
+    "version": "8.1.4.1"
+   }
+  ],
+  "method_note": "A gem leaves the lock when nothing in the bundle depends on it any more. Its constant may still load (a default gem of the runtime, or required by another gem), so a use is a line to read, with the hop named, and not proof of a break.",
+  "summary": {
+   "distinct_use_lines": 4,
+   "gems_removed_on_some_hop": [
+    "benchmark",
+    "cgi"
+   ],
+   "gems_removed_with_uses": [
+    "benchmark",
+    "cgi"
+   ]
+  }
+ },
+ "method": "derived",
+ "note": "The resolver's per-hop lock diff, joined with a search of the application for each removed gem's constants and with line coverage.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "removed_gems"
+}

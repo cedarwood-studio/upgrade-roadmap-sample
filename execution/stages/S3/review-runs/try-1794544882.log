@@ -1,0 +1,27 @@
+psych loaded 5.2.2 from 
+stringio 3.1.2
+mail 2.9.1 nokogiri 1.19.7 prism 2.1.0
+
+json-2.7.1
+json-jwt-1.16.6
+mail-2.9.0
+mail-2.9.1
+prism-1.9.0
+prism-2.1.0-aarch64-linux-gnu
+psych-5.4.0
+rdoc-7.2.0
+rdoc-8.1.0
+stringio-3.2.0
+263-    prism (1.9.0)
+264-    prometheus-client (4.2.2)
+265:    psych (5.4.0)
+266-      date
+267-      stringio
+268-    public_suffix (5.0.4)
+--
+324-    rdoc (7.2.0)
+325-      erb
+326:      psych (>= 4.0.0)
+327-      tsort
+328-    regexp_parser (2.7.0)
+329-    reline (0.6.3)

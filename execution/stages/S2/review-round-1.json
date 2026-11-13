@@ -1,0 +1,108 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S2/review-runs/try-1794550679.log",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "The plan gives S2 two changes and the stage made one. The second, pinning json below 3 in the Gemfile with a comment naming Rails 8.1 as the point it comes out, was not done, and the notes do not say so: they state that the roadmap was accurate for this stage. The lock holds json 2.7.1 today, so nothing breaks on this stage. The pin exists to protect later relocks: json 3 removed an option Active Support passes on some versions below 8.1, and with no constraint one 'bundle update' makes every to_json raise. The project's own 7.2 branch carries this pin. It has to be settled before the next stage that relocks freely, and the cleanup stage that plans to remove the pin has nothing to remove until it is.",
+   "where": "Gemfile"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S2/review-runs/try-1794550679.log",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "The plan says to replace annotate with a maintained equivalent and to replace its rake file; the project's 8.1 branch did that with annotaterb. The stage removed annotate and replaced nothing. The notes say the plan allowed either, which it does not, and give the estimate as 2 to 4 hours where the plan has 2.75 to 15.75. The removal itself is sound, declared in the notes and easy to reverse, and it clears the blocker. Whether developers keep a tool that refreshes the schema comments in 47 files is the client's decision, and the notes should present it as a departure from the plan, not as an option the plan offered.",
+   "where": "exec/stages/S2/notes.md"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S2/review-runs/try-1794550679.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "In the development environment five rake tasks are gone, not one: annotate_models, annotate_routes, remove_annotation, remove_routes and set_annotation_options. The notes name annotate_models and the refresh after db:migrate. Nothing in the repository calls any of the five, and the task lists in test and production are unchanged.",
+   "where": "lib/tasks/auto_annotate_models.rake"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S2/review-runs/try-1794550679.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The plan's check for this stage lists resolve, tests, parity and boot. The recorded check holds tests, parity and deprecations; it has no boot section and the stage has no lock-diff.json. The notes describe a boot and three resolves done by hand. We ran 14 boots and compared the lock ourselves and both are clean, so this is a gap in the record, not in the stage. The 8.0 and 8.1 scratch resolves in the notes remain the author's word; we could not repeat them offline.",
+   "where": "exec/stages/S2/result.json"
+  }
+ ],
+ "method": {
+  "break_attempts": [
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 1)",
+    "result": "4 files, 65 deletions, 0 insertions. The lock loses 4 lines: annotate 3.2.0, its two dependency lines, and its entry under DEPENDENCIES. rake stays at 13.4.2 and json at 2.7.1. 'bundle check' is satisfied, 'bundle lock --local' rewrites the lock with no difference, and the application loads with BUNDLE_FROZEN=true.",
+    "what": "Check that the lock moved only what the stage says. There is no lock-diff.json for this stage, so the lock was compared with git against the S1 branch, then regenerated offline to see whether it is stable, then loaded with Bundler frozen."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 2)",
+    "result": "14 of 14 printed BOOT OK on Rails 7.1.6. Development is the only environment that loaded the removed gem and it boots.",
+    "what": "Boot the application the way a server process does, once per optional feature an environment variable can switch on, with the schema loaded first: default, OIDC, OIDC without discovery, OIDC with local authentication off, migration waiter, Rails log, Sentry, production, development, a configured secret key, ClamAV, rspamd, SpamAssassin, SMTP TLS."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 3)",
+    "result": "Eager load succeeded in all three. 16 constants from the never loaded list were resolved by name in the test environment.",
+    "what": "Load every file the suite never loads, with eager loading on, in the test, production and development environments."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 4)",
+    "result": "rake -P exits 0 in all three (96, 83 and 83 tasks). No remaining caller: the only matches for 'annotat' outside CHANGELOG.md are two '-*- SkipSchemaAnnotations' comments in app/models/concerns, which are inert without the gem. bin/, script/, docker/, .github/ and the Dockerfile do not mention it.",
+    "what": "Load the rake tasks after the stage in the test, development and production environments, and search what is left for anything that still calls the annotate tasks or constant."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 6)",
+    "result": "Test: 96 tasks before and after, no difference. Development: 88 before, 83 after. The five that go are annotate_models, annotate_routes, remove_annotation, remove_routes and set_annotation_options. No other task and no prerequisite of any other task changed.",
+    "what": "Put the base Gemfile, lock and rake file back in the throwaway copy and compare the rake task list before and after, in test and in development."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 5)",
+    "result": "3 files inspected (Gemfile, Rakefile, lib/tasks), no offenses. The configuration loads with the exclusion gone.",
+    "what": "Run the linter with the edited configuration over the files the stage touched."
+   },
+   {
+    "command": "exec try --stage S2 -- 'bash /out/probe.sh' (section 1)",
+    "result": "The Gemfile does not mention json. The lock holds json 2.7.1 with nothing constraining it below 3.",
+    "what": "Confirm whether the json pin the plan put in this stage exists."
+   }
+  ],
+  "changelogs_note": "S2 is not a framework hop: Rails stays on 7.1.6 and the stage upgrades no gem, it removes one. The framework changelogs under out/changelogs/ do not apply to this stage and none was read for it. The job directory holds no changelog for annotate; what the gem did in this application was read from the deleted rake file and measured by comparing the rake task list before and after.",
+  "changelogs_read": [],
+  "not_done": "The suite and the 170 recorded requests were not run again; the stage's own check ran them and nothing in what we read gave a reason to doubt it. The notes' two scratch resolves (Rails 8.0.5.2 and 8.1.4.1, each '39 gems change, 0 downgrades') could not be repeated because the throwaway copy has no network, so we did not see which version of json those resolves chose. db:migrate was not run in development to watch the annotate hook's absence; the hook lived only in the deleted file and the gem, and both are gone.",
+  "unexecuted_call_sites_read": {
+   "at_risk": [],
+   "listed": 16,
+   "read": 16,
+   "why_not_all": null
+  },
+  "unexecuted_note": "All 16 lines with priority 'read' were opened (5 never executed, 11 in files the suite never loads). The stage stays on Rails 7.1.6, so none changes meaning here. Two touch what the stage changed: Rakefile:8 loads every file in lib/tasks, where the stage deleted one of two files, and config/environments/development.rb:3 is the only environment that loaded the removed gem. Both were run: rake loads in the test, development and production environments, and the application boots and eager loads in development.",
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades and branch upgrade-rails-8.1.4 (the project's open pull request for Rails 8.1 carries the same files as the second branch)",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    ".annotaterb.yml",
+    "lib/tasks/annotate_rb.rake",
+    "spec/models/http_endpoint_spec.rb",
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "app/helpers/error_messages_helper.rb",
+    "app/models/credential.rb",
+    "app/models/webhook_request.rb",
+    "config/environments/test.rb",
+    "config/initializers/form_builder_extensions.rb",
+    "config/initializers/new_framework_defaults_7_0.rb",
+    "config/initializers/new_framework_defaults_7_1.rb",
+    "config/initializers/new_framework_defaults_7_2.rb",
+    "db/schema.rb",
+    "lib/migration_waiter.rb"
+   ],
+   "why_not": "The first three are the other half of the project's annotate change: its 8.1 branch replaces annotate with annotaterb (a settings file, a new rake file, and one spec file the new tool re-annotated). This stage removes annotate and adds no replacement, which is a choice and not a break; see the findings. The remaining eleven are changes for a version move or for the dynamic_form replacement and belong to later stages. The four files this stage does change are also changed upstream: the removal of lib/tasks/auto_annotate_models.rake and of its .rubocop.yml exclusion are identical to the 8.1 branch. In the Gemfile the project's 7.2 branch also pins json below 3, which the plan put in this stage and the stage did not do; see the findings. upstream.json was read in full, all 434 lines."
+  }
+ },
+ "stage": "S2",
+ "verdict": "pass"
+}

@@ -1,0 +1,111 @@
+setup exit=0
+assets exit=0
+######## s3: 7.2.4
+==== 1. the 500 page
+GET  accept=nil                              -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept=nil                              -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="*/*"                            -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept="*/*"                            -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="text/html,application/xhtml+xml" -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept="text/html,application/xhtml+xml" -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="39" body=39b
+HEAD accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="0" body=0b
+==== 2. migration waiter in script/worker.rb, one migration pending (expect two log lines and exit 1)
+exit=1
+INFO   waiting for 1 migration(s) to be applied (1 remaining)
+INFO   1 migration(s) are still pending after 2 attempts, exiting
+==== 2b. none pending (expect 'no pending migrations, continuing', then the worker runs until we stop it)
+exit=124
+INFO   no pending migrations, continuing
+INFO   starting 2 work threads component=worker
+INFO   starting tasks thread component=worker
+INFO   stopping work thread 1 component=worker thread=work1
+INFO   stopping tasks thread component=worker thread=tasks
+INFO   stopping work thread 0 component=worker thread=work0
+==== 2c. the same in the web server (puma loads config.ru), none pending
+exit=124
+INFO   no pending migrations, continuing
+* Listening on http://127.0.0.1:5056
+==== 3. routes, tasks, console, runner, exporters
+routes: exit=0 lines=197
+rake -T: 42 tasks
+rake -AT: 77 tasks
+puts "console-ok users=#{User.count} console?=#{MigrationWaiter.console?}"
+console-ok users=0 console?=true
+runner-ok 7.2.4 production 0
+helm exporter md5: eedecc29ccf4091ca1dbbf6ff2552763  -
+config docs exit=0 changed files: 0
+0.0.0
+==== 4. every migration from nothing, in a new database, then the schema it leaves
+db:migrate exit=1 migrations run: 0 errors: 5
+rake aborted!
+StandardError: Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Active Record release the migration was written for: (StandardError)
+/usr/local/bundle/gems/bundler-2.7.2/lib/bundler/friendly_errors.rb:118:in 'Bundler.with_friendly_errors'
+db/schema.rb after migrating, against the committed file:
+No schema migrations exist. Loading schema with db:schema:load
+######## s2: 7.1.6
+==== 1. the 500 page
+GET  accept=nil                              -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept=nil                              -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="*/*"                            -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept="*/*"                            -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="text/html,application/xhtml+xml" -> 200 content-type="text/html; charset=utf-8" content-length=nil body=1916b
+HEAD accept="text/html,application/xhtml+xml" -> 200 content-type="text/html; charset=utf-8" content-length=nil body=0b
+GET  accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="39" body=39b
+HEAD accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="39" body=39b
+==== 2. migration waiter in script/worker.rb, one migration pending (expect two log lines and exit 1)
+exit=1
+INFO   waiting for 1 migration(s) to be applied (1 remaining)
+INFO   1 migration(s) are still pending after 2 attempts, exiting
+==== 2b. none pending (expect 'no pending migrations, continuing', then the worker runs until we stop it)
+exit=124
+INFO   no pending migrations, continuing
+INFO   starting 2 work threads component=worker
+INFO   starting tasks thread component=worker
+INFO   stopping work thread 1 component=worker thread=work1
+INFO   stopping tasks thread component=worker thread=tasks
+INFO   stopping work thread 0 component=worker thread=work0
+==== 2c. the same in the web server (puma loads config.ru), none pending
+exit=124
+INFO   no pending migrations, continuing
+* Listening on http://127.0.0.1:5056
+==== 3. routes, tasks, console, runner, exporters
+routes: exit=0 lines=197
+rake -T: 43 tasks
+rake -AT: 83 tasks
+puts "console-ok users=#{User.count} console?=#{MigrationWaiter.console?}"
+console-ok users=0 console?=true
+runner-ok 7.1.6 production 0
+helm exporter md5: eedecc29ccf4091ca1dbbf6ff2552763  -
+config docs exit=0 changed files: 0
+0.0.0
+==== 4. every migration from nothing, in a new database, then the schema it leaves
+db:migrate exit=1 migrations run: 0 errors: 5
+rake aborted!
+StandardError: Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Active Record release the migration was written for: (StandardError)
+/usr/local/bundle/gems/bundler-2.7.2/lib/bundler/friendly_errors.rb:118:in 'Bundler.with_friendly_errors'
+db/schema.rb after migrating, against the committed file:
+No schema migrations exist. Loading schema with db:schema:load
+######## differences, 7.1.6 < > 7.2.4
+== 500 page
+8c8
+< HEAD accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="39" body=39b
+---
+> HEAD accept="application/json"               -> 406 content-type="application/json; charset=UTF-8" content-length="0" body=0b
+== routes
+identical
+== rake -T
+2d1
+< rake app:update
+== rake -AT
+3,7d2
+< rake app:update
+< rake app:update:active_storage
+< rake app:update:bin
+< rake app:update:configs
+< rake app:update:upgrade_guide_info
+72d66
+< rake tmp/cache/assets
+== schema after migrating from nothing
+identical
+==== end

@@ -1,0 +1,1371 @@
+{
+ "requests_before": 170,
+ "requests_after": 170,
+ "identical": 36,
+ "different": 134,
+ "masked_as_noise": 2,
+ "noise_mask": {
+  "admin: POST credentials invalid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  },
+  "api: send/message valid": {
+   "body": true,
+   "headers": [],
+   "status": false
+  }
+ },
+ "before_status_counts": {
+  "302": 24,
+  "200": 137,
+  "ActionController::RoutingError": 1,
+  "422": 3,
+  "ActiveRecord::RecordNotFound": 2,
+  "ActionController::UrlGenerationError": 1,
+  "Postal::MessageDB::Webhooks::RequestNotFound": 1,
+  "Postal::MessageDB::Message::NotFound": 1
+ },
+ "differences": [
+  {
+   "name": "GET /.well-known/jwks.json",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /api/v1/messages/deliveries",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /api/v1/messages/message",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /api/v1/send/message",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /api/v1/send/raw",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /ip",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /login",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "GET /login/reset",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /ip_pools",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /ip_pools/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/delete",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/domains",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/domains/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/ip_pool_rules",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/ip_pool_rules/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/ip_pools",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/servers/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /org/acme/settings",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /organizations/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /settings",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /users",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET /users/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET address_endpoint edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET address_endpoints",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET address_endpoints/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET credential edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET credentials",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET credentials/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET held message",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET http_endpoint edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET http_endpoints",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET http_endpoints/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET incoming message",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET ip_address edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET ip_addresses/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET ip_pool edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message activity",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message attachment download",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message attachments",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message deliveries",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message download",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message headers",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message html",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message html_raw",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message plain",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET message spam_checks",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/held",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/incoming",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/outgoing",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/outgoing with bad time query",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/outgoing with query",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET messages/suppressions",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET org domain setup",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET org ip_pool_rule edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET route edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET routes",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET routes/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server advanced",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server delete",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server domain setup",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server domain verify (unverified)",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server domains",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server domains/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server help/incoming",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server help/outgoing",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server ip_pool_rule edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server ip_pool_rules",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server ip_pool_rules/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server limits",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server queue",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server retention",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET server spam",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET smtp_endpoint edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET smtp_endpoints",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET smtp_endpoints/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET suspended server",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET track_domain edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET track_domains",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET track_domains/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET user edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET webhook edit",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET webhooks",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET webhooks history",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: GET webhooks/new",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: PATCH /org/acme/settings invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: PATCH /settings invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: PATCH server invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST /ip_pools invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST /org/acme/servers invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST /organizations invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST /persist",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST /users invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST address_endpoints invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST credentials invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST http_endpoints invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST routes invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST server domains invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "admin: POST webhooks invalid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/deliveries found",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/deliveries invalid key",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/message found with expansions",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/message missing id",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/message non-scalar id",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/message not found",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: messages/message via GET",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message invalid key",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message no params",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message suspended server",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message unauthenticated from domain",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message valid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/message without key",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "api: send/raw missing params",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET /ip_pools (not permitted)",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET /org/acme",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET /org/acme/settings",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET /organizations/new (not permitted)",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET /users (not permitted)",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "member: GET server advanced (not permitted)",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /.well-known/jwks.json",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /ip",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /login",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /login after reset alert",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /login with return_to",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /login/reset",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: GET /login/reset/:token valid",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: POST /login unknown user",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: POST /login wrong password",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  },
+  {
+   "name": "signed out: POST /login/reset/:token blank password",
+   "changes": [
+    {
+     "field": "header:vary",
+     "before": null,
+     "after": "Accept, X-Requested-With"
+    }
+   ]
+  }
+ ]
+}

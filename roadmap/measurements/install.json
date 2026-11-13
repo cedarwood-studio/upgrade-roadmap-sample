@@ -1,0 +1,13 @@
+{
+ "command": "dependency install in the sandbox, network on, checkout as throwaway overlay",
+ "data": {
+  "exit_code": 0,
+  "log_tail": "Installing actionmailbox 7.1.6\nFetching actiontext 7.1.6\nInstalling actiontext 7.1.6\nFetching kaminari 1.2.2\nFetching coffee-rails 5.0.0\nInstalling kaminari 1.2.2\nInstalling coffee-rails 5.0.0\nFetching factory_bot_rails 6.4.3\nFetching jquery-rails 4.5.1\nInstalling factory_bot_rails 6.4.3\nFetching rspec-rails 6.1.1\nFetching sentry-rails 5.16.1\nInstalling sentry-rails 5.16.1\nInstalling rspec-rails 6.1.1\nInstalling jquery-rails 4.5.1\nFetching rails 7.1.6\nInstalling rails 7.1.6\nFetching sassc-rails 2.1.2\nInstalling sassc-rails 2.1.2\nFetching sass-rails 6.0.0\nInstalling sass-rails 6.0.0\nBundle complete! 50 Gemfile dependencies, 163 gems now installed.\nBundled gems are installed into `/cache/bundle`\n1 installed gem you directly depend on is looking for funding.\n  Run `bundle fund` for details",
+  "ok": true
+ },
+ "method": "measured",
+ "note": null,
+ "recorded": "2026-11-13T04:00:47Z",
+ "seconds": 113.9,
+ "step": "install"
+}

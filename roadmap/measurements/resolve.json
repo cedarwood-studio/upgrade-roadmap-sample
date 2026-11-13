@@ -1,0 +1,473 @@
+{
+ "command": "per hop, in a scratch copy: pin the framework to the hop version, then `bundle lock --update rails --conservative`; on conflict `bundle lock --update rails`; on conflict again `bundle lock --update`",
+ "data": {
+  "hops": [
+   {
+    "conservative": {
+     "lock_diff": {
+      "added": [
+       {
+        "name": "useragent",
+        "to": "0.16.11"
+       }
+      ],
+      "changed": [
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actioncable",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actionmailbox",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actionmailer",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actionpack",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actiontext",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "actionview",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "activejob",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "activemodel",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "activerecord",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "activestorage",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "activesupport",
+        "to": "7.2.4"
+       },
+       {
+        "framework": false,
+        "from": "3.0.2",
+        "major_jump": -1,
+        "name": "connection_pool",
+        "to": "2.5.5"
+       },
+       {
+        "framework": false,
+        "from": "6.0.6",
+        "major_jump": -1,
+        "name": "minitest",
+        "to": "5.27.0"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "rails",
+        "to": "7.2.4"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 0,
+        "name": "railties",
+        "to": "7.2.4"
+       }
+      ],
+      "changed_non_framework": 2,
+      "downgrades": [
+       {
+        "framework": false,
+        "from": "3.0.2",
+        "major_jump": -1,
+        "name": "connection_pool",
+        "to": "2.5.5"
+       },
+       {
+        "framework": false,
+        "from": "6.0.6",
+        "major_jump": -1,
+        "name": "minitest",
+        "to": "5.27.0"
+       }
+      ],
+      "major_jumps_non_framework": [],
+      "removed": []
+     },
+     "resolved": true
+    },
+    "resolved_by": "conservative",
+    "retarget": "rewrote: gem \"rails\", \"= 7.1.6\"  ->  gem \"rails\", \"= 7.2.4\"",
+    "series": "7.2",
+    "version": "7.2.4"
+   },
+   {
+    "conservative": {
+     "lock_diff": {
+      "added": [
+       {
+        "name": "useragent",
+        "to": "0.16.11"
+       }
+      ],
+      "changed": [
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actioncable",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionmailbox",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionmailer",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionpack",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actiontext",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionview",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activejob",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activemodel",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activerecord",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activestorage",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activesupport",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": false,
+        "from": "3.2.0",
+        "major_jump": -1,
+        "name": "annotate",
+        "to": "2.6.5"
+       },
+       {
+        "framework": false,
+        "from": "2.25.1",
+        "major_jump": 0,
+        "name": "loofah",
+        "to": "2.25.3"
+       },
+       {
+        "framework": false,
+        "from": "1.19.3",
+        "major_jump": 0,
+        "name": "nokogiri",
+        "to": "1.19.7"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "rails",
+        "to": "8.0.5.2"
+       },
+       {
+        "framework": false,
+        "from": "1.7.0",
+        "major_jump": 0,
+        "name": "rails-html-sanitizer",
+        "to": "1.7.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "railties",
+        "to": "8.0.5.2"
+       }
+      ],
+      "changed_non_framework": 4,
+      "downgrades": [
+       {
+        "framework": false,
+        "from": "3.2.0",
+        "major_jump": -1,
+        "name": "annotate",
+        "to": "2.6.5"
+       }
+      ],
+      "major_jumps_non_framework": [],
+      "removed": [
+       {
+        "from": "0.5.1",
+        "name": "cgi"
+       }
+      ]
+     },
+     "resolved": true
+    },
+    "resolved_by": "conservative",
+    "retarget": "rewrote: gem \"rails\", \"= 7.1.6\"  ->  gem \"rails\", \"= 8.0.5.2\"",
+    "series": "8.0",
+    "version": "8.0.5.2"
+   },
+   {
+    "conservative": {
+     "lock_diff": {
+      "added": [
+       {
+        "name": "action_text-trix",
+        "to": "2.1.19"
+       },
+       {
+        "name": "useragent",
+        "to": "0.16.11"
+       }
+      ],
+      "changed": [
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actioncable",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionmailbox",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionmailer",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionpack",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actiontext",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "actionview",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activejob",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activemodel",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activerecord",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activestorage",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "activesupport",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": false,
+        "from": "3.2.0",
+        "major_jump": -1,
+        "name": "annotate",
+        "to": "2.6.5"
+       },
+       {
+        "framework": false,
+        "from": "2.25.1",
+        "major_jump": 0,
+        "name": "loofah",
+        "to": "2.25.3"
+       },
+       {
+        "framework": false,
+        "from": "1.19.3",
+        "major_jump": 0,
+        "name": "nokogiri",
+        "to": "1.19.7"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "rails",
+        "to": "8.1.4.1"
+       },
+       {
+        "framework": false,
+        "from": "1.7.0",
+        "major_jump": 0,
+        "name": "rails-html-sanitizer",
+        "to": "1.7.2"
+       },
+       {
+        "framework": true,
+        "from": "7.1.6",
+        "major_jump": 1,
+        "name": "railties",
+        "to": "8.1.4.1"
+       }
+      ],
+      "changed_non_framework": 4,
+      "downgrades": [
+       {
+        "framework": false,
+        "from": "3.2.0",
+        "major_jump": -1,
+        "name": "annotate",
+        "to": "2.6.5"
+       }
+      ],
+      "major_jumps_non_framework": [],
+      "removed": [
+       {
+        "from": "0.5.0",
+        "name": "benchmark"
+       },
+       {
+        "from": "0.5.1",
+        "name": "cgi"
+       }
+      ]
+     },
+     "resolved": true
+    },
+    "resolved_by": "conservative",
+    "retarget": "rewrote: gem \"rails\", \"= 7.1.6\"  ->  gem \"rails\", \"= 8.1.4.1\"",
+    "series": "8.1",
+    "version": "8.1.4.1"
+   }
+  ]
+ },
+ "method": "measured",
+ "note": "The lock files each attempt produced are kept under resolve-run/resolve/.",
+ "recorded": "2026-11-13T04:01:12Z",
+ "seconds": 24.9,
+ "step": "resolve"
+}

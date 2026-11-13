@@ -1,0 +1,945 @@
+=== spec/helpers/process_helpers.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "socket"
+     4	require "tempfile"
+     5	require "timeout"
+     6	
+     7	module ProcessHelpers
+     8	
+     9	  # Run one of the scripts in script/ as a child process for the duration of
+    10	  # the block. The child is killed if it is still running when the block ends.
+    11	  def run_script(script, env = {})
+    12	    output = Tempfile.new("postal-process")
+    13	    pid = Process.spawn(env.transform_values(&:to_s), "bundle", "exec", "ruby", script,
+    14	                        chdir: Rails.root.to_s, out: output.path, err: [:child, :out])
+    15	    yield pid, output
+    16	  ensure
+    17	    kill_process(pid) if pid
+    18	    output&.close!
+    19	  end
+    20	
+    21	  def kill_process(pid)
+    22	    return unless Process.waitpid(pid, Process::WNOHANG).nil?
+    23	
+    24	    Process.kill("KILL", pid)
+    25	    Process.wait(pid)
+    26	  rescue Errno::ECHILD
+    27	    # The process has already exited and been waited for.
+    28	  end
+    29	
+    30	  # Send TERM to the process and return its exit status
+    31	  def terminate_process(pid, timeout: 30)
+    32	    Process.kill("TERM", pid)
+    33	    Timeout.timeout(timeout) { Process.wait2(pid).last }
+    34	  end
+    35	
+    36	  def free_port
+    37	    server = TCPServer.new("127.0.0.1", 0)
+    38	    server.addr[1]
+    39	  ensure
+    40	    server&.close
+    41	  end
+    42	
+    43	  def wait_until(timeout: 60, interval: 0.2)
+    44	    deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+    45	    loop do
+    46	      result = yield
+    47	      return result if result
+    48	      raise "timed out after #{timeout} seconds" if Process.clock_gettime(Process::CLOCK_MONOTONIC) > deadline
+    49	
+    50	      sleep interval
+    51	    end
+    52	  end
+    53	
+    54	  def connect_when_listening(port, **options)
+    55	    wait_until(**options) do
+    56	      TCPSocket.new("127.0.0.1", port)
+    57	    rescue Errno::ECONNREFUSED
+    58	      nil
+    59	    end
+    60	  end
+    61	
+    62	  def health_check(port, **options)
+    63	    socket = connect_when_listening(port, **options)
+    64	    socket.write("GET /health HTTP/1.0\r\n\r\n")
+    65	    socket.read
+    66	  ensure
+    67	    socket&.close
+    68	  end
+    69	
+    70	end
+=== spec/models/credential_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	describe Credential do
+     6	  # The options column holds a Hash serialized as YAML text. These examples pin
+     7	  # the text as Rails 7.1.6 writes it and check that rows holding that text can
+     8	  # still be read.
+     9	  describe "#options" do
+    10	    let(:credential) { create(:credential) }
+    11	
+    12	    def stored_options
+    13	      credential.reload.read_attribute_before_type_cast(:options)
+    14	    end
+    15	
+    16	    def store_options(text)
+    17	      connection = described_class.connection
+    18	      connection.update("UPDATE credentials SET options = #{connection.quote(text)} WHERE id = #{credential.id}")
+    19	    end
+    20	
+    21	    it "is an empty hash for a new credential and stores NULL" do
+    22	      expect(credential.options).to eq({})
+    23	      expect(stored_options).to be_nil
+    24	    end
+    25	
+    26	    it "stores a hash with string keys as YAML" do
+    27	      credential.update!(options: { "a" => "b", "n" => 1 })
+    28	      expect(stored_options).to eq %(---\na: b\n"n": 1\n)
+    29	    end
+    30	
+    31	    it "stores a hash with symbol keys as YAML" do
+    32	      credential.update!(options: { a: "b", list: ["x", 2], nested: { t: true } })
+    33	      expect(stored_options).to eq "---\n:a: b\n:list:\n- x\n- 2\n:nested:\n  :t: true\n"
+    34	    end
+    35	
+    36	    it "reads a stored YAML hash with string keys" do
+    37	      store_options(%(---\na: b\n"n": 1\n))
+    38	      expect(credential.reload.options).to eq({ "a" => "b", "n" => 1 })
+    39	    end
+    40	
+    41	    it "reads a stored YAML hash with symbol keys" do
+    42	      store_options("---\n:a: b\n:list:\n- x\n- 2\n:nested:\n  :t: true\n")
+    43	      expect(credential.reload.options).to eq({ a: "b", list: ["x", 2], nested: { t: true } })
+    44	    end
+    45	
+    46	    it "reads a stored NULL as an empty hash" do
+    47	      store_options(nil)
+    48	      expect(credential.reload.options).to eq({})
+    49	    end
+    50	  end
+    51	end
+=== spec/models/webhook_request_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	describe WebhookRequest do
+     6	  # The payload column holds a Hash serialized as YAML text. These examples pin
+     7	  # the text as Rails 7.1.6 writes it and check that rows holding that text can
+     8	  # still be read.
+     9	  describe "#payload" do
+    10	    let(:organization) { create(:organization, permalink: "acme") }
+    11	    let(:server) { create(:server, organization: organization, permalink: "mail", uuid: "56749a05-ee88-4aa5-b315-a4c26d45a80d") }
+    12	    let(:webhook) { create(:webhook, server: server) }
+    13	
+    14	    let(:send_limit_payload_yaml) do
+    15	      <<~YAML
+    16	        ---
+    17	        :server:
+    18	          :uuid: 56749a05-ee88-4aa5-b315-a4c26d45a80d
+    19	          :name: Mail Server
+    20	          :permalink: mail
+    21	          :organization: acme
+    22	        :volume: 5
+    23	        :limit: 100
+    24	      YAML
+    25	    end
+    26	
+    27	    let(:send_limit_payload) do
+    28	      {
+    29	        server: { uuid: "56749a05-ee88-4aa5-b315-a4c26d45a80d", name: "Mail Server", permalink: "mail", organization: "acme" },
+    30	        volume: 5,
+    31	        limit: 100
+    32	      }
+    33	    end
+    34	
+    35	    def stored_payload(webhook_request)
+    36	      webhook_request.reload.read_attribute_before_type_cast(:payload)
+    37	    end
+    38	
+    39	    def store_payload(webhook_request, text)
+    40	      connection = described_class.connection
+    41	      connection.update("UPDATE webhook_requests SET payload = #{connection.quote(text)} WHERE id = #{webhook_request.id}")
+    42	    end
+    43	
+    44	    it "stores the payload of a triggered event as YAML with symbol keys" do
+    45	      webhook
+    46	      described_class.trigger(server, "SendLimitExceeded", server: server.webhook_hash, volume: 5, limit: 100)
+    47	      webhook_request = server.webhook_requests.first
+    48	      expect(stored_payload(webhook_request)).to eq send_limit_payload_yaml
+    49	    end
+    50	
+    51	    it "stores a hash with string keys as YAML" do
+    52	      webhook_request = create(:webhook_request, webhook: webhook, payload: { "hello" => "world", "size" => 1.5, "bounce" => nil })
+    53	      expect(stored_payload(webhook_request)).to eq "---\nhello: world\nsize: 1.5\nbounce:\n"
+    54	    end
+    55	
+    56	    it "reads a stored YAML payload with symbol keys" do
+    57	      webhook_request = create(:webhook_request, webhook: webhook)
+    58	      store_payload(webhook_request, send_limit_payload_yaml)
+    59	      expect(webhook_request.reload.payload).to eq send_limit_payload
+    60	    end
+    61	
+    62	    it "reads a stored YAML payload with string keys" do
+    63	      webhook_request = create(:webhook_request, webhook: webhook)
+    64	      store_payload(webhook_request, "---\nhello: world\nsize: 1.5\nbounce:\n")
+    65	      expect(webhook_request.reload.payload).to eq({ "hello" => "world", "size" => 1.5, "bounce" => nil })
+    66	    end
+    67	
+    68	    it "reads a stored NULL as an empty hash" do
+    69	      webhook_request = create(:webhook_request, webhook: webhook)
+    70	      store_payload(webhook_request, nil)
+    71	      expect(webhook_request.reload.payload).to eq({})
+    72	    end
+    73	  end
+    74	end
+=== spec/requests/session_continuity_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	# The cookies below were issued by this application running on Rails 7.1.6, in
+     6	# response to a successful POST /login, with the secret key base set to
+     7	# SECRET_KEY_BASE. They pin that a browser which signed in before an upgrade
+     8	# is still signed in after it, and that its session can still be decrypted.
+     9	RSpec.describe "Session continuity", type: :request do
+    10	  secret_key_base = "postal-characterization-secret-key-base-7-1-6-#{'0123456789abcdef' * 6}"
+    11	  browser_id = "841d3e0a-4383-48e8-ab9a-136921a20fee"
+    12	  user_session = "pYWRn2oSVYkcaRALt4DXrVF372WeJVZaKdB4zoCSApnfRQ1vulsm00SaTk1P7IyX"
+    13	  session_id = "3cf3aac426670d34fbcfb711ee8e1b3c"
+    14	  postal_session = "iYCXSvOe9/M7+TfQJ6oB++SP1r2e1B75ZHk/V3tUxS4RWl1xGaNp1qlsYZk+PM1pkQUYezYXkyet6xLYHxRYwTWBHxjpc9QbpTVc4kLCB8val" \
+    15	                   "jGKjfQfciT7vKsYZL5V4/vHCAAWDRdYUlrYV+7f5bk6wB8PUp040Ues2cCKJ2rFNZfuODRH6jf6a7We51GL+UxDqf/cy5xJ44H6Yhw0xST73I" \
+    16	                   "exjvt7PXXGYcH354w5MWNBTOWbybtzg4vGaqI/3oNCfgbNYIpZd3JHfOw+s96vFw==--+ZYaND4NtxqOl6i+--87Klm35qGL+SMr1zHuZ4Yg=="
+    17	
+    18	  let(:user) { create(:user) }
+    19	
+    20	  # The database row which Authie created alongside the cookies.
+    21	  let!(:auth_session) do
+    22	    auth_session = Authie::SessionModel.create!(
+    23	      user: user,
+    24	      browser_id: browser_id,
+    25	      host: Postal::Config.postal.web_hostname,
+    26	      login_at: 1.minute.ago,
+    27	      last_activity_at: 1.minute.ago
+    28	    )
+    29	    auth_session.update_columns(token_hash: Digest::SHA256.hexdigest(user_session))
+    30	    auth_session
+    31	  end
+    32	
+    33	  def use_secret_key_base(secret_key_base)
+    34	    env_config = Rails.application.env_config.merge(
+    35	      "action_dispatch.key_generator" => Rails.application.key_generator(secret_key_base),
+    36	      "action_dispatch.secret_key_base" => secret_key_base
+    37	    )
+    38	    allow(Rails.application).to receive(:env_config).and_return(env_config)
+    39	  end
+    40	
+    41	  context "with the cookies of a browser which signed in on Rails 7.1.6" do
+    42	    before do
+    43	      use_secret_key_base(secret_key_base)
+    44	      cookies["browser_id"] = browser_id
+    45	      cookies["user_session"] = user_session
+    46	      cookies["_postal_session"] = postal_session
+    47	      post "/persist"
+    48	    end
+    49	
+    50	    it "treats the request as signed in" do
+    51	      expect(response).to have_http_status(:ok)
+    52	      expect(response.body).to eq "OK"
+    53	    end
+    54	
+    55	    it "updates the stored session" do
+    56	      auth_session.reload
+    57	      expect(auth_session.active).to be true
+    58	      expect(auth_session.requests).to eq 1
+    59	      expect(auth_session.last_activity_path).to eq "/persist"
+    60	      expect(auth_session.expires_at).to be_within(1.minute).of(2.months.from_now)
+    61	    end
+    62	
+    63	    it "reads the session and flash from the session cookie" do
+    64	      expect(session[:session_id]).to eq session_id
+    65	      expect(flash[:remember_login]).to be true
+    66	    end
+    67	  end
+    68	
+    69	  context "with the same cookies and a different secret key" do
+    70	    before do
+    71	      use_secret_key_base("another-secret-key-base-#{'0123456789abcdef' * 6}")
+    72	      cookies["browser_id"] = browser_id
+    73	      cookies["user_session"] = user_session
+    74	      cookies["_postal_session"] = postal_session
+    75	      post "/persist"
+    76	    end
+    77	
+    78	    it "is still signed in but does not read the session cookie" do
+    79	      expect(response).to have_http_status(:ok)
+    80	      expect(session[:session_id]).not_to eq session_id
+    81	      expect(flash[:remember_login]).to be_nil
+    82	    end
+    83	  end
+    84	
+    85	  context "with a session cookie only" do
+    86	    before do
+    87	      use_secret_key_base(secret_key_base)
+    88	      cookies["_postal_session"] = postal_session
+    89	      post "/persist"
+    90	    end
+    91	
+    92	    it "redirects to the login page" do
+    93	      expect(response).to redirect_to("/login?return_to=%2Fpersist")
+    94	    end
+    95	  end
+    96	end
+=== spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe ActionDeletionsScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	
+     8	  subject(:task) { described_class.new(logger: logger) }
+     9	
+    10	  describe "#call" do
+    11	    let(:dropped_databases) { [] }
+    12	
+    13	    # Servers loaded by the task do not carry the factory's provision_database
+    14	    # flag, so destroying them drops their message database.
+    15	    before do
+    16	      GlobalMessageDB.find_or_create
+    17	      dropped_databases = self.dropped_databases
+    18	      allow_any_instance_of(Postal::MessageDB::Provisioner).to receive(:drop) do |provisioner|
+    19	        dropped_databases << provisioner.instance_variable_get(:@database).server_id
+    20	      end
+    21	    end
+    22	
+    23	    it "destroys organizations which have been soft deleted" do
+    24	      organization = create(:organization, deleted_at: 1.minute.ago)
+    25	      task.call
+    26	      expect { organization.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    27	      expect(logger).to have_logged("permanently removing organization #{organization.id} (#{organization.permalink})")
+    28	    end
+    29	
+    30	    it "destroys the servers of a soft deleted organization" do
+    31	      organization = create(:organization, deleted_at: 1.minute.ago)
+    32	      server = create(:server, organization: organization)
+    33	      task.call
+    34	      expect { server.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    35	      expect(dropped_databases).to eq [server.id]
+    36	    end
+    37	
+    38	    it "destroys servers which have been soft deleted" do
+    39	      server = create(:server, deleted_at: 1.minute.ago)
+    40	      task.call
+    41	      expect { server.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    42	      expect { server.organization.reload }.not_to raise_error
+    43	      expect(dropped_databases).to eq [server.id]
+    44	      expect(logger).to have_logged("permanently removing server #{server.id} (#{server.full_permalink})")
+    45	    end
+    46	
+    47	    it "does not destroy organizations or servers which have not been deleted" do
+    48	      server = create(:server)
+    49	      task.call
+    50	      expect { server.reload }.not_to raise_error
+    51	      expect { server.organization.reload }.not_to raise_error
+    52	      expect(dropped_databases).to be_empty
+    53	      expect(logger).not_to have_logged(/permanently removing/)
+    54	    end
+    55	  end
+    56	
+    57	  describe ".next_run_after" do
+    58	    it "returns quarter past the current hour when that is still to come" do
+    59	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 10, 0)) do
+    60	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 12, 15, 0)
+    61	      end
+    62	    end
+    63	
+    64	    it "returns quarter past the next hour when that has passed" do
+    65	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    66	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 13, 15, 0)
+    67	      end
+    68	    end
+    69	  end
+    70	end
+=== spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe CheckAllDNSScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	
+     8	  subject(:task) { described_class.new(logger: logger) }
+     9	
+    10	  describe "#call" do
+    11	    let(:domain_checks) { [] }
+    12	    let(:track_domain_checks) { [] }
+    13	
+    14	    before do
+    15	      domain_checks = self.domain_checks
+    16	      track_domain_checks = self.track_domain_checks
+    17	      allow_any_instance_of(Domain).to receive(:check_dns) { |domain, *args| domain_checks << [domain.id, args] }
+    18	      allow_any_instance_of(TrackDomain).to receive(:check_dns) { |track_domain, *args| track_domain_checks << [track_domain.id, args] }
+    19	    end
+    20	
+    21	    it "checks domains which were last checked over an hour ago" do
+    22	      domain = create(:domain, dns_checked_at: 2.hours.ago)
+    23	      task.call
+    24	      expect(domain_checks).to eq [[domain.id, [:auto]]]
+    25	      expect(logger).to have_logged("checking DNS for domain: #{domain.name}")
+    26	    end
+    27	
+    28	    it "does not check domains which were checked within the last hour" do
+    29	      create(:domain, dns_checked_at: 10.minutes.ago)
+    30	      task.call
+    31	      expect(domain_checks).to be_empty
+    32	    end
+    33	
+    34	    it "does not check domains which have never been checked" do
+    35	      create(:domain, dns_checked_at: nil)
+    36	      task.call
+    37	      expect(domain_checks).to be_empty
+    38	    end
+    39	
+    40	    it "checks track domains which have never been checked" do
+    41	      track_domain = create(:track_domain, dns_checked_at: nil)
+    42	      task.call
+    43	      expect(track_domain_checks).to eq [[track_domain.id, []]]
+    44	      expect(logger).to have_logged("checking DNS for track domain: #{track_domain.full_name}")
+    45	    end
+    46	
+    47	    it "checks track domains which were last checked over an hour ago" do
+    48	      track_domain = create(:track_domain, dns_checked_at: 2.hours.ago)
+    49	      task.call
+    50	      expect(track_domain_checks).to eq [[track_domain.id, []]]
+    51	    end
+    52	
+    53	    it "does not check track domains which were checked within the last hour" do
+    54	      create(:track_domain, dns_checked_at: 10.minutes.ago)
+    55	      task.call
+    56	      expect(track_domain_checks).to be_empty
+    57	    end
+    58	  end
+    59	
+    60	  describe ".next_run_after" do
+    61	    it "returns the next quarter past the hour" do
+    62	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    63	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 13, 15, 0)
+    64	      end
+    65	    end
+    66	  end
+    67	end
+=== spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe CleanupAuthieSessionsScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:user) { create(:user) }
+     8	
+     9	  subject(:task) { described_class.new(logger: logger) }
+    10	
+    11	  def create_session(**attributes)
+    12	    Authie::SessionModel.create!(user: user, browser_id: SecureRandom.uuid, login_at: 1.day.ago, **attributes)
+    13	  end
+    14	
+    15	  describe "#call" do
+    16	    it "invalidates transient sessions which have been inactive for longer than the inactivity timeout" do
+    17	      session = create_session(last_activity_at: 13.hours.ago)
+    18	      task.call
+    19	      expect(session.reload.active).to be false
+    20	    end
+    21	
+    22	    it "does not invalidate transient sessions which have been used recently" do
+    23	      session = create_session(last_activity_at: 11.hours.ago)
+    24	      task.call
+    25	      expect(session.reload.active).to be true
+    26	    end
+    27	
+    28	    it "invalidates persistent sessions which have expired" do
+    29	      session = create_session(last_activity_at: 1.minute.ago, expires_at: 1.minute.ago)
+    30	      task.call
+    31	      expect(session.reload.active).to be false
+    32	    end
+    33	
+    34	    it "does not invalidate persistent sessions which have not expired" do
+    35	      session = create_session(last_activity_at: 13.hours.ago, expires_at: 1.day.from_now)
+    36	      task.call
+    37	      expect(session.reload.active).to be true
+    38	    end
+    39	
+    40	    it "does not remove any sessions" do
+    41	      create_session(last_activity_at: 13.hours.ago)
+    42	      expect { task.call }.not_to change(Authie::SessionModel, :count)
+    43	    end
+    44	  end
+    45	
+    46	  describe ".next_run_after" do
+    47	    it "returns the next quarter past the hour" do
+    48	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    49	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 13, 15, 0)
+    50	      end
+    51	    end
+    52	  end
+    53	end
+=== spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe ExpireHeldMessagesScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:server) { create(:server) }
+     8	
+     9	  subject(:task) { described_class.new(logger: logger) }
+    10	
+    11	  def create_held_message(hold_expiry:)
+    12	    message = MessageFactory.incoming(server)
+    13	    message.update(status: "Held", held: true, hold_expiry: hold_expiry.to_f)
+    14	    message
+    15	  end
+    16	
+    17	  describe "#call" do
+    18	    it "cancels the hold on held messages whose hold has expired" do
+    19	      message = create_held_message(hold_expiry: 1.hour.ago)
+    20	      task.call
+    21	
+    22	      message = server.message_db.message(message.id)
+    23	      expect(message.status).to eq "HoldCancelled"
+    24	      expect(message.held).to be false
+    25	      expect(message.hold_expiry).to be_nil
+    26	      expect(message.deliveries.last).to have_attributes(
+    27	        status: "HoldCancelled",
+    28	        details: "The hold on this message has been removed without action."
+    29	      )
+    30	    end
+    31	
+    32	    it "does not change held messages whose hold has not expired" do
+    33	      message = create_held_message(hold_expiry: 1.hour.from_now)
+    34	      task.call
+    35	
+    36	      message = server.message_db.message(message.id)
+    37	      expect(message.status).to eq "Held"
+    38	      expect(message.held).to be true
+    39	      expect(message.deliveries).to be_empty
+    40	    end
+    41	
+    42	    it "does not change messages which are not held" do
+    43	      message = MessageFactory.incoming(server)
+    44	      message.update(hold_expiry: 1.hour.ago.to_f)
+    45	      task.call
+    46	
+    47	      message = server.message_db.message(message.id)
+    48	      expect(message.status).to eq "Pending"
+    49	      expect(message.deliveries).to be_empty
+    50	    end
+    51	  end
+    52	
+    53	  describe ".next_run_after" do
+    54	    it "returns the next quarter past the hour" do
+    55	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    56	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 13, 15, 0)
+    57	      end
+    58	    end
+    59	  end
+    60	end
+=== spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe ProcessMessageRetentionScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:server) { create(:server) }
+     8	  let(:old_raw_table) { "raw-2020-01-01" }
+     9	
+    10	  subject(:task) { described_class.new(logger: logger) }
+    11	
+    12	  def create_message(age:)
+    13	    message = MessageFactory.incoming(server)
+    14	    server.message_db.update(:messages, { timestamp: age.ago.to_f }, where: { id: message.id })
+    15	    message
+    16	  end
+    17	
+    18	  def message_exists?(message)
+    19	    server.message_db.select(:messages, where: { id: message.id }).any?
+    20	  end
+    21	
+    22	  after do
+    23	    provisioner = server.message_db.provisioner
+    24	    provisioner.drop_table(old_raw_table) if provisioner.raw_tables(nil).include?(old_raw_table)
+    25	  end
+    26	
+    27	  describe "#call" do
+    28	    context "when the server has the default retention settings" do
+    29	      it "has a retention of 30 days and 2048 MB for raw messages and 60 days for messages" do
+    30	        expect(server).to have_attributes(
+    31	          raw_message_retention_days: 30,
+    32	          raw_message_retention_size: 2048,
+    33	          message_retention_days: 60
+    34	        )
+    35	      end
+    36	
+    37	      it "removes messages older than the message retention" do
+    38	        old_message = create_message(age: 62.days)
+    39	        task.call
+    40	        expect(message_exists?(old_message)).to be false
+    41	        expect(logger).to have_logged("Tidying messages for #{server.permalink} (ID: #{server.id}). Keeping 60 days.")
+    42	      end
+    43	
+    44	      it "does not remove messages within the message retention" do
+    45	        recent_message = create_message(age: 58.days)
+    46	        task.call
+    47	        expect(message_exists?(recent_message)).to be true
+    48	      end
+    49	
+    50	      it "removes raw message tables older than the raw message retention" do
+    51	        server.message_db.provisioner.create_raw_table(old_raw_table)
+    52	        task.call
+    53	        expect(server.message_db.provisioner.raw_tables(nil)).not_to include(old_raw_table)
+    54	        expect(logger).to have_logged("Tidying raw messages (by days) for #{server.permalink} (ID: #{server.id}). Keeping 30 days.")
+    55	      end
+    56	
+    57	      it "does not remove raw message tables within the raw message retention" do
+    58	        recent_message = create_message(age: 0.days)
+    59	        task.call
+    60	        expect(server.message_db.provisioner.raw_tables(nil)).to include(recent_message.raw_table)
+    61	        expect(logger).to have_logged("Tidying raw messages (by size) for #{server.permalink} (ID: #{server.id}). Keeping 2048 MB of data.")
+    62	      end
+    63	    end
+    64	
+    65	    context "when the server has no retention settings" do
+    66	      before do
+    67	        server.update_columns(raw_message_retention_days: nil, raw_message_retention_size: nil, message_retention_days: nil)
+    68	      end
+    69	
+    70	      it "does not remove anything" do
+    71	        old_message = create_message(age: 62.days)
+    72	        server.message_db.provisioner.create_raw_table(old_raw_table)
+    73	        task.call
+    74	        expect(message_exists?(old_message)).to be true
+    75	        expect(server.message_db.provisioner.raw_tables(nil)).to include(old_raw_table)
+    76	        expect(logger).not_to have_logged(/Tidying/)
+    77	      end
+    78	    end
+    79	  end
+    80	
+    81	  describe ".next_run_after" do
+    82	    it "returns 3am today when that is still to come" do
+    83	      Timecop.freeze(Time.utc(2026, 1, 1, 2, 0, 0)) do
+    84	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 3, 0, 0)
+    85	      end
+    86	    end
+    87	
+    88	    it "returns 3am tomorrow when that has passed" do
+    89	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    90	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 2, 3, 0, 0)
+    91	      end
+    92	    end
+    93	  end
+    94	end
+=== spec/scheduled_tasks/prune_suppression_lists_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe PruneSuppressionListsScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:server) { create(:server) }
+     8	
+     9	  subject(:task) { described_class.new(logger: logger) }
+    10	
+    11	  def suppressed_addresses
+    12	    server.message_db.select("suppressions").map { |s| s["address"] }
+    13	  end
+    14	
+    15	  describe "#call" do
+    16	    it "removes suppressions which have passed their keep until time" do
+    17	      server.message_db.suppression_list.add(:recipient, "expired@example.com")
+    18	      server.message_db.update("suppressions", { keep_until: 1.minute.ago.to_f }, where: { address: "expired@example.com" })
+    19	      task.call
+    20	      expect(suppressed_addresses).to eq []
+    21	      expect(logger).to have_logged("Pruning suppression lists for server #{server.id}")
+    22	    end
+    23	
+    24	    it "does not remove suppressions which have not passed their keep until time" do
+    25	      server.message_db.suppression_list.add(:recipient, "current@example.com")
+    26	      task.call
+    27	      expect(suppressed_addresses).to eq ["current@example.com"]
+    28	    end
+    29	  end
+    30	
+    31	  describe ".next_run_after" do
+    32	    it "returns the next 3am" do
+    33	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    34	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 2, 3, 0, 0)
+    35	      end
+    36	    end
+    37	  end
+    38	end
+=== spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe PruneWebhookRequestsScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:server) { create(:server) }
+     8	
+     9	  subject(:task) { described_class.new(logger: logger) }
+    10	
+    11	  def record_webhook_request(uuid, age:)
+    12	    server.message_db.webhooks.record(
+    13	      event: "MessageSent",
+    14	      url: "https://example.com",
+    15	      attempt: 1,
+    16	      timestamp: age.ago.to_f,
+    17	      payload: "{}",
+    18	      uuid: uuid,
+    19	      status_code: 200,
+    20	      body: "OK",
+    21	      will_retry: false
+    22	    )
+    23	  end
+    24	
+    25	  def recorded_uuids
+    26	    server.message_db.select(:webhook_requests, order: :id).map { |r| r["uuid"] }
+    27	  end
+    28	
+    29	  describe "#call" do
+    30	    it "removes recorded webhook requests which are more than 10 days old" do
+    31	      record_webhook_request("old", age: 11.days)
+    32	      record_webhook_request("recent", age: 9.days)
+    33	      task.call
+    34	      expect(recorded_uuids).to eq ["recent"]
+    35	      expect(logger).to have_logged("Pruning webhook requests for server #{server.id}")
+    36	    end
+    37	
+    38	    it "does not remove anything when no request is more than 10 days old" do
+    39	      record_webhook_request("recent", age: 9.days)
+    40	      task.call
+    41	      expect(recorded_uuids).to eq ["recent"]
+    42	    end
+    43	
+    44	    # The prune removes every row up to the ID of the newest old request, so a
+    45	    # recent request which was recorded before an old one is removed with it.
+    46	    it "removes recent requests which were recorded before an old request" do
+    47	      record_webhook_request("recent-recorded-first", age: 1.day)
+    48	      record_webhook_request("old", age: 11.days)
+    49	      record_webhook_request("recent-recorded-last", age: 1.day)
+    50	      task.call
+    51	      expect(recorded_uuids).to eq ["recent-recorded-last"]
+    52	    end
+    53	  end
+    54	
+    55	  describe ".next_run_after" do
+    56	    it "returns quarter to the current hour when that is still to come" do
+    57	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    58	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 12, 45, 0)
+    59	      end
+    60	    end
+    61	
+    62	    it "returns quarter to the next hour when that has passed" do
+    63	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 50, 0)) do
+    64	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 13, 45, 0)
+    65	      end
+    66	    end
+    67	  end
+    68	end
+=== spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe SendNotificationsScheduledTask do
+     6	  let(:logger) { TestLogger.new }
+     7	  let(:user) { create(:user) }
+     8	  let(:organization) { create(:organization, owner: user) }
+     9	
+    10	  subject(:task) { described_class.new(logger: logger) }
+    11	
+    12	  before do
+    13	    organization.users << user
+    14	    ActionMailer::Base.deliveries.clear
+    15	  end
+    16	
+    17	  describe "#call" do
+    18	    context "when a server has exceeded its send limit in the last 3 minutes" do
+    19	      let!(:server) { create(:server, :exceeded_send_limit, organization: organization, send_limit: 100) }
+    20	      let!(:webhook) { create(:webhook, server: server) }
+    21	
+    22	      it "emails the users of the organization" do
+    23	        task.call
+    24	        expect(ActionMailer::Base.deliveries.size).to eq 1
+    25	        expect(ActionMailer::Base.deliveries.last).to have_attributes(
+    26	          to: [user.email_address],
+    27	          subject: "[#{server.full_permalink}] Mail server has exceeded its send limit"
+    28	        )
+    29	      end
+    30	
+    31	      it "records when the notification was sent" do
+    32	        task.call
+    33	        server.reload
+    34	        expect(server.send_limit_exceeded_notified_at).to be_within(5.seconds).of(Time.now)
+    35	        expect(server.send_limit_approaching_notified_at).to be_nil
+    36	      end
+    37	
+    38	      it "creates a webhook request for the SendLimitExceeded event" do
+    39	        task.call
+    40	        expect(server.webhook_requests.count).to eq 1
+    41	        webhook_request = server.webhook_requests.first
+    42	        expect(webhook_request).to have_attributes(event: "SendLimitExceeded", url: webhook.url, webhook: webhook)
+    43	        expect(webhook_request.payload).to eq({ server: server.webhook_hash, volume: 0, limit: 100 })
+    44	      end
+    45	
+    46	      it "does not notify again when run a second time" do
+    47	        task.call
+    48	        described_class.new(logger: logger).call
+    49	        expect(ActionMailer::Base.deliveries.size).to eq 1
+    50	        expect(server.webhook_requests.count).to eq 1
+    51	      end
+    52	    end
+    53	
+    54	    context "when a server started approaching its send limit in the last 3 minutes" do
+    55	      let!(:server) { create(:server, organization: organization, send_limit: 100, send_limit_approaching_at: 1.minute.ago) }
+    56	
+    57	      it "emails the users of the organization and records when it did" do
+    58	        task.call
+    59	        expect(ActionMailer::Base.deliveries.size).to eq 1
+    60	        expect(ActionMailer::Base.deliveries.last.subject).to eq "[#{server.full_permalink}] Mail server is approaching its send limit"
+    61	        expect(server.reload.send_limit_approaching_notified_at).to be_within(5.seconds).of(Time.now)
+    62	      end
+    63	    end
+    64	
+    65	    context "when a server exceeded its send limit more than 3 minutes ago" do
+    66	      let!(:server) { create(:server, organization: organization, send_limit: 100, send_limit_exceeded_at: 5.minutes.ago) }
+    67	
+    68	      it "does not notify" do
+    69	        task.call
+    70	        expect(ActionMailer::Base.deliveries).to be_empty
+    71	        expect(server.reload.send_limit_exceeded_notified_at).to be_nil
+    72	      end
+    73	    end
+    74	
+    75	    context "when the organization has no users" do
+    76	      let!(:server) { create(:server, :exceeded_send_limit, send_limit: 100) }
+    77	
+    78	      it "does not send an email but still records the notification" do
+    79	        task.call
+    80	        expect(ActionMailer::Base.deliveries).to be_empty
+    81	        expect(server.reload.send_limit_exceeded_notified_at).to be_within(5.seconds).of(Time.now)
+    82	      end
+    83	    end
+    84	  end
+    85	
+    86	  describe ".next_run_after" do
+    87	    it "returns one minute from now" do
+    88	      Timecop.freeze(Time.utc(2026, 1, 1, 12, 20, 0)) do
+    89	        expect(described_class.next_run_after).to eq Time.utc(2026, 1, 1, 12, 21, 0)
+    90	      end
+    91	    end
+    92	  end
+    93	end
+=== spec/scheduled_tasks/tidy_queued_messages_task_spec.rb
+     1	# frozen_string_literal: true
+     2	
+     3	require "rails_helper"
+     4	
+     5	RSpec.describe TidyQueuedMessagesTask do
+     6	  let(:logger) { TestLogger.new }
+     7	
+     8	  subject(:task) { described_class.new(logger: logger) }
+     9	
+    10	  describe "#call" do
+    11	    it "destroys queued messages with stale locks" do
+    12	      stale_message = create(:queued_message, locked_at: 2.days.ago, locked_by: "test")
+    13	      task.call
+    14	      expect { stale_message.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    15	      expect(logger).to have_logged(/removing queued message \d+/)
+    16	    end
+    17	
+    18	    it "does not destroy messages which are not locked" do
+    19	      message = create(:queued_message)
+    20	      task.call
+    21	      expect { message.reload }.not_to raise_error
+    22	    end
+    23	
+    24	    it "does not destroy messages which where were locked less then the number of stale days" do
+    25	      message = create(:queued_message, locked_at: 10.minutes.ago, locked_by: "test")
+    26	      task.call
+    27	      expect { message.reload }.not_to raise_error
+    28	    end
+    29	  end
+    30	end
+=== spec/rails_helper.rb
+     1	# frozen_string_literal: true
+     2	
+     3	ENV["POSTAL_CONFIG_FILE_PATH"] ||= "config/postal/postal.test.yml"
+     4	
+     5	require "dotenv"
+     6	Dotenv.load(".env.test")
+     7	
+     8	require File.expand_path("../config/environment", __dir__)
+     9	require "rspec/rails"
+    10	require "spec_helper"
+    11	require "factory_bot"
+    12	require "timecop"
+    13	require "webmock/rspec"
+    14	require "shoulda-matchers"
+    15	
+    16	DatabaseCleaner.allow_remote_database_url = true
+    17	ActiveRecord::Base.logger = Logger.new("/dev/null")
+    18	
+    19	Dir[File.expand_path("helpers/**/*.rb", __dir__)].reject { |f| f.end_with?("_spec.rb") }.each { |f| require f }
+    20	
+    21	ActionMailer::Base.delivery_method = :test
+    22	
+    23	ActiveRecord::Migration.maintain_test_schema!
+    24	
+    25	Shoulda::Matchers.configure do |config|
+    26	  config.integrate do |with|
+    27	    with.test_framework :rspec
+    28	    with.library :rails
+    29	  end
+    30	end
+    31	
+    32	RSpec.configure do |config|
+    33	  config.use_transactional_fixtures = true
+    34	  config.infer_spec_type_from_file_location!
+    35	  config.include FactoryBot::Syntax::Methods
+    36	  config.include GeneralHelpers
+    37	
+    38	  # Before all request specs, set the hostname to the web hostname for
+    39	  # Postal otherwise it'll be www.example.com which will fail host
+    40	  # authorization checks.
+    41	  config.before(:each, type: :request) do
+    42	    host! Postal::Config.postal.web_hostname
+    43	  end
+    44	
+    45	  # Test that the factories are working as they should and then clean up before getting started on
+    46	  # the rest of the suite.
+    47	  config.before(:suite) do
+    48	    DatabaseCleaner.start
+    49	    FactoryBot.lint
+    50	  ensure
+    51	    DatabaseCleaner.clean
+    52	  end
+    53	end
+=== spec/spec_helper.rb
+     1	# frozen_string_literal: true
+     2	
+     3	RSpec.configure do |config|
+     4	  config.color = true
+     5	
+     6	  config.expect_with :rspec do |expectations|
+     7	    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+     8	  end
+     9	
+    10	  config.mock_with :rspec do |mocks|
+    11	    mocks.verify_partial_doubles = true
+    12	  end
+    13	end

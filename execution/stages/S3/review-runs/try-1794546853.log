@@ -1,0 +1,71 @@
+setup exit=0
+assets exit=0
+s3 run exit=0
+rails 7.2.4 env production show_exceptions=:all deprecations=0
+
+00 GET /login -> 200 text/html; charset=utf-8 1746b
+01 HEAD /login -> 200 text/html; charset=utf-8 0b
+02 GET / -> 302 text/html; charset=utf-8 0b
+03 GET /no/such/page -> 404 text/html; charset=UTF-8 1564b
+04 HEAD /no/such/page -> 404 text/html; charset=UTF-8 0b
+05 FOO /login -> 405 text/html; charset=UTF-8 0b
+06 OPTIONS /login -> 404 text/html; charset=UTF-8 1564b
+07 POST /login -> 422 text/html; charset=UTF-8 1547b
+08 POST /persist -> 422 text/html; charset=UTF-8 1547b
+09 GET /login?a[]=1&a[b]=2 -> 400 text/html; charset=UTF-8 0b
+10 GET /login?x=%E0%A4%A -> 400 text/html; charset=UTF-8 0b
+11 GET /login -> 403 text/html; charset=UTF-8 0b
+12 GET /login.json -> 406 application/json; charset=UTF-8 39b
+13 GET /login -> 200 text/html; charset=utf-8 1746b
+14 GET /login -> 200 text/html; charset=utf-8 1746b
+15 POST /login -> 400 text/html; charset=UTF-8 0b
+16 POST /api/v1/send/message -> 200 application/json; charset=utf-8 118b
+17 POST /api/v1/send/message -> 200 application/json; charset=utf-8 118b
+18 GET /api/v1/messages/message -> 200 application/json; charset=utf-8 118b
+19 DELETE /api/v1/send/message -> 404 text/html; charset=UTF-8 1564b
+20 GET /.well-known/jwks.json -> 200 application/json; charset=utf-8 312b
+21 GET /assets/nonexistent.css -> 404 text/html; charset=UTF-8 1564b
+22 GET /login/reset/nosuchtoken -> 302 text/html; charset=utf-8 0b
+23 GET /anything -> 200  6b
+24 GET /img/abc/def -> 404  20b
+25 GET /abc/def -> 404  20b
+0
+checked out upgrade/s2-remove-the-annotate-blocker
+s2 run exit=0
+rails 7.1.6 env production show_exceptions=:all deprecations=0
+
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb:174: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb:174: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb:174: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+==== diff of summaries (7.1.6 < > 7.2.4)
+5c5
+< 04 HEAD /no/such/page -> 404 text/html; charset=UTF-8 1564b
+---
+> 04 HEAD /no/such/page -> 404 text/html; charset=UTF-8 0b
+==== files that differ
+--- 04.txt: 04 HEAD /no/such/page 
+11c11
+< body-bytes: 1564
+---
+> body-bytes: 0
+13,79d12
+< <!DOCTYPE html>
+< <html>
+< <head>
+<   <title>The page you were looking for doesn't exist (404)</title>
+<   <meta name="viewport" content="width=device-width,initial-scale=1">
+<   <style>
+<   body {
+<     background-color: #EFEFEF;
+<     color: #2E2F30;
+<     text-align: center;
+<     font-family: arial, sans-serif;
+<     margin: 0;
+<   }
+< 
+<   div.dialog {
+<     width: 95%;
+<     max-width: 33em;
+<     margin: 4em auto 0;
+<   }
+==== end

@@ -1,0 +1,923 @@
+{
+ "attempts": 2,
+ "attempts_this_round": 2,
+ "base_branch": "upgrade/s3-rails-7-1-6-to-7-2-4",
+ "baseline_examples_added": 10,
+ "baseline_examples_added_this_round": 10,
+ "branch": "upgrade/s4-rails-7-2-to-8-0",
+ "check": {
+  "attempt": 2,
+  "boot": [
+   {
+    "after": true,
+    "before": true,
+    "flags": [],
+    "name": "default"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.oidc.enabled?"
+    ],
+    "name": "oidc"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.oidc.enabled?",
+     "config.discovery?"
+    ],
+    "name": "oidc-no-discovery"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.migration_waiter.enabled?"
+    ],
+    "name": "migration-waiter"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.logging.rails_log_enabled?"
+    ],
+    "name": "rails-log"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.logging.sentry_dsn"
+    ],
+    "name": "sentry"
+   },
+   {
+    "after": true,
+    "before": true,
+    "flags": [
+     "Postal::Config.rails.environment"
+    ],
+    "name": "production"
+   }
+  ],
+  "comparisons": {
+   "sandbox": {
+    "bodies_compared_in_full": 168,
+    "bodies_compared_through_value_masks": 0,
+    "bodies_not_compared": 2,
+    "examples_gated": 927,
+    "examples_reported_not_gated": 0,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "sandbox"
+   }
+  },
+  "deprecations": {
+   "after": {
+    "distinct": 1,
+    "occurrences": 4
+   },
+   "before": {
+    "distinct": 0,
+    "occurrences": 0
+   }
+  },
+  "green": true,
+  "lock": {
+   "declared": 2,
+   "forced": 3,
+   "moved_outside_framework": 5,
+   "unexplained": []
+  },
+  "max_attempts": 4,
+  "parity": {
+   "accepted_differences": [
+    {
+     "field": "header:vary",
+     "name": "GET /.well-known/jwks.json",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /api/v1/messages/deliveries",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /api/v1/messages/message",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /api/v1/send/message",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /api/v1/send/raw",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /ip",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /login",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "GET /login/reset",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /ip_pools",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /ip_pools/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/delete",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/domains",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/domains/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/ip_pool_rules",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/ip_pool_rules/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/ip_pools",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/servers/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /org/acme/settings",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /organizations/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /settings",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /users",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET /users/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET address_endpoint edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET address_endpoints",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET address_endpoints/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET credential edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET credentials",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET credentials/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET held message",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET http_endpoint edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET http_endpoints",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET http_endpoints/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET incoming message",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET ip_address edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET ip_addresses/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET ip_pool edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message activity",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message attachment download",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message attachments",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message deliveries",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message download",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message headers",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message html",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message html_raw",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message plain",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET message spam_checks",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/held",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/incoming",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/outgoing",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/outgoing with bad time query",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/outgoing with query",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET messages/suppressions",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET org domain setup",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET org ip_pool_rule edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET route edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET routes",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET routes/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server advanced",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server delete",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server domain setup",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server domain verify (unverified)",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server domains",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server domains/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server help/incoming",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server help/outgoing",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server ip_pool_rule edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server ip_pool_rules",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server ip_pool_rules/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server limits",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server queue",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server retention",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET server spam",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET smtp_endpoint edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET smtp_endpoints",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET smtp_endpoints/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET suspended server",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET track_domain edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET track_domains",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET track_domains/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET user edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET webhook edit",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET webhooks",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET webhooks history",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: GET webhooks/new",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: PATCH /org/acme/settings invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: PATCH /settings invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: PATCH server invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST /ip_pools invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST /org/acme/servers invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST /organizations invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST /persist",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST /users invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST address_endpoints invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST credentials invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST http_endpoints invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST routes invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST server domains invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "admin: POST webhooks invalid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/deliveries found",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/deliveries invalid key",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/message found with expansions",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/message missing id",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/message non-scalar id",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/message not found",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: messages/message via GET",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message invalid key",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message no params",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message suspended server",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message unauthenticated from domain",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message valid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/message without key",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "api: send/raw missing params",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET /ip_pools (not permitted)",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET /org/acme",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET /org/acme/settings",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET /organizations/new (not permitted)",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET /users (not permitted)",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "member: GET server advanced (not permitted)",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /.well-known/jwks.json",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /ip",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /login",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /login after reset alert",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /login with return_to",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /login/reset",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: GET /login/reset/:token valid",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: POST /login unknown user",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: POST /login wrong password",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    },
+    {
+     "field": "header:vary",
+     "name": "signed out: POST /login/reset/:token blank password",
+     "reason": "From Action Pack 8.0.5.2 a rendered response carries 'Vary: Accept, X-Requested-With' when the response format is not given by the URL; before, this application's responses carried no Vary header. Listed in the Action Pack 8.0 changelog as 'Set and extend the Vary header for rendered responses according to the request headers used in format negotiation': https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md"
+    }
+   ],
+   "diff_file": "runs/S4-attempt-2/parity-diff.json",
+   "different": 134,
+   "identical": 36,
+   "masked_as_noise": 2,
+   "requests": 170,
+   "unexplained": []
+  },
+  "problems": [],
+  "ruby_warnings_deprecated": {
+   "after": 3,
+   "before": 3
+  },
+  "run": "S4-attempt-2",
+  "stage": "S4",
+  "tests": {
+   "added": 10,
+   "added_failing": [],
+   "after_passed": 920,
+   "after_total": 937,
+   "before_passed": 910,
+   "before_total": 927,
+   "fixed": [],
+   "missing_passing": [],
+   "ok": true,
+   "regressed": []
+  },
+  "tree": "23b952a79b4fe5a3440030fdac87f8bdf0b10bce"
+ },
+ "ci_runs": [
+  {
+   "comparisons": {
+    "bodies_compared_in_full": 163,
+    "bodies_compared_through_value_masks": 5,
+    "bodies_not_compared": 2,
+    "declared": 6,
+    "declared_observed": 6,
+    "examples_gated": 909,
+    "examples_reported_not_gated": 28,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "ci"
+   },
+   "conclusion": "success",
+   "parity_holds": true,
+   "recorded": "2026-11-13T07:07:50Z",
+   "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382984773"
+  }
+ ],
+ "commit": "a1b7fded51ac99d82603a7a618b91cdf01d40028",
+ "diff": {
+  "deletions": 74,
+  "files": 9,
+  "insertions": 236
+ },
+ "elapsed_seconds": 1092,
+ "lock": {
+  "changed": true,
+  "declared": 2,
+  "forced": 3,
+  "framework_gems_moved": 13,
+  "moved_outside_framework": 5,
+  "moves": [
+   {
+    "declared_reason": "Restores the major version the lock held before the 7.2 hop (3.0.2). Active Support 7.2.4 required connection_pool below 3 and forced it down to 2.5.5; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back.",
+    "forced_by": [],
+    "from": "2.5.5",
+    "kind": "declared",
+    "name": "connection_pool",
+    "to": "3.0.2",
+    "why": "Restores the major version the lock held before the 7.2 hop (3.0.2). Active Support 7.2.4 required connection_pool below 3 and forced it down to 2.5.5; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back."
+   },
+   {
+    "declared_reason": null,
+    "forced_by": [
+     "rails-html-sanitizer 1.7.2 requires loofah (~> 2.25, >= 2.25.3)"
+    ],
+    "from": "2.25.1",
+    "kind": "forced",
+    "name": "loofah",
+    "to": "2.25.3",
+    "why": "rails-html-sanitizer 1.7.2 requires loofah (~> 2.25, >= 2.25.3)"
+   },
+   {
+    "declared_reason": "Restores the major version the lock held before the 7.2 hop (6.0.6 then, 6.1.0 now, the version the roadmap's resolve for 8.0 predicted). Active Support 7.2.4 required minitest below 6 and forced it down to 5.27.0; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back.",
+    "forced_by": [],
+    "from": "5.27.0",
+    "kind": "declared",
+    "name": "minitest",
+    "to": "6.1.0",
+    "why": "Restores the major version the lock held before the 7.2 hop (6.0.6 then, 6.1.0 now, the version the roadmap's resolve for 8.0 predicted). Active Support 7.2.4 required minitest below 6 and forced it down to 5.27.0; Active Support 8.0.5.2 has no upper limit, and the plan for this stage lists lifting it back."
+   },
+   {
+    "declared_reason": null,
+    "forced_by": [
+     "loofah 2.25.3 requires nokogiri (>= 1.19.5)"
+    ],
+    "from": "1.19.3",
+    "kind": "forced",
+    "name": "nokogiri",
+    "to": "1.19.7",
+    "why": "loofah 2.25.3 requires nokogiri (>= 1.19.5)"
+   },
+   {
+    "declared_reason": null,
+    "forced_by": [
+     "actionview 8.0.5.2 requires rails-html-sanitizer (~> 1.6, >= 1.7.2)"
+    ],
+    "from": "1.7.0",
+    "kind": "forced",
+    "name": "rails-html-sanitizer",
+    "to": "1.7.2",
+    "why": "actionview 8.0.5.2 requires rails-html-sanitizer (~> 1.6, >= 1.7.2)"
+   }
+  ],
+  "unexplained": []
+ },
+ "reopened": [],
+ "review": {
+  "commit": "a1b7fded51ac99d82603a7a618b91cdf01d40028",
+  "declarations_owed": 3,
+  "declarations_recorded": 3,
+  "defects": 0,
+  "findings": 6,
+  "not_caught_by_checks": 6,
+  "recorded": "2026-11-13T06:54:50Z",
+  "reviewer": "review-S4-1",
+  "seconds": 1092,
+  "verdict": "pass"
+ },
+ "reviews": [
+  {
+   "commit": "a1b7fded51ac99d82603a7a618b91cdf01d40028",
+   "declarations_owed": 3,
+   "declarations_recorded": 0,
+   "defects": 0,
+   "findings": 6,
+   "not_caught_by_checks": 6,
+   "recorded": "2026-11-13T06:54:50Z",
+   "reviewer": "review-S4-1",
+   "seconds": 1092,
+   "verdict": "pass"
+  }
+ ],
+ "round": 1,
+ "stage": "S4",
+ "status": "green",
+ "title": "Rails 7.2 to 8.0",
+ "versions_after": {
+  "rails": "8.0.5.2",
+  "ruby": "3.4.6"
+ }
+}

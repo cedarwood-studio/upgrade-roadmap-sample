@@ -1,0 +1,71 @@
+setup exit=0
+assets exit=0
+==== 1. parameters and cookies
+lines: 138 on 7.2.4, 138 on 8.0.5.2; raised: 11 and 11
+7.2.4 reading 8.0.5.2: 
+8.0.5.2 reading 7.2.4: 
+-- differences (7.2.4 < > 8.0.5.2)
+(end of parameter diff)
+Error occurred while parsing request parameters.
+/cache/bundle/ruby/3.4.0/gems/actionpack-8.0.5.2/lib/action_dispatch/middleware/cookies.rb:640:in 'ActionDispatch::Cookies::SignedKeyRotatingCookieJar#initialize': undefined method 'generate_key' for 
+==== 2. processes
+---- web s4: exit=143 15 lines, puma said: * Puma version: 7.0.4 ("Romantic Warrior") *  Environment: production * Listening on http://127.0.0.1:5055 
+HEAD /no/such/page Accept="*/*" -> 404 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=*/*; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameorigin; x-p
+HEAD /no/such/page Accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" -> 404 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=UTF-8; x-content-type-options=n
+HEAD /no/such/page Accept=nil -> 404 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameorigin;
+GET /no/such/page Accept="*/*" -> 404 | connection=close; content-length=1564; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameori
+HEAD /login Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d5
+GET /login Accept="text/html" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/applic
+GET /login Accept=nil -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d5
+HEAD /assets/nonexistent.css Accept="*/*" -> 404 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=*/*; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameo
+HEAD /no/such/page.json Accept="*/*" -> 404 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=*/*; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameorigin
+GET / Accept="*/*" -> 302 | cache-control=no-cache; connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; location=http://postal.example.com/login?return_to=%2F; x-content-type-op
+GET /ip Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=34; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/plain; charset=utf-8; vary=Accept, X-Requested-With; x-content-t
+GET /login?a[]=1&a[b]=2 Accept="*/*" -> 400 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=same
+HEAD /login?a[]=1&a[b]=2 Accept="*/*" -> 400 | connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=*/*; charset=UTF-8; x-content-type-options=nosniff; x-download-options=noopen; x-frame-options=sameorigi
+GET /404.html Accept="*/*" -> 200 | connection=close; content-length=1564; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; last-modified=Fri, 13 Nov 2026 03:56:28 GMT; x-content-type-options=nosniff; x-download-options=noope
+POST /api/v1/send/message Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=118; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=application/json; charset=utf-8; vary=Accept, X-Re
+---- worker: exit=0 lines=21
+ INFO   starting 2 work threads component=worker
+ INFO   starting tasks thread component=worker
+ INFO   started work thread 0 component=worker thread=work0
+ INFO   started work thread 1 component=worker thread=work1
+ INFO   acquired task role by creating it component=worker thread=tasks
+ INFO   no existing task object, creating it now component=worker thread=tasks task=ActionDeletionsScheduledTask
+ INFO   no existing task object, creating it now component=worker thread=tasks task=CheckAllDNSScheduledTask
+  errors: 0
+---- smtp: exit=0 lines=4
+ INFO   Listening on :::2525 component=smtp-server
+Received TERM signal, shutting down.
+  errors: 0
+---- web s3: exit=143 15 lines, puma said: * Puma version: 7.0.4 ("Romantic Warrior") *  Environment: production * Listening on http://127.0.0.1:5055 
+==== web responses (7.2.4 < > 8.0.5.2)
+5,7c5,7
+< HEAD /login Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a4a1ddabf
+< GET /login Accept="text/html" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a
+< GET /login Accept=nil -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a4a1ddabf
+---
+> HEAD /login Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=0; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a4a1ddabf
+> GET /login Accept="text/html" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a
+> GET /login Accept=nil -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=1916; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/html; charset=utf-8; link=</assets/application/application-d582f69de04a4a1ddabf
+11c11
+< GET /ip Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=34; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/plain; charset=utf-8; vary=Accept; x-content-type-options=nosniff; x-download-opti
+---
+> GET /ip Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=34; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=text/plain; charset=utf-8; vary=Accept, X-Requested-With; x-content-type-options=nosnif
+15c15
+< POST /api/v1/send/message Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=118; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=application/json; charset=utf-8; vary=Accept; x-content-type-options
+---
+> POST /api/v1/send/message Accept="*/*" -> 200 | cache-control=max-age=0, private, must-revalidate; connection=close; content-length=118; content-security-policy=child-src 'self'; connect-src 'self'; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; script-src 'self'; style-src 'self' https: 'unsafe-inline'; content-type=application/json; charset=utf-8; vary=Accept, X-Requested-With; x-co
+(end of web diff)
+==== 3. console and runner
+Loading production environment (Rails 8.0.5.2)
+Switch to inspect mode.
+puts "users=#{User.count} rails=#{Rails.version}"
+users=0 rails=8.0.5.2
+nil
+puts MigrationWaiter.console?
+true
+nil
+runner ok 8.0.5.2 production 0
+0.0.0
+==== end

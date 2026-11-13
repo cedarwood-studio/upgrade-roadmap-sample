@@ -1,0 +1,12 @@
+[waiter-no-schema] setup exit=0
+[waiter-no-schema] boot exit=1
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+[waiter-schema-loaded] setup exit=0
+[waiter-schema-loaded] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=test eager_load=false key_from_credentials=true local_secret_file=false routes=197
+52
+7.2.4

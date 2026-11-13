@@ -1,0 +1,180 @@
+{
+ "command": null,
+ "data": {
+  "by_state": {
+   "executed": 35,
+   "file-not-loaded-by-suite": 14,
+   "never-executed": 8,
+   "not-an-executable-line": 1
+  },
+  "call_sites": [
+   {
+    "file": "app/models/route.rb",
+    "line": 122,
+    "priority": "read",
+    "state": "never-executed",
+    "text": "raise ActiveRecord::RecordInvalid"
+   },
+   {
+    "file": "config/initializers/secret_key.rb",
+    "line": 4,
+    "priority": "read",
+    "state": "never-executed",
+    "text": "Rails.application.credentials.secret_key_base = Postal::Config.rails.secret_key"
+   },
+   {
+    "file": "lib/migration_waiter.rb",
+    "line": 18,
+    "priority": "read",
+    "state": "never-executed",
+    "text": "pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size"
+   },
+   {
+    "file": "lib/migration_waiter.rb",
+    "line": 47,
+    "priority": "read",
+    "state": "never-executed",
+    "text": "Rails.const_defined?(\"Console\")"
+   },
+   {
+    "file": "lib/postal/message_db/database.rb",
+    "line": 333,
+    "priority": "read",
+    "state": "never-executed",
+    "text": "ActiveRecord::ConnectionAdapters::MySQL::ExplainPrettyPrinter.new.pp(explain_result, time).split(\"\\n\").each do |line|"
+   },
+   {
+    "file": "Rakefile",
+    "line": 8,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "Rails.application.load_tasks"
+   },
+   {
+    "file": "app/controllers/ip_pools_controller.rb",
+    "line": 36,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "rescue ActiveRecord::DeleteRestrictionError"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 105,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "current_pool_size = ActiveRecord::Base.connection_pool.size"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 159,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "ActiveRecord::Base.connection_pool.with_connection do"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 203,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "ActiveRecord::Base.connection_pool.with_connection do"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 217,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "role_acquisition_status = ActiveRecord::Base.connection_pool.with_connection do"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 233,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "ActiveRecord::Base.connection_pool.with_connection do"
+   },
+   {
+    "file": "config.ru",
+    "line": 6,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "run Rails.application"
+   },
+   {
+    "file": "config/environments/development.rb",
+    "line": 3,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "Rails.application.configure do"
+   },
+   {
+    "file": "config/environments/production.rb",
+    "line": 3,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "Rails.application.configure do"
+   },
+   {
+    "file": "lib/tasks/postal.rake",
+    "line": 31,
+    "priority": "read",
+    "state": "file-not-loaded-by-suite",
+    "text": "mysql = ActiveRecord::Base.connection"
+   },
+   {
+    "file": "app/controllers/application_controller.rb",
+    "line": 41,
+    "priority": "stable-surface",
+    "state": "never-executed",
+    "text": "Rails.logger.info \"AuthSessionError: #{exception.class}: #{exception.message}\""
+   },
+   {
+    "file": "config/initializers/omniauth.rb",
+    "line": 16,
+    "priority": "stable-surface",
+    "state": "never-executed",
+    "text": "Rails.application.config.middleware.use OmniAuth::Builder do"
+   },
+   {
+    "file": "lib/postal/message_parser.rb",
+    "line": 57,
+    "priority": "stable-surface",
+    "state": "never-executed",
+    "text": "raise if Rails.env.development?"
+   },
+   {
+    "file": "config/environments/development.rb",
+    "line": 18,
+    "priority": "stable-surface",
+    "state": "file-not-loaded-by-suite",
+    "text": "if Rails.root.join(\"tmp/caching-dev.txt\").exist?"
+   },
+   {
+    "file": "lib/tasks/auto_annotate_models.rake",
+    "line": 4,
+    "priority": "stable-surface",
+    "state": "file-not-loaded-by-suite",
+    "text": "if Rails.env.development?"
+   },
+   {
+    "file": "script/insert-bounce.rb",
+    "line": 19,
+    "priority": "stable-surface",
+    "state": "file-not-loaded-by-suite",
+    "text": "template = File.read(Rails.root.join(\"resource/postfix-bounce.msg\"))"
+   }
+  ],
+  "coverage_available": true,
+  "files": 11,
+  "framework_call_sites": 58,
+  "in_files_never_loaded": 11,
+  "loaded_never_executed": 5,
+  "method_note": "A text match on the framework's constant names, joined with line coverage from the baseline run. 'never-executed' means the suite loaded the file and never ran the line, so no check on any version exercises it. These are lines to read against the changelogs.",
+  "stable_surface_only": 6,
+  "truncated": false
+ },
+ "method": "derived",
+ "note": "Framework call sites joined with baseline line coverage.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "unexecuted"
+}

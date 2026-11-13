@@ -1,0 +1,32 @@
+config/application.rb:22:    config.load_defaults 7.0
+config/initializers/new_framework_defaults_7_0.rb:8:# this file and set the `config.load_defaults` to `7.0`.
+config/initializers/new_framework_defaults_7_0.rb:27:# Rails.application.config.active_support.key_generator_hash_digest_class = OpenSSL::Digest::SHA256
+config/initializers/new_framework_defaults_7_0.rb:32:# Rails.application.config.active_support.hash_digest_class = OpenSSL::Digest::SHA256
+
+    def prepare_environment
+      BasicSocket.do_not_reverse_lookup = true
+
+      trap("TERM") do
+--- after 45s
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+     75       00:45 timeout -k 5 90 bundle exec rspec spec/lib/smtp_server/server_spec.rb
+     76       00:45 /cache/bundle/ruby/3.4.0/bin/rspec spec/lib/smtp_server/server_spec.rb
+     84       00:35 /usr/local/bin/ruby script/smtp_server.rb
+--- at the end
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+No configuration file found at config/postal/postal.test.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+
+
+Finished in 1 minute 23.68 seconds (files took 5.99 seconds to load)
+1 example, 0 failures
+
+rspec exit 124

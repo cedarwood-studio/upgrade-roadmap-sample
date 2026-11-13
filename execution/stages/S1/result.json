@@ -1,0 +1,111 @@
+{
+ "attempts": 1,
+ "base_branch": "upgrade/baseline",
+ "branch": "upgrade/s1-record-the-baseline-on-rails-7-1-6",
+ "check": {
+  "attempt": 1,
+  "deprecations": {
+   "after": {
+    "distinct": 0,
+    "occurrences": 0
+   },
+   "before": {
+    "distinct": 0,
+    "occurrences": 0
+   }
+  },
+  "green": true,
+  "max_attempts": 4,
+  "parity": {
+   "accepted_differences": [],
+   "diff_file": "runs/S1-attempt-1/parity-diff.json",
+   "different": 0,
+   "identical": 170,
+   "masked_as_noise": 2,
+   "requests": 170,
+   "unexplained": []
+  },
+  "problems": [],
+  "ruby_warnings_deprecated": {
+   "after": 3,
+   "before": 2
+  },
+  "run": "S1-attempt-1",
+  "stage": "S1",
+  "tests": {
+   "added": 65,
+   "added_failing": [],
+   "after_passed": 899,
+   "after_total": 916,
+   "before_passed": 834,
+   "before_total": 851,
+   "fixed": [],
+   "missing_passing": [],
+   "ok": true,
+   "regressed": []
+  },
+  "tree": "db69c99cc6175a9dab0e46853a8909476db80a3c"
+ },
+ "ci_runs": [
+  {
+   "comparisons": {
+    "bodies_compared_in_full": 163,
+    "bodies_compared_through_value_masks": 5,
+    "bodies_not_compared": 2,
+    "declared": 0,
+    "declared_observed": 0,
+    "examples_gated": 823,
+    "examples_reported_not_gated": 28,
+    "headers_masked": 0,
+    "requests": 170,
+    "status_compared": 170,
+    "where": "ci"
+   },
+   "conclusion": "success",
+   "parity_holds": true,
+   "recorded": "2026-11-13T07:07:49Z",
+   "run": "https://github.com/cedarwood-studio/postal/actions/runs/43382973974"
+  }
+ ],
+ "commit": "fe9e34ca7da9ce198325a51762b36423f719b252",
+ "diff": {
+  "deletions": 0,
+  "files": 14,
+  "insertions": 914
+ },
+ "elapsed_seconds": 746,
+ "rebased_from": "d2f0e7ea01854806795a57713dcd1bc768a49fed",
+ "review": {
+  "commit": "fe9e34ca7da9ce198325a51762b36423f719b252",
+  "declarations_owed": 0,
+  "declarations_recorded": 0,
+  "defects": 0,
+  "findings": 5,
+  "not_caught_by_checks": 3,
+  "recorded": "2026-11-13T06:15:19Z",
+  "reviewer": "review-S1-1",
+  "seconds": 1454,
+  "verdict": "pass"
+ },
+ "reviews": [
+  {
+   "commit": "fe9e34ca7da9ce198325a51762b36423f719b252",
+   "declarations_owed": 0,
+   "declarations_recorded": 0,
+   "defects": 0,
+   "findings": 5,
+   "not_caught_by_checks": 3,
+   "recorded": "2026-11-13T06:15:19Z",
+   "reviewer": "review-S1-1",
+   "seconds": 1454,
+   "verdict": "pass"
+  }
+ ],
+ "stage": "S1",
+ "status": "green",
+ "title": "Record the baseline on Rails 7.1.6",
+ "versions_after": {
+  "rails": "7.1.6",
+  "ruby": "3.4.6"
+ }
+}

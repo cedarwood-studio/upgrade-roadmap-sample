@@ -1,0 +1,39 @@
+{
+ "changed": true,
+ "declared": 0,
+ "forced": 3,
+ "framework_gems_moved": 13,
+ "moved_outside_framework": 3,
+ "moves": [
+  {
+   "declared_reason": null,
+   "forced_by": [
+    "activesupport 7.2.4 requires connection_pool (>= 2.2.5, < 3)"
+   ],
+   "from": "3.0.2",
+   "kind": "forced",
+   "name": "connection_pool",
+   "to": "2.5.5",
+   "why": "activesupport 7.2.4 requires connection_pool (>= 2.2.5, < 3)"
+  },
+  {
+   "declared_reason": null,
+   "forced_by": [
+    "activesupport 7.2.4 requires minitest (>= 5.1, < 6)"
+   ],
+   "from": "6.0.6",
+   "kind": "forced",
+   "name": "minitest",
+   "to": "5.27.0",
+   "why": "activesupport 7.2.4 requires minitest (>= 5.1, < 6)"
+  },
+  {
+   "from": null,
+   "kind": "forced",
+   "name": "useragent",
+   "to": "0.16.11",
+   "why": "new dependency of actionpack"
+  }
+ ],
+ "unexplained": []
+}

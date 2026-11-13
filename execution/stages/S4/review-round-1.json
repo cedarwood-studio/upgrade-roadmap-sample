@@ -1,0 +1,169 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794552515.log",
+   "found_by": "break-attempt",
+   "measured": "exec/stages/S4/review-runs/try-1794552515.log (27 of 230 requests carry 'Vary: Accept' on 7.2.4, all 27 sent an Accept header) and exec/stages/S4/review-runs/try-1794552582.log (through puma, GET /ip and POST /api/v1/send/message with 'Accept: */*')",
+   "severity": "declare",
+   "source": "https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md",
+   "what": "The Vary declaration says the application's responses carried no Vary header before. That is true only of requests that send no Accept header, which is what the recorded requests are. A request that sends one, as browsers, curl and HTTP libraries do, already got 'Vary: Accept' on 7.2.4 and gets 'Vary: Accept, X-Requested-With' on 8.0.5.2. For real traffic the change is one added field name, not a new header, so the sentence telling the client a cache 'will now keep separate copies per Accept' is wrong for those requests: it already did. The header on 8.0.5.2 is exactly what the stage declares, on every request we made, so nothing undeclared reaches a client. The declaration's 'before', the paragraph for the client and the question for the client need correcting.",
+   "where": "exec/stages/S4/expected-differences.json, notes.md 'Declared behavior changes', spec/requests/vary_header_spec.rb"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794552515.log",
+   "found_by": "break-attempt",
+   "measured": "exec/stages/S4/review-runs/try-1794552515.log (1241 normalized log lines on 7.2.4, 1249 on 8.0.5.2)",
+   "severity": "declare",
+   "what": "Error entries in the Rails log change shape. On 7.2.4 an error with a cause is logged as the error line, its trace, then a 'Causes:' block naming the cause. On 8.0.5.2 the error line is followed by a 'Caused by:' line, then an 'Information for:' section with the trace, then an 'Information for cause:' section with the cause's trace. One class name in those entries changes too: a malformed query string is reported as ActionDispatch::ParameterTypeError where it was Rack::QueryParser::ParameterTypeError, because Action Pack 8.0 parses parameters itself. The responses are the same (400). It matters to anything that parses or alerts on this optional log.",
+   "where": "the Rails log, written only with LOGGING_RAILS_LOG_ENABLED=true"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794552739.log",
+   "found_by": "break-attempt",
+   "measured": "exec/stages/S4/review-runs/try-1794552739.log",
+   "severity": "declare",
+   "what": "The message of ActionController::ParameterMissing changes from 'param is missing or the value is empty: domain' to 'param is missing or the value is empty or invalid: domain'. No response carries it: the request answers 400 with an empty body on both versions. It appears in the exception_message field of Postal's own request log line, which is on by default, and in the Rails log. We did not capture what Sentry receives, but the same exception object goes there. It matters to a log search or an alert that matches the old text.",
+   "where": "config/initializers/logging.rb:8, Postal's own request log, and the Rails log"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794551998.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The notes say that with reset_token: false removed, 5 of the 6 password reset examples fail on 8.0.5.2. We measured 4 of 6 (the examples at lines 15, 32, 53 and 78). The 5 is the count from the first draft of 7, before one example was removed. All 6 pass against the 7.2.4 lock, as the notes say.",
+   "where": "exec/stages/S4/notes.md and pr-body.md, 'What changed', the password reset spec"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794551998.log",
+   "found_by": "break-attempt",
+   "severity": "note",
+   "what": "The notes say this was not measured on 8.0.5.2. It is now: db:migrate on an empty database exits 0 with 28 tables and 19 versions on 8.0.5.2, and fails on the first migration on 7.2.4. The declaration is correct and can cite the measurement. In an environment that dumps the schema the run also rewrites db/schema.rb, which the stage's follow-ups already mention.",
+   "where": "exec/stages/S4/notes.md, 'Declared behavior changes', db:migrate on an empty database"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "exec/stages/S4/review-runs/try-1794551998.log",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "json is still not pinned below 3. Carried from every S3 review and listed in this stage's own follow-ups. Active Support 8.0 breaks with json 3; the lock holds json 2.7.1 and this relock did not move it, and JSON responses are the same on both versions today. The project's own 7.2 branch has the pin. It should go in before the next relock.",
+   "where": "Gemfile"
+  }
+ ],
+ "method": {
+  "break_attempts": [
+   {
+    "command": "exec try --stage S4 -- 'sh /out/s4-ops.sh' (part 1)",
+    "result": "42 spec lines moved: the 12 framework gems and rails to 8.0.5.2, connection_pool 2.5.5 to 3.0.2, loofah 2.25.1 to 2.25.3, minitest 5.27.0 to 6.1.0, nokogiri 1.19.3 to 1.19.7 on four platforms, rails-html-sanitizer 1.7.0 to 1.7.2. One dependency line added (cgi). Nothing else. Matches lock-diff.json. One application file changed, one line. Log: review-runs/try-1794551998.log",
+    "what": "the lock and the Gemfile against the S3 branch"
+   },
+   {
+    "command": "exec try --stage S4 -- 'sh /out/s4-ops.sh' (part 2)",
+    "result": "14 of 14 start, 39 of 39 files loaded in each, the OIDC callback route is drawn when OIDC is on. Regexp.timeout stays nil. The middleware stack is the same as on 7.2.4 in test and in production. Log: review-runs/try-1794551998.log",
+    "what": "14 server-style boots on 8.0.5.2: default, production, development, OIDC, OIDC without discovery, OIDC with local authentication off, migration waiter, Rails log, Sentry, rspamd, ClamAV, spamd, SMTP TLS, and everything together in production; each with eager loading, deprecations set to raise, the routes drawn, and the 39 files the suite never loads"
+   },
+   {
+    "command": "exec try --stage S4 -- 'sh /out/s4-ops.sh' (part 3)",
+    "result": "53 tasks listed; postal:update in production finds the schema loaded and runs db:migrate, exit 0. Log: review-runs/try-1794551998.log",
+    "what": "rake tasks and the production update task"
+   },
+   {
+    "command": "exec try --stage S4 -- 'sh /out/s4-ops.sh' (part 4)",
+    "result": "17 examples, 0 failures; 37, 37 and 37 examples, 0 failures. With reset_token: false removed, 4 of the 6 password reset examples fail on 8.0.5.2 (the notes say 5) and all pass against the 7.2.4 lock. The Vary spec fails against the 7.2.4 lock, 1 of 2, as it should. Log: review-runs/try-1794551998.log",
+    "what": "the stage's specs on 8.0.5.2, the request specs in three random orders, the password reset spec with the option removed on 8.0.5.2 and against the 7.2.4 lock, the Vary spec against the 7.2.4 lock"
+   },
+   {
+    "command": "exec try --stage S4 -- 'sh /out/s4-ops.sh' (part 5)",
+    "result": "8.0.5.2: exit 0, 28 tables, 19 migration versions recorded, and db/schema.rb is rewritten in an environment that dumps the schema. 7.2.4: exit 1 on the first migration, 2 tables, 0 versions. The declaration is right. Log: review-runs/try-1794551998.log",
+    "what": "db:migrate on an empty database on both versions, which the stage declares and did not measure"
+   },
+   {
+    "command": "exec try --stage S4 --env RAILS_ENVIRONMENT=production --env RAILS_SECRET_KEY=... --env LOGGING_RAILS_LOG_ENABLED=true -- 'sh /out/s4-app.sh'",
+    "result": "230 responses per side. 70 identical, 159 differ only in the Vary header, 1 differs only in a random MIME boundary and the clock (it differs between two runs of the same version too). Every status, body, cookie attribute and other header is the same. 160 responses carry 'Vary: Accept, X-Requested-With' on 8.0.5.2; 27 of those already carried 'Vary: Accept' on 7.2.4 (finding 1). The 7 mails are identical. The reset flow stores a 24 character token, mails the same token, sets the password and clears the token on both versions. The model and configuration values are the same except the to_time setting's name and where the session cookie's SameSite default is applied. The Rails log differs in error entries (findings 2 and 3). Our first run compared badly because our own script changed the disk size shown in the page header between runs; we masked that and report the second run. Logs: review-runs/try-1794552338.log (first run), review-runs/try-1794552515.log",
+    "what": "230 requests in production through config.ru on each version against the same rows, with a message database holding 3 messages: error pages and static files for HEAD and GET, the whole password reset flow as a browser does it, every server-level and organization-level page as a signed-in user, JSON and XHR variants, 27 invalid form posts, a create and a destroy, the IP pool destroy guard, the legacy API, 7 mails, and 36 values read straight from the models and the configuration"
+   },
+   {
+    "command": "exec try --stage S4 --env RAILS_ENVIRONMENT=production ... -- 'sh /out/s4-proc.sh' (part 1)",
+    "result": "138 results per side, identical, 11 rejected inputs on each side. The part of this script that had each version read the other's signed cookies failed on a mistake in our script; the cookie question is answered by the attempt after next. Log: review-runs/try-1794552582.log",
+    "what": "request parameter parsing on both versions: 60 query strings, the same 60 as form bodies, 16 JSON bodies, 6 multipart bodies"
+   },
+   {
+    "command": "exec try --stage S4 --env RAILS_ENVIRONMENT=production ... -- 'sh /out/s4-proc.sh' (parts 2 and 3)",
+    "result": "All three start on 8.0.5.2 and stop on TERM with no error. The worker acquires the task role and creates its scheduled tasks. Of the 15 web responses, 13 are the same on both versions to the header; GET /ip and POST /api/v1/send/message change from 'vary=Accept' to 'vary=Accept, X-Requested-With'. HEAD on error pages answers the same on both. The console and the runner start. Log: review-runs/try-1794552582.log",
+    "what": "the three processes started as the Procfile starts them, in production: puma, the worker, the SMTP server; 15 HEAD, GET and POST requests to the running puma on both versions; the console and the runner"
+   },
+   {
+    "command": "exec try --stage S4 --env RAILS_ENVIRONMENT=production --env LOGGING_ENABLED=true ... -- 'sh /out/s4-cookies.sh'",
+    "result": "8.0.5.2 accepts a 7.2.4 session and 7.2.4 accepts an 8.0.5.2 session: GET / 200, GET /settings 200, POST /persist with the other version's CSRF token 200, PATCH /settings 302. Postal's own log line for a request with a missing parameter differs in exception_message (finding 3). Log: review-runs/try-1794552739.log",
+    "what": "a session across the deploy and across a rollback: sign in on one version, then use those cookies and that CSRF token on the other; and Postal's own request log line for a rejected request on both versions"
+   }
+  ],
+  "changelogs_note": "7 of 12 component changelogs for 8.0, 333 entries counting the 'No changes' lines. We read the first line of every entry and the full text of the ones that remove, rename, move or newly define something, and searched repo/ for each of those. The other five components (Active Job, Action Cable, Active Storage, Action Text, Action Mailbox) are not loaded by config/application.rb and were not read. Entries that apply. Action Pack: the Vary header (declared by the stage), Action Pack parsing request parameters itself (measured, 138 inputs parse the same on both versions), the SameSite change for session stores (cookie store here; cookie attributes measured the same), HEAD on error pages (measured the same on both versions), params.expect, which is where the new ParameterMissing message comes from (finding 3). Active Record: db:migrate on an empty database (declared; measured here), MySQL 5.5 dropped (in the stage's follow-ups). Active Support: to_time_preserves_timezone (the recorded deprecation warning; the setting reads true on 7.2.4 and :offset on 8.0.5.2, the same behavior). Railties: deferred route drawing (all 14 boots draw the routes when asked, the OIDC route included), secret_key_base in development and test (the code is the same in the installed 7.2.4 and 8.0.5.2). Active Model: the password reset token (fixed by the stage), confirmation validation of a blank password (the application passes validations: false; five password cases validate the same on both versions). Action View: rails-html-sanitizer 1.7.2 (the forced lock move). Searched and not used by the application: enum with keyword arguments, ConnectionPool#connection, ActiveSupport::ProxyObject, Benchmark.ms, config.read_encrypted_secrets, Rails::ConsoleMethods, form_with with a nil model, content passed to void tags, unsigned_float and unsigned_decimal, Rails content security policy (the application uses secure_headers).",
+  "changelogs_read": [
+   {
+    "entries_checked": 44,
+    "entries_that_apply": 5,
+    "file": "out/changelogs/8.0/actionpack.md"
+   },
+   {
+    "entries_checked": 128,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.0/activerecord.md"
+   },
+   {
+    "entries_checked": 58,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/activesupport.md"
+   },
+   {
+    "entries_checked": 43,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.0/railties.md"
+   },
+   {
+    "entries_checked": 18,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.0/activemodel.md"
+   },
+   {
+    "entries_checked": 29,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/actionview.md"
+   },
+   {
+    "entries_checked": 13,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/actionmailer.md"
+   }
+  ],
+  "unexecuted_call_sites_read": {
+   "at_risk": [],
+   "listed": 16,
+   "note": "5 never-executed and 11 in files the suite never loads. 15 of the 16 ran in this review on 8.0.5.2, and 13 of those on 7.2.4 as well with the same result: config/initializers/secret_key.rb:4, lib/migration_waiter.rb:18 and :47 (false in a server process, true in the console), lib/postal/message_db/database.rb:333, Rakefile:8, app/controllers/ip_pools_controller.rb:36 (over HTTP), app/lib/worker/process.rb:105, :159, :203, :217 and :233 (and :114, which raises the pool from 5 to 12), config.ru:6, config/environments/development.rb:3 and production.rb:3, lib/tasks/postal.rake:31. app/models/route.rb:122 was read and not run: our bad endpoint is rejected by an earlier guard on both versions, and ActiveRecord::RecordInvalid.new takes the same optional argument in the installed 7.2.4 and 8.0.5.2. The ExplainPrettyPrinter constant the notes could not compare with 7.2.4 is required from abstract_mysql_adapter.rb line 7 in both versions.",
+   "read": 16,
+   "why_not_all": null
+  },
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades, branch upgrade-rails-8.1.4 and the project's open pull request for Rails 8.1",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "app/helpers/error_messages_helper.rb",
+    "config/initializers/form_builder_extensions.rb",
+    "config/initializers/new_framework_defaults_7_0.rb",
+    "config/initializers/new_framework_defaults_7_1.rb",
+    "config/initializers/new_framework_defaults_7_2.rb",
+    "app/models/credential.rb",
+    "app/models/webhook_request.rb",
+    "db/schema.rb",
+    "lib/tasks/annotate_rb.rake"
+   ],
+   "why_not": "None is a break this stage needed. The error message helper, its initializer and the stylesheet replace the dynamic_form gem, which is their choice: on 8.0.5.2 the gem loads and 27 invalid form posts render the same as on 7.2.4. The framework defaults files are their choice; this plan keeps load_defaults at 7.0 and adopts defaults in a later stage. The explicit YAML coder on the two serialized columns is their choice: on 8.0.5.2 both columns still use the YAML coder and a value round trips. db/schema.rb is the version stamp, which the stage lists as a follow-up. The annotaterb task replaces annotate, which S2 removed. Their Gemfile adds benchmark for 8.1; on 8.0.5.2 Active Support still depends on it and the worker's Benchmark.realtime call ran. Their Gemfile pins json below 3; ours does not (finding 6). lib/migration_waiter.rb and config/environments/test.rb already carry their change from S3, and cgi is in the Gemfile from this stage."
+  }
+ },
+ "stage": "S4",
+ "verdict": "pass"
+}

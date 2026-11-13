@@ -1,0 +1,669 @@
+{
+ "command": "pattern search of the checkout against ecosystems/rails/rules.json",
+ "data": {
+  "matched_rules": [
+   {
+    "changed_in": "7.1",
+    "hit_count": 2,
+    "hits": [
+     {
+      "file": "app/models/credential.rb",
+      "line": 34,
+      "text": "serialize :options, type: Hash"
+     },
+     {
+      "file": "app/models/webhook_request.rb",
+      "line": 37,
+      "text": "serialize :payload, type: Hash"
+     }
+    ],
+    "id": "rails-7.1-default-column-serializer",
+    "kind": "default",
+    "precision": "high",
+    "severity": "breaks-boot",
+    "source": "https://guides.rubyonrails.org/configuring.html#config-active-record-default-column-serializer",
+    "title": "`serialize` and `store` have no default coder"
+   },
+   {
+    "changed_in": "7.1",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "app/models/server.rb",
+      "line": 92,
+      "text": "after_commit(on: :destroy) do"
+     }
+    ],
+    "id": "rails-7.1-after-commit-callback-order",
+    "kind": "default",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://guides.rubyonrails.org/configuring.html#config-active-record-run-after-transaction-callbacks-in-order-defined",
+    "title": "`after_commit` callbacks run in the order defined"
+   },
+   {
+    "changed_in": "7.2",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "config/environments/test.rb",
+      "line": 28,
+      "text": "config.action_dispatch.show_exceptions = false"
+     }
+    ],
+    "id": "rails-7.2-show-exceptions-boolean",
+    "kind": "removed",
+    "precision": "high",
+    "severity": "behavior-change",
+    "source": "https://guides.rubyonrails.org/7_2_release_notes.html#action-pack-removals",
+    "title": "`show_exceptions = true/false` removed"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "bin/update",
+      "line": 24,
+      "text": "system! \"bin/rails db:migrate\""
+     }
+    ],
+    "id": "rails-8.0-db-migrate-loads-schema",
+    "kind": "behavior",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://guides.rubyonrails.org/8_0_release_notes.html#active-record-notable-changes",
+    "title": "`db:migrate` on a fresh database loads the schema first"
+   },
+   {
+    "changed_in": "8.1",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "db/schema.rb",
+      "line": 13,
+      "text": "ActiveRecord::Schema[7.1].define(version: 2026_09_03_100000) do"
+     }
+    ],
+    "id": "rails-8.1-schema-columns-sorted",
+    "kind": "behavior",
+    "precision": "high",
+    "severity": "behavior-change",
+    "source": "https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#the-table-columns-inside-schema-rb-are-now-sorted-alphabetically",
+    "title": "`schema.rb` columns are sorted alphabetically"
+   },
+   {
+    "changed_in": "7.2",
+    "hit_count": 2,
+    "hits": [
+     {
+      "file": "app/views/organizations/edit.html.haml",
+      "line": 22,
+      "text": "= f.time_zone_select :time_zone, [], {}, :class => 'input input--select'"
+     },
+     {
+      "file": "app/views/user/edit.html.haml",
+      "line": 40,
+      "text": "= f.time_zone_select :time_zone, [], {}, :class => 'input input--select'"
+     }
+    ],
+    "id": "rails-7.2-time-zone-astana-mapping",
+    "kind": "behavior",
+    "precision": "medium",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md",
+    "title": "Time zone \"Astana\" maps to `Asia/Almaty` instead of `Asia/Dhaka`"
+   },
+   {
+    "changed_in": "7.2",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "lib/migration_waiter.rb",
+      "line": 18,
+      "text": "pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size"
+     }
+    ],
+    "id": "rails-7.2-connection-migration-methods-moved-to-pool",
+    "kind": "removed",
+    "precision": "high",
+    "severity": "breaks-call",
+    "source": "https://github.com/rails/rails/blob/v7.2.4/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb",
+    "title": "`migration_context`, `schema_migration`, `internal_metadata` and `migrations_paths` moved from the connection to the connection pool"
+   },
+   {
+    "changed_in": "7.2",
+    "hit_count": 2,
+    "hits": [
+     {
+      "file": "lib/migration_waiter.rb",
+      "line": 18,
+      "text": "pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size"
+     },
+     {
+      "file": "lib/tasks/postal.rake",
+      "line": 31,
+      "text": "mysql = ActiveRecord::Base.connection"
+     }
+    ],
+    "id": "rails-7.2-base-connection-soft-deprecated",
+    "kind": "deprecated",
+    "precision": "medium",
+    "severity": "warning",
+    "source": "https://github.com/rails/rails/blob/v7.2.4/activerecord/CHANGELOG.md",
+    "title": "`ActiveRecord::Base.connection` soft-deprecated in favor of `with_connection` and `lease_connection`"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 5,
+    "hits": [
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 46,
+      "text": "@user = User.where(password_reset_token: params[:token]).where(\"password_reset_token_valid_until > ?\", Time.now).first"
+     },
+     {
+      "file": "app/models/concerns/has_authentication.rb",
+      "line": 42,
+      "text": "self.password_reset_token = SecureRandom.alphanumeric(24)"
+     },
+     {
+      "file": "app/models/concerns/has_authentication.rb",
+      "line": 53,
+      "text": "self.password_reset_token = nil"
+     },
+     {
+      "file": "app/views/app_mailer/password_reset.text.erb",
+      "line": 5,
+      "text": "<%= Postal.host_with_protocol %>/login/reset/<%= @user.password_reset_token %><%= @return_to ? \"?return_to=#{ERB::Util.url_encode(@return_to)}\" : '' %>"
+     },
+     {
+      "file": "db/schema.rb",
+      "line": 332,
+      "text": "t.string \"password_reset_token\""
+     }
+    ],
+    "id": "rails-8.0-has-secure-password-reset-token",
+    "kind": "behavior",
+    "precision": "medium",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activemodel/CHANGELOG.md",
+    "title": "`has_secure_password` now defines `password_reset_token` and `find_by_password_reset_token`"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "config/database.yml",
+      "line": 2,
+      "text": "adapter: mysql2"
+     }
+    ],
+    "id": "rails-8.0-ar-mysql-5-5-dropped",
+    "kind": "requirement",
+    "precision": "low",
+    "severity": "breaks-boot",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activerecord/CHANGELOG.md",
+    "title": "MySQL 5.5 support dropped; 5.6.4 is the minimum"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 3,
+    "hits": [
+     {
+      "file": "lib/postal/message_db/delivery.rb",
+      "line": 8,
+      "text": "attributes = message.database.stringify_keys(attributes)"
+     },
+     {
+      "file": "lib/postal/message_db/delivery.rb",
+      "line": 26,
+      "text": "@attributes = attributes.stringify_keys"
+     },
+     {
+      "file": "lib/postal/message_db/message.rb",
+      "line": 217,
+      "text": "@attributes = @attributes.merge(database.stringify_keys(attributes_to_change))"
+     }
+    ],
+    "id": "rails-8.0-hwia-stringify-keys-all-keys",
+    "kind": "behavior",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activesupport/CHANGELOG.md",
+    "title": "`HashWithIndifferentAccess#stringify_keys` now stringifies every key, not only symbols"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "lib/postal/message_db/provisioner.rb",
+      "line": 133,
+      "text": "time = (Time.now.utc.to_date - max_age.days).to_time.end_of_day"
+     }
+    ],
+    "id": "rails-8.0-to-time-callers-zone",
+    "kind": "default",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activesupport/CHANGELOG.md",
+    "title": "`to_time` returns a time in the receiver's zone once `to_time_preserves_timezone` is `:zone`"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 13,
+    "hits": [
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 17,
+      "text": "inflect.acronym \"DKIM\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 18,
+      "text": "inflect.acronym \"HTTP\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 19,
+      "text": "inflect.acronym \"OIDC\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 20,
+      "text": "inflect.acronym \"SMTP\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 21,
+      "text": "inflect.acronym \"UUID\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 23,
+      "text": "inflect.acronym \"API\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 24,
+      "text": "inflect.acronym \"DNS\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 25,
+      "text": "inflect.acronym \"SSL\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 26,
+      "text": "inflect.acronym \"MySQL\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 28,
+      "text": "inflect.acronym \"DB\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 29,
+      "text": "inflect.acronym \"IP\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 30,
+      "text": "inflect.acronym \"MQ\""
+     },
+     {
+      "file": "config/initializers/inflections.rb",
+      "line": 31,
+      "text": "inflect.acronym \"MX\""
+     }
+    ],
+    "id": "rails-8.0-inflector-overlapping-acronyms",
+    "kind": "behavior",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activesupport/CHANGELOG.md",
+    "title": "Inflections with overlapping acronyms now underscore differently"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 15,
+    "hits": [
+     {
+      "file": "app/controllers/application_controller.rb",
+      "line": 37,
+      "text": "redirect_to organization_root_path(organization), alert: \"This page can only be accessed by the organization's owner (#{organization.owner.name})\""
+     },
+     {
+      "file": "app/controllers/application_controller.rb",
+      "line": 68,
+      "text": "return_to.start_with?(\"//\", \"/\\\\\")"
+     },
+     {
+      "file": "app/controllers/domains_controller.rb",
+      "line": 55,
+      "text": "redirect_to [organization, @server, :domains], alert: \"#{@domain.name} has already been verified.\""
+     },
+     {
+      "file": "app/controllers/domains_controller.rb",
+      "line": 98,
+      "text": "redirect_to [:verify, organization, @server, @domain], alert: \"You can't set up DNS for this domain until it has been verified.\""
+     },
+     {
+      "file": "app/controllers/messages_controller.rb",
+      "line": 116,
+      "text": "redirect_to attachments_organization_server_message_path(organization, @server, @message.id), alert: \"Attachment not found. Choose an attachment from the list below.\""
+     },
+     {
+      "file": "app/controllers/messages_controller.rb",
+      "line": 124,
+      "text": "redirect_to organization_server_message_path(organization, @server, @message.id), alert: \"We no longer have the raw message stored for this message.\""
+     },
+     {
+      "file": "app/controllers/organization_ip_pools_controller.rb",
+      "line": 15,
+      "text": "redirect_to [organization, :ip_pools], notice: \"Organization IP pools have been updated successfully\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 37,
+      "text": "redirect_to login_reset_path(return_to: params[:return_to]), alert: \"No local user exists with that e-mail address. Please check and try again.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 42,
+      "text": "redirect_to login_path(return_to: params[:return_to]), notice: \"Please check your e-mail and click the link in the e-mail we've sent you.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 48,
+      "text": "redirect_to login_path(return_to: params[:return_to]), alert: \"This link has expired or never existed. Please choose reset password to try again.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 63,
+      "text": "redirect_to_with_return_to root_path, notice: \"Your new password has been set and you've been logged in.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 78,
+      "text": "redirect_to login_path, alert: \"No user was found matching your identity. Please contact your administrator.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 88,
+      "text": "redirect_to login_path, alert: \"An issue occurred while logging you in with OpenID. Please try again later or contact your administrator.\""
+     },
+     {
+      "file": "app/controllers/sessions_controller.rb",
+      "line": 96,
+      "text": "redirect_to login_path, alert: \"Local authentication is not enabled\""
+     },
+     {
+      "file": "app/controllers/users_controller.rb",
+      "line": 33,
+      "text": "wants.html { redirect_to users_path, alert: \"You cannot change your own admin status\" }"
+     }
+    ],
+    "id": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "kind": "behavior",
+    "precision": "medium",
+    "severity": "breaks-call",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md",
+    "title": "Content Security Policy sources containing spaces or semicolons now raise"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 6,
+    "hits": [
+     {
+      "file": "Gemfile.lock",
+      "line": 196,
+      "text": "loofah (2.25.1)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 228,
+      "text": "nokogiri (1.19.3-aarch64-linux-gnu)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 230,
+      "text": "nokogiri (1.19.3-arm64-darwin)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 232,
+      "text": "nokogiri (1.19.3-x86_64-darwin)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 234,
+      "text": "nokogiri (1.19.3-x86_64-linux-gnu)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 312,
+      "text": "rails-html-sanitizer (1.7.0)"
+     }
+    ],
+    "id": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "kind": "requirement",
+    "precision": "medium",
+    "severity": "breaks-boot",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/actionview/CHANGELOG.md",
+    "title": "Action View requires rails-html-sanitizer 1.7.2 or later"
+   },
+   {
+    "changed_in": "8.1",
+    "hit_count": 2,
+    "hits": [
+     {
+      "file": "app/lib/worker/process.rb",
+      "line": 164,
+      "text": "time = Benchmark.realtime { job.call }"
+     },
+     {
+      "file": "app/lib/worker/process.rb",
+      "line": 256,
+      "text": "time = Benchmark.realtime do"
+     }
+    ],
+    "id": "rails-8.1-benchmark-gem-dependency",
+    "kind": "removed",
+    "precision": "medium",
+    "severity": "breaks-call",
+    "source": "https://github.com/rails/rails/blob/v8.1.4.1/activesupport/activesupport.gemspec",
+    "title": "Active Support no longer depends on or requires the `benchmark` gem"
+   },
+   {
+    "changed_in": "8.1",
+    "hit_count": 14,
+    "hits": [
+     {
+      "file": "app/models/credential.rb",
+      "line": 74,
+      "text": "@ipaddr ||= IPAddr.new(key)"
+     },
+     {
+      "file": "app/models/credential.rb",
+      "line": 75,
+      "text": "rescue IPAddr::InvalidAddressError"
+     },
+     {
+      "file": "app/models/credential.rb",
+      "line": 92,
+      "text": "IPAddr.new(key.to_s)"
+     },
+     {
+      "file": "app/models/credential.rb",
+      "line": 93,
+      "text": "rescue IPAddr::InvalidAddressError"
+     },
+     {
+      "file": "lib/postal/config_schema.rb",
+      "line": 92,
+      "text": "transform { |ip| IPAddr.new(ip) }"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 39,
+      "text": "].map { |range| IPAddr.new(range) }.freeze"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 137,
+      "text": "return [IPAddr.new(@host)] if ip_literal?"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 140,
+      "text": "IPAddr.new(address)"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 141,
+      "text": "rescue IPAddr::InvalidAddressError"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 147,
+      "text": "IPAddr.new(@host)"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 149,
+      "text": "rescue IPAddr::InvalidAddressError"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 179,
+      "text": "if entry.is_a?(IPAddr)"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 194,
+      "text": "IPAddr.new(entry.to_s)"
+     },
+     {
+      "file": "lib/postal/http/address_guard.rb",
+      "line": 195,
+      "text": "rescue IPAddr::InvalidAddressError"
+     }
+    ],
+    "id": "rails-8.1-ipaddr-json-prefix",
+    "kind": "behavior",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.1.4.1/activesupport/CHANGELOG.md",
+    "title": "`IPAddr#as_json` includes the prefix length for networks"
+   },
+   {
+    "changed_in": "8.1",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "config/initializers/trusted_proxies.rb",
+      "line": 4,
+      "text": "if Postal::Config.postal.trusted_proxies&.any? { |net| net.include?(ip) } ||"
+     }
+    ],
+    "id": "rails-8.1-remote-ip-forwarded-ports",
+    "kind": "behavior",
+    "precision": "low",
+    "severity": "behavior-change",
+    "source": "https://github.com/rails/rails/blob/v8.1.4.1/actionpack/CHANGELOG.md",
+    "title": "`remote_ip` no longer ignores `X-Forwarded-For` entries that carry a port"
+   },
+   {
+    "changed_in": "8.1",
+    "hit_count": 5,
+    "hits": [
+     {
+      "file": "Gemfile.lock",
+      "line": 228,
+      "text": "nokogiri (1.19.3-aarch64-linux-gnu)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 230,
+      "text": "nokogiri (1.19.3-arm64-darwin)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 232,
+      "text": "nokogiri (1.19.3-x86_64-darwin)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 234,
+      "text": "nokogiri (1.19.3-x86_64-linux-gnu)"
+     },
+     {
+      "file": "Gemfile.lock",
+      "line": 312,
+      "text": "rails-html-sanitizer (1.7.0)"
+     }
+    ],
+    "id": "rails-8.1-rails-html-sanitizer-minimum",
+    "kind": "requirement",
+    "precision": "medium",
+    "severity": "breaks-boot",
+    "source": "https://github.com/rails/rails/blob/v8.1.4.1/actionview/CHANGELOG.md",
+    "title": "Action View requires rails-html-sanitizer 1.7.2 or later"
+   },
+   {
+    "changed_in": "8.0",
+    "hit_count": 1,
+    "hits": [
+     {
+      "file": "Gemfile.lock",
+      "line": 167,
+      "text": "json (2.7.1)"
+     }
+    ],
+    "id": "rails-8.0-json-3-quirks-mode",
+    "kind": "requirement",
+    "precision": "medium",
+    "severity": "breaks-call",
+    "source": "https://github.com/rails/rails/blob/v8.0.5.2/activesupport/lib/active_support/json/encoding.rb",
+    "title": "`json` 3 rejects the `quirks_mode` option Active Support 7.1 and 8.0 pass"
+   }
+  ],
+  "on_path_rules_not_searchable": 18,
+  "subjects": {
+   "rails": {
+    "current": "7.1.6",
+    "defaults_current": "7.0",
+    "target": "8.1.4.1"
+   },
+   "ruby": {
+    "current": "3.4.6",
+    "defaults_current": null,
+    "target": "3.4.6"
+   }
+  },
+  "summary": {
+   "files_in_checkout": 590,
+   "hits_by_severity": {
+    "behavior-change": 43,
+    "breaks-boot": 14,
+    "breaks-call": 19,
+    "warning": 2
+   },
+   "hits_on_path": 78,
+   "rules_on_path": 275,
+   "rules_on_path_not_searchable": 18,
+   "rules_on_path_with_hits": 20,
+   "rules_total": 349
+  }
+ },
+ "method": "measured",
+ "note": "The rules that matched this codebase on this upgrade path, with each match. The full rule set is the studio's own and is not published; the summary gives its counts.",
+ "recorded": "2026-11-13T03:56:52Z",
+ "seconds": 7.2,
+ "step": "matches"
+}

@@ -1,0 +1,282 @@
+setup exit=0
+assets exit=0
+s3 exit=0 rails 7.2.4 env production deprecations=0 messages=4   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s2 exit=0 rails 7.1.6 env production deprecations=0 messages=4   
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+s3b exit=0 rails 7.2.4 env production deprecations=0 messages=4   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+==== summary on 7.2.4 (third run)
+000 GET /login -> 200 html 1746b loc=
+001 POST /login -> 302 html 0b loc=http://postal.example.com/
+002 GET / -> 200 html 2899b loc=
+003 GET ~ -> 200 html 12195b loc=
+004 GET ~/edit -> 200 html 10794b loc=
+005 GET ~/limits -> 200 html 9144b loc=
+006 GET ~/retention -> 200 html 9485b loc=
+007 GET ~/queue -> 200 html 8802b loc=
+008 GET ~/spam -> 200 html 10004b loc=
+009 GET ~/delete -> 200 html 9000b loc=
+010 GET ~/advanced -> 200 html 13304b loc=
+011 GET ~/help/outgoing -> 200 html 9823b loc=
+012 GET ~/help/incoming -> 200 html 9382b loc=
+013 GET ~/messages -> 404 text/html; charset=UTF-8 1564b loc=
+014 GET ~/messages/outgoing -> 200 html 12312b loc=
+015 GET ~/messages/incoming -> 200 html 11146b loc=
+016 GET ~/messages/held -> 200 html 8751b loc=
+017 GET ~/messages/suppressions -> 200 html 8976b loc=
+018 GET ~/messages/new -> 200 html 10156b loc=
+019 GET ~/messages/outgoing?query=to:john@example.com -> 200 html 11205b loc=
+020 GET ~/messages/outgoing?query=status:softfail+tag:r5tag -> 200 html 10597b loc=
+021 GET ~/messages/outgoing?query=before:2026-07-01+after:2026-05-01 -> 200 html 12396b loc=
+022 GET ~/messages/outgoing?query=nonsense:: -> 200 html 12348b loc=
+023 GET ~/messages/outgoing?page=2 -> 200 html 10557b loc=
+024 GET ~/messages/incoming?query=from:sender@example.org -> 200 html 11208b loc=
+025 GET ~/domains -> 200 html 9251b loc=
+026 GET ~/domains/new -> 200 html 8024b loc=
+027 GET ~/credentials -> 200 html 8233b loc=
+028 GET ~/credentials/new -> 200 html 10156b loc=
+029 GET ~/routes -> 200 html 8551b loc=
+030 GET ~/routes/new -> 200 html 11843b loc=
+031 GET ~/http_endpoints -> 200 html 8392b loc=
+032 GET ~/http_endpoints/new -> 200 html 12016b loc=
+033 GET ~/smtp_endpoints -> 200 html 8255b loc=
+034 GET ~/smtp_endpoints/new -> 200 html 9696b loc=
+035 GET ~/address_endpoints -> 200 html 8234b loc=
+036 GET ~/address_endpoints/new -> 200 html 8601b loc=
+037 GET ~/track_domains -> 200 html 8835b loc=
+038 GET ~/track_domains/new -> 200 html 11179b loc=
+039 GET ~/ip_pool_rules -> 200 html 8401b loc=
+040 GET ~/ip_pool_rules/new -> 200 html 9759b loc=
+041 GET ~/webhooks -> 200 html 8161b loc=
+042 GET ~/webhooks/new -> 200 html 13505b loc=
+043 GET ~/webhooks/history -> 200 html 7721b loc=
+044 GET ~/webhooks/history?page=2 -> 200 html 7721b loc=
+045 GET ~/domains/00000000-0000-4000-8000-000000000001/setup -> 200 html 11014b loc=
+046 GET ~/domains/00000000-0000-4000-8000-000000000001/verify -> 302 html 0b loc=http://postal.example.c
+047 GET ~/domains/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+048 GET ~/credentials/00000000-0000-4000-8000-000000000002/edit -> 200 html 10776b loc=
+049 GET ~/credentials/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+050 GET ~/routes/00000000-0000-4000-8000-000000000006/edit -> 200 html 12840b loc=
+051 GET ~/routes/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+052 GET ~/http_endpoints/00000000-0000-4000-8000-000000000003/edit -> 200 html 12579b loc=
+053 GET ~/http_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+054 GET ~/smtp_endpoints/00000000-0000-4000-8000-000000000004/edit -> 200 html 10233b loc=
+055 GET ~/smtp_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+056 GET ~/address_endpoints/00000000-0000-4000-8000-000000000005/edit -> 200 html 9105b loc=
+057 GET ~/address_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+058 GET ~/track_domains/00000000-0000-4000-8000-000000000008/edit -> 200 html 11404b loc=
+059 GET ~/track_domains/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+060 GET ~/ip_pool_rules/00000000-0000-4000-8000-000000000000/edit -> 200 html 10186b loc=
+061 GET ~/ip_pool_rules/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+062 GET ~/webhooks/00000000-0000-4000-8000-000000000007/edit -> 200 html 13947b loc=
+063 GET ~/webhooks/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+064 GET ~/messages/1 -> 200 html 12367b loc=
+065 GET ~/messages/1/activity -> 200 html 10377b loc=
+066 GET ~/messages/1/plain -> 200 html 9734b loc=
+067 GET ~/messages/1/html -> 200 html 9934b loc=
+068 GET ~/messages/1/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+069 GET ~/messages/1/attachments -> 200 html 9954b loc=
+070 GET ~/messages/1/headers -> 200 html 10380b loc=
+071 GET ~/messages/1/deliveries -> 200 json 1855b loc=
+072 GET ~/messages/1/spam_checks -> 200 html 10001b loc=
+073 GET ~/messages/1/download -> 200 text/plain 265b loc=
+074 GET ~/messages/1/attachment?attachment=0 -> 302 html 0b loc=http://postal.example.com/org/r5org/serv
+075 GET ~/messages/2 -> 200 html 12245b loc=
+076 GET ~/messages/2/activity -> 200 html 10423b loc=
+077 GET ~/messages/2/plain -> 200 html 9798b loc=
+078 GET ~/messages/2/html -> 200 html 9846b loc=
+079 GET ~/messages/2/html_raw -> 200 html 108b loc=
+080 GET ~/messages/2/attachments -> 200 html 10021b loc=
+081 GET ~/messages/2/headers -> 200 html 10490b loc=
+082 GET ~/messages/2/deliveries -> 200 json 1508b loc=
+083 GET ~/messages/2/spam_checks -> 200 html 10033b loc=
+084 GET ~/messages/2/download -> 200 text/plain 969b loc=
+085 GET ~/messages/2/attachment?attachment=0 -> 200 text/plain 13b loc=
+086 GET ~/messages/3 -> 200 html 12347b loc=
+087 GET ~/messages/3/activity -> 200 html 10377b loc=
+088 GET ~/messages/3/plain -> 200 html 9734b loc=
+089 GET ~/messages/3/html -> 200 html 9934b loc=
+090 GET ~/messages/3/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+091 GET ~/messages/3/attachments -> 200 html 9954b loc=
+092 GET ~/messages/3/headers -> 200 html 10380b loc=
+093 GET ~/messages/3/deliveries -> 200 json 1816b loc=
+094 GET ~/messages/3/spam_checks -> 200 html 10001b loc=
+095 GET ~/messages/3/download -> 200 text/plain 265b loc=
+096 GET ~/messages/3/attachment?attachment=0 -> 302 html 0b loc=http://postal.example.com/org/r5org/serv
+097 GET ~/messages/4 -> 200 html 12120b loc=
+098 GET ~/messages/4/activity -> 200 html 10335b loc=
+099 GET ~/messages/4/plain -> 200 html 9747b loc=
+100 GET ~/messages/4/html -> 200 html 9934b loc=
+101 GET ~/messages/4/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+102 GET ~/messages/4/attachments -> 200 html 9954b loc=
+103 GET ~/messages/4/headers -> 200 html 10369b loc=
+104 GET ~/messages/4/deliveries -> 200 json 1494b loc=
+105 GET ~/messages/4/spam_checks -> 200 html 10001b loc=
+106 GET ~/messages/4/download -> 200 text/plain 266b loc=
+107 GET ~/messages/4/attachment?attachment=0 -> 302 html 0b loc=http://postal.example.com/org/r5org/serv
+108 GET ~/messages/999999 -> 500 text/html; charset=UTF-8 1477b loc=
+109 GET ~/messages/999999/deliveries -> 500 text/html; charset=UTF-8 1477b loc=
+110 GET ~/messages/outgoing HTTP_ACCEPT=application/json -> 200 json 6535b loc=
+111 GET ~/messages/outgoing HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; 
+112 GET ~/messages/incoming HTTP_ACCEPT=application/json -> 200 json 4718b loc=
+113 GET ~/messages/incoming HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; 
+114 GET ~/queue HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+115 GET ~/queue HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-
+116 GET ~/webhooks/history HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+117 GET ~/webhooks/history HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; c
+118 GET ~/messages/1/deliveries HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-8 46b loc=
+119 GET ~/messages/1/deliveries HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 applica
+120 GET ~/messages/1 HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+121 GET ~/messages/1 HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset
+122 GET ~/credentials HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+123 GET ~/credentials HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charse
+124 GET ~/domains HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+125 GET ~/domains HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=ut
+126 GET /org/r5org -> 200 html 4549b loc=
+127 GET /org/r5org/domains -> 200 html 3660b loc=
+128 GET /org/r5org/domains/new -> 200 html 3870b loc=
+129 GET /org/r5org/ip_pool_rules -> 200 html 3952b loc=
+130 GET /org/r5org/ip_pool_rules/new -> 200 html 5432b loc=
+131 GET /org/r5org/ip_pools -> 200 html 4480b loc=
+132 GET /org/r5org/servers/new -> 200 html 5131b loc=
+133 GET /org/r5org/servers/nosuch -> 404 text/html; charset=UTF-8 1564b loc=
+134 GET /ip_pools/00000000-0000-4000-8000-000000000009 -> 404 text/html; charset=UTF-8 1564b loc=
+135 GET /ip_pools/00000000-0000-4000-8000-000000000009/edit -> 200 html 3602b loc=
+136 GET /ip_pools/00000000-0000-4000-8000-000000000009/ip_addresses/new -> 200 html 4211b loc=
+137 GET /.well-known/jwks.json -> 200 json 312b loc=
+138 POST ~/domains -> 200 html 8245b loc=
+139 POST ~/domains HTTP_ACCEPT=application/json -> 422 json 35b loc=
+140 POST ~/domains -> 400 text/html; charset=UTF-8 0b loc=
+141 POST ~/credentials -> 200 html 10456b loc=
+142 POST ~/credentials HTTP_ACCEPT=application/json -> 422 json 82b loc=
+143 POST ~/credentials -> 400 text/html; charset=UTF-8 0b loc=
+144 POST ~/routes -> 500 text/html; charset=UTF-8 1477b loc=
+145 POST ~/routes HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-8 46b loc=
+146 POST ~/routes -> 400 text/html; charset=UTF-8 0b loc=
+147 POST ~/http_endpoints -> 200 html 12441b loc=
+148 POST ~/http_endpoints HTTP_ACCEPT=application/json -> 422 json 193b loc=
+149 POST ~/http_endpoints -> 400 text/html; charset=UTF-8 0b loc=
+150 POST ~/smtp_endpoints -> 200 html 10013b loc=
+151 POST ~/smtp_endpoints HTTP_ACCEPT=application/json -> 422 json 100b loc=
+152 POST ~/smtp_endpoints -> 400 text/html; charset=UTF-8 0b loc=
+153 POST ~/address_endpoints -> 200 html 8837b loc=
+154 POST ~/address_endpoints HTTP_ACCEPT=application/json -> 422 json 38b loc=
+155 POST ~/address_endpoints -> 400 text/html; charset=UTF-8 0b loc=
+156 POST ~/track_domains -> 200 html 11444b loc=
+157 POST ~/track_domains HTTP_ACCEPT=application/json -> 422 json 77b loc=
+158 POST ~/track_domains -> 400 text/html; charset=UTF-8 0b loc=
+159 POST ~/ip_pool_rules -> 200 html 10023b loc=
+160 POST ~/ip_pool_rules HTTP_ACCEPT=application/json -> 422 json 86b loc=
+161 POST ~/ip_pool_rules -> 400 text/html; charset=UTF-8 0b loc=
+162 POST ~/webhooks -> 200 html 13742b loc=
+163 POST ~/webhooks HTTP_ACCEPT=application/json -> 422 json 56b loc=
+164 POST ~/webhooks -> 400 text/html; charset=UTF-8 0b loc=
+165 PATCH ~ HTTP_ACCEPT=application/json -> 422 json 39b loc=
+166 PATCH ~/credentials/00000000-0000-4000-8000-000000000002 HTTP_ACCEPT=application/json -> 422 application/json; charset=u
+167 PATCH ~/routes/00000000-0000-4000-8000-000000000006 HTTP_ACCEPT=application/json -> 422 json 
+168 POST /org/r5org/servers HTTP_ACCEPT=application/json -> 422 json 98b loc=
+169 POST ~/messages -> 500 text/html; charset=UTF-8 1477b loc=
+170 POST ~/messages/1/retry HTTP_ACCEPT=application/json -> 200 json 56b loc=
+171 POST ~/domains/00000000-0000-4000-8000-000000000001/check HTTP_ACCEPT=application/json -> 200 application/json; charset=
+172 DELETE ~/delete -> 404 text/html; charset=UTF-8 1564b loc=
+173 DELETE ~ HTTP_ACCEPT=application/json -> 200 json 92b loc=
+174 POST ~/webhooks HTTP_ACCEPT=application/json -> 200 json 79b loc=
+temp webhook created: true 200
+175 DELETE ~/webhooks/TEMP HTTP_ACCEPT=application/json -> 200 json 79b loc=
+temp webhook removed: true
+176 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 182b
+177 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 137b
+178 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 160b
+179 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=wrongkey -> 200 json 158b loc=
+180 POST /api/v1/send/raw CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 119b loc
+181 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 
+182 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 
+183 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 
+184 POST /api/v1/messages/deliveries CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf
+185 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 400 text/html; charset=UTF-8 0b loc=
+186 GET /api/v1/send/message?to[]=a@example.com HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 json 137b loc=
+==== status counts on 7.2.4
+    133 200       5 302      10 400      13 404       5 406      12 422       9 500       1 temp webhook created: true 200       1 temp webhook removed: true 
+==== summaries, 7.1.6 < > 7.2.4
+(end of summary diff)
+==== response files that differ (7.1.6 < > 7.2.4)
+--- 018.txt: GET /org/r5org/servers/r5server/messages/new
+183c183
+<  2026 06:04" class="input input--text" /></div>
+---
+>  2026 06:05" class="input input--text" /></div>
+--- 181.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB
+48c48
+<  13 Nov 2026 06:04:59 +0000"]
+---
+>  13 Nov 2026 06:05:09 +0000"]
+50c50
+<  13 Nov 2026 06:04:59 +0000"]
+---
+>  13 Nov 2026 06:05:09 +0000"]
+57c57
+< "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6a88bcdfaf_c4a40248df\""]
+---
+> "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6a895633ee_d9a48788d6\""]
+60c60
+< "raw_message":"UmVjZWl2ZWQ6IGZyb20gYXBpICggW10pIGJ5IHBvc3RhbC5leGFtcGxlLmNv\nbSB3aXRoIEhUVFA7IEZyaSwgMTMgTm92IDIwMjYgMDY6MDQ6NTkgKzAwMDAN\nCkRhdGU6IEZyaSwgMTMgTm92IDIwMjYgMDY6MDQ6NTkgKzAwMDANCkZyb206\nIHRlc3RAcjVhcGkuZXhhbXBsZS5jb20NClRvOiBqb2huQGV4YW1wbGUuY29t\nDQpDYzogY2NAZXhhbXBsZS5jb20NCk1lc3NhZ2UtSUQ6IDw3YWY5M2JmMC04\nM2YxLTQ3ZDgtODE5Yy1jMWIyMTE1MmZjYTNAcnAucG9zdGFsLmV4YW1wbGUu\nY29tPg0KU3V
+--- 182.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB
+48c48
+<  13 Nov 2026 06:04:59 +0000"]
+---
+>  13 Nov 2026 06:05:09 +0000"]
+50c50
+<  13 Nov 2026 06:04:59 +0000"]
+---
+>  13 Nov 2026 06:05:09 +0000"]
+57c57
+< "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6a88bcdfaf_c4a40248df\""]
+---
+> "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6a895633ee_d9a48788d6\""]
+60c60
+< "raw_message":"UmVjZWl2ZWQ6IGZyb20gYXBpICggW10pIGJ5IHBvc3RhbC5leGFtcGxlLmNv\nbSB3aXRoIEhUVFA7IEZyaSwgMTMgTm92IDIwMjYgMDY6MDQ6NTkgKzAwMDAN\nCkRhdGU6IEZyaSwgMTMgTm92IDIwMjYgMDY6MDQ6NTkgKzAwMDANCkZyb206\nIHRlc3RAcjVhcGkuZXhhbXBsZS5jb20NClRvOiBqb2huQGV4YW1wbGUuY29t\nDQpDYzogY2NAZXhhbXBsZS5jb20NCk1lc3NhZ2UtSUQ6IDw3YWY5M2JmMC04\nM2YxLTQ3ZDgtODE5Yy1jMWIyMTE1MmZjYTNAcnAucG9zdGFsLmV4YW1wbGUu\nY29tPg0KU3V
+compared 187 response files, 3 differ
+==== mails (7.1.6 < > 7.2.4)
+mails: 3, raised: 0
+==== facts (7.1.6 < > 7.2.4)
+(end of facts diff)
+total_size class and rendering: ["Integer", "1.72 KB"]
+message count, statuses: [["Held", 1], ["Sent", 2], ["SoftFail", 1]]
+route description, forward address: ["r5route@r5.example.com", "r5tokn@routes.postal.example.com"]
+route with a bad endpoint: errors: RAISED Postal::Error: Invalid endpoint class name 'Nope'
+additional route endpoints: errors: [false, [nil]]
+credential options round trip: ["Hash", {}, "ActiveRecord::Coders::YAMLColumn"]
+server stats and queue: [1, 1, "Float", 0.0, [1, 0, 1]]
+throughput stats: {incoming: "Integer", outgoing: "Integer", outgoing_usage: "Integer"}
+domain dns records: ["v=spf1 a mx include:spf.postal.example.com ~all", "postal-r5dkim._domainkey", "psrp.r5.example.com"]
+webhook request serialize: [{"a" => [1, {"b" => nil}]}, "---\na:\n- 1\n- b:\n"]
+user with org and to_json: {"first_name" => "Rfive", "time_zone" => "London", "admin" => true}
+in_batches over stale locks: 0
+organization destroy guard: [2, true]
+==== Rails log, normalized with the declared Completed/Rendered difference masked (7.1.6 < > 7.2.4): 1060 and 1063 lines
+1034c1034
+< INFO -- :   Parameters: {"id" => 4, "_expansions" => true, "message" => {"id" => 4, "_expansions" => true}}
+---
+> INFO -- :   Parameters: {"id" => 7, "_expansions" => true, "message" => {"id" => 7, "_expansions" => true}}
+1038c1038
+< INFO -- :   Parameters: {"id" => 4, "_expansions" => ["status", "details", "inspection", "plain_body", "html_body", "attachments", "headers", "raw_message", "activity_entries"], "message" => {"id" => 4, "_expansions" => ["status", "details", "inspection", "p
+---
+> INFO -- :   Parameters: {"id" => 7, "_expansions" => ["status", "details", "inspection", "plain_body", "html_body", "attachments", "headers", "raw_message", "activity_entries"], "message" => {"id" => 7, "_expansions" => ["status", "details", "inspection", "p
+1046c1046
+< INFO -- :   Parameters: {"id" => 4, "message" => {"id" => 4}}
+---
+> INFO -- :   Parameters: {"id" => 7, "message" => {"id" => 7}}
+1052a1053,1055
+> 
+> Causes:
+> JSON::ParserError (unexpected token at '{not json')
+==== errors in output
+/tmp/s3.out:0
+/tmp/s2.out:12
+/tmp/s3b.out:0
+==== end

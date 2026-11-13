@@ -1,0 +1,45 @@
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+Database 'postal' already exists
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+/work/lib/migration_waiter.rb:18:in 'block in MigrationWaiter.wait': undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)
+
+        pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size
+                                                          ^^^^^^^^^^^^^^^^^^
+	from <internal:kernel>:168:in 'Kernel#loop'
+	from /work/lib/migration_waiter.rb:17:in 'MigrationWaiter.wait'
+	from /work/lib/migration_waiter.rb:43:in 'MigrationWaiter.wait_if_appropriate'
+	from /work/config/initializers/_wait_for_migrations.rb:5:in '<top (required)>'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:689:in 'Kernel#load'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:689:in 'block in Rails::Engine#load_config_initializer'
+	from /cache/bundle/ruby/3.4.0/gems/activesupport-7.2.4/lib/active_support/notifications.rb:212:in 'ActiveSupport::Notifications.instrument'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:688:in 'Rails::Engine#load_config_initializer'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:642:in 'block (2 levels) in <class:Engine>'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:641:in 'Array#each'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/engine.rb:641:in 'block in <class:Engine>'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:32:in 'BasicObject#instance_exec'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:32:in 'Rails::Initializable::Initializer#run'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:61:in 'block in Rails::Initializable#run_initializers'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:231:in 'block in TSort.tsort_each'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:353:in 'block (2 levels) in TSort.each_strongly_connected_component'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:425:in 'block (2 levels) in TSort.each_strongly_connected_component_from'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:434:in 'TSort.each_strongly_connected_component_from'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:424:in 'block in TSort.each_strongly_connected_component_from'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:50:in 'Array#each'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:50:in 'Rails::Initializable::Collection#tsort_each_child'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:418:in 'Method#call'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:418:in 'TSort.each_strongly_connected_component_from'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:352:in 'block in TSort.each_strongly_connected_component'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'Rails::Initializable::Collection#each'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'Method#call'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:350:in 'TSort.each_strongly_connected_component'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:229:in 'TSort.tsort_each'
+	from /cache/bundle/ruby/3.4.0/gems/tsort-0.2.0/lib/tsort.rb:208:in 'TSort#tsort_each'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/initializable.rb:60:in 'Rails::Initializable#run_initializers'
+	from /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/application.rb:435:in 'Rails::Application#initialize!'
+	from /work/config/environment.rb:7:in '<top (required)>'
+	from /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'
+	from /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'
+	from -e:1:in '<main>'

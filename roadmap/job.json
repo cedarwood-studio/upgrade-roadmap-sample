@@ -1,0 +1,87 @@
+{
+ "boot_variants": [
+  {
+   "env": {
+    "OIDC_ENABLED": "true",
+    "OIDC_IDENTIFIER": "postal-sandbox",
+    "OIDC_ISSUER": "https://oidc.example.com"
+   },
+   "flags": [
+    "Postal::Config.oidc.enabled?"
+   ],
+   "name": "oidc"
+  },
+  {
+   "env": {
+    "OIDC_AUTHORIZATION_ENDPOINT": "https://oidc.example.com/authorize",
+    "OIDC_DISCOVERY": "false",
+    "OIDC_ENABLED": "true",
+    "OIDC_IDENTIFIER": "postal-sandbox",
+    "OIDC_ISSUER": "https://oidc.example.com",
+    "OIDC_JWKS_URI": "https://oidc.example.com/jwks",
+    "OIDC_TOKEN_ENDPOINT": "https://oidc.example.com/token",
+    "OIDC_USERINFO_ENDPOINT": "https://oidc.example.com/userinfo"
+   },
+   "flags": [
+    "Postal::Config.oidc.enabled?",
+    "config.discovery?"
+   ],
+   "name": "oidc-no-discovery"
+  },
+  {
+   "env": {
+    "MIGRATION_WAITER_ATTEMPTS": "2",
+    "MIGRATION_WAITER_ENABLED": "true",
+    "MIGRATION_WAITER_SLEEP_TIME": "1"
+   },
+   "flags": [
+    "Postal::Config.migration_waiter.enabled?"
+   ],
+   "name": "migration-waiter"
+  },
+  {
+   "env": {
+    "LOGGING_RAILS_LOG_ENABLED": "true"
+   },
+   "flags": [
+    "Postal::Config.logging.rails_log_enabled?"
+   ],
+   "name": "rails-log"
+  },
+  {
+   "env": {
+    "LOGGING_SENTRY_DSN": "http://placeholder@127.0.0.1:9/1"
+   },
+   "flags": [
+    "Postal::Config.logging.sentry_dsn"
+   ],
+   "name": "sentry"
+  },
+  {
+   "env": {
+    "RAILS_ENVIRONMENT": "production"
+   },
+   "flags": [
+    "Postal::Config.rails.environment"
+   ],
+   "name": "production"
+  }
+ ],
+ "container": {
+  "packages": [],
+  "service_setup": []
+ },
+ "env": {
+  "LOGGING_ENABLED": "false",
+  "MAIN_DB_HOST": "127.0.0.1",
+  "MAIN_DB_USERNAME": "root",
+  "MESSAGE_DB_HOST": "127.0.0.1",
+  "MESSAGE_DB_USERNAME": "root",
+  "POSTAL_SIGNING_KEY_PATH": "/work/docker/ci-config/signing.key",
+  "RAILS_ENVIRONMENT": "test",
+  "RAILS_LOG_ENABLED": "false"
+ },
+ "notes": "Read from .github/workflows/ci.yml (suite is `docker compose run postal sh -c 'bundle exec rspec'`), docker-compose.yml (the env above, with the mariadb host and the /config mount rewritten to 127.0.0.1 and /work/docker/ci-config), Dockerfile, spec/rails_helper.rb, config/boot.rb, config/application.rb, config/database.yml, lib/postal/config.rb, lib/postal/config_schema.rb and doc/config/environment-variables.md. Setup: CI gets an empty `postal` database from the mariadb image's MARIADB_DATABASE and lets rails_helper's maintain_test_schema! load the schema; with no such image variable here, test_setup creates the database and loads db/schema.rb instead. No config/postal/postal.test.yml is committed (config/postal/** is gitignored), so configuration comes from the environment only, as in CI; the suite also creates and drops per-server message databases prefixed `postal` as root. RAILS_LOG_ENABLED is copied from CI's compose file but no schema key reads it (the real variable is LOGGING_RAILS_LOG_ENABLED, default false), so it has no effect: a finding for the inventory. No credential is needed or set: the signing key is the repository's committed CI key, referenced by path; the OIDC and Sentry values in the variants are placeholders, and OIDC_SECRET and RAILS_SECRET_KEY are left unset (config/initializers/secret_key.rb then generates a per-process key, as it does in CI). Boot variants each layer on the base env. `production` is not a feature flag but the schema's default environment and the only one with eager_load on, so it is the closest to how the server really loads. `migration-waiter` runs lib/migration_waiter.rb:18 at start-up, the line both upstream branches change; it only runs if the boot is not through rake, a rails command or the console (lib/migration_waiter.rb:41), and its attempts are capped at 2 so a pending migration cannot stall the sandbox. Flags that cannot be exercised by booting the web application from the environment alone: smtp_server.tls_enabled?, proxy_protocol? and log_connections? (only in the separate SMTP server process, script/smtp_server.rb, and TLS needs certificate files); rspamd.enabled?, spamd.enabled? and clamav.enabled? (lib/postal/message_inspector.rb:27-33, request-time, need those daemons on the network); gelf.host (lazy logger destination, needs a GELF listener); postal.use_ip_pools?, batch_queued_messages?, use_resent_sender_header?, use_local_ns_for_domain_verification?, trusted_proxies and oidc.local_authentication_enabled? (run-time branches with no start-up difference). The worker and SMTP server processes (script/worker.rb, script/smtp_server.rb) are separate entry points that no web boot variant loads. Upgrade work already in flight (out/measurements/upstream.json, third-party data): three items. Branch chore/rails-7-2-and-dependency-upgrades, last updated 2026-09-15, reaches Rails 7.2.3.2 across 23 files: it drops dynamic_form for an in-app ErrorMessagesHelper and form builder extension, pins json below 3, adds `coder: YAML` to two serialize calls, moves migration_context to connection_pool, sets show_exceptions to :none, swaps the 7.0 defaults file for 7.1 and 7.2 ones, bumps Ruby to 3.4.10 and adds characterization specs. Branch upgrade-rails-8.1.4, last updated 2026-10-06, reaches Rails 8.1.4 across 12 files: adds benchmark and cgi to the Gemfile, replaces annotate with annotaterb, the same migration_context and show_exceptions changes, schema version stamp, and specs for MigrationWaiter and Worker::Process. The project's open pull request for Rails 8.1, opened 2026-11-04 and updated 2026-11-06, carries the same 12 files to 8.1.4.1 with the Rails constraint loosened to `~> 8.1.4, >= 8.1.4.1`; its description says load_defaults stays at 7.0. No text in the checkout or in upstream.json read as an instruction to us.",
+ "test_command": "bundle exec rspec",
+ "test_setup": "bundle exec rake db:create db:schema:load"
+}

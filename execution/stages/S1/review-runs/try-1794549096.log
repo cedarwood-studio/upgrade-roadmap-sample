@@ -1,0 +1,114 @@
+spec/apis/legacy_api/messages/deliveries_spec.rb spec/apis/legacy_api/messages/message_spec.rb spec/apis/legacy_api/send/message_spec.rb spec/apis/legacy_api/send/raw_spec.rb spec/examples/dkim_signing/email1.msg spec/examples/dkim_signing/email2.msg spec/examples/full_legacy_config_file.yml spec/factories/address_endpoint_factory.rb spec/factories/credential_factory.rb spec/factories/domain_factory.rb spec/factories/http_endpoint_factory.rb spec/factories/ip_address_factory.rb spec/factories/ip_pool_factory.rb spec/factories/ip_pool_rule_factory.rb spec/factories/organization_factory.rb spec/factories/queued_message_factory.rb spec/factories/route_factory.rb spec/factories/server_factory.rb spec/factories/smtp_endpoint_factory.rb spec/factories/track_domain_factory.rb spec/factories/user_factory.rb spec/factories/webhook_factory.rb spec/factories/webhook_request_factory.rb spec/factories/worker_role_factory.rb spec/helpers/application_helper_spec.rb spec/helpers/general_helpers.rb spec/helpers/message_db_mocking.rb spec/helpers/message_factory.rb spec/helpers/process_helpers.rb spec/helpers/test_logger.rb spec/lib/dkim_header_spec.rb spec/lib/dns_resolver_spec.rb spec/lib/message_dequeuer/base_spec.rb spec/lib/message_dequeuer/incoming_message_processor_spec.rb spec/lib/message_dequeuer/initial_message_processor_spec.rb spec/lib/message_dequeuer/outgoing_message_processor_spec.rb spec/lib/message_dequeuer/single_message_processor_spec.rb spec/lib/message_dequeuer/state_spec.rb spec/lib/message_dequeuer_spec.rb spec/lib/postal/http/address_guard_spec.rb spec/lib/postal/http_spec.rb spec/lib/postal/legacy_config_source_spec.rb spec/lib/postal/message_db/connection_pool_spec.rb spec/lib/postal/message_db/database_spec.rb spec/lib/postal/message_parser_spec.rb spec/lib/postal/signer_spec.rb spec/lib/postal_spec.rb spec/lib/query_string_spec.rb spec/lib/received_header_spec.rb spec/lib/smtp_client/endpoint_spec.rb spec/lib/smtp_client/server_spec.rb spec/lib/smtp_server/client/auth_spec.rb spec/lib/smtp_server/client/data_spec.rb spec/lib/smtp_server/client/finished_spec.rb spec/lib/smtp_server/client/helo_spec.rb spec/lib/smtp_server/client/mail_from_spec.rb spec/lib/smtp_server/client/proxy_spec.rb spec/lib/smtp_server/client/rcpt_to_spec.rb spec/lib/smtp_server/client_spec.rb spec/lib/smtp_server/server_spec.rb spec/lib/tracking_middleware_spec.rb spec/lib/worker/jobs/process_queued_messages_job_spec.rb spec/lib/worker/jobs/process_webhook_requests_job_spec.rb spec/lib/worker/process_spec.rb spec/models/credential_spec.rb spec/models/domain_spec.rb spec/models/http_endpoint_spec.rb spec/models/organization_spec.rb spec/models/outgoing_message_prototype_spec.rb spec/models/queued_message_spec.rb spec/models/server_spec.rb spec/models/user/authentication_spec.rb spec/models/user/oidc_spec.rb spec/models/user_spec.rb spec/models/webhook_request_spec.rb spec/models/worker_role_spec.rb spec/rails_helper.rb spec/requests/domains_controller_spec.rb spec/requests/messages_controller_spec.rb spec/requests/session_continuity_spec.rb spec/requests/sessions_controller_spec.rb spec/scheduled_tasks/action_deletions_scheduled_task_spec.rb spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb spec/scheduled_tasks/cleanup_authie_sessions_scheduled_task_spec.rb spec/scheduled_tasks/expire_held_messages_scheduled_task_spec.rb spec/scheduled_tasks/process_message_retention_scheduled_task_spec.rb spec/scheduled_tasks/prune_suppression_lists_scheduled_task_spec.rb spec/scheduled_tasks/prune_webhook_requests_scheduled_task_spec.rb spec/scheduled_tasks/send_notifications_scheduled_task_spec.rb spec/scheduled_tasks/tidy_queued_messages_task_spec.rb spec/senders/smtp_sender_spec.rb spec/services/webhook_delivery_service_spec.rb spec/spec_helper.rb spec/views/domains/index.html.haml_spec.rb spec/views/domains/setup.html.haml_spec.rb 
+spec/examples/full_legacy_config_file.yml
+spec/factories/organization_factory.rb
+spec/factories/track_domain_factory.rb
+spec/factories/user_factory.rb
+spec/lib/postal/legacy_config_source_spec.rb
+spec/lib/postal/message_parser_spec.rb
+spec/models/domain_spec.rb
+spec/models/organization_spec.rb
+spec/models/server_spec.rb
+spec/models/user_spec.rb
+spec/requests/messages_controller_spec.rb
+spec/scheduled_tasks/check_all_dns_scheduled_task_spec.rb
+.upgrade/parity-inputs.json
+.upgrade/parity-setup.rb
+---
+39:group :oidc do
+46:group :development, :assets do
+53:group :development do
+59:group :test do
+---
+# frozen_string_literal: true
+
+if Postal::Config.rails.secret_key
+  Rails.application.credentials.secret_key_base = Postal::Config.rails.secret_key
+else
+  warn "No secret key was specified in the Postal config file. Using one for just this session"
+  Rails.application.credentials.secret_key_base = SecureRandom.hex(128)
+end
+# frozen_string_literal: true
+
+# This initializer will wait for all pending migrations to be applied before
+# continuing to start the application. This is useful when running the application
+# in a cluster where migrations are run in a separate job which runs at the same
+# time as the other processes.
+
+class MigrationWaiter
+
+  ATTEMPTS = Postal::Config.migration_waiter.attempts
+  SLEEP_TIME = Postal::Config.migration_waiter.sleep_time
+
+  class << self
+
+    def wait
+      attempts_remaining = ATTEMPTS
+      loop do
+        pending_migrations = ActiveRecord::Base.connection.migration_context.open.pending_migrations.size
+        if pending_migrations.zero?
+          Postal.logger.info "no pending migrations, continuing"
+          return
+        end
+
+        attempts_remaining -= 1
+
+        if attempts_remaining.zero?
+          Postal.logger.info "#{pending_migrations} migration(s) are still pending after #{ATTEMPTS} attempts, exiting"
+          Process.exit(1)
+        else
+          Postal.logger.info "waiting for #{pending_migrations} migration(s) to be applied (#{attempts_remaining} remaining)"
+          sleep SLEEP_TIME
+        end
+      end
+    end
+
+    def wait_if_appropriate
+      # Don't wait if not configured
+      return unless Postal::Config.migration_waiter.enabled?
+
+      # Don't wait in the console, rake tasks or rails commands
+      return if console? || rake_task? || rails_command?
+
+      wait
+    end
+
+    def console?
+      Rails.const_defined?("Console")
+    end
+
+    def rake_task?
+      Rake.application.top_level_tasks.any?
+    end
+
+    def rails_command?
+      caller.any? { |c| c =~ /rails\/commands/ }
+    end
+
+  end
+
+end
+# .upgrade
+
+Files the upgrade process added. Nothing here ships with the application.
+
+- `baseline/examples.json`: every test example and its status before the upgrade began.
+- `baseline/parity.json`: the application's recorded responses to the requests in `parity-inputs.json`, before the upgrade began.
+- `baseline/parity-noise-mask.json`: fields that differed between two recordings of the same code, ignored in comparisons. Entries marked `environment` differ between the sandbox and CI on the baseline commit; inside a body they are masked one value at a time (`body_values`), so any other change to the same page still shows.
+- `baseline/environment-dependent.json`: examples whose status differed between the sandbox and CI on the baseline commit. Reported, not gated.
+- `accepted-differences.json`: behavior differences a stage declared, each with its reason. Empty means none.
+- `parity_record.rb`, `parity.py`, `check.py`: the recorder and the comparison CI runs.
+
+The rule each stage is held to: no example that passed at the baseline fails or disappears, and no recorded response changes without an entry in `accepted-differences.json`. Tests a stage adds join `baseline/examples.json` when the stage is committed, so a later stage cannot drop one unnoticed. A declared difference must be observed wherever the comparison runs; CI fails if its mask hides one.
+{
+ "commit": "d96eddbadeda600595d6247486f9ceb8e99cbc15",
+ "deprecations_distinct": 0,
+ "deprecations_occurrences": 0,
+ "environment": "sandbox container, network off",
+ "examples_failed": 17,
+ "examples_total": 851,
+ "recorded": "2026-11-13T02:24:34Z",
+ "versions": {
+  "rails": "7.1.6",
+  "ruby": "3.4.6"
+ }
+}

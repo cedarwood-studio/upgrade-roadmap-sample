@@ -1,0 +1,14 @@
+[production] setup exit=0
+[production] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=production eager_load=true key_from_credentials=true local_secret_file=false routes=196
+No secret key was specified in the Postal config file. Using one for just this session
+rails 7.2.4 env production ruby 3.4.6
+OK    deprecators set to raise: 10
+OK    secret key: app == credentials, length, local_secret file, ENV set: [true, 256, false, false, 0]
+FAIL  the message database pool uses connection_pool 2.x: NameError: uninitialized constant ConnectionPool
+OK    Rails.application.eager_load!: :loaded
+OK    Zeitwerk::Loader.eager_load_all: :loaded
+OK    files the suite never loads are now loaded: [22, [], 20, 24]

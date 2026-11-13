@@ -1,0 +1,344 @@
+{
+ "findings": [
+  {
+   "caught_by_checks": false,
+   "evidence": "out/changelogs/8.1/actionpack.md; app/controllers/legacy_api/base_controller.rb:103; app/views/servers/show.html.haml:27",
+   "found_by": "changelog",
+   "severity": "defect",
+   "what": "The stage aimed the JSON escaping check at app/views/servers/show.html.haml:27, a to_json into an HTML attribute, which config.action_controller.escape_json_responses does not govern. The setting governs render json, and the stage did not name the API responses at app/controllers/legacy_api/base_controller.rb:103 or the other render json calls. Followed as written, the stage could change the bytes API clients receive without declaring it, and no recording covered the API. Corrected: S9 now targets the render json calls and asks the client about API consumers; S1's request set records one API response.",
+   "where": "Plan, S9: Adopt the 8.1 defaults"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "out/measurements/upstream.json (Gemfile patch on branch chore/rails-7-2-and-dependency-upgrades); spec/requests/messages_controller_spec.rb:50",
+   "found_by": "upstream-diff",
+   "severity": "risk",
+   "what": "S1 planned to record full pages (login page, an authenticated page, a form that fails validation) in the test environment. The checkout's own spec says the layout cannot render there because the asset pipeline is not configured for test (spec/requests/messages_controller_spec.rb:50), and the asset gems are outside the test group (Gemfile:46). The project's 7.2 branch adds the test group to those gems for its rendering spec. The report did not mention that Gemfile change. Corrected: S1 carries it as a declared change, and whether pages then render is listed as unknown. Marked caught by checks because S1 would fail on its first rendered page.",
+   "where": "Plan, S1: Baseline and characterization"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "out/changelogs/8.1/activesupport.md; rule rails-8.1-to-time-preserves-timezone in out/measurements/scan.json",
+   "found_by": "changelog",
+   "severity": "risk",
+   "what": "The report scheduled the retention cutoff test in S8, before switching to_time behavior with the 8.0 defaults. Rails 8.1 removes the older to_time behavior on the hop itself and deprecates the setting, so S5 would have shipped the change with no test on the line. Our reading that the line is unaffected (the receiver is a Date) stands. Corrected: test and its estimate term moved to S5.",
+   "where": "Plan, S8 and S5; lib/postal/message_db/provisioner.rb:133"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "out/changelogs/8.0/railties.md; rule rails-8.0-regexp-timeout in out/measurements/scan.json",
+   "found_by": "changelog",
+   "severity": "risk",
+   "what": "The 8.0 defaults set Regexp.timeout to one second. The rule is on the path with no hits and the report did not mention it. The application runs a URL pattern over the body of every tracked message (lib/postal/message_parser.rb:101 and :118), and the setting is process-wide, so it reaches the worker and the SMTP server. Corrected: S8 reads the patterns and takes a decision with the client; listed as unknown.",
+   "where": "Plan, S8; lib/postal/message_parser.rb:101"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "lib/postal/message_parser.rb:56; out/measurements/unexecuted.json (lib/postal/message_parser.rb:57); out/measurements/removed_gems.json",
+   "found_by": "unexecuted-read",
+   "severity": "risk",
+   "what": "Errors while rewriting tracked links are rescued outside development and the original message is returned with tracking off. So a missing CGI constant on line 121 after the 8.0 hop, or a pattern timeout under the 8.0 defaults, would not raise. Mail would go out untracked. A characterization test that only checks nothing raised would pass. Corrected: the S1 test for this path must assert the rewritten link, and S4 and S8 name the silent failure.",
+   "where": "lib/postal/message_parser.rb:56"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "out/changelogs/8.0/actionpack.md; app/controllers/application_controller.rb:85",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "From 8.0.5.2 rendered responses vary on Accept and X-Requested-With whenever the URL does not fix the format. Response headers recorded in S1 will differ on S4. The parity check would show it; it is now declared in S4 in advance.",
+   "where": "Breaking changes, Rails 8.0; Plan, S4"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "out/changelogs/8.1/actionview.md; rule rails-8.1-hidden-field-autocomplete in out/measurements/scan.json",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "Under the 8.1 defaults hidden form inputs lose autocomplete=\"off\". The rule searched specs for exact HTML and found none, but every recorded page with a form differs on S9, starting with app/views/sessions/new.html.haml:7. Now declared in S9.",
+   "where": "Breaking changes, framework defaults; Plan, S9"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "out/changelogs/8.1/actionpack.md",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "From 8.1.4.1 a request whose Forwarded and X-Forwarded-For headers name different clients raises IpSpoofAttackError when the remote address is read. The application reads request.remote_ip at this line only, in a diagnostic action that needs no login. Declared in S5.",
+   "where": "app/controllers/sessions_controller.rb:67"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "out/changelogs/8.1/activerecord.md; spec/lib/postal_spec.rb:15",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "8.1 renames the database setting pool to max_connections and says default behavior does not change. The application sets pool, passes pool: when the worker resizes, and reads the pool's size. spec/lib/postal_spec.rb:15 runs the resize and asserts on the size, so the suite decides on S5. Added to S5 and to the at-risk call sites.",
+   "where": "config/database.yml:5; lib/postal/config.rb:158; app/lib/worker/process.rb:105"
+  },
+  {
+   "caught_by_checks": true,
+   "evidence": "out/changelogs/8.0/actionview.md; search of repo/app, repo/lib, repo/config",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "The report said the sanitizer change alters HTML output and named it as a likely source of response differences. A search of app, lib and config found no call to sanitize, strip_tags, simple_format, highlight or strip_links. The three gems still move on the hop; no change to this application's HTML is expected. Corrected in the matrix, the S4 risk and the estimate's list.",
+   "where": "Compatibility matrix; Plan, S4 risk; Estimate"
+  },
+  {
+   "caught_by_checks": false,
+   "evidence": "out/changelogs/7.2/railties.md",
+   "found_by": "changelog",
+   "severity": "note",
+   "what": "From 7.2.3 development and test take secret_key_base from credentials when it is set. This initializer sets a random value per process when no secret is configured, and the suite runs the line. By our reading of the entry, a development server with no configured secret then signs sessions with a key that changes on every restart, as production already does. Declared in S3.",
+   "where": "config/initializers/secret_key.rb:7; Plan, S3"
+  }
+ ],
+ "method": {
+  "baseline_statement_check": {
+   "quoted_exactly_in_report": true,
+   "statement": "834 of 851 examples pass with the network off; 17 more pass with the network on; 5 fail in that run."
+  },
+  "break_attempts": [],
+  "changelogs_read": [
+   {
+    "entries_checked": 63,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/railties.md"
+   },
+   {
+    "entries_checked": 73,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activesupport.md"
+   },
+   {
+    "entries_checked": 196,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/activerecord.md"
+   },
+   {
+    "entries_checked": 14,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/activemodel.md"
+   },
+   {
+    "entries_checked": 40,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/7.2/actionpack.md"
+   },
+   {
+    "entries_checked": 32,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionview.md"
+   },
+   {
+    "entries_checked": 12,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionmailer.md"
+   },
+   {
+    "entries_checked": 43,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.0/railties.md"
+   },
+   {
+    "entries_checked": 58,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/activesupport.md"
+   },
+   {
+    "entries_checked": 128,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.0/activerecord.md"
+   },
+   {
+    "entries_checked": 18,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/activemodel.md"
+   },
+   {
+    "entries_checked": 44,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/actionpack.md"
+   },
+   {
+    "entries_checked": 29,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.0/actionview.md"
+   },
+   {
+    "entries_checked": 13,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/actionmailer.md"
+   },
+   {
+    "entries_checked": 50,
+    "entries_that_apply": 1,
+    "file": "out/changelogs/8.1/railties.md"
+   },
+   {
+    "entries_checked": 100,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.1/activesupport.md"
+   },
+   {
+    "entries_checked": 190,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.1/activerecord.md"
+   },
+   {
+    "entries_checked": 15,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/activemodel.md"
+   },
+   {
+    "entries_checked": 69,
+    "entries_that_apply": 4,
+    "file": "out/changelogs/8.1/actionpack.md"
+   },
+   {
+    "entries_checked": 39,
+    "entries_that_apply": 2,
+    "file": "out/changelogs/8.1/actionview.md"
+   },
+   {
+    "entries_checked": 10,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/actionmailer.md"
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/activejob.md",
+    "note": "Not read. config/application.rb:5 does not load this component."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actioncable.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/activestorage.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actiontext.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/7.2/actionmailbox.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/activejob.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/actioncable.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/activestorage.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/actiontext.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.0/actionmailbox.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/activejob.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/actioncable.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/activestorage.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/actiontext.md",
+    "note": "Not read. Component not loaded."
+   },
+   {
+    "entries_checked": 0,
+    "entries_that_apply": 0,
+    "file": "out/changelogs/8.1/actionmailbox.md",
+    "note": "Not read. Component not loaded."
+   }
+  ],
+  "changelogs_totals": {
+   "entries_fetched": 1507,
+   "entries_read": 1236,
+   "files_fetched": 36,
+   "files_not_read": 15,
+   "files_read": 21,
+   "why_not_all": "The 15 files not read belong to Active Job, Active Storage, Action Cable, Action Text and Action Mailbox, which config/application.rb does not load. Entry counts are the ones changelogs.json records per file. Each file read was read end to end; the checkout was searched for a use of each entry that removes, renames, moves or newly defines something. The framework's source is not in the job directory, so terse entries were read as written."
+  },
+  "estimate_check": {
+   "changed_by_review": "One hit.judgment term moved from S8 to S5 with the retention cutoff test. S5 is now 3.85 to 57.75 and S8 is 1.5 to 9.0. The total is unchanged.",
+   "multipliers": "The review agrees that manual-setup does not apply: the suite runs offline and 17 examples need DNS.",
+   "not_done": "Hit counts per stage were not re-derived line by line from scan.json. The checker's three fixed counts were taken from out/verify.json, which lists no problems for the report as written; the checker has not run on the corrected files.",
+   "ratio": "8.7 to 1",
+   "stages_matching_before_review": 10,
+   "stages_recomputed": 10,
+   "total_high": 263.25,
+   "total_low": 30.35
+  },
+  "flags_not_exercised_read": {
+   "at_risk": [],
+   "listed": 6,
+   "read": 6
+  },
+  "unexecuted_call_sites_read": {
+   "at_risk": [
+    "lib/migration_waiter.rb:18",
+    "config/initializers/secret_key.rb:4",
+    "lib/postal/message_db/database.rb:333",
+    "app/lib/worker/process.rb:105",
+    "lib/postal/message_parser.rb:57"
+   ],
+   "detail": "16 are marked for reading (5 never executed, 11 in files the suite never loads) and the report covered them; the review re-read them. 6 are marked stable surface and the report had not listed them as read; the review read those too.",
+   "listed": 22,
+   "read": 22,
+   "why_not_all": null
+  },
+  "upstream_diff": {
+   "against": "branch chore/rails-7-2-and-dependency-upgrades, branch upgrade-rails-8.1.4, and the project's open pull request for Rails 8.1",
+   "compared": true,
+   "files_they_change_that_we_do_not": [
+    "app/assets/stylesheets/application/components/_error_explanation.scss",
+    "app/helpers/error_messages_helper.rb",
+    "config/initializers/form_builder_extensions.rb"
+   ],
+   "why_not": "All three are their replacement of the dynamic_form gem with an in-app helper. A choice of theirs: the gem installed on Ruby 3.4.6 in our sandbox and the suite ran. S1 puts a test on a form that renders errors through it. Their Gemfile change that adds the test group to the asset gems was missing from the plan and is now in S1. Two patches (the 7.0 and 7.1 defaults files) are truncated in the measurement and were read as far as they go."
+  }
+ },
+ "stage": "roadmap",
+ "verdict": "defect"
+}

@@ -1,0 +1,18 @@
+730195a87b89425990b6fb8956a339e8b8b5f80d
+35113074f4eb43c068f4401d56239d2d8124668c
+fatal: git cat-file: could not get object info
+fatal: ambiguous argument '606ebe86c6bd13c85e73c655624c128fa6a0fdd5^{tree}': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+606ebe86c6bd13c85e73c655624c128fa6a0fdd5^{tree}
+Cedarwood Studio <hello@cedarwood.studio>
+Upgrade Rails from 7.1.6 to 7.2.4
+
+Pin rails to 7.2.4 and regenerate the lock. Replace the boolean
+show_exceptions setting in the test environment with :none, which
+7.2 requires. load_defaults stays at 7.0.
+
+connection_pool and minitest move down one major version because
+activesupport 7.2.4 caps both. The Astana time zone now maps to
+Asia/Almaty (UTC+5) upstream, which changes the time zone select.
+

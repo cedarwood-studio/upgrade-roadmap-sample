@@ -1,0 +1,287 @@
+{
+ "boot": {
+  "note": "Each variant loads config/environment outside a rails command, in the job's environment plus the variant's settings. It proves the process starts, and nothing about requests.",
+  "seconds": 54.5,
+  "variants": [
+   {
+    "env": {},
+    "exit_code": 0,
+    "flags": [],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "default",
+    "ok": true,
+    "seconds": 7.3
+   },
+   {
+    "env": {
+     "OIDC_ENABLED": "true",
+     "OIDC_IDENTIFIER": "postal-sandbox",
+     "OIDC_ISSUER": "https://oidc.example.com"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?"
+    ],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "oidc",
+    "ok": true,
+    "seconds": 7.9
+   },
+   {
+    "env": {
+     "OIDC_AUTHORIZATION_ENDPOINT": "https://oidc.example.com/authorize",
+     "OIDC_DISCOVERY": "false",
+     "OIDC_ENABLED": "true",
+     "OIDC_IDENTIFIER": "postal-sandbox",
+     "OIDC_ISSUER": "https://oidc.example.com",
+     "OIDC_JWKS_URI": "https://oidc.example.com/jwks",
+     "OIDC_TOKEN_ENDPOINT": "https://oidc.example.com/token",
+     "OIDC_USERINFO_ENDPOINT": "https://oidc.example.com/userinfo"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.oidc.enabled?",
+     "config.discovery?"
+    ],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "oidc-no-discovery",
+    "ok": true,
+    "seconds": 7.8
+   },
+   {
+    "env": {
+     "MIGRATION_WAITER_ATTEMPTS": "2",
+     "MIGRATION_WAITER_ENABLED": "true",
+     "MIGRATION_WAITER_SLEEP_TIME": "1"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.migration_waiter.enabled?"
+    ],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "migration-waiter",
+    "ok": true,
+    "seconds": 7.6
+   },
+   {
+    "env": {
+     "LOGGING_RAILS_LOG_ENABLED": "true"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.rails_log_enabled?"
+    ],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "rails-log",
+    "ok": true,
+    "seconds": 7.6
+   },
+   {
+    "env": {
+     "LOGGING_SENTRY_DSN": "http://placeholder@127.0.0.1:9/1"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.logging.sentry_dsn"
+    ],
+    "log_tail": "environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nNo secret key was specified in the Postal config file. Using one for just this session\nDEPRECATION WARNING: `to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`. (called from <top (required)> at /work/config/environment.rb:7)\nupk-boot-ok rails=8.0.5.2 env=test",
+    "name": "sentry",
+    "ok": true,
+    "seconds": 7.7
+   },
+   {
+    "env": {
+     "RAILS_ENVIRONMENT": "production"
+    },
+    "exit_code": 0,
+    "flags": [
+     "Postal::Config.rails.environment"
+    ],
+    "log_tail": "No configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nDatabase 'postal' already exists\nNo configuration file found at config/postal/postal.yml\nOnly using environment variables for configuration\nNo secret key was specified in the Postal config file. Using one for just this session\nupk-boot-ok rails=8.0.5.2 env=production",
+    "name": "production",
+    "ok": true,
+    "seconds": 8.3
+   }
+  ]
+ },
+ "commit": "5fbdfb3a3cb5fa1d7362256131794e62d0ca568d",
+ "deprecations": {
+  "distinct": 1,
+  "list": [
+   {
+    "callsites": {
+     "config/environment.rb:7": 4
+    },
+    "count": 4,
+    "message": "`to_time` will always preserve the full timezone rather than offset of the receiver in Rails 8.1. To opt in to the new behavior, set `config.active_support.to_time_preserves_timezone = :zone`."
+   }
+  ],
+  "occurrences": 4
+ },
+ "failed_examples": [
+  {
+   "description": "DNSResolver#a returns a list of IP addresses",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:1:1]"
+  },
+  {
+   "description": "DNSResolver#a resolves a domain name containing an emoji",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:1:2]"
+  },
+  {
+   "description": "DNSResolver#a when raise_timeout_errors is true returns a list of IP addresses",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:1:4:1]"
+  },
+  {
+   "description": "DNSResolver#aaaa returns a list of IP addresses",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:2:1]"
+  },
+  {
+   "description": "DNSResolver#aaaa when raise_timeout_errors is true returns a list of IP addresses",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:2:3:1]"
+  },
+  {
+   "description": "DNSResolver#txt returns a list of TXT records",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:3:1]"
+  },
+  {
+   "description": "DNSResolver#txt when raise_timeout_errors is true returns a list of TXT records",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:3:3:1]"
+  },
+  {
+   "description": "DNSResolver#cname returns a list of CNAME records",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:4:1]"
+  },
+  {
+   "description": "DNSResolver#cname when raise_timeout_errors is true returns a list of CNAME records",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:4:3:1]"
+  },
+  {
+   "description": "DNSResolver#mx returns a list of MX records",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:5:1]"
+  },
+  {
+   "description": "DNSResolver#mx when raise_timeout_errors is true returns a list of MX records",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:5:3:1]"
+  },
+  {
+   "description": "DNSResolver#effective_ns returns the nameserver names that are authoritative for the given domain",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:6:1]"
+  },
+  {
+   "description": "DNSResolver#effective_ns when raise_timeout_errors is true returns a list of NS records",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:6:3:1]"
+  },
+  {
+   "description": "DNSResolver#ip_to_hostname returns the hostname for the given IP",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:7:1]"
+  },
+  {
+   "description": "DNSResolver#ip_to_hostname when raise_timeout_errors is true returns the hostname for the given IP",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:7:3:1]"
+  },
+  {
+   "description": "DNSResolver.for_domain finds the effective nameservers for a given domain and returns them",
+   "exception": "RSpec::Expectations::ExpectationNotMetError",
+   "id": "./spec/lib/dns_resolver_spec.rb[1:8:1]"
+  },
+  {
+   "description": "SMTPSender#start when there are no servers to connect to returns false",
+   "exception": "Resolv::ResolvError",
+   "id": "./spec/senders/smtp_sender_spec.rb[1:1:5:1]"
+  }
+ ],
+ "install": {
+  "cached": false,
+  "log": "exec/runs/S4-attempt-1/install.log",
+  "ok": true,
+  "seconds": 2.4
+ },
+ "label": "S4-attempt-1",
+ "parity": [
+  {
+   "digest": "fc8c335a18fcb8c6",
+   "exit_code": 0,
+   "recorded": true,
+   "recorded_with": {
+    "env": "test",
+    "rails": "8.0.5.2",
+    "ruby": "3.4.6"
+   },
+   "requests": 170,
+   "seconds": 18.4
+  }
+ ],
+ "recorded": "2026-11-13T06:24:20Z",
+ "ruby_warnings": {
+  "deprecated_category": 3,
+  "distinct": 6,
+  "occurrences": 15,
+  "top": [
+   {
+    "category": "",
+    "count": 4,
+    "first_site": null,
+    "message": "No configuration file found at config/postal/postal.test.yml"
+   },
+   {
+    "category": "",
+    "count": 4,
+    "first_site": null,
+    "message": "Only using environment variables for configuration"
+   },
+   {
+    "category": "",
+    "count": 4,
+    "first_site": null,
+    "message": "No secret key was specified in the Postal config file. Using one for just this session"
+   },
+   {
+    "category": "deprecated",
+    "count": 1,
+    "first_site": "/cache/bundle/ruby/3.4.0/gems/webmock-3.20.0/lib/webmock/http_lib_adapters/net_http.rb:25",
+    "message": "constant Net::HTTPSession is deprecated"
+   },
+   {
+    "category": "deprecated",
+    "count": 1,
+    "first_site": "/cache/bundle/ruby/3.4.0/gems/domain_name-0.6.20240107/lib/domain_name/punycode.rb:152",
+    "message": "literal string will be frozen in the future (run with --debug-frozen-string-literal for more information)"
+   },
+   {
+    "category": "deprecated",
+    "count": 1,
+    "first_site": "app/lib/smtp_server/server.rb:46",
+    "message": "'$\\' is deprecated"
+   }
+  ]
+ },
+ "tests": {
+  "errors_outside_examples": 0,
+  "exit_code": 1,
+  "failed": 17,
+  "pending": 0,
+  "suite_seconds": 224.0,
+  "total": 935,
+  "wall_seconds": 232.9
+ },
+ "tree_dirty": true,
+ "versions": {
+  "rails": "8.0.5.2",
+  "ruby": "3.4.6"
+ }
+}

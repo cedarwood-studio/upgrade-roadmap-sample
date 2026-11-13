@@ -1,0 +1,44 @@
+{
+ "attempt": 1,
+ "deprecations": {
+  "after": {
+   "distinct": 0,
+   "occurrences": 0
+  },
+  "before": {
+   "distinct": 0,
+   "occurrences": 0
+  }
+ },
+ "green": true,
+ "max_attempts": 4,
+ "parity": {
+  "accepted_differences": [],
+  "diff_file": "runs/S1-attempt-1/parity-diff.json",
+  "different": 0,
+  "identical": 170,
+  "masked_as_noise": 2,
+  "requests": 170,
+  "unexplained": []
+ },
+ "problems": [],
+ "ruby_warnings_deprecated": {
+  "after": 3,
+  "before": 2
+ },
+ "run": "S1-attempt-1",
+ "stage": "S1",
+ "tests": {
+  "added": 65,
+  "added_failing": [],
+  "after_passed": 899,
+  "after_total": 916,
+  "before_passed": 834,
+  "before_total": 851,
+  "fixed": [],
+  "missing_passing": [],
+  "ok": true,
+  "regressed": []
+ },
+ "tree": "db69c99cc6175a9dab0e46853a8909476db80a3c"
+}

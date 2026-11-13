@@ -1,0 +1,10 @@
+[oidc+scanners+rails-log+sentry] setup exit=0
+[oidc+scanners+rails-log+sentry] boot exit=0
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+booted rails 7.2.4 env=test eager_load=false key_from_credentials=true local_secret_file=false routes=198
+Only using environment variables for configuration
+No secret key was specified in the Postal config file. Using one for just this session
+[true, false, true, true, true, true, true, true, true]
+[Postal::MessageInspectors::Rspamd, Postal::MessageInspectors::Clamav]

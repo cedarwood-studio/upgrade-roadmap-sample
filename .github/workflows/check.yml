@@ -1,0 +1,22 @@
+name: Consistency check
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Postal at the report's commit
+        run: |
+          git init -q postal
+          git -C postal remote add origin https://github.com/postalserver/postal.git
+          git -C postal fetch -q --depth 1 origin d96eddbadeda600595d6247486f9ceb8e99cbc15
+          git -C postal checkout -q FETCH_HEAD
+      - name: Report and execution record against the stored data
+        run: python3 check.py --postal postal

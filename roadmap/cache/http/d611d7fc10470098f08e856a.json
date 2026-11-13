@@ -1,0 +1,1 @@
+{"url": "https://rubygems.org/api/v1/gems/rspec.json", "fetched": "2026-11-13T03:56:41Z", "status": 200, "body": "{\"name\": \"rspec\", \"version\": \"3.13.2\", \"ruby_abi\": null, \"homepage_uri\": \"https://rspec.info\", \"source_code_uri\": \"https://github.com/rspec/rspec/tree/rspec-v3.13.2/rspec\", \"changelog_uri\": null}"}

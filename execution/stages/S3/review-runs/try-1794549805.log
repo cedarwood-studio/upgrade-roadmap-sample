@@ -1,0 +1,504 @@
+setup exit=0
+assets exit=0
+s3 exit=0 rails 7.2.4 env production deprecations=0 messages=4   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s2 exit=0 rails 7.1.6 env production deprecations=0 messages=4   
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+/cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+s3b exit=0 rails 7.2.4 env production deprecations=0 messages=4   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+==== summary on 7.2.4 (third run)
+000 GET /login -> 200 text/html; charset=utf-8 1746b loc=
+001 POST /login -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/
+002 GET / -> 200 text/html; charset=utf-8 2899b loc=
+003 GET /org/r5org/servers/r5server -> 200 text/html; charset=utf-8 12195b loc=
+004 GET /org/r5org/servers/r5server/edit -> 200 text/html; charset=utf-8 10794b loc=
+005 GET /org/r5org/servers/r5server/limits -> 200 text/html; charset=utf-8 9144b loc=
+006 GET /org/r5org/servers/r5server/retention -> 200 text/html; charset=utf-8 9485b loc=
+007 GET /org/r5org/servers/r5server/queue -> 200 text/html; charset=utf-8 8802b loc=
+008 GET /org/r5org/servers/r5server/spam -> 200 text/html; charset=utf-8 10004b loc=
+009 GET /org/r5org/servers/r5server/delete -> 200 text/html; charset=utf-8 9000b loc=
+010 GET /org/r5org/servers/r5server/advanced -> 200 text/html; charset=utf-8 13304b loc=
+011 GET /org/r5org/servers/r5server/help/outgoing -> 200 text/html; charset=utf-8 9823b loc=
+012 GET /org/r5org/servers/r5server/help/incoming -> 200 text/html; charset=utf-8 9382b loc=
+013 GET /org/r5org/servers/r5server/messages -> 404 text/html; charset=UTF-8 1564b loc=
+014 GET /org/r5org/servers/r5server/messages/outgoing -> 200 text/html; charset=utf-8 12312b loc=
+015 GET /org/r5org/servers/r5server/messages/incoming -> 200 text/html; charset=utf-8 11146b loc=
+016 GET /org/r5org/servers/r5server/messages/held -> 200 text/html; charset=utf-8 8751b loc=
+017 GET /org/r5org/servers/r5server/messages/suppressions -> 200 text/html; charset=utf-8 8976b loc=
+018 GET /org/r5org/servers/r5server/messages/new -> 200 text/html; charset=utf-8 10156b loc=
+019 GET /org/r5org/servers/r5server/messages/outgoing?query=to:john@example.com -> 200 text/html; charset=utf-8 11205b loc=
+020 GET /org/r5org/servers/r5server/messages/outgoing?query=status:softfail+tag:r5tag -> 200 text/html; charset=utf-8 10597b loc=
+021 GET /org/r5org/servers/r5server/messages/outgoing?query=before:2026-07-01+after:2026-05-01 -> 200 text/html; charset=utf-8 12396b loc=
+022 GET /org/r5org/servers/r5server/messages/outgoing?query=nonsense:: -> 200 text/html; charset=utf-8 12348b loc=
+023 GET /org/r5org/servers/r5server/messages/outgoing?page=2 -> 200 text/html; charset=utf-8 10557b loc=
+024 GET /org/r5org/servers/r5server/messages/incoming?query=from:sender@example.org -> 200 text/html; charset=utf-8 11208b loc=
+025 GET /org/r5org/servers/r5server/domains -> 200 text/html; charset=utf-8 9251b loc=
+026 GET /org/r5org/servers/r5server/domains/new -> 200 text/html; charset=utf-8 8024b loc=
+027 GET /org/r5org/servers/r5server/credentials -> 200 text/html; charset=utf-8 8233b loc=
+028 GET /org/r5org/servers/r5server/credentials/new -> 200 text/html; charset=utf-8 10156b loc=
+029 GET /org/r5org/servers/r5server/routes -> 200 text/html; charset=utf-8 8551b loc=
+030 GET /org/r5org/servers/r5server/routes/new -> 200 text/html; charset=utf-8 11843b loc=
+031 GET /org/r5org/servers/r5server/http_endpoints -> 200 text/html; charset=utf-8 8392b loc=
+032 GET /org/r5org/servers/r5server/http_endpoints/new -> 200 text/html; charset=utf-8 12016b loc=
+033 GET /org/r5org/servers/r5server/smtp_endpoints -> 200 text/html; charset=utf-8 8255b loc=
+034 GET /org/r5org/servers/r5server/smtp_endpoints/new -> 200 text/html; charset=utf-8 9696b loc=
+035 GET /org/r5org/servers/r5server/address_endpoints -> 200 text/html; charset=utf-8 8234b loc=
+036 GET /org/r5org/servers/r5server/address_endpoints/new -> 200 text/html; charset=utf-8 8601b loc=
+037 GET /org/r5org/servers/r5server/track_domains -> 200 text/html; charset=utf-8 8835b loc=
+038 GET /org/r5org/servers/r5server/track_domains/new -> 200 text/html; charset=utf-8 11179b loc=
+039 GET /org/r5org/servers/r5server/ip_pool_rules -> 200 text/html; charset=utf-8 8401b loc=
+040 GET /org/r5org/servers/r5server/ip_pool_rules/new -> 200 text/html; charset=utf-8 9759b loc=
+041 GET /org/r5org/servers/r5server/webhooks -> 200 text/html; charset=utf-8 8161b loc=
+042 GET /org/r5org/servers/r5server/webhooks/new -> 200 text/html; charset=utf-8 13505b loc=
+043 GET /org/r5org/servers/r5server/webhooks/history -> 200 text/html; charset=utf-8 7721b loc=
+044 GET /org/r5org/servers/r5server/webhooks/history?page=2 -> 200 text/html; charset=utf-8 7721b loc=
+045 GET /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/setup -> 200 text/html; charset=utf-8 11014b loc=
+046 GET /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/verify -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/org/r5org/servers/r5server/domains
+047 GET /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+048 GET /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002/edit -> 200 text/html; charset=utf-8 10776b loc=
+049 GET /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+050 GET /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006/edit -> 200 text/html; charset=utf-8 12840b loc=
+051 GET /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+052 GET /org/r5org/servers/r5server/http_endpoints/00000000-0000-4000-8000-000000000003/edit -> 200 text/html; charset=utf-8 12579b loc=
+053 GET /org/r5org/servers/r5server/http_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+054 GET /org/r5org/servers/r5server/smtp_endpoints/00000000-0000-4000-8000-000000000004/edit -> 200 text/html; charset=utf-8 10233b loc=
+055 GET /org/r5org/servers/r5server/smtp_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+056 GET /org/r5org/servers/r5server/address_endpoints/00000000-0000-4000-8000-000000000005/edit -> 200 text/html; charset=utf-8 9105b loc=
+057 GET /org/r5org/servers/r5server/address_endpoints/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+058 GET /org/r5org/servers/r5server/track_domains/00000000-0000-4000-8000-000000000008/edit -> 200 text/html; charset=utf-8 11404b loc=
+059 GET /org/r5org/servers/r5server/track_domains/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+060 GET /org/r5org/servers/r5server/ip_pool_rules/00000000-0000-4000-8000-000000000000/edit -> 200 text/html; charset=utf-8 10186b loc=
+061 GET /org/r5org/servers/r5server/ip_pool_rules/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+062 GET /org/r5org/servers/r5server/webhooks/00000000-0000-4000-8000-000000000007/edit -> 200 text/html; charset=utf-8 13947b loc=
+063 GET /org/r5org/servers/r5server/webhooks/00000000-0000-4000-8000-ffffffffffff/edit -> 404 text/html; charset=UTF-8 1564b loc=
+064 GET /org/r5org/servers/r5server/messages/1 -> 200 text/html; charset=utf-8 12367b loc=
+065 GET /org/r5org/servers/r5server/messages/1/activity -> 200 text/html; charset=utf-8 10377b loc=
+066 GET /org/r5org/servers/r5server/messages/1/plain -> 200 text/html; charset=utf-8 9734b loc=
+067 GET /org/r5org/servers/r5server/messages/1/html -> 200 text/html; charset=utf-8 9934b loc=
+068 GET /org/r5org/servers/r5server/messages/1/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+069 GET /org/r5org/servers/r5server/messages/1/attachments -> 200 text/html; charset=utf-8 9954b loc=
+070 GET /org/r5org/servers/r5server/messages/1/headers -> 200 text/html; charset=utf-8 10380b loc=
+071 GET /org/r5org/servers/r5server/messages/1/deliveries -> 200 application/json; charset=utf-8 1855b loc=
+072 GET /org/r5org/servers/r5server/messages/1/spam_checks -> 200 text/html; charset=utf-8 10001b loc=
+073 GET /org/r5org/servers/r5server/messages/1/download -> 200 text/plain 265b loc=
+074 GET /org/r5org/servers/r5server/messages/1/attachment?attachment=0 -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/org/r5org/servers/r5server/messages/1/attachments
+075 GET /org/r5org/servers/r5server/messages/2 -> 200 text/html; charset=utf-8 12245b loc=
+076 GET /org/r5org/servers/r5server/messages/2/activity -> 200 text/html; charset=utf-8 10423b loc=
+077 GET /org/r5org/servers/r5server/messages/2/plain -> 200 text/html; charset=utf-8 9798b loc=
+078 GET /org/r5org/servers/r5server/messages/2/html -> 200 text/html; charset=utf-8 9846b loc=
+079 GET /org/r5org/servers/r5server/messages/2/html_raw -> 200 text/html; charset=utf-8 108b loc=
+080 GET /org/r5org/servers/r5server/messages/2/attachments -> 200 text/html; charset=utf-8 10021b loc=
+081 GET /org/r5org/servers/r5server/messages/2/headers -> 200 text/html; charset=utf-8 10490b loc=
+082 GET /org/r5org/servers/r5server/messages/2/deliveries -> 200 application/json; charset=utf-8 1508b loc=
+083 GET /org/r5org/servers/r5server/messages/2/spam_checks -> 200 text/html; charset=utf-8 10033b loc=
+084 GET /org/r5org/servers/r5server/messages/2/download -> 200 text/plain 969b loc=
+085 GET /org/r5org/servers/r5server/messages/2/attachment?attachment=0 -> 200 text/plain 13b loc=
+086 GET /org/r5org/servers/r5server/messages/3 -> 200 text/html; charset=utf-8 12347b loc=
+087 GET /org/r5org/servers/r5server/messages/3/activity -> 200 text/html; charset=utf-8 10377b loc=
+088 GET /org/r5org/servers/r5server/messages/3/plain -> 200 text/html; charset=utf-8 9734b loc=
+089 GET /org/r5org/servers/r5server/messages/3/html -> 200 text/html; charset=utf-8 9934b loc=
+090 GET /org/r5org/servers/r5server/messages/3/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+091 GET /org/r5org/servers/r5server/messages/3/attachments -> 200 text/html; charset=utf-8 9954b loc=
+092 GET /org/r5org/servers/r5server/messages/3/headers -> 200 text/html; charset=utf-8 10380b loc=
+093 GET /org/r5org/servers/r5server/messages/3/deliveries -> 200 application/json; charset=utf-8 1816b loc=
+094 GET /org/r5org/servers/r5server/messages/3/spam_checks -> 200 text/html; charset=utf-8 10001b loc=
+095 GET /org/r5org/servers/r5server/messages/3/download -> 200 text/plain 265b loc=
+096 GET /org/r5org/servers/r5server/messages/3/attachment?attachment=0 -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/org/r5org/servers/r5server/messages/3/attachments
+097 GET /org/r5org/servers/r5server/messages/4 -> 200 text/html; charset=utf-8 12120b loc=
+098 GET /org/r5org/servers/r5server/messages/4/activity -> 200 text/html; charset=utf-8 10335b loc=
+099 GET /org/r5org/servers/r5server/messages/4/plain -> 200 text/html; charset=utf-8 9747b loc=
+100 GET /org/r5org/servers/r5server/messages/4/html -> 200 text/html; charset=utf-8 9934b loc=
+101 GET /org/r5org/servers/r5server/messages/4/html_raw -> 500 text/html; charset=UTF-8 1477b loc=
+102 GET /org/r5org/servers/r5server/messages/4/attachments -> 200 text/html; charset=utf-8 9954b loc=
+103 GET /org/r5org/servers/r5server/messages/4/headers -> 200 text/html; charset=utf-8 10369b loc=
+104 GET /org/r5org/servers/r5server/messages/4/deliveries -> 200 application/json; charset=utf-8 1494b loc=
+105 GET /org/r5org/servers/r5server/messages/4/spam_checks -> 200 text/html; charset=utf-8 10001b loc=
+106 GET /org/r5org/servers/r5server/messages/4/download -> 200 text/plain 266b loc=
+107 GET /org/r5org/servers/r5server/messages/4/attachment?attachment=0 -> 302 text/html; charset=utf-8 0b loc=http://postal.example.com/org/r5org/servers/r5server/messages/4/attachments
+108 GET /org/r5org/servers/r5server/messages/999999 -> 500 text/html; charset=UTF-8 1477b loc=
+109 GET /org/r5org/servers/r5server/messages/999999/deliveries -> 500 text/html; charset=UTF-8 1477b loc=
+110 GET /org/r5org/servers/r5server/messages/outgoing HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 6535b loc=
+111 GET /org/r5org/servers/r5server/messages/outgoing HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 12331b loc=
+112 GET /org/r5org/servers/r5server/messages/incoming HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 4718b loc=
+113 GET /org/r5org/servers/r5server/messages/incoming HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 11178b loc=
+114 GET /org/r5org/servers/r5server/queue HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+115 GET /org/r5org/servers/r5server/queue HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 8802b loc=
+116 GET /org/r5org/servers/r5server/webhooks/history HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+117 GET /org/r5org/servers/r5server/webhooks/history HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 7721b loc=
+118 GET /org/r5org/servers/r5server/messages/1/deliveries HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-8 46b loc=
+119 GET /org/r5org/servers/r5server/messages/1/deliveries HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 application/json; charset=utf-8 1855b loc=
+120 GET /org/r5org/servers/r5server/messages/1 HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+121 GET /org/r5org/servers/r5server/messages/1 HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 12367b loc=
+122 GET /org/r5org/servers/r5server/credentials HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+123 GET /org/r5org/servers/r5server/credentials HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 8233b loc=
+124 GET /org/r5org/servers/r5server/domains HTTP_ACCEPT=application/json -> 406 application/json; charset=UTF-8 39b loc=
+125 GET /org/r5org/servers/r5server/domains HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTED_WITH=XMLHttpRequest -> 200 text/html; charset=utf-8 9251b loc=
+126 GET /org/r5org -> 200 text/html; charset=utf-8 4549b loc=
+127 GET /org/r5org/domains -> 200 text/html; charset=utf-8 3660b loc=
+128 GET /org/r5org/domains/new -> 200 text/html; charset=utf-8 3870b loc=
+129 GET /org/r5org/ip_pool_rules -> 200 text/html; charset=utf-8 3952b loc=
+130 GET /org/r5org/ip_pool_rules/new -> 200 text/html; charset=utf-8 5432b loc=
+131 GET /org/r5org/ip_pools -> 200 text/html; charset=utf-8 4480b loc=
+132 GET /org/r5org/servers/new -> 200 text/html; charset=utf-8 5131b loc=
+133 GET /org/r5org/servers/nosuch -> 404 text/html; charset=UTF-8 1564b loc=
+134 GET /ip_pools/00000000-0000-4000-8000-000000000009 -> 404 text/html; charset=UTF-8 1564b loc=
+135 GET /ip_pools/00000000-0000-4000-8000-000000000009/edit -> 200 text/html; charset=utf-8 3602b loc=
+136 GET /ip_pools/00000000-0000-4000-8000-000000000009/ip_addresses/new -> 200 text/html; charset=utf-8 4211b loc=
+137 GET /.well-known/jwks.json -> 200 application/json; charset=utf-8 312b loc=
+138 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 8245b loc=
+139 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 35b loc=
+140 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+141 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 10456b loc=
+142 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 82b loc=
+143 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+144 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 500 text/html; charset=UTF-8 1477b loc=
+145 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-8 46b loc=
+146 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+147 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 12441b loc=
+148 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 193b loc=
+149 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+150 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 10013b loc=
+151 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 100b loc=
+152 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+153 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 8837b loc=
+154 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 38b loc=
+155 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+156 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 11444b loc=
+157 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 77b loc=
+158 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+159 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 10023b loc=
+160 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 86b loc=
+161 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+162 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 13742b loc=
+163 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 56b loc=
+164 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 400 text/html; charset=UTF-8 0b loc=
+165 PATCH /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 39b loc=
+166 PATCH /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 39b loc=
+167 PATCH /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 61b loc=
+168 POST /org/r5org/servers HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 98b loc=
+169 POST /org/r5org/servers/r5server/messages HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 500 text/html; charset=UTF-8 1477b loc=
+170 POST /org/r5org/servers/r5server/messages/1/retry HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 56b loc=
+171 POST /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/check HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 121b loc=
+172 DELETE /org/r5org/servers/r5server/delete HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 404 text/html; charset=UTF-8 1564b loc=
+173 DELETE /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 92b loc=
+174 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 79b loc=
+temp webhook created: true 200
+175 DELETE /org/r5org/servers/r5server/webhooks/620d9c5a-6ed8-4c23-b6eb-ddbe7211aa7c HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 79b loc=
+temp webhook removed: true
+176 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 182b loc=
+177 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 137b loc=
+178 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 160b loc=
+179 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=wrongkey -> 200 application/json; charset=utf-8 158b loc=
+180 POST /api/v1/send/raw CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 119b loc=
+181 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 2813b loc=
+182 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 2813b loc=
+183 POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 129b loc=
+184 POST /api/v1/messages/deliveries CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 50b loc=
+185 POST /api/v1/send/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 400 text/html; charset=UTF-8 0b loc=
+186 GET /api/v1/send/message?to[]=a@example.com HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB -> 200 application/json; charset=utf-8 137b loc=
+==== status counts on 7.2.4
+    133 200       5 302      10 400      13 404       5 406      12 422       9 500       1 temp webhook created: true 200       1 temp webhook removed: true 
+==== summaries, 7.1.6 < > 7.2.4
+139,175c139,175
+< 138 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 8245b loc=
+< 139 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 35b loc=
+< 140 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 141 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 10456b loc=
+< 142 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 82b loc=
+< 143 POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 144 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 500 text/html; charset=UTF-8 1477b loc=
+< 145 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 500 application/json; charset=UTF-8 46b loc=
+< 146 POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 147 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 12441b loc=
+< 148 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 193b loc=
+< 149 POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 150 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 10013b loc=
+< 151 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 100b loc=
+< 152 POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 153 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 8837b loc=
+< 154 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 38b loc=
+< 155 POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 156 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 11444b loc=
+< 157 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 77b loc=
+< 158 POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 159 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 10023b loc=
+< 160 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 86b loc=
+< 161 POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 162 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 200 text/html; charset=utf-8 13742b loc=
+< 163 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 56b loc=
+< 164 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 400 text/html; charset=UTF-8 0b loc=
+< 165 PATCH /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 39b loc=
+< 166 PATCH /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002 HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 39b loc=
+< 167 PATCH /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006 HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 61b loc=
+< 168 POST /org/r5org/servers HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 422 application/json; charset=utf-8 98b loc=
+< 169 POST /org/r5org/servers/r5server/messages HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 500 text/html; charset=UTF-8 1477b loc=
+< 170 POST /org/r5org/servers/r5server/messages/1/retry HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 56b loc=
+< 171 POST /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/check HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 121b loc=
+< 172 DELETE /org/r5org/servers/r5server/delete HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF -> 404 text/html; charset=UTF-8 1564b loc=
+< 173 DELETE /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 92b loc=
+< 174 POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json -> 200 application/json; charset=utf-8 79b loc=
+---
+> 138 POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm -> 200 text/html; charset=utf-8 8245b loc=
+(end of summary diff)
+==== response files that differ (7.1.6 < > 7.2.4)
+--- 018.txt: GET /org/r5org/servers/r5server/messages/new
+179c179
+< <div class='fieldSet__input'><input type="text" name="message[subject]" id="message_subject" value="Test Message at November 13, 2026 06:03" class="input input--text" /></div>
+---
+> <div class='fieldSet__input'><input type="text" name="message[subject]" id="message_subject" value="Test Message at November 13, 2026 06:04" class="input input--text" /></div>
+--- 138.txt: POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 139.txt: POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 140.txt: POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 141.txt: POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 142.txt: POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 143.txt: POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/credentials HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 144.txt: POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 145.txt: POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 146.txt: POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/routes HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 147.txt: POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 148.txt: POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 149.txt: POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/http_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 150.txt: POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 151.txt: POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 152.txt: POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/smtp_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 153.txt: POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 154.txt: POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 155.txt: POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/address_endpoints HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 156.txt: POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 157.txt: POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 158.txt: POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/track_domains HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 159.txt: POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 160.txt: POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 161.txt: POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/ip_pool_rules HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 162.txt: POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 163.txt: POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 164.txt: POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 165.txt: PATCH /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< PATCH /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> PATCH /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 166.txt: PATCH /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< PATCH /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002 HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> PATCH /org/r5org/servers/r5server/credentials/00000000-0000-4000-8000-000000000002 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 167.txt: PATCH /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< PATCH /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006 HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> PATCH /org/r5org/servers/r5server/routes/00000000-0000-4000-8000-000000000006 HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 168.txt: POST /org/r5org/servers HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 169.txt: POST /org/r5org/servers/r5server/messages HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< POST /org/r5org/servers/r5server/messages HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> POST /org/r5org/servers/r5server/messages HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 170.txt: POST /org/r5org/servers/r5server/messages/1/retry HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/messages/1/retry HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/messages/1/retry HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 171.txt: POST /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/check HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/check HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/domains/00000000-0000-4000-8000-000000000001/check HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 172.txt: DELETE /org/r5org/servers/r5server/delete HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+1c1
+< DELETE /org/r5org/servers/r5server/delete HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF
+---
+> DELETE /org/r5org/servers/r5server/delete HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm
+--- 173.txt: DELETE /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< DELETE /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> DELETE /org/r5org/servers/r5server HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 174.txt: POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> POST /org/r5org/servers/r5server/webhooks HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 175.txt: DELETE /org/r5org/servers/r5server/webhooks/620d9c5a-6ed8-4c23-b6eb-ddbe7211aa7c HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+1c1
+< DELETE /org/r5org/servers/r5server/webhooks/420e18d9-84fc-4170-b5fd-1cad92817f91 HTTP_X_CSRF_TOKEN=CjYMV6ytElfY-fW-ASljm91hj57fmUZ8gDKSrvRF HTTP_ACCEPT=application/json
+---
+> DELETE /org/r5org/servers/r5server/webhooks/620d9c5a-6ed8-4c23-b6eb-ddbe7211aa7c HTTP_X_CSRF_TOKEN=Z753KRmQuTgVRs3g2R76c_PbMLnNwthcsSPqWeHm HTTP_ACCEPT=application/json
+--- 181.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB
+11c11
+< body-bytes: 2808
+---
+> body-bytes: 2813
+13c13
+< {"status":"success","time":N,"flags":{},"data":{"id":N,"token":"T","status":{"status":"Pending","last_delivery_attempt":null,"held":false,"hold_expiry":null},"details":{"rcpt_to":"john@example.com","mail_from":"test@r5api.example.com","subject":"r5 api","message_id":"UUID@rp.postal.example.com","t
+\ No newline at end of file
+---
+> {"status":"success","time":N,"flags":{},"data":{"id":N,"token":"T","status":{"status":"Pending","last_delivery_attempt":null,"held":false,"hold_expiry":null},"details":{"rcpt_to":"john@example.com","mail_from":"test@r5api.example.com","subject":"r5 api","message_id":"UUID@rp.postal.example.com","t
+\ No newline at end of file
+--- 182.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=r5apikey00000000000000AB
+11c11
+< body-bytes: 2808
+---
+> body-bytes: 2813
+13c13
+< {"status":"success","time":N,"flags":{},"data":{"id":N,"token":"T","status":{"status":"Pending","last_delivery_attempt":null,"held":false,"hold_expiry":null},"details":{"rcpt_to":"john@example.com","mail_from":"test@r5api.example.com","subject":"r5 api","message_id":"UUID@rp.postal.example.com","t
+\ No newline at end of file
+---
+> {"status":"success","time":N,"flags":{},"data":{"id":N,"token":"T","status":{"status":"Pending","last_delivery_attempt":null,"held":false,"hold_expiry":null},"details":{"rcpt_to":"john@example.com","mail_from":"test@r5api.example.com","subject":"r5 api","message_id":"UUID@rp.postal.example.com","t
+\ No newline at end of file
+compared 187 response files, 41 differ
+==== mails (7.1.6 < > 7.2.4)
+mails: 3, raised: 0
+==== facts (7.1.6 < > 7.2.4)
+(end of facts diff)
+total_size class and rendering: ["Integer", "1.72 KB"]
+message count, statuses: [["Held", 1], ["Sent", 2], ["SoftFail", 1]]
+route description, forward address: ["r5route@r5.example.com", "r5tokn@routes.postal.example.com"]
+route with a bad endpoint: errors: RAISED Postal::Error: Invalid endpoint class name 'Nope'
+additional route endpoints: errors: [false, [nil]]
+credential options round trip: ["Hash", {}, "ActiveRecord::Coders::YAMLColumn"]
+server stats and queue: [1, 1, "Float", 0.0, [1, 0, 1]]
+throughput stats: {incoming: "Integer", outgoing: "Integer", outgoing_usage: "Integer"}
+domain dns records: ["v=spf1 a mx include:spf.postal.example.com ~all", "postal-r5dkim._domainkey", "psrp.r5.example.com"]
+webhook request serialize: [{"a" => [1, {"b" => nil}]}, "---\na:\n- 1\n- b:\n"]
+user with org and to_json: {"first_name" => "Rfive", "time_zone" => "London", "admin" => true}
+in_batches over stale locks: 0
+organization destroy guard: [2, true]
+==== Rails log, normalized with the declared Completed/Rendered difference masked (7.1.6 < > 7.2.4): 1060 and 1063 lines
+1034c1034
+< INFO -- :   Parameters: {"id" => 4, "_expansions" => true, "message" => {"id" => 4, "_expansions" => true}}
+---
+> INFO -- :   Parameters: {"id" => 7, "_expansions" => true, "message" => {"id" => 7, "_expansions" => true}}
+1038c1038
+< INFO -- :   Parameters: {"id" => 4, "_expansions" => ["status", "details", "inspection", "plain_body", "html_body", "attachments", "headers", "raw_message", "activity_entries"], "message" => {"id" => 4, "_expansions" => ["status", "details", "inspection", "p
+---
+> INFO -- :   Parameters: {"id" => 7, "_expansions" => ["status", "details", "inspection", "plain_body", "html_body", "attachments", "headers", "raw_message", "activity_entries"], "message" => {"id" => 7, "_expansions" => ["status", "details", "inspection", "p
+1046c1046
+< INFO -- :   Parameters: {"id" => 4, "message" => {"id" => 4}}
+---
+> INFO -- :   Parameters: {"id" => 7, "message" => {"id" => 7}}
+1052a1053,1055
+> 
+> Causes:
+> JSON::ParserError (unexpected token at '{not json')
+==== errors in output
+/tmp/s3.out:0
+/tmp/s2.out:12
+/tmp/s3b.out:0
+==== end

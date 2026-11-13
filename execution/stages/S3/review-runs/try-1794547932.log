@@ -1,0 +1,1071 @@
+==== activemodel lib/active_model/locale/en.yml
+(exit of diff above is not shown; empty means identical)
+==== activerecord lib/active_record/locale/en.yml
+(exit of diff above is not shown; empty means identical)
+==== activesupport lib/active_support/locale/en.yml
+(exit of diff above is not shown; empty means identical)
+==== actionview lib/action_view/locale/en.yml
+(exit of diff above is not shown; empty means identical)
+==== time zone names
+--- /cache/bundle/ruby/3.4.0/gems/activesupport-7.1.6/lib/active_support/values/time_zone.rb	2026-11-13 02:06:51.967216264 +0000
++++ /cache/bundle/ruby/3.4.0/gems/activesupport-7.2.4/lib/active_support/values/time_zone.rb	2026-11-13 02:49:22.713240449 +0000
+@@ -12,7 +12,7 @@
+   # * Limit the set of zones provided by TZInfo to a meaningful subset of 134
+   #   zones.
+   # * Retrieve and display zones with a friendlier name
+-  #   (e.g., "Eastern Time (US & Canada)" instead of "America/New_York").
++  #   (e.g., "Eastern \Time (US & Canada)" instead of "America/New_York").
+   # * Lazily load +TZInfo::Timezone+ instances only when they're needed.
+   # * Create ActiveSupport::TimeWithZone instances via TimeZone's +local+,
+   #   +parse+, +at+, and +now+ methods.
+@@ -134,10 +134,10 @@
+       "Mumbai"                       => "Asia/Kolkata",
+       "New Delhi"                    => "Asia/Kolkata",
+       "Kathmandu"                    => "Asia/Kathmandu",
+-      "Astana"                       => "Asia/Dhaka",
+       "Dhaka"                        => "Asia/Dhaka",
+       "Sri Jayawardenepura"          => "Asia/Colombo",
+       "Almaty"                       => "Asia/Almaty",
++      "Astana"                       => "Asia/Almaty",
+       "Novosibirsk"                  => "Asia/Novosibirsk",
+       "Rangoon"                      => "Asia/Rangoon",
+       "Bangkok"                      => "Asia/Bangkok",
+@@ -357,7 +357,7 @@
+       "(GMT#{formatted_offset}) #{name}"
+     end
+ 
+-    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
++    # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
+     # of +self+ from given values.
+     #
+     #   Time.zone = 'Hawaii'                    # => "Hawaii"
+@@ -367,7 +367,7 @@
+       ActiveSupport::TimeWithZone.new(nil, self, time)
+     end
+ 
+-    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
++    # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
+     # of +self+ from number of seconds since the Unix epoch.
+     #
+(exit of diff above is not shown; empty means identical)
+==== mime types
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/http/mime_types.rb	2026-11-13 02:06:52.713580737 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/http/mime_types.rb	2026-11-13 02:49:22.987887873 +0000
+@@ -3,6 +3,8 @@
+ # Build list of Mime types for HTTP responses
+ # https://www.iana.org/assignments/media-types/
+ 
++# :markup: markdown
++
+ Mime::Type.register "text/html", :html, %w( application/xhtml+xml ), %w( xhtml )
+ Mime::Type.register "text/plain", :text, [], %w(txt)
+ Mime::Type.register "text/javascript", :js, %w( application/javascript application/x-javascript )
+(exit of diff above is not shown; empty means identical)
+==== public exceptions
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/public_exceptions.rb	2026-11-13 02:06:52.763490619 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/public_exceptions.rb	2026-11-13 02:49:23.012903999 +0000
+@@ -1,15 +1,17 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ module ActionDispatch
+-  # = Action Dispatch \PublicExceptions
++  # # Action Dispatch PublicExceptions
+   #
+   # When called, this middleware renders an error page. By default if an HTML
+-  # response is expected it will render static error pages from the <tt>/public</tt>
++  # response is expected it will render static error pages from the `/public`
+   # directory. For example when this middleware receives a 500 response it will
+-  # render the template found in <tt>/public/500.html</tt>.
+-  # If an internationalized locale is set, this middleware will attempt to render
+-  # the template in <tt>/public/500.<locale>.html</tt>. If an internationalized template
+-  # is not found it will fall back on <tt>/public/500.html</tt>.
++  # render the template found in `/public/500.html`. If an internationalized
++  # locale is set, this middleware will attempt to render the template in
++  # `/public/500.<locale>.html`. If an internationalized template is not found it
++  # will fall back on `/public/500.html`.
+   #
+   # When a request with a content type other than HTML is made, this middleware
+   # will attempt to convert error information into the appropriate response type.
+@@ -30,7 +32,11 @@
+       end
+       body = { status: status, error: Rack::Utils::HTTP_STATUS_CODES.fetch(status, Rack::Utils::HTTP_STATUS_CODES[500]) }
+ 
+-      render(status, content_type, body)
++      if env["action_dispatch.original_request_method"] == "HEAD"
++        render_format(status, content_type, "")
++      else
++        render(status, content_type, body)
++      end
+     end
+ 
+     private
+(exit of diff above is not shown; empty means identical)
+==== exception wrapper
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/exception_wrapper.rb	2026-11-13 02:06:52.753395537 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/exception_wrapper.rb	2026-11-13 02:49:23.010353478 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "active_support/core_ext/module/attribute_accessors"
+ require "active_support/syntax_error_proxy"
+ require "active_support/core_ext/thread/backtrace/location"
+@@ -16,8 +18,8 @@
+       "ActionController::UnknownFormat"                    => :not_acceptable,
+       "ActionDispatch::Http::MimeNegotiation::InvalidType" => :not_acceptable,
+       "ActionController::MissingExactTemplate"             => :not_acceptable,
+-      "ActionController::InvalidAuthenticityToken"         => :unprocessable_entity,
+-      "ActionController::InvalidCrossOriginRequest"        => :unprocessable_entity,
++      "ActionController::InvalidAuthenticityToken"         => ActionDispatch::Constants::UNPROCESSABLE_CONTENT,
++      "ActionController::InvalidCrossOriginRequest"        => ActionDispatch::Constants::UNPROCESSABLE_CONTENT,
+       "ActionDispatch::Http::Parameters::ParseError"       => :bad_request,
+       "ActionController::BadRequest"                       => :bad_request,
+       "ActionController::ParameterMissing"                 => :bad_request,
+@@ -171,27 +173,19 @@
+     end
+ 
+     def self.status_code_for_exception(class_name)
+-      Rack::Utils.status_code(@@rescue_responses[class_name])
++      ActionDispatch::Response.rack_status_code(@@rescue_responses[class_name])
+     end
+ 
+     def show?(request)
+-      # We're treating `nil` as "unset", and we want the default setting to be
+-      # `:all`. This logic should be extracted to `env_config` and calculated
+-      # once.
++      # We're treating `nil` as "unset", and we want the default setting to be `:all`.
++      # This logic should be extracted to `env_config` and calculated once.
+       config = request.get_header("action_dispatch.show_exceptions")
+ 
+-      # Include true and false for backwards compatibility.
+       case config
+       when :none
+         false
+       when :rescuable
+         rescue_response?
+-      when true
+-        ActionDispatch.deprecator.warn("Setting action_dispatch.show_exceptions to true is deprecated. Set to :all instead.")
+-        true
+-      when false
+-        ActionDispatch.deprecator.warn("Setting action_dispatch.show_exceptions to false is deprecated. Set to :none instead.")
+-        false
+       else
+         true
+       end
+@@ -208,7 +202,8 @@
+     end
+ 
+     def error_highlight_available?
+-      # ErrorHighlight.spot with backtrace_location keyword is available since error_highlight 0.4.0
++      # ErrorHighlight.spot with backtrace_location keyword is available since
++      # error_highlight 0.4.0
+       defined?(ErrorHighlight) && Gem::Version.new(ErrorHighlight::VERSION) >= Gem::Version.new("0.4.0")
+     end
+ 
+(exit of diff above is not shown; empty means identical)
+==== show exceptions
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/show_exceptions.rb	2026-11-13 02:06:52.771280024 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/show_exceptions.rb	2026-11-13 02:49:23.017216349 +0000
+@@ -1,26 +1,27 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "action_dispatch/middleware/exception_wrapper"
+ 
+ module ActionDispatch
+-  # = Action Dispatch \ShowExceptions
++  # # Action Dispatch ShowExceptions
+   #
+-  # This middleware rescues any exception returned by the application
+-  # and calls an exceptions app that will wrap it in a format for the end user.
++  # This middleware rescues any exception returned by the application and calls an
++  # exceptions app that will wrap it in a format for the end user.
+   #
+   # The exceptions app should be passed as a parameter on initialization of
+-  # +ShowExceptions+. Every time there is an exception, +ShowExceptions+ will
+-  # store the exception in <tt>env["action_dispatch.exception"]</tt>, rewrite
+-  # the +PATH_INFO+ to the exception status code, and call the Rack app.
++  # `ShowExceptions`. Every time there is an exception, `ShowExceptions` will
++  # store the exception in `env["action_dispatch.exception"]`, rewrite the
++  # `PATH_INFO` to the exception status code, and call the Rack app.
+   #
+-  # In \Rails applications, the exceptions app can be configured with
+-  # +config.exceptions_app+, which defaults to ActionDispatch::PublicExceptions.
++  # In Rails applications, the exceptions app can be configured with
++  # `config.exceptions_app`, which defaults to ActionDispatch::PublicExceptions.
+   #
+-  # If the application returns a response with the <tt>X-Cascade</tt> header
+-  # set to <tt>"pass"</tt>, this middleware will send an empty response as a
+-  # result with the correct status code. If any exception happens inside the
+-  # exceptions app, this middleware catches the exceptions and returns a
+-  # failsafe response.
++  # If the application returns a response with the `X-Cascade` header set to
++  # `"pass"`, this middleware will send an empty response as a result with the
++  # correct status code. If any exception happens inside the exceptions app, this
++  # middleware catches the exceptions and returns a failsafe response.
+   class ShowExceptions
+     def initialize(app, exceptions_app)
+       @app = app
+@@ -64,9 +65,8 @@
+       end
+ 
+       def fallback_to_html_format_if_invalid_mime_type(request)
+-        # If the MIME type for the request is invalid then the
+-        # @exceptions_app may not be able to handle it. To make it
+-        # easier to handle, we switch to HTML.
++        # If the MIME type for the request is invalid then the @exceptions_app may not
++        # be able to handle it. To make it easier to handle, we switch to HTML.
+         begin
+           request.content_mime_type
+         rescue ActionDispatch::Http::MimeNegotiation::InvalidType
+(exit of diff above is not shown; empty means identical)
+==== host authorization
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/host_authorization.rb	2026-11-13 02:06:52.762676846 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/host_authorization.rb	2026-11-13 02:49:23.012253589 +0000
+@@ -1,24 +1,26 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ module ActionDispatch
+-  # = Action Dispatch \HostAuthorization
++  # # Action Dispatch HostAuthorization
+   #
+-  # This middleware guards from DNS rebinding attacks by explicitly permitting
+-  # the hosts a request can be sent to, and is passed the options set in
+-  # +config.host_authorization+.
++  # This middleware guards from DNS rebinding attacks by explicitly permitting the
++  # hosts a request can be sent to, and is passed the options set in
++  # `config.host_authorization`.
+   #
+-  # Requests can opt-out of Host Authorization with +exclude+:
++  # Requests can opt-out of Host Authorization with `exclude`:
+   #
+-  #    config.host_authorization = { exclude: ->(request) { request.path =~ /healthcheck/ } }
++  #     config.host_authorization = { exclude: ->(request) { request.path =~ /healthcheck/ } }
+   #
+-  # When a request comes to an unauthorized host, the +response_app+
+-  # application will be executed and rendered. If no +response_app+ is given, a
+-  # default one will run.
+-  # The default response app logs blocked host info with level 'error' and
+-  # responds with <tt>403 Forbidden</tt>. The body of the response contains debug info
+-  # if +config.consider_all_requests_local+ is set to true, otherwise the body is empty.
++  # When a request comes to an unauthorized host, the `response_app` application
++  # will be executed and rendered. If no `response_app` is given, a default one
++  # will run. The default response app logs blocked host info with level 'error'
++  # and responds with `403 Forbidden`. The body of the response contains debug
++  # info if `config.consider_all_requests_local` is set to true, otherwise the
++  # body is empty.
+   class HostAuthorization
+-    ALLOWED_HOSTS_IN_DEVELOPMENT = [".localhost", IPAddr.new("0.0.0.0/0"), IPAddr.new("::/0")]
++    ALLOWED_HOSTS_IN_DEVELOPMENT = [".localhost", ".test", IPAddr.new("0.0.0.0/0"), IPAddr.new("::/0")]
+     PORT_REGEX = /(?::\d+)/ # :nodoc:
+     SUBDOMAIN_REGEX = /(?:[a-z0-9-]+\.)/i # :nodoc:
+     IPV4_HOSTNAME = /(?<host>\d+\.\d+\.\d+\.\d+)#{PORT_REGEX}?/ # :nodoc:
+@@ -45,8 +47,8 @@
+             begin
+               allowed === extract_hostname(host)
+             rescue
+-              # IPAddr#=== raises an error if you give it a hostname instead of
+-              # IP. Treat similar errors as blocked access.
++              # IPAddr#=== raises an error if you give it a hostname instead of IP. Treat
++              # similar errors as blocked access.
+               false
+             end
+           else
+(exit of diff above is not shown; empty means identical)
+==== action dispatch railtie
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/railtie.rb	2026-11-13 02:06:52.798281298 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/railtie.rb	2026-11-13 02:49:23.034469910 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "action_dispatch"
+ require "action_dispatch/log_subscriber"
+ require "active_support/messages/rotation_configuration"
+@@ -51,9 +53,6 @@
+ 
+       ActiveSupport.on_load(:action_dispatch_request) do
+         self.ignore_accept_header = app.config.action_dispatch.ignore_accept_header
+-        unless app.config.action_dispatch.respond_to?(:return_only_request_media_type_on_content_type)
+-          self.return_only_media_type_on_content_type = app.config.action_dispatch.return_only_request_media_type_on_content_type
+-        end
+         ActionDispatch::Request::Utils.perform_deep_munge = app.config.action_dispatch.perform_deep_munge
+       end
+ 
+(exit of diff above is not shown; empty means identical)
+==== controller log subscriber
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/log_subscriber.rb	2026-11-13 02:06:52.654913355 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_controller/log_subscriber.rb	2026-11-13 02:49:22.958206390 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ module ActionController
+   class LogSubscriber < ActiveSupport::LogSubscriber
+     INTERNAL_PARAMS = %w(controller action format _method only_path)
+@@ -31,7 +33,7 @@
+           status = ActionDispatch::ExceptionWrapper.status_code_for_exception(exception_class_name)
+         end
+ 
+-        additions << "Allocations: #{event.allocations}"
++        additions << "GC: #{event.gc_time.round(1)}ms"
+ 
+         message = +"Completed #{status} #{Rack::Utils::HTTP_STATUS_CODES[status]} in #{event.duration.round}ms" \
+                    " (#{additions.join(" | ")})"
+(exit of diff above is not shown; empty means identical)
+==== active record controller runtime
+--- /cache/bundle/ruby/3.4.0/gems/activerecord-7.1.6/lib/active_record/railties/controller_runtime.rb	2026-11-13 02:06:52.753122973 +0000
++++ /cache/bundle/ruby/3.4.0/gems/activerecord-7.2.4/lib/active_record/railties/controller_runtime.rb	2026-11-13 02:49:23.083981795 +0000
+@@ -11,7 +11,14 @@
+       module ClassMethods # :nodoc:
+         def log_process_action(payload)
+           messages, db_runtime = super, payload[:db_runtime]
+-          messages << ("ActiveRecord: %.1fms" % db_runtime.to_f) if db_runtime
++
++          if db_runtime
++            queries_count = payload[:queries_count] || 0
++            cached_queries_count = payload[:cached_queries_count] || 0
++            messages << ("ActiveRecord: %.1fms (%d %s, %d cached)" % [db_runtime.to_f, queries_count,
++                                                                      "query".pluralize(queries_count), cached_queries_count])
++          end
++
+           messages
+         end
+       end
+@@ -34,11 +41,11 @@
+ 
+         def cleanup_view_runtime
+           if logger && logger.info?
+-            db_rt_before_render = ActiveRecord::RuntimeRegistry.reset
++            db_rt_before_render = ActiveRecord::RuntimeRegistry.reset_runtimes
+             self.db_runtime = (db_runtime || 0) + db_rt_before_render
+             runtime = super
+             queries_rt = ActiveRecord::RuntimeRegistry.sql_runtime - ActiveRecord::RuntimeRegistry.async_sql_runtime
+-            db_rt_after_render = ActiveRecord::RuntimeRegistry.reset
++            db_rt_after_render = ActiveRecord::RuntimeRegistry.reset_runtimes
+             self.db_runtime += db_rt_after_render
+             runtime - queries_rt
+           else
+@@ -49,7 +56,9 @@
+         def append_info_to_payload(payload)
+           super
+ 
+-          payload[:db_runtime] = (db_runtime || 0) + ActiveRecord::RuntimeRegistry.reset
++          payload[:db_runtime] = (db_runtime || 0) + ActiveRecord::RuntimeRegistry.reset_runtimes
++          payload[:queries_count] = ActiveRecord::RuntimeRegistry.reset_queries_count
++          payload[:cached_queries_count] = ActiveRecord::RuntimeRegistry.reset_cached_queries_count
+         end
+     end
+   end
+(exit of diff above is not shown; empty means identical)
+==== secure password
+--- /cache/bundle/ruby/3.4.0/gems/activemodel-7.1.6/lib/active_model/secure_password.rb	2026-11-13 02:06:52.048932697 +0000
++++ /cache/bundle/ruby/3.4.0/gems/activemodel-7.2.4/lib/active_model/secure_password.rb	2026-11-13 02:49:22.785348941 +0000
+@@ -41,7 +41,7 @@
+       #
+       # To use +has_secure_password+, add bcrypt (~> 3.1.7) to your Gemfile:
+       #
+-      #   gem 'bcrypt', '~> 3.1.7'
++      #   gem "bcrypt", "~> 3.1.7"
+       #
+       # ==== Examples
+       #
+@@ -140,7 +140,7 @@
+             end
+           end
+ 
+-          validates_confirmation_of attribute, allow_blank: true
++          validates_confirmation_of attribute, allow_nil: true
+         end
+       end
+     end
+(exit of diff above is not shown; empty means identical)
+==== request forgery protection
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/request_forgery_protection.rb	2026-11-13 02:06:52.683326731 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_controller/metal/request_forgery_protection.rb	2026-11-13 02:49:22.974234531 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "rack/session/abstract/id"
+ require "action_controller/metal/exceptions"
+ require "active_support/security_utils"
+@@ -11,51 +13,53 @@
+   class InvalidCrossOriginRequest < ActionControllerError # :nodoc:
+   end
+ 
+-  # = Action Controller Request Forgery Protection
++  # # Action Controller Request Forgery Protection
+   #
+-  # Controller actions are protected from Cross-Site Request Forgery (CSRF) attacks
+-  # by including a token in the rendered HTML for your application. This token is
+-  # stored as a random string in the session, to which an attacker does not have
+-  # access. When a request reaches your application, \Rails verifies the received
+-  # token with the token in the session. All requests are checked except GET requests
+-  # as these should be idempotent. Keep in mind that all session-oriented requests
+-  # are CSRF protected by default, including JavaScript and HTML requests.
++  # Controller actions are protected from Cross-Site Request Forgery (CSRF)
++  # attacks by including a token in the rendered HTML for your application. This
++  # token is stored as a random string in the session, to which an attacker does
++  # not have access. When a request reaches your application, Rails verifies the
++  # received token with the token in the session. All requests are checked except
++  # GET requests as these should be idempotent. Keep in mind that all
++  # session-oriented requests are CSRF protected by default, including JavaScript
++  # and HTML requests.
+   #
+   # Since HTML and JavaScript requests are typically made from the browser, we
+-  # need to ensure to verify request authenticity for the web browser. We can
+-  # use session-oriented authentication for these types of requests, by using
+-  # the <tt>protect_from_forgery</tt> method in our controllers.
++  # need to ensure to verify request authenticity for the web browser. We can use
++  # session-oriented authentication for these types of requests, by using the
++  # `protect_from_forgery` method in our controllers.
+   #
+   # GET requests are not protected since they don't have side effects like writing
+   # to the database and don't leak sensitive information. JavaScript requests are
+-  # an exception: a third-party site can use a <script> tag to reference a JavaScript
+-  # URL on your site. When your JavaScript response loads on their site, it executes.
+-  # With carefully crafted JavaScript on their end, sensitive data in your JavaScript
+-  # response may be extracted. To prevent this, only XmlHttpRequest (known as XHR or
+-  # Ajax) requests are allowed to make requests for JavaScript responses.
++  # an exception: a third-party site can use a <script> tag to reference a
++  # JavaScript URL on your site. When your JavaScript response loads on their
++  # site, it executes. With carefully crafted JavaScript on their end, sensitive
++  # data in your JavaScript response may be extracted. To prevent this, only
++  # XmlHttpRequest (known as XHR or Ajax) requests are allowed to make requests
++  # for JavaScript responses.
+   #
+   # Subclasses of ActionController::Base are protected by default with the
+-  # <tt>:exception</tt> strategy, which raises an
++  # `:exception` strategy, which raises an
+   # ActionController::InvalidAuthenticityToken error on unverified requests.
+   #
+   # APIs may want to disable this behavior since they are typically designed to be
+-  # state-less: that is, the request API client handles the session instead of \Rails.
+-  # One way to achieve this is to use the <tt>:null_session</tt> strategy instead,
++  # state-less: that is, the request API client handles the session instead of
++  # Rails. One way to achieve this is to use the `:null_session` strategy instead,
+   # which allows unverified requests to be handled, but with an empty session:
+   #
+-  #   class ApplicationController < ActionController::Base
+-  #     protect_from_forgery with: :null_session
+-  #   end
++  #     class ApplicationController < ActionController::Base
++  #       protect_from_forgery with: :null_session
++  #     end
+   #
+-  # Note that API only applications don't include this module or a session middleware
+-  # by default, and so don't require CSRF protection to be configured.
++  # Note that API only applications don't include this module or a session
++  # middleware by default, and so don't require CSRF protection to be configured.
+   #
+-  # The token parameter is named <tt>authenticity_token</tt> by default. The name and
+-  # value of this token must be added to every layout that renders forms by including
+-  # <tt>csrf_meta_tags</tt> in the HTML +head+.
++  # The token parameter is named `authenticity_token` by default. The name and
++  # value of this token must be added to every layout that renders forms by
++  # including `csrf_meta_tags` in the HTML `head`.
+   #
+-  # Learn more about CSRF attacks and securing your application in the
+-  # {Ruby on Rails Security Guide}[https://guides.rubyonrails.org/security.html].
++  # Learn more about CSRF attacks and securing your application in the [Ruby on
++  # Rails Security Guide](https://guides.rubyonrails.org/security.html).
+   module RequestForgeryProtection
+     CSRF_TOKEN = "action_controller.csrf_token"
+ 
+@@ -65,8 +69,8 @@
+     include AbstractController::Callbacks
+ 
+     included do
+-      # Sets the token parameter name for RequestForgery. Calling +protect_from_forgery+
+-      # sets it to <tt>:authenticity_token</tt> by default.
++      # Sets the token parameter name for RequestForgery. Calling
++      # `protect_from_forgery` sets it to `:authenticity_token` by default.
+       config_accessor :request_forgery_protection_token
+       self.request_forgery_protection_token ||= :authenticity_token
+ 
+@@ -74,7 +78,8 @@
+       config_accessor :forgery_protection_strategy
+       self.forgery_protection_strategy = nil
+ 
+-      # Controls whether request forgery protection is turned on or not. Turned off by default only in test mode.
++      # Controls whether request forgery protection is turned on or not. Turned off by
++      # default only in test mode.
+       config_accessor :allow_forgery_protection
+       self.allow_forgery_protection = true if allow_forgery_protection.nil?
+ 
+@@ -90,10 +95,6 @@
+       config_accessor :per_form_csrf_tokens
+       self.per_form_csrf_tokens = false
+ 
+-      # Controls whether forgery protection is enabled by default.
+-      config_accessor :default_protect_from_forgery
+(exit of diff above is not shown; empty means identical)
+==== mime type parse
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/http/mime_type.rb	2026-11-13 02:06:52.711600666 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/http/mime_type.rb	2026-11-13 02:49:22.987324984 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "singleton"
+ 
+ module Mime
+@@ -65,19 +67,20 @@
+     end
+   end
+ 
+-  # Encapsulates the notion of a MIME type. Can be used at render time, for example, with:
++  # Encapsulates the notion of a MIME type. Can be used at render time, for
++  # example, with:
+   #
+-  #   class PostsController < ActionController::Base
+-  #     def show
+-  #       @post = Post.find(params[:id])
++  #     class PostsController < ActionController::Base
++  #       def show
++  #         @post = Post.find(params[:id])
+   #
+-  #       respond_to do |format|
+-  #         format.html
+-  #         format.ics { render body: @post.to_ics, mime_type: Mime::Type.lookup("text/calendar")  }
+-  #         format.xml { render xml: @post }
++  #         respond_to do |format|
++  #           format.html
++  #           format.ics { render body: @post.to_ics, mime_type: Mime::Type.lookup("text/calendar")  }
++  #           format.xml { render xml: @post }
++  #         end
+   #       end
+   #     end
+-  #   end
+   class Type
+     attr_reader :symbol
+ 
+@@ -173,8 +176,9 @@
+         EXTENSION_LOOKUP[extension.to_s]
+       end
+ 
+-      # Registers an alias that's not used on MIME type lookup, but can be referenced directly. Especially useful for
+-      # rendering different HTML versions depending on the user agent, like an iPhone.
++      # Registers an alias that's not used on MIME type lookup, but can be referenced
++      # directly. Especially useful for rendering different HTML versions depending on
++      # the user agent, like an iPhone.
+       def register_alias(string, symbol, extension_synonyms = [])
+         register(string, symbol, [], extension_synonyms, true)
+       end
+@@ -224,11 +228,11 @@
+         parse_data_with_trailing_star($1) if accept_header =~ TRAILING_STAR_REGEXP
+       end
+ 
+-      # For an input of <tt>'text'</tt>, returns <tt>[Mime[:json], Mime[:xml], Mime[:ics],
+-      # Mime[:html], Mime[:css], Mime[:csv], Mime[:js], Mime[:yaml], Mime[:text]]</tt>.
++      # For an input of `'text'`, returns `[Mime[:json], Mime[:xml], Mime[:ics],
++      # Mime[:html], Mime[:css], Mime[:csv], Mime[:js], Mime[:yaml], Mime[:text]]`.
+       #
+-      # For an input of <tt>'application'</tt>, returns <tt>[Mime[:html], Mime[:js],
+-      # Mime[:xml], Mime[:yaml], Mime[:atom], Mime[:json], Mime[:rss], Mime[:url_encoded_form]]</tt>.
++      # For an input of `'application'`, returns `[Mime[:html], Mime[:js], Mime[:xml],
++      # Mime[:yaml], Mime[:atom], Mime[:json], Mime[:rss], Mime[:url_encoded_form]]`.
+       def parse_data_with_trailing_star(type)
+         Mime::SET.select { |m| m.match?(type) }
+       end
+@@ -237,7 +241,7 @@
+       #
+       # To unregister a MIME type:
+       #
+-      #   Mime::Type.unregister(:mobile)
++      #     Mime::Type.unregister(:mobile)
+       def unregister(symbol)
+         symbol = symbol.downcase
+         if mime = Mime[symbol]
+@@ -329,7 +333,7 @@
+       def to_ary; end
+       def to_a; end
+(exit of diff above is not shown; empty means identical)
+==== request (http method)
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/http/request.rb	2026-11-13 02:06:52.717283317 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/http/request.rb	2026-11-13 02:49:22.990110909 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "stringio"
+ 
+ require "active_support/inflector"
+@@ -102,26 +104,26 @@
+ 
+     # Returns true if the request has a header matching the given key parameter.
+     #
+-    #    request.key? :ip_spoofing_check # => true
++    #     request.key? :ip_spoofing_check # => true
+     def key?(key)
+       has_header? key
+     end
+ 
+-    # HTTP methods from {RFC 2616: Hypertext Transfer Protocol -- HTTP/1.1}[https://www.ietf.org/rfc/rfc2616.txt]
++    # HTTP methods from [RFC 2616: Hypertext Transfer Protocol -- HTTP/1.1](https://www.ietf.org/rfc/rfc2616.txt)
+     RFC2616 = %w(OPTIONS GET HEAD POST PUT DELETE TRACE CONNECT)
+-    # HTTP methods from {RFC 2518: HTTP Extensions for Distributed Authoring -- WEBDAV}[https://www.ietf.org/rfc/rfc2518.txt]
++    # HTTP methods from [RFC 2518: HTTP Extensions for Distributed Authoring -- WEBDAV](https://www.ietf.org/rfc/rfc2518.txt)
+     RFC2518 = %w(PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK)
+-    # HTTP methods from {RFC 3253: Versioning Extensions to WebDAV}[https://www.ietf.org/rfc/rfc3253.txt]
++    # HTTP methods from [RFC 3253: Versioning Extensions to WebDAV](https://www.ietf.org/rfc/rfc3253.txt)
+     RFC3253 = %w(VERSION-CONTROL REPORT CHECKOUT CHECKIN UNCHECKOUT MKWORKSPACE UPDATE LABEL MERGE BASELINE-CONTROL MKACTIVITY)
+-    # HTTP methods from {RFC 3648: WebDAV Ordered Collections Protocol}[https://www.ietf.org/rfc/rfc3648.txt]
++    # HTTP methods from [RFC 3648: WebDAV Ordered Collections Protocol](https://www.ietf.org/rfc/rfc3648.txt)
+     RFC3648 = %w(ORDERPATCH)
+-    # HTTP methods from {RFC 3744: WebDAV Access Control Protocol}[https://www.ietf.org/rfc/rfc3744.txt]
++    # HTTP methods from [RFC 3744: WebDAV Access Control Protocol](https://www.ietf.org/rfc/rfc3744.txt)
+     RFC3744 = %w(ACL)
+-    # HTTP methods from {RFC 5323: WebDAV SEARCH}[https://www.ietf.org/rfc/rfc5323.txt]
++    # HTTP methods from [RFC 5323: WebDAV SEARCH](https://www.ietf.org/rfc/rfc5323.txt)
+     RFC5323 = %w(SEARCH)
+-    # HTTP methods from {RFC 4791: Calendaring Extensions to WebDAV}[https://www.ietf.org/rfc/rfc4791.txt]
++    # HTTP methods from [RFC 4791: Calendaring Extensions to WebDAV](https://www.ietf.org/rfc/rfc4791.txt)
+     RFC4791 = %w(MKCALENDAR)
+-    # HTTP methods from {RFC 5789: PATCH Method for HTTP}[https://www.ietf.org/rfc/rfc5789.txt]
++    # HTTP methods from [RFC 5789: PATCH Method for HTTP](https://www.ietf.org/rfc/rfc5789.txt)
+     RFC5789 = %w(PATCH)
+ 
+     HTTP_METHODS = RFC2616 + RFC2518 + RFC3253 + RFC3648 + RFC3744 + RFC5323 + RFC4791 + RFC5789
+@@ -130,25 +132,24 @@
+ 
+     # Populate the HTTP method lookup cache.
+     HTTP_METHODS.each { |method|
+-      HTTP_METHOD_LOOKUP[method] = method.underscore.to_sym
++      HTTP_METHOD_LOOKUP[method] = method.downcase.underscore.to_sym
+     }
+ 
+     alias raw_request_method request_method # :nodoc:
+ 
+-    # Returns the HTTP \method that the application should see.
+-    # In the case where the \method was overridden by a middleware
+-    # (for instance, if a HEAD request was converted to a GET,
+-    # or if a _method parameter was used to determine the \method
+-    # the application should use), this \method returns the overridden
+-    # value, not the original.
++    # Returns the HTTP method that the application should see. In the case where the
++    # method was overridden by a middleware (for instance, if a HEAD request was
++    # converted to a GET, or if a _method parameter was used to determine the method
++    # the application should use), this method returns the overridden value, not the
++    # original.
+     def request_method
+       @request_method ||= check_method(super)
+     end
+ 
+-    # Returns the URI pattern of the matched route for the request,
+-    # using the same format as `bin/rails routes`:
++    # Returns the URI pattern of the matched route for the request, using the same
++    # format as `bin/rails routes`:
+     #
+-    #   request.route_uri_pattern # => "/:controller(/:action(/:id))(.:format)"
++    #     request.route_uri_pattern # => "/:controller(/:action(/:id))(.:format)"
+     def route_uri_pattern
+       get_header("action_dispatch.route_uri_pattern")
+     end
+@@ -196,12 +197,11 @@
+       HTTP_METHOD_LOOKUP[request_method]
+     end
+ 
+-    # Returns the original value of the environment's REQUEST_METHOD,
+-    # even if it was overridden by middleware. See #request_method for
+-    # more information.
++    # Returns the original value of the environment's REQUEST_METHOD, even if it was
++    # overridden by middleware. See #request_method for more information.
+     #
+-    # For debugging purposes, when called with arguments this method will
+-    # fall back to Object#method
++    # For debugging purposes, when called with arguments this method will fall back
++    # to Object#method
+     def method(*args)
+       if args.empty?
+         @method ||= check_method(
+@@ -221,63 +221,62 @@
+ 
+     # Provides access to the request's HTTP headers, for example:
+     #
+-    #   request.headers["Content-Type"] # => "text/plain"
++    #     request.headers["Content-Type"] # => "text/plain"
+     def headers
+       @headers ||= Http::Headers.new(self)
+     end
+ 
+-    # Early Hints is an HTTP/2 status code that indicates hints to help a client start
+-    # making preparations for processing the final response.
++    # Early Hints is an HTTP/2 status code that indicates hints to help a client
++    # start making preparations for processing the final response.
+     #
+-    # If the env contains +rack.early_hints+ then the server accepts HTTP2 push for
++    # If the env contains `rack.early_hints` then the server accepts HTTP2 push for
+     # link headers.
+     #
+-    # The +send_early_hints+ method accepts a hash of links as follows:
++    # The `send_early_hints` method accepts a hash of links as follows:
+     #
+(exit of diff above is not shown; empty means identical)
+==== rack logger
+--- /cache/bundle/ruby/3.4.0/gems/railties-7.1.6/lib/rails/rack/logger.rb	2026-11-13 02:06:53.276585064 +0000
++++ /cache/bundle/ruby/3.4.0/gems/railties-7.2.4/lib/rails/rack/logger.rb	2026-11-13 02:49:28.321127599 +0000
+@@ -20,22 +20,26 @@
+       def call(env)
+         request = ActionDispatch::Request.new(env)
+ 
+-        if logger.respond_to?(:tagged)
+-          logger.tagged(*compute_tags(request)) { call_app(request, env) }
++        env["rails.rack_logger_tag_count"] = if logger.respond_to?(:push_tags)
++          logger.push_tags(*compute_tags(request)).size
+         else
+-          call_app(request, env)
++          0
+         end
++
++        call_app(request, env)
+       end
+ 
+       private
+         def call_app(request, env) # :doc:
++          logger_tag_pop_count = env["rails.rack_logger_tag_count"]
++
+           instrumenter = ActiveSupport::Notifications.instrumenter
+           handle = instrumenter.build_handle("request.action_dispatch", { request: request })
+           handle.start
+ 
+           logger.info { started_request_message(request) }
+           status, headers, body = response = @app.call(env)
+-          body = ::Rack::BodyProxy.new(body, &handle.method(:finish))
++          body = ::Rack::BodyProxy.new(body) { finish_request_instrumentation(handle, logger_tag_pop_count) }
+ 
+           if response.frozen?
+             [status, headers, body]
+@@ -44,10 +48,8 @@
+             response
+           end
+         rescue Exception
+-          handle.finish
++          finish_request_instrumentation(handle, logger_tag_pop_count)
+           raise
+-        ensure
+-          ActiveSupport::LogSubscriber.flush_all!
+         end
+ 
+         # Started GET "/session/new" for 127.0.0.1 at 2012-09-26 14:51:42 -0700
+@@ -75,6 +77,12 @@
+         def logger
+           Rails.logger
+         end
++
++        def finish_request_instrumentation(handle, logger_tag_pop_count)
++          handle.finish
++          logger.pop_tags(logger_tag_pop_count) if logger.respond_to?(:pop_tags) && logger_tag_pop_count > 0
++          ActiveSupport::LogSubscriber.flush_all!
++        end
+     end
+   end
+ end
+(exit of diff above is not shown; empty means identical)
+==== default middleware stack
+(exit of diff above is not shown; empty means identical)
+==== cookies
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/cookies.rb	2026-11-13 02:06:52.746795391 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/cookies.rb	2026-11-13 02:49:23.008051800 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "active_support/core_ext/hash/keys"
+ require "active_support/key_generator"
+ require "active_support/message_verifier"
+@@ -94,97 +96,100 @@
+ 
+   # Read and write data to cookies through ActionController::Cookies#cookies.
+   #
+-  # When reading cookie data, the data is read from the HTTP request header, Cookie.
+-  # When writing cookie data, the data is sent out in the HTTP response header, +Set-Cookie+.
++  # When reading cookie data, the data is read from the HTTP request header,
++  # Cookie. When writing cookie data, the data is sent out in the HTTP response
++  # header, `Set-Cookie`.
+   #
+   # Examples of writing:
+   #
+-  #   # Sets a simple session cookie.
+-  #   # This cookie will be deleted when the user's browser is closed.
+-  #   cookies[:user_name] = "david"
++  #     # Sets a simple session cookie.
++  #     # This cookie will be deleted when the user's browser is closed.
++  #     cookies[:user_name] = "david"
+   #
+-  #   # Cookie values are String-based. Other data types need to be serialized.
+-  #   cookies[:lat_lon] = JSON.generate([47.68, -122.37])
++  #     # Cookie values are String-based. Other data types need to be serialized.
++  #     cookies[:lat_lon] = JSON.generate([47.68, -122.37])
+   #
+-  #   # Sets a cookie that expires in 1 hour.
+-  #   cookies[:login] = { value: "XJ-122", expires: 1.hour }
++  #     # Sets a cookie that expires in 1 hour.
++  #     cookies[:login] = { value: "XJ-122", expires: 1.hour }
+   #
+-  #   # Sets a cookie that expires at a specific time.
+-  #   cookies[:login] = { value: "XJ-122", expires: Time.utc(2020, 10, 15, 5) }
++  #     # Sets a cookie that expires at a specific time.
++  #     cookies[:login] = { value: "XJ-122", expires: Time.utc(2020, 10, 15, 5) }
+   #
+-  #   # Sets a signed cookie, which prevents users from tampering with its value.
+-  #   # It can be read using the signed method `cookies.signed[:name]`
+-  #   cookies.signed[:user_id] = current_user.id
++  #     # Sets a signed cookie, which prevents users from tampering with its value.
++  #     # It can be read using the signed method `cookies.signed[:name]`
++  #     cookies.signed[:user_id] = current_user.id
+   #
+-  #   # Sets an encrypted cookie value before sending it to the client which
+-  #   # prevent users from reading and tampering with its value.
+-  #   # It can be read using the encrypted method `cookies.encrypted[:name]`
+-  #   cookies.encrypted[:discount] = 45
++  #     # Sets an encrypted cookie value before sending it to the client which
++  #     # prevent users from reading and tampering with its value.
++  #     # It can be read using the encrypted method `cookies.encrypted[:name]`
++  #     cookies.encrypted[:discount] = 45
+   #
+-  #   # Sets a "permanent" cookie (which expires in 20 years from now).
+-  #   cookies.permanent[:login] = "XJ-122"
++  #     # Sets a "permanent" cookie (which expires in 20 years from now).
++  #     cookies.permanent[:login] = "XJ-122"
+   #
+-  #   # You can also chain these methods:
+-  #   cookies.signed.permanent[:login] = "XJ-122"
++  #     # You can also chain these methods:
++  #     cookies.signed.permanent[:login] = "XJ-122"
+   #
+   # Examples of reading:
+   #
+-  #   cookies[:user_name]           # => "david"
+-  #   cookies.size                  # => 2
+-  #   JSON.parse(cookies[:lat_lon]) # => [47.68, -122.37]
+-  #   cookies.signed[:login]        # => "XJ-122"
+-  #   cookies.encrypted[:discount]  # => 45
++  #     cookies[:user_name]           # => "david"
++  #     cookies.size                  # => 2
++  #     JSON.parse(cookies[:lat_lon]) # => [47.68, -122.37]
+(exit of diff above is not shown; empty means identical)
+==== static
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_dispatch/middleware/static.rb	2026-11-13 02:06:52.774810001 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/static.rb	2026-11-13 02:49:23.019286943 +0000
+@@ -1,18 +1,20 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ require "rack/utils"
+ 
+ module ActionDispatch
+-  # = Action Dispatch \Static
++  # # Action Dispatch Static
+   #
+-  # This middleware serves static files from disk, if available.
+-  # If no file is found, it hands off to the main app.
++  # This middleware serves static files from disk, if available. If no file is
++  # found, it hands off to the main app.
+   #
+-  # In \Rails apps, this middleware is configured to serve assets from
+-  # the +public/+ directory.
++  # In Rails apps, this middleware is configured to serve assets from the
++  # `public/` directory.
+   #
+-  # Only GET and HEAD requests are served. POST and other HTTP methods
+-  # are handed off to the main app.
++  # Only GET and HEAD requests are served. POST and other HTTP methods are handed
++  # off to the main app.
+   #
+   # Only files in the root directory are served; path traversal is denied.
+   class Static
+@@ -26,31 +28,31 @@
+     end
+   end
+ 
+-  # = Action Dispatch \FileHandler
++  # # Action Dispatch FileHandler
+   #
+-  # This endpoint serves static files from disk using +Rack::Files+.
++  # This endpoint serves static files from disk using `Rack::Files`.
+   #
+-  # URL paths are matched with static files according to expected
+-  # conventions: +path+, +path+.html, +path+/index.html.
++  # URL paths are matched with static files according to expected conventions:
++  # `path`, `path`.html, `path`/index.html.
+   #
+-  # Precompressed versions of these files are checked first. Brotli (.br)
+-  # and gzip (.gz) files are supported. If +path+.br exists, this
+-  # endpoint returns that file with a <tt>content-encoding: br</tt> header.
++  # Precompressed versions of these files are checked first. Brotli (.br) and gzip
++  # (.gz) files are supported. If `path`.br exists, this endpoint returns that
++  # file with a `content-encoding: br` header.
+   #
+-  # If no matching file is found, this endpoint responds <tt>404 Not Found</tt>.
++  # If no matching file is found, this endpoint responds `404 Not Found`.
+   #
+-  # Pass the +root+ directory to search for matching files, an optional
+-  # <tt>index: "index"</tt> to change the default +path+/index.html, and optional
+-  # additional response headers.
++  # Pass the `root` directory to search for matching files, an optional `index:
++  # "index"` to change the default `path`/index.html, and optional additional
+(exit of diff above is not shown; empty means identical)
+==== redirecting
+--- /cache/bundle/ruby/3.4.0/gems/actionpack-7.1.6/lib/action_controller/metal/redirecting.rb	2026-11-13 02:06:52.679404588 +0000
++++ /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_controller/metal/redirecting.rb	2026-11-13 02:49:22.972252339 +0000
+@@ -1,5 +1,7 @@
+ # frozen_string_literal: true
+ 
++# :markup: markdown
++
+ module ActionController
+   module Redirecting
+     extend ActiveSupport::Concern
+@@ -9,137 +11,158 @@
+ 
+     class UnsafeRedirectError < StandardError; end
+ 
+-    ILLEGAL_HEADER_VALUE_REGEX = /[\x00-\x08\x0A-\x1F]/.freeze
++    ILLEGAL_HEADER_VALUE_REGEX = /[\x00-\x08\x0A-\x1F]/
+ 
+     included do
+       mattr_accessor :raise_on_open_redirects, default: false
+     end
+ 
+-    # Redirects the browser to the target specified in +options+. This parameter can be any one of:
++    # Redirects the browser to the target specified in `options`. This parameter can
++    # be any one of:
+     #
+-    # * <tt>Hash</tt> - The URL will be generated by calling url_for with the +options+.
+-    # * <tt>Record</tt> - The URL will be generated by calling url_for with the +options+, which will reference a named URL for that record.
+-    # * <tt>String</tt> starting with <tt>protocol://</tt> (like <tt>http://</tt>) or a protocol relative reference (like <tt>//</tt>) - Is passed straight through as the target for redirection.
+-    # * <tt>String</tt> not containing a protocol - The current protocol and host is prepended to the string.
+-    # * <tt>Proc</tt> - A block that will be executed in the controller's context. Should return any option accepted by +redirect_to+.
+-    #
+-    # === Examples
+-    #
+-    #   redirect_to action: "show", id: 5
+-    #   redirect_to @post
+-    #   redirect_to "http://www.rubyonrails.org"
+-    #   redirect_to "/images/screenshot.jpg"
+-    #   redirect_to posts_url
+-    #   redirect_to proc { edit_post_url(@post) }
+-    #
+-    # The redirection happens as a <tt>302 Found</tt> header unless otherwise specified using the <tt>:status</tt> option:
+-    #
+-    #   redirect_to post_url(@post), status: :found
+-    #   redirect_to action: 'atom', status: :moved_permanently
+-    #   redirect_to post_url(@post), status: 301
+-    #   redirect_to action: 'atom', status: 302
+-    #
+-    # The status code can either be a standard {HTTP Status code}[https://www.iana.org/assignments/http-status-codes] as an
+-    # integer, or a symbol representing the downcased, underscored and symbolized description.
+-    # Note that the status code must be a 3xx HTTP code, or redirection will not occur.
++    # *   `Hash` - The URL will be generated by calling url_for with the `options`.
++    # *   `Record` - The URL will be generated by calling url_for with the
++    #     `options`, which will reference a named URL for that record.
++    # *   `String` starting with `protocol://` (like `http://`) or a protocol
++    #     relative reference (like `//`) - Is passed straight through as the target
++    #     for redirection.
++    # *   `String` not containing a protocol - The current protocol and host is
++    #     prepended to the string.
++    # *   `Proc` - A block that will be executed in the controller's context. Should
++    #     return any option accepted by `redirect_to`.
++    #
++    #
++    # ### Examples
++    #
++    #     redirect_to action: "show", id: 5
++    #     redirect_to @post
++    #     redirect_to "http://www.rubyonrails.org"
++    #     redirect_to "/images/screenshot.jpg"
++    #     redirect_to posts_url
++    #     redirect_to proc { edit_post_url(@post) }
++    #
++    # The redirection happens as a `302 Found` header unless otherwise specified
++    # using the `:status` option:
++    #
++    #     redirect_to post_url(@post), status: :found
++    #     redirect_to action: 'atom', status: :moved_permanently
++    #     redirect_to post_url(@post), status: 301
++    #     redirect_to action: 'atom', status: 302
++    #
++    # The status code can either be a standard [HTTP Status
++    # code](https://www.iana.org/assignments/http-status-codes) as an integer, or a
++    # symbol representing the downcased, underscored and symbolized description.
++    # Note that the status code must be a 3xx HTTP code, or redirection will not
++    # occur.
+     #
+     # If you are using XHR requests other than GET or POST and redirecting after the
+     # request then some browsers will follow the redirect using the original request
+     # method. This may lead to undesirable behavior such as a double DELETE. To work
+-    # around this you can return a <tt>303 See Other</tt> status code which will be
++    # around this you can return a `303 See Other` status code which will be
+     # followed using a GET request.
+     #
+-    #   redirect_to posts_url, status: :see_other
+-    #   redirect_to action: 'index', status: 303
+-    #
+-    # It is also possible to assign a flash message as part of the redirection. There are two special accessors for the commonly used flash names
+-    # +alert+ and +notice+ as well as a general purpose +flash+ bucket.
+-    #
+-    #   redirect_to post_url(@post), alert: "Watch it, mister!"
+-    #   redirect_to post_url(@post), status: :found, notice: "Pay attention to the road"
+(exit of diff above is not shown; empty means identical)
+==== number converter
+--- /cache/bundle/ruby/3.4.0/gems/activesupport-7.1.6/lib/active_support/number_helper/number_converter.rb	2026-11-13 02:06:51.956602614 +0000
++++ /cache/bundle/ruby/3.4.0/gems/activesupport-7.2.4/lib/active_support/number_helper/number_converter.rb	2026-11-13 02:49:22.699289342 +0000
+@@ -164,11 +164,11 @@
+         end
+ 
+         def translate_number_value_with_default(key, **i18n_options)
+-          I18n.translate(key, **{ default: default_value(key), scope: :number }.merge!(i18n_options))
++          I18n.translate(key, default: default_value(key), scope: :number, **i18n_options)
+         end
+ 
+         def translate_in_locale(key, **i18n_options)
+-          translate_number_value_with_default(key, **{ locale: options[:locale] }.merge(i18n_options))
++          translate_number_value_with_default(key, locale: options[:locale], **i18n_options)
+         end
+ 
+         def default_value(key)
+@@ -180,7 +180,7 @@
+           when Float, Rational
+             number.to_d(0)
+           when String
+-            BigDecimal(number, exception: false)
++            BigDecimal(number, exception: false) unless number.to_s.match?(/[de]/i)
+           else
+             number.to_d rescue nil
+           end
+(exit of diff above is not shown; empty means identical)
+==== inflector humanize
+--- /cache/bundle/ruby/3.4.0/gems/activesupport-7.1.6/lib/active_support/inflector/methods.rb	2026-11-13 02:06:51.948047316 +0000
++++ /cache/bundle/ruby/3.4.0/gems/activesupport-7.2.4/lib/active_support/inflector/methods.rb	2026-11-13 02:49:22.685981525 +0000
+@@ -143,13 +143,13 @@
+         result.delete_suffix!(" id")
+       end
+ 
+-      result.gsub!(/([a-z\d]+)/i) do |match|
++      result.gsub!(/([[[:alpha:]]\d]+)/i) do |match|
+         match.downcase!
+         inflections.acronyms[match] || match
+       end
+ 
+       if capitalize
+-        result.sub!(/\A\w/) do |match|
++        result.sub!(/\A[[:alpha:]]/) do |match|
+           match.upcase!
+           match
+         end
+(exit of diff above is not shown; empty means identical)

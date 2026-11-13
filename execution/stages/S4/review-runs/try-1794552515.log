@@ -1,0 +1,114 @@
+setup exit=0
+assets exit=0
+s4 exit=0 rails 8.0.5.2 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s3 exit=0 rails 7.2.4 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+s4b exit=0 rails 8.0.5.2 env production responses=230 deprecations=0 messages=3   
+No configuration file found at config/postal/postal.yml
+Only using environment variables for configuration
+==== status counts on 8.0.5.2
+    153 200      14 302      11 400       1 403      23 404       6 406      14 422       8 500       1 temp webhook created: true 200 
+==== Vary values, count per version
+7.2.4:        27 "Accept"     203 nil 
+8.0.5.2:     160 "Accept, X-Requested-With"      70 nil 
+==== responses with no Vary on 8.0.5.2
+==== responses whose Vary is not the declared value on 8.0.5.2
+==== summaries with Vary left out, 7.2.4 < > 8.0.5.2
+(end of summary diff)
+==== response files that differ beyond the Vary header (7.2.4 < > 8.0.5.2)
+--- 225.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=s4fixedkey0000000000000A
+58c58
+< "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6b2eb866e_b8a4850046\""]
+---
+> "content-type":["multipart/mixed; boundary=\"--==_mimepart_6af6b2f89f5a5_c7a48-1a8\""]
+61c61
+< "raw_message":"UmVjZWl2ZWQ6IGZyb20gYXBpICggW10pIGJ5IHBvc3RhbC5leGFtcGxlLmNv\nbSB3aXRoIEhUVFA7IEZyaSwgMTMgTm92IDIwMjYgMDY6NDk6MTUgKzAwMDAN\nCkRhdGU6IEZyaSwgMTMgTm92IDIwMjYgMDY6NDk6MTUgKzAwMDANCkZyb206\nIHRlc3RAczQuZXhhbXBsZS5jb20NClRvOiBqb2huQGV4YW1wbGUuY29tDQpD\nYzogY2NAZXhhbXBsZS5jb20NCk1lc3NhZ2UtSUQ6IDxkZTNhZmIwMS02NDI1\nLTQ5ZWMtYjA2MS0yMGYxOGU1MmE5MDBAcnAucG9zdGFsLmV4YW1wbGUuY29t\nPg0KU3ViamV
+---
+> "raw_message":"UmVjZWl2ZWQ6IGZyb20gYXBpICggW10pIGJ5IHBvc3RhbC5leGFtcGxlLmNv\nbSB3aXRoIEhUVFA7IEZyaSwgMTMgTm92IDIwMjYgMDY6NDk6MjggKzAwMDAN\nCkRhdGU6IEZyaSwgMTMgTm92IDIwMjYgMDY6NDk6MjggKzAwMDANCkZyb206\nIHRlc3RAczQuZXhhbXBsZS5jb20NClRvOiBqb2huQGV4YW1wbGUuY29tDQpD\nYzogY2NAZXhhbXBsZS5jb20NCk1lc3NhZ2UtSUQ6IDxjMjA5Mjg2YS00YjA2\nLTRlZDgtOGQzMC1lMzI3ZDFhMDg2NzVAcnAucG9zdGFsLmV4YW1wbGUuY29t\nPg0KU3ViamV
+compared 230 response files, 160 differ at all, 1 differ beyond Vary
+==== same version twice (8.0.5.2 first run < > third run), files that differ: noise
+noise 061.txt: GET /org/s4org/servers/s4server/messages/new
+noise 069.txt: GET /org/s4org/servers/s4server/credentials
+noise 144.txt: GET /org/s4org/servers/s4server/credentials HTTP_ACCEPT=text/javascript, */*; q=0.01 HTTP_X_REQUESTE
+noise 225.txt: POST /api/v1/messages/message CONTENT_TYPE=application/json HTTP_X_SERVER_API_KEY=s4fixedkey00000000
+==== mails (7.2.4 < > 8.0.5.2)
+mails: 7, raised: 0
+==== facts (7.2.4 < > 8.0.5.2)
+227c227
+< "6.16
+---
+> "8.52
+328,331c328
+< "true",
+< same_site:
+< "#<Proc:0x0000e1c763f06650
+< /cache/bundle/ruby/3.4.0/gems/actionpack-7.2.4/lib/action_dispatch/middleware/session/cookie_store.rb:62>"},
+---
+> "true"},
+354c351
+< [true,
+---
+> [:offset,
+368a366,367
+> [:to_time_preserves_timezone,
+> :offset],
+388c387
+< logger=#<ActiveSupport::BroadcastLogger:0x0000e1c761e70a
+---
+> logger=#<ActiveSupport::BroadcastLogger:0x0000e0c4b6104b
+(end of facts diff)
+==== facts that raised on 8.0.5.2
+route.rb:122 bad endpoint: RAISED Postal::Error: Invalid endpoint class name 'Nope'
+action controller and view settings: RAISED NoMethodError: undefined method 'wrap_parameters_by_default' for class ActionController::Base
+==== Rails log, normalized (7.2.4 < > 8.0.5.2): 1241 and 1249 lines
+106c106,107
+< ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a'):
+---
+> ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a')
+> Caused by: ActionDispatch::ParameterTypeError (expected Hash (got Array) for param `a')
+108,109c109
+< Causes:
+< Rack::QueryParser::ParameterTypeError (expected Hash (got Array) for param `a')
+---
+> Information for: ActionController::BadRequest (Invalid query parameters: expected Hash (got Array) for param `a'):
+110a111,114
+> 
+> Information for cause: ActionDispatch::ParameterTypeError (expected Hash (got Array) for param `a'):
+>   
+> lib/tracking_middleware.rb:13:in 'TrackingMiddleware#call'
+147c151,152
+< ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError):
+---
+> ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError)
+> Caused by: Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError)
+149,150c154
+< Causes:
+< Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError)
+---
+> Information for: ActionController::BadRequest (Invalid request parameters: Rack::Multipart::EmptyContentError):
+151a156,159
+> 
+> Information for cause: Rack::Multipart::EmptyContentError (Rack::Multipart::EmptyContentError):
+>   
+> lib/tracking_middleware.rb:13:in 'TrackingMiddleware#call'
+957c965
+< ActionController::ParameterMissing (param is missing or the value is empty: domain):
+---
+> ActionController::ParameterMissing (param is missing or the value is empty or invalid: domain):
+975c983
+< ActionController::ParameterMissing (param is missing or the value is empty: credential):
+---
+> ActionController::ParameterMissing (param is missing or the value is empty or invalid: credential):
+1004c1012
+< ActionController::ParameterMissing (param is missing or the value is empty: route):
+==== Postal's own log on stdout, normalized (7.2.4 < > 8.0.5.2)
+lines: 0 and 0; sample:
+(end of own log diff)
+==== errors in output
+/tmp/s4.out:0
+/tmp/s3.out:0
+/tmp/s4b.out:0
+==== end

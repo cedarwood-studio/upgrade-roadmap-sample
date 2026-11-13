@@ -1,0 +1,487 @@
+{
+ "command": null,
+ "data": {
+  "affected_lines": 78,
+  "coverage_available": true,
+  "executed_by_suite": 31,
+  "file_not_loaded": 24,
+  "lines": [
+   {
+    "file": "app/models/credential.rb",
+    "line": 34,
+    "rule": "rails-7.1-default-column-serializer",
+    "state": "executed"
+   },
+   {
+    "file": "app/models/webhook_request.rb",
+    "line": 37,
+    "rule": "rails-7.1-default-column-serializer",
+    "state": "executed"
+   },
+   {
+    "file": "app/models/server.rb",
+    "line": 92,
+    "rule": "rails-7.1-after-commit-callback-order",
+    "state": "executed"
+   },
+   {
+    "file": "config/environments/test.rb",
+    "line": 28,
+    "rule": "rails-7.2-show-exceptions-boolean",
+    "state": "executed"
+   },
+   {
+    "file": "bin/update",
+    "line": 24,
+    "rule": "rails-8.0-db-migrate-loads-schema",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "db/schema.rb",
+    "line": 13,
+    "rule": "rails-8.1-schema-columns-sorted",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/views/organizations/edit.html.haml",
+    "line": 22,
+    "rule": "rails-7.2-time-zone-astana-mapping",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/views/user/edit.html.haml",
+    "line": 40,
+    "rule": "rails-7.2-time-zone-astana-mapping",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "lib/migration_waiter.rb",
+    "line": 18,
+    "rule": "rails-7.2-connection-migration-methods-moved-to-pool",
+    "state": "never-executed"
+   },
+   {
+    "file": "lib/migration_waiter.rb",
+    "line": 18,
+    "rule": "rails-7.2-base-connection-soft-deprecated",
+    "state": "never-executed"
+   },
+   {
+    "file": "lib/tasks/postal.rake",
+    "line": 31,
+    "rule": "rails-7.2-base-connection-soft-deprecated",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 46,
+    "rule": "rails-8.0-has-secure-password-reset-token",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/models/concerns/has_authentication.rb",
+    "line": 42,
+    "rule": "rails-8.0-has-secure-password-reset-token",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/models/concerns/has_authentication.rb",
+    "line": 53,
+    "rule": "rails-8.0-has-secure-password-reset-token",
+    "state": "executed"
+   },
+   {
+    "file": "app/views/app_mailer/password_reset.text.erb",
+    "line": 5,
+    "rule": "rails-8.0-has-secure-password-reset-token",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "db/schema.rb",
+    "line": 332,
+    "rule": "rails-8.0-has-secure-password-reset-token",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "config/database.yml",
+    "line": 2,
+    "rule": "rails-8.0-ar-mysql-5-5-dropped",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "lib/postal/message_db/delivery.rb",
+    "line": 8,
+    "rule": "rails-8.0-hwia-stringify-keys-all-keys",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/message_db/delivery.rb",
+    "line": 26,
+    "rule": "rails-8.0-hwia-stringify-keys-all-keys",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/message_db/message.rb",
+    "line": 217,
+    "rule": "rails-8.0-hwia-stringify-keys-all-keys",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/message_db/provisioner.rb",
+    "line": 133,
+    "rule": "rails-8.0-to-time-callers-zone",
+    "state": "never-executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 17,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 18,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 19,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 20,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 21,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 23,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 24,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 25,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 26,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 28,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 29,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 30,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "config/initializers/inflections.rb",
+    "line": 31,
+    "rule": "rails-8.0-inflector-overlapping-acronyms",
+    "state": "executed"
+   },
+   {
+    "file": "app/controllers/application_controller.rb",
+    "line": 37,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/application_controller.rb",
+    "line": 68,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "app/controllers/domains_controller.rb",
+    "line": 55,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/domains_controller.rb",
+    "line": 98,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/messages_controller.rb",
+    "line": 116,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/messages_controller.rb",
+    "line": 124,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/organization_ip_pools_controller.rb",
+    "line": 15,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 37,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 42,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 48,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 63,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 78,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 88,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/sessions_controller.rb",
+    "line": 96,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "never-executed"
+   },
+   {
+    "file": "app/controllers/users_controller.rb",
+    "line": 33,
+    "rule": "rails-8.0-csp-whitespace-semicolon-rejected",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 196,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 228,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 230,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 232,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 234,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 312,
+    "rule": "rails-8.0-rails-html-sanitizer-1-7-2",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 164,
+    "rule": "rails-8.1-benchmark-gem-dependency",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/lib/worker/process.rb",
+    "line": 256,
+    "rule": "rails-8.1-benchmark-gem-dependency",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "app/models/credential.rb",
+    "line": 74,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "app/models/credential.rb",
+    "line": 75,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "app/models/credential.rb",
+    "line": 92,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "app/models/credential.rb",
+    "line": 93,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "lib/postal/config_schema.rb",
+    "line": 92,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 39,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 137,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 140,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 141,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 147,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 149,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 179,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 194,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "executed"
+   },
+   {
+    "file": "lib/postal/http/address_guard.rb",
+    "line": 195,
+    "rule": "rails-8.1-ipaddr-json-prefix",
+    "state": "not-an-executable-line"
+   },
+   {
+    "file": "config/initializers/trusted_proxies.rb",
+    "line": 4,
+    "rule": "rails-8.1-remote-ip-forwarded-ports",
+    "state": "executed"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 228,
+    "rule": "rails-8.1-rails-html-sanitizer-minimum",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 230,
+    "rule": "rails-8.1-rails-html-sanitizer-minimum",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 232,
+    "rule": "rails-8.1-rails-html-sanitizer-minimum",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 234,
+    "rule": "rails-8.1-rails-html-sanitizer-minimum",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 312,
+    "rule": "rails-8.1-rails-html-sanitizer-minimum",
+    "state": "file-not-loaded-by-suite"
+   },
+   {
+    "file": "Gemfile.lock",
+    "line": 167,
+    "rule": "rails-8.0-json-3-quirks-mode",
+    "state": "file-not-loaded-by-suite"
+   }
+  ],
+  "never_executed": 17,
+  "not_executable_lines": 6,
+  "percent_executed": 43.1
+ },
+ "method": "derived",
+ "note": "Derived by joining scan hits with baseline line coverage. 'Executed' means the line ran during the suite, not that an assertion checks its result.",
+ "recorded": "2026-11-13T04:06:23Z",
+ "seconds": null,
+ "step": "affected"
+}

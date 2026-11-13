@@ -1,0 +1,159 @@
+# frozen_string_literal: true
+
+class AppMailer < ApplicationMailer
+
+  def verify_domain(domain, email_address, user)
+    @domain = domain
+    @email_address = email_address
+    @user = user
+    mail to: email_address, subject: "Verify your ownership of #{@domain.name}"
+  end
+
+  def password_reset(user, return_to = nil)
+    @user = user
+    @return_to = return_to
+    mail to: @user.email_address, subject: "Reset your Postal password"
+  end
+
+  def server_send_limit_approaching(server)
+    @server = server
+    mail to: @server.organization.notification_addresses, subject: "[#{server.full_permalink}] Mail server is approaching its send limit"
+  end
+
+app/views/app_mailer/password_reset.text.erb:5:<%= Postal.host_with_protocol %>/login/reset/<%= @user.password_reset_token %><%= @return_to ? "?return_to=#{ERB::Util.url_encode(@return_to)}" : '' %>
+# frozen_string_literal: true
+
+require_relative "../lib/postal/config"
+
+threads_count = Postal::Config.web_server.max_threads
+threads         threads_count, threads_count
+bind_address  = ENV.fetch("BIND_ADDRESS", Postal::Config.web_server.default_bind_address)
+bind_port     = ENV.fetch("PORT", Postal::Config.web_server.default_port)
+bind            "tcp://#{bind_address}:#{bind_port}"
+environment     Postal::Config.rails.environment || "development"
+prune_bundler
+quiet false
+14:      string :web_hostname do
+15-        description "The hostname that the Postal web interface runs on"
+16-        default "postal.example.com"
+17-      end
+18-
+19-      string :web_protocol do
+20-        description "The HTTP protocol to use for the Postal web interface"
+--
+216:      boolean :rails_log_enabled do
+217-        description "Enable the default Rails logger"
+218-        default false
+219-      end
+220-
+221-      string :sentry_dsn do
+222-        description "A DSN which should be used to report exceptions to Sentry"
+--
+459:      string :secret_key do
+460-        description "The secret key used to sign and encrypt cookies and session data in the application"
+461-      end
+462-    end
+463-
+464-    group :rspamd do
+465-      boolean :enabled do
+--
+540:    group :migration_waiter do
+541-      boolean :enabled do
+542-        description "Wait for all migrations to run before starting a process"
+543-        default false
+544-      end
+545-
+546-      integer :attempts do
+# frozen_string_literal: true
+
+class UserController < ApplicationController
+
+  skip_before_action :login_required, only: [:new, :create, :join]
+
+  def new
+    @user_invite = UserInvite.active.find_by!(uuid: params[:invite_token])
+    @user = User.new
+    @user.email_address = @user_invite.email_address
+    render layout: "sub"
+  end
+
+  def edit
+    @user = User.find(current_user.id)
+  end
+
+  def create
+    @user_invite = UserInvite.active.find_by!(uuid: params[:invite_token])
+    @user = User.new(params.require(:user).permit(:first_name, :last_name, :email_address, :password, :password_confirmation))
+    @user.email_verified_at = Time.now
+    if @user.save
+      @user_invite.accept(@user)
+      self.current_user = @user
+      redirect_to root_path
+    else
+      render "new", layout: "sub"
+    end
+  end
+
+  def update
+    @user = User.find(current_user.id)
+    safe_params = [:first_name, :last_name, :time_zone, :email_address]
+
+    if @user.password? && Postal::Config.oidc.local_authentication_enabled?
+      safe_params += [:password, :password_confirmation]
+      if @user.authenticate_with_previous_password_first(params[:password])
+        @password_correct = true
+      else
+        respond_to do |wants|
+          wants.html do
+            flash.now[:alert] = "The current password you have entered is incorrect. Please check and try again."
+            render "edit"
+          end
+          wants.json do
+            render json: { alert: "The current password you've entered is incorrect. Please check and try again" }
+          end
+        end
+        return
+      end
+    end
+
+    @user.attributes = params.require(:user).permit(safe_params)
+
+    if @user.save
+      redirect_to_with_json settings_path, notice: "Your settings have been updated successfully."
+    else
+      render_form_errors "edit", @user
+    end
+  end
+
+end
+app/views/address_endpoints/_form.html.haml:1:= form_for [organization, @server, @address_endpoint], :remote => true do |f|
+app/views/credentials/_form.html.haml:1:= form_for [organization, @server, @credential], :remote => true do |f|
+app/views/domains/_verify_with_email.html.haml:5:  = form_tag request.fullpath, :remote => true do
+app/views/domains/_verify_with_email.html.haml:19:  = form_tag request.fullpath, :remote => true do
+app/views/domains/new.html.haml:19:  = form_for [organization, @server, @domain], :remote => true do |f|
+app/views/http_endpoints/_form.html.haml:1:= form_for [organization, @server, @http_endpoint], :remote => true do |f|
+app/views/ip_addresses/_form.html.haml:1:= form_for [@ip_pool, @ip_address], :remote => true do |f|
+app/views/ip_pool_rules/_form.html.haml:2:  = form_for [organization, @server, @ip_pool_rule], :remote => true do |f|
+app/views/ip_pools/_form.html.haml:1:= form_for @ip_pool, :remote => true do |f|
+app/views/messages/_search.html.haml:1:= form_tag request.fullpath, :method => :get, :remote => true, :class => 'messageSearch', :enforce_utf8 => false do
+app/views/messages/new.html.haml:19:  = form_tag [organization, @server, :messages], :remote => true do
+app/views/organization_ip_pools/index.html.haml:20:    = form_tag [:assignments, @organization, :ip_pools], :method => :put do
+app/views/organizations/delete.html.haml:18:    = form_tag [organization, :delete], :method => :delete, :remote => true do
+app/views/organizations/edit.html.haml:13:  = form_for @organization_obj, :url => organization_settings_path(@organization_obj), :remote => true do |f|
+app/views/organizations/new.html.haml:8:  = form_for @organization, :remote => true do |f|
+app/views/routes/_form.html.haml:1:= form_for [organization, @server, @route], :remote => true do |f|
+app/views/servers/_form.html.haml:1:= form_for [organization, @server], :remote => true do |f|
+app/views/servers/_sidebar.html.haml:5:    = form_tag '', :class => 'sidebar__search js-searchable__input' do
+app/views/servers/advanced.html.haml:9:    = form_for [organization, @server], :remote => true do |f|
+app/views/servers/advanced.html.haml:65:    = form_tag [:unsuspend, organization, @server], :remote => true do
+app/views/servers/advanced.html.haml:70:    = form_tag [:suspend, organization, @server], :remote => true do
+app/views/servers/delete.html.haml:15:    = form_tag [organization, @server], :remote => true, :method => :delete do
+app/views/servers/spam.html.haml:12:  = form_for [organization, @server], :remote => true do |f|
+app/views/sessions/begin_password_reset.html.haml:9:  = form_tag login_reset_path, :class => 'loginForm' do
+app/views/sessions/finish_password_reset.html.haml:10:  = form_tag '', :class => 'loginForm' do
+app/views/sessions/new.html.haml:7:  = form_tag login_path, :class => 'loginForm' do
+app/views/smtp_endpoints/_form.html.haml:1:= form_for [organization, @server, @smtp_endpoint], :remote => true do |f|
+app/views/track_domains/_form.html.haml:1:= form_for [organization, @server, @track_domain], :remote => true do |f|
+app/views/user/edit.html.haml:6:  = form_for @user, :url => settings_path, :remote => true do |f|
+app/views/users/_form.html.haml:1:= form_for @user, :url => @user.new_record? ? users_path : user_path(@user), :remote => true do |f|
+app/views/webhooks/_form.html.haml:1:= form_for [organization, @server, @webhook], :remote => true do |f|
