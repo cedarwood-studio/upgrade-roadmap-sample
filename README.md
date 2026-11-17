@@ -2,7 +2,7 @@
 
 **An unsolicited sample.** Cedarwood Studio produced this from the public source of [postalserver/postal](https://github.com/postalserver/postal) at commit `d96eddb`, on November 13, 2026. Nobody at the Postal project requested it. We aren't affiliated with the project and it hasn't endorsed any of this. No issue, pull request or comment was sent upstream. The upgrade work sits on our own fork and stays there.
 
-This repository holds one complete Upgrade Roadmap, which is the fixed-price report we sell before a framework or runtime upgrade. It also holds the first four stages of the upgrade it plans, carried out on a fork with the checks and the review that gate each stage. It's here so the work can be checked line by line.
+This repository holds one complete Upgrade Roadmap, which is the fixed-price report we sell before a Rails upgrade. It also holds the first four stages of the upgrade it plans, carried out on a fork with the checks and the review that gate each stage. It's here so the work can be checked line by line.
 
 It doesn't judge Postal or the people who maintain it. We picked Postal because its license permits this and its test suite runs without secrets. If you maintain Postal and want something here corrected or taken down, write to hello@cedarwood.studio.
 
@@ -60,7 +60,7 @@ Read from files or public registries, nothing executed:
 Not verified:
 
 - **Stages S5 to S10 weren't run.** Rails 8.1 and the framework defaults are planned and estimated, and that's all.
-- **No person has reviewed any of this yet.** The reviews here are passes of our own process. Each had no part in the work it read, followed a written method and is recorded, and they found real things every round. That isn't a senior Rails engineer's read. A delivered roadmap gets one, and we haven't measured what it would add or cost.
+- **No person has reviewed any of this yet.** The reviews here are passes of our own process. Each had no part in the work it read, followed a written method and is recorded, and they found real things every round. That isn't a person's read. A roadmap we deliver to a client gets a person's review before delivery, and we haven't measured what that would add or cost.
 - **Production.** Everything ran in the test environment or in a production-mode boot with a throwaway key, with no real configuration, data or traffic. The request set was assembled from the routes and the specs. In a client engagement it would come from logged requests.
 - **The estimating rubric.** Its numbers were set by judgment. Nothing has calibrated it.
 - **Completeness.** The first run's search found four of the eight lines known so far. The second found everything on the first run's list and more. Neither figure says how much is still unfound. On the third stage each of the last three review rounds found a difference the stage hadn't declared, each smaller than the one before, and the last review stopped where its method ended.
