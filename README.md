@@ -12,7 +12,7 @@ It doesn't judge Postal or the people who maintain it. We picked Postal because 
 
 We ran the sample twice on the same commit, and the difference between the two runs is the main thing it shows.
 
-**The first run** was an automated pass with no separate review. It found four lines of Postal that documented Rails changes would break. Three stages went onto the fork, and each passed every check: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.
+**The first run** had no separate review. It found four lines of Postal that documented Rails changes would break. Three stages went onto the fork, and each passed every check: the test suite, a comparison of 170 recorded HTTP responses, and the same checks again on GitHub Actions.
 
 Then the work got a separate review pass. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the application didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check could see it. The review also had the Postal project's own upgrade branches to compare against, which most applications won't have.
 
