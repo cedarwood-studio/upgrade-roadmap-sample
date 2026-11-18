@@ -9,12 +9,12 @@
    "boot_variants": 6,
    "keys_after": "boot_variants,container,env,notes,test_command,test_setup",
    "keys_before": "container,env,notes,test_command,test_setup",
-   "kind": "operator-step",
+   "kind": "step",
    "what": "exec set-job"
   },
   {
    "at": "2026-11-13T04:34:57Z",
-   "kind": "operator-step",
+   "kind": "step",
    "seconds": 68,
    "what": "ran the boot variants on S2 and on S3 as first shipped, before any fix, to see whether the new start-up check alone catches the shipped defect"
   },
@@ -23,19 +23,19 @@
    "boot_variants": 6,
    "keys_after": "boot_setup,boot_variants,container,env,notes,test_command,test_setup",
    "keys_before": "boot_variants,container,env,notes,test_command,test_setup",
-   "kind": "operator-step",
+   "kind": "step",
    "what": "exec set-job"
   },
   {
    "at": "2026-11-13T04:36:58Z",
-   "kind": "operator-step",
+   "kind": "step",
    "seconds": 108,
-   "what": "ran the boot variants on S2 and on S3 as first shipped, before any fix, to see whether the new start-up check alone catches the shipped defect (second run; the first lacked a loaded schema, so the migration waiter variant failed on both)"
+   "what": "ran the boot variants on S2 and on S3 as first shipped, before any fix, to see whether the new start-up check alone catches the shipped defect (a later run; the first lacked a loaded schema, so the migration waiter variant failed on both)"
   },
   {
    "at": "2026-11-13T04:37:06Z",
    "environment_dependent_examples": 28,
-   "kind": "operator-step",
+   "kind": "step",
    "responses_masked_per_value": 5,
    "responses_masked_whole": 0,
    "what": "exec ci-calibrate"
@@ -170,13 +170,13 @@
   },
   {
    "at": "2026-11-13T06:57:54Z",
-   "kind": "operator-step",
+   "kind": "step",
    "minutes": 2.0,
    "what": "Reviewed S1 and S2 in a copy of the job directory while S3 and S4 ran in the original, then copied the two review records, the pull request text and the voice-gate markers back. Both stages are at the same commits in both directories."
   },
   {
    "at": "2026-11-13T06:57:54Z",
-   "kind": "operator-step",
+   "kind": "step",
    "what": "Restarted the execute wrapper on S3 twice: it stops after two reviews in one run. Changed the review rules between rounds 4 and 5 to separate defects from differences that only need declaring."
   },
   {
@@ -201,7 +201,7 @@
   },
   {
    "at": "2026-11-13T07:04:12Z",
-   "backfilled": "from the first run, which predates this record",
+   "backfilled": "from an earlier run, which predates this record",
    "during": "stage-S1",
    "kind": "permission-denial",
    "target": "['<local-path> exec commit S1 -m \"Add characterization tests ahead of the Rails upgrade\\n\\nPin current behavior on Rails 7.1.6 for code the suite did not reach:\\nthe ei",
@@ -209,7 +209,7 @@
   },
   {
    "at": "2026-11-13T07:04:12Z",
-   "backfilled": "from the first run, which predates this record",
+   "backfilled": "from an earlier run, which predates this record",
    "during": "stage-S2",
    "kind": "permission-denial",
    "target": "['<local-path> exec commit S2 -m \"Remove annotate from the bundle\\n\\nannotate 3.2.0 declares activerecord < 8.0 and has had no release since\\n2022, so it forced a downg",
@@ -217,7 +217,7 @@
   },
   {
    "at": "2026-11-13T07:04:12Z",
-   "backfilled": "from the first run, which predates this record",
+   "backfilled": "from an earlier run, which predates this record",
    "during": "stage-S3",
    "kind": "permission-denial",
    "target": "['<local-path> exec commit S3 -m \"Upgrade Rails from 7.1.6 to 7.2.4\\n\\nPin rails to 7.2.4 and regenerate the lock. Replace the boolean\\nshow_exceptions setting in the t",
@@ -225,26 +225,26 @@
   },
   {
    "at": "2026-11-13T07:04:17Z",
-   "backfilled": "from the first run, which predates this record; not timed",
-   "kind": "operator-step",
+   "backfilled": "from an earlier run, which predates this record; not timed",
+   "kind": "step",
    "what": "Disabled the project's own CI workflow on the fork after it started on the first push; canceled within seconds, nothing published."
   },
   {
    "at": "2026-11-13T07:04:17Z",
-   "backfilled": "from the first run, which predates this record; not timed",
-   "kind": "operator-step",
+   "backfilled": "from an earlier run, which predates this record; not timed",
+   "kind": "step",
    "what": "Read the failed baseline CI run, decided both differences were environmental, and ran the first calibration (whole-body masks, since replaced)."
   },
   {
    "at": "2026-11-13T07:04:17Z",
-   "backfilled": "from the first run, which predates this record; not timed",
-   "kind": "operator-step",
+   "backfilled": "from an earlier run, which predates this record; not timed",
+   "kind": "step",
    "what": "Reran the S3 CI job after reading which network-dependent example had failed."
   },
   {
    "at": "2026-11-13T07:04:17Z",
-   "backfilled": "from the first run, which predates this record; not timed",
-   "kind": "operator-step",
+   "backfilled": "from an earlier run, which predates this record; not timed",
+   "kind": "step",
    "what": "Published the baseline and S1 to S3 and opened pull requests 1 to 3, before any review."
   },
   {

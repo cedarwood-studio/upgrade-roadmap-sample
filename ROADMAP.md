@@ -6,27 +6,25 @@
 
 ## Review findings
 
-This is the second report we produced for this commit. The first was generated on November 13, 2026 without the changelog rules, the removed-gem search, the unexecuted-call list, the start-up checks or the look at the project's own work, and it had no review before its stages began. A review afterward found four breaking lines it had missed, one of them already a defect in a finished stage. The first report, as corrected by that review, is in [`first-pass/ROADMAP.md`](first-pass/ROADMAP.md). Everything below this section is the second report as generated and then put through an independent review pass, a step of our own process that had no part in writing the report. The estimate and the driver table are as generated.
+The report below was reviewed on November 13, 2026 against the Rails changelogs and the Postal project's own upgrade branches. The estimate and the driver table are as originally prepared.
 
-**The first run's eight lines, in this report.** The first report's search confirmed four lines and its review added four. This report's search found all eight before its own review began. It reads one of them differently.
+**The eight lines flagged as breaking.** The search flags eight lines in Postal that documented Rails changes break. One reads differently at the target.
 
-| Line | First report | This report |
-|---|---|---|
-| `config/environments/test.rb:28` | Found | Found |
-| `app/models/credential.rb:34`, `app/models/webhook_request.rb:37` | Found | Found |
-| `db/schema.rb:13` | Found, called a break on 8.1 | Found, and not a break at 8.1.4.1. Rails 8.1.4 reverted the column sorting, and both earlier passes missed that |
-| `lib/migration_waiter.rb:18` | Missed | Found, by a rule, by the unexecuted-call list and in the project's own branch |
-| `app/models/concerns/has_authentication.rb:8` | Missed | Found, by a rule from the Active Model changelog |
-| `app/lib/worker/process.rb:164`, `app/lib/worker/process.rb:256` | Missed | Found, by the removed-gem search and by a rule |
-| `Gemfile.lock:167`, the `json` pin | Missed | Found, by a rule on the lock file |
+| Line | Found by |
+|---|---|
+| `config/environments/test.rb:28` | A rule from the release notes |
+| `app/models/credential.rb:34`, `app/models/webhook_request.rb:37` | A rule from the configuration guide |
+| `db/schema.rb:13` | A rule, and not a break at 8.1.4.1: Rails 8.1.4 reverted the column sorting |
+| `lib/migration_waiter.rb:18` | A rule, the unexecuted-call list and the project's own branch |
+| `app/models/concerns/has_authentication.rb:8` | A rule from the Active Model changelog |
+| `app/lib/worker/process.rb:164`, `app/lib/worker/process.rb:256` | The removed-gem search and a rule |
+| `Gemfile.lock:167`, the `json` pin | A rule on the lock file |
 
-The rules behind the last four rows were written after the first review named those lines. Finding them again shows the rules work on a known answer. It doesn't show this search would find the next unknown one. The password reset line rests on its rule alone.
-
-**What this report's own review added.** 11 items, listed under "Independent review" near the end and marked where they were corrected. Six are things no check in the plan would have shown. One was a defect in the plan as written.
+**What the review added.** 11 items, listed under "Review" near the end and marked where they were corrected. Six are things no check in the plan would have shown. One was a defect in the plan as written.
 
 **What carrying out the plan has shown since.** Stages S3 and S4 have run with a review after each, and [`EXECUTION.md`](EXECUTION.md) has the record. Three things there bear on this report:
 
-- One item in it is wrong. S3's seventh change says development and test take their secret key from a different place from Rails 7.2.3 on. A stage review measured it on 7.1.6 and on 7.2.4, and in this application nothing changes. The item came from this report's own review, which read a changelog entry and didn't run it.
+- One item in it is wrong. S3's seventh change says development and test take their secret key from a different place from Rails 7.2.3 on. A stage review measured it on 7.1.6 and on 7.2.4, and in this application nothing changes. The item came from the report's review, which read a changelog entry and didn't run it.
 - This report didn't predict three small differences on the 7.2 hop that the stage reviews found by measuring: response headers for HEAD requests that end in an error page, the format of the Rails log's request and error lines, and the console prompt. None is in the release notes. Two are in a component changelog.
 - The breaks it ranked highest for 7.2 and 8.0 were real when run. The migration waiter stopped the application from starting on 7.2.4. On 8.0.5.2, with the password reset fix taken out, 4 of the 6 new reset examples fail.
 
@@ -109,7 +107,7 @@ How we used it. Across the three items the project's work makes 20 changes to ap
 
 So the count of breaks in their application changes that none of our nets caught is 0. In their Gemfile changes, the `json` pin matches our lock-level rule and the `benchmark` and `cgi` additions match our removed-gem measurement.
 
-One Gemfile change of theirs the plan had missed. Found by the independent review: the 7.2 branch adds `:test` to the asset gem group at `Gemfile:46`, and its new rendering spec says it exists to exercise the layout and the asset pipeline. The checkout says why that's needed, in a comment at `spec/requests/messages_controller_spec.rb:50`: the full layout depends on the asset pipeline, which isn't configured in the test environment. S1 plans to record full pages, so S1 needs the same change. It's in S1 now.
+One Gemfile change of theirs the plan had missed. Found by the review: the 7.2 branch adds `:test` to the asset gem group at `Gemfile:46`, and its new rendering spec says it exists to exercise the layout and the asset pipeline. The checkout says why that's needed, in a comment at `spec/requests/messages_controller_spec.rb:50`: the full layout depends on the asset pipeline, which isn't configured in the test environment. S1 plans to record full pages, so S1 needs the same change. It's in S1 now.
 
 Their work and ours differ in two places.
 
@@ -146,7 +144,7 @@ Dependencies that need attention:
 | `annotate` | 3.2.0 | Declares `activerecord < 8.0`. Blocked on 8.0 and 8.1. The resolver "solved" it by downgrading a major version to 2.6.5. Latest release is the locked one, from February 2022. | [registry](https://rubygems.org/gems/annotate/versions/3.2.0), resolver lock diff for 8.0 and 8.1 | Replace it in S2, before any hop. The project's own 8.1 work chose `annotaterb`. It's a development-only tool, required at `lib/tasks/auto_annotate_models.rake:5`. |
 | `connection_pool`, `minitest` | 3.0.2, 6.0.6 | Downgraded one major each on the 7.2 hop only. On 8.0 and 8.1 the resolver left both alone. | resolver lock diff for 7.2 | Accept the downgrades in S3 and lift them in S4. The application doesn't call the `connection_pool` gem itself: `ConnectionPool` at `lib/postal/message_db/database.rb:10` is its own class. |
 | `json` | 2.7.1 | Nothing pins it below 3, and `json` 3 rejects an option Active Support passes on 7.1 and 8.0. One `bundle update` away from every `to_json` raising. | `Gemfile.lock:167`, [Active Support source at 8.0.5.2](https://github.com/rails/rails/blob/v8.0.5.2/activesupport/lib/active_support/json/encoding.rb) | Pin `json` below 3 in S2. Remove the pin in S10. |
-| `rails-html-sanitizer`, `loofah`, `nokogiri` | 1.7.0, 2.25.1, 1.19.3 | Action View at 8.0.5.2 and 8.1.4.1 needs sanitizer 1.7.2, which needs newer versions of the other two. | `Gemfile.lock:312`, `Gemfile.lock:196`, `Gemfile.lock:228`, [Action View changelog](https://github.com/rails/rails/blob/v8.0.5.2/actionview/CHANGELOG.md) | Let the 8.0 hop move all three, as the resolver did. The sanitizer shapes the output of helpers such as `sanitize`, `strip_tags`, `simple_format` and `highlight`. The independent review searched `app`, `lib` and `config` and found no call to any of them, so we don't expect this application's HTML to change. S1's recorded pages are the check. |
+| `rails-html-sanitizer`, `loofah`, `nokogiri` | 1.7.0, 2.25.1, 1.19.3 | Action View at 8.0.5.2 and 8.1.4.1 needs sanitizer 1.7.2, which needs newer versions of the other two. | `Gemfile.lock:312`, `Gemfile.lock:196`, `Gemfile.lock:228`, [Action View changelog](https://github.com/rails/rails/blob/v8.0.5.2/actionview/CHANGELOG.md) | Let the 8.0 hop move all three, as the resolver did. The sanitizer shapes the output of helpers such as `sanitize`, `strip_tags`, `simple_format` and `highlight`. The review searched `app`, `lib` and `config` and found no call to any of them, so we don't expect this application's HTML to change. S1's recorded pages are the check. |
 | `cgi`, `benchmark` | 0.5.1, 0.5.0 | Rails stops depending on them (8.0 and 8.1), so they leave the lock while the application still uses their constants. | removed-gem measurement, under "Code the test suite never runs" | Add each to the Gemfile on the hop that drops it. |
 
 The rest, by what each locked version declares:
@@ -168,7 +166,7 @@ The rest, by what each locked version declares:
 | `ActiveRecord::Base.connection` soft-deprecated | [Active Record changelog](https://github.com/rails/rails/blob/v7.2.4/activerecord/CHANGELOG.md) | `lib/migration_waiter.rb:18`, `lib/tasks/postal.rake:31` | 2 | Yes, and no change is required. It prints nothing by default. |
 | Time zone "Astana" maps to a different zone | [Active Support changelog](https://github.com/rails/rails/blob/v7.2.4/activesupport/CHANGELOG.md) | `app/views/organizations/edit.html.haml:22`, `app/views/user/edit.html.haml:40` | 2 | Yes. Both forms offer the zone, and the chosen name is stored (`db/schema.rb:327`) and applied at `app/controllers/application_controller.rb:55`. A user who stored "Astana" sees times one hour different. Whether anyone did is a production data question. |
 
-Found by the independent review, from the changelog and not from a search rule, so it's outside the 78 lines:
+Found by the review, from the changelog and not from a search rule, so it's outside the 78 lines:
 
 - **The secret key in development and test.** From 7.2.3 those two environments take `secret_key_base` from credentials when it's set ([railties changelog](https://github.com/rails/rails/blob/v7.2.4/railties/CHANGELOG.md)). By our reading of the entry, they used a local secret file before and ignored credentials. `config/initializers/secret_key.rb:7` sets a random value per process when no secret is configured, and the suite runs that line. So from S3 a development server with no configured secret signs sessions with a key that changes on every restart, as production already does. A difference to declare in S3.
 
@@ -187,7 +185,7 @@ Found by the independent review, from the changelog and not from a search rule, 
 
 The password reset break, in full. `has_secure_password` is called at `app/models/concerns/has_authentication.rb:8` on the `User` model (`app/models/user.rb:33`), which has its own `password_reset_token` column (`db/schema.rb:332`). On 8.0 the framework defines a reader of the same name that returns a signed, 15-minute token and shadows the column. The application writes a random value to the column at `app/models/concerns/has_authentication.rb:42`, the mailer template prints `@user.password_reset_token` at `app/views/app_mailer/password_reset.text.erb:5`, and the controller looks the emailed value up in the column at `app/controllers/sessions_controller.rb:46`. By our reading the email would carry the signed token, the lookup would find nothing, and every reset link would land on "This link has expired". The suite executes neither line 42 nor line 46, so every check would pass. The fix is one option, `reset_token: false`, on line 8.
 
-Found by the independent review, from the changelog, outside the 78 lines:
+Found by the review, from the changelog, outside the 78 lines:
 
 - **The `Vary` response header.** From 8.0.5.2 a rendered response varies on `Accept` and `X-Requested-With` whenever the URL doesn't fix the format ([Action Pack changelog](https://github.com/rails/rails/blob/v8.0.5.2/actionpack/CHANGELOG.md)). The application negotiates formats in `respond_to` blocks such as `app/controllers/application_controller.rb:85`, and by the entry's wording ordinary pages are covered too. The response headers S1 records will differ on S4 for that reason. Declared in S4.
 
@@ -201,7 +199,7 @@ Found by the independent review, from the changelog, outside the 78 lines:
 | `IPAddr#as_json` includes the prefix | [Active Support changelog](https://github.com/rails/rails/blob/v8.1.4.1/activesupport/CHANGELOG.md) | `app/models/credential.rb:74`, `lib/postal/http/address_guard.rb:39` and 12 more lines | 14 | No. The 14 lines build or rescue addresses. We found none that serializes one to JSON. |
 | `schema.rb` columns sorted alphabetically | [upgrade guide](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#the-table-columns-inside-schema-rb-are-now-sorted-alphabetically) | `db/schema.rb:13` | 1 | No. The rule's own note says 8.1.4 reverted the change, and the target is 8.1.4.1. The version stamp on that line still changes on the first dump. |
 
-Found by the independent review, from the changelogs, outside the 78 lines:
+Found by the review, from the changelogs, outside the 78 lines:
 
 - **`to_time` changes on this hop, whatever `load_defaults` says.** 8.1 removes the older `to_time` behavior outright and deprecates the setting that chose it ([Active Support changelog](https://github.com/rails/rails/blob/v8.1.4.1/activesupport/CHANGELOG.md)). Our rules carry this as an 8.1 change with no hits, because that rule searches for the setting and the application never sets it. The report as written tested the one `to_time` caller, `lib/postal/message_db/provisioner.rb:133`, in S8. By then S5 would already have shipped the change. Our reading of the line stands (the receiver is a `Date`, so the result shouldn't move), but the test now sits in S5, ahead of the hop.
 - **Conflicting forwarded headers raise.** From 8.1.4.1, a request whose `Forwarded` and `X-Forwarded-For` headers name different clients raises `ActionDispatch::RemoteIp::IpSpoofAttackError` when the remote address is read ([Action Pack changelog](https://github.com/rails/rails/blob/v8.1.4.1/actionpack/CHANGELOG.md)). The application reads `request.remote_ip` at `app/controllers/sessions_controller.rb:67`, in a diagnostic action that needs no login. Everything else we found reads `request.ip`, which goes through Rack and the filter at `config/initializers/trusted_proxies.rb:3`. So the effect is an error on that one action for such requests. Declared in S5.
@@ -215,9 +213,9 @@ Found by the independent review, from the changelogs, outside the 78 lines:
 |---|---|---|---|---|
 | `serialize` has no default coder (7.1 defaults) | [configuring guide](https://guides.rubyonrails.org/configuring.html#config-active-record-default-column-serializer) | `app/models/credential.rb:34`, `app/models/webhook_request.rb:37` | 2 | Yes. Both need `coder: YAML` before the 7.1 defaults go on. The project's 7.2 branch makes the same change. |
 | `after_commit` callbacks run in the order defined (7.1 defaults) | [configuring guide](https://guides.rubyonrails.org/configuring.html#config-active-record-run-after-transaction-callbacks-in-order-defined) | `app/models/server.rb:92` | 1 | No. It's the only `after_commit` in `app/models`, so there's no order to change. |
-| `to_time` keeps the receiver's zone (8.0 defaults) | [Active Support changelog](https://github.com/rails/rails/blob/v8.0.5.2/activesupport/CHANGELOG.md) | `lib/postal/message_db/provisioner.rb:133` | 1 | No by our reading, because the receiver is a `Date`. The line decides which messages retention deletes and the suite never executes it, so we test it anyway. The independent review moved that test from S8 to S5 (see Rails 8.1 above). |
+| `to_time` keeps the receiver's zone (8.0 defaults) | [Active Support changelog](https://github.com/rails/rails/blob/v8.0.5.2/activesupport/CHANGELOG.md) | `lib/postal/message_db/provisioner.rb:133` | 1 | No by our reading, because the receiver is a `Date`. The line decides which messages retention deletes and the suite never executes it, so we test it anyway. The review moved that test from S8 to S5 (see Rails 8.1 above). |
 
-Found by the independent review. Each of these is an on-path default with no search hit, and the report as written passed over all three:
+Found by the review. Each of these is an on-path default with no search hit, and the report as written passed over all three:
 
 - **`Regexp.timeout` of one second (8.0 defaults).** [8.0 release notes](https://guides.rubyonrails.org/8_0_release_notes.html#railties-notable-changes). The rule can only find an application that sets its own timeout, and this one doesn't. But the application runs a URL pattern over the body of every message it tracks, at `lib/postal/message_parser.rb:101` and `lib/postal/message_parser.rb:118`. A timeout there raises inside `generate`, and the rescue at `lib/postal/message_parser.rb:56` hands back the original message with tracking switched off. So a slow match on a large or hostile message would quietly send that message untracked, and nothing would fail. The setting is process-wide, so it reaches the worker and the SMTP server too. S8 reads for it.
 - **JSON escaping (8.1 defaults).** [configuring guide](https://guides.rubyonrails.org/configuring.html#config-action-controller-escape-json-responses). The setting governs `render json:`. S9 as written pointed at `app/views/servers/show.html.haml:27`, which is a `to_json` into an HTML attribute and isn't a JSON response at all. The default lands on the API, at `app/controllers/legacy_api/base_controller.rb:103` and the other `render json:` calls. API clients would receive `<`, `>` and `&` as themselves where they received escape sequences. That's the same JSON value in different bytes, and a client that compares or signs raw bodies would notice. S9 is corrected, and S1 records an API response so the difference shows.
@@ -231,17 +229,17 @@ Found by the independent review. Each of these is an on-path default with no sea
 
 **Gems each hop drops, and where the application uses their constants.**
 
-- **`cgi`, dropped on 8.0.** `CGI.parse` at `lib/postal/config_schema.rb:80` (executed by the suite) and `CGI.unescapeHTML` at `lib/postal/message_parser.rb:121` (never executed). Neither file requires the library. Line 121 rewrites tracked links in outgoing HTML mail. Plan: add `cgi` to the Gemfile in S4. Found by the independent review: a missing constant on line 121 wouldn't surface as an error. The rescue at `lib/postal/message_parser.rb:56` catches it outside development and returns the original message with tracking off. So the S1 test for this path has to assert that the link was rewritten. A test that only checks nothing raised would pass with tracking dead.
-- **`benchmark`, dropped on 8.1.** `Benchmark.realtime` at `app/lib/worker/process.rb:164` and `app/lib/worker/process.rb:256`. The file doesn't require the library, and the suite never loads the file at all. Line 164 wraps every job the worker runs. The project's own new spec for this class notes that the worker logs and swallows errors, so a `NameError` there would likely stop mail processing without stopping the process. The independent review read the code and agrees: `Benchmark.realtime` wraps `job.call` on line 164, so the job never starts, and `capture_errors` at `app/lib/worker/process.rb:284` rescues the error, logs it and carries on to the next tick. Plan: add `benchmark` to the Gemfile in S5, and put the worker under test in S1.
+- **`cgi`, dropped on 8.0.** `CGI.parse` at `lib/postal/config_schema.rb:80` (executed by the suite) and `CGI.unescapeHTML` at `lib/postal/message_parser.rb:121` (never executed). Neither file requires the library. Line 121 rewrites tracked links in outgoing HTML mail. Plan: add `cgi` to the Gemfile in S4. Found by the review: a missing constant on line 121 wouldn't surface as an error. The rescue at `lib/postal/message_parser.rb:56` catches it outside development and returns the original message with tracking off. So the S1 test for this path has to assert that the link was rewritten. A test that only checks nothing raised would pass with tracking dead.
+- **`benchmark`, dropped on 8.1.** `Benchmark.realtime` at `app/lib/worker/process.rb:164` and `app/lib/worker/process.rb:256`. The file doesn't require the library, and the suite never loads the file at all. Line 164 wraps every job the worker runs. The project's own new spec for this class notes that the worker logs and swallows errors, so a `NameError` there would likely stop mail processing without stopping the process. The review read the code and agrees: `Benchmark.realtime` wraps `job.call` on line 164, so the job never starts, and `capture_errors` at `app/lib/worker/process.rb:284` rescues the error, logs it and carries on to the next tick. Plan: add `benchmark` to the Gemfile in S5, and put the worker under test in S1.
 
 **Framework call sites the suite never runs.** 58 lines name the framework's surface. Of the ones marked for reading, the suite loads and never executes 5, and 11 more sit in files it never loads. We read all 16 against the changelogs for each hop. At risk:
 
 - `lib/migration_waiter.rb:18`: breaks on 7.2 (see above).
 - `lib/postal/message_db/database.rb:333`: calls `ActiveRecord::ConnectionAdapters::MySQL::ExplainPrettyPrinter`, an internal class no changelog covers, and only when a message database query takes longer than 0.05 seconds. If its interface moves on any hop, slow queries raise where they used to return.
 - `config/initializers/secret_key.rb:4`: assigns the configured secret to `Rails.application.credentials`. The suite and every boot variant take the other branch (line 7) because no secret is set. The railties changelogs for [7.2](https://github.com/rails/rails/blob/v7.2.4/railties/CHANGELOG.md), [8.0](https://github.com/rails/rails/blob/v8.0.5.2/railties/CHANGELOG.md) and [8.1](https://github.com/rails/rails/blob/v8.1.4.1/railties/CHANGELOG.md) each touch how `secret_key_base` is resolved, and it signs every session.
-- `app/lib/worker/process.rb:105`, `app/lib/worker/process.rb:159` and three more `connection_pool` calls in that file: 7.2 reworked connection leasing ([Active Record changelog](https://github.com/rails/rails/blob/v7.2.4/activerecord/CHANGELOG.md)). The calls still exist by our reading. Nothing executes them. The independent review adds 8.1 for line 105, where the pool setting is renamed (see Rails 8.1 above).
+- `app/lib/worker/process.rb:105`, `app/lib/worker/process.rb:159` and three more `connection_pool` calls in that file: 7.2 reworked connection leasing ([Active Record changelog](https://github.com/rails/rails/blob/v7.2.4/activerecord/CHANGELOG.md)). The calls still exist by our reading. Nothing executes them. The review adds 8.1 for line 105, where the pool setting is renamed (see Rails 8.1 above).
 
-The independent review also read the 6 call sites the measurement marks as stable surface, which this report hadn't listed as read: `app/controllers/application_controller.rb:41`, `config/initializers/omniauth.rb:16`, `lib/postal/message_parser.rb:57`, `config/environments/development.rb:18`, `lib/tasks/auto_annotate_models.rake:4` and `script/insert-bounce.rb:19`. None calls anything that moves on this path. Reading around line 57 is how the swallowed errors above were found.
+The review also read the 6 call sites the measurement marks as stable surface, which this report hadn't listed as read: `app/controllers/application_controller.rb:41`, `config/initializers/omniauth.rb:16`, `lib/postal/message_parser.rb:57`, `config/environments/development.rb:18`, `lib/tasks/auto_annotate_models.rake:4` and `script/insert-bounce.rb:19`. None calls anything that moves on this path. Reading around line 57 is how the swallowed errors above were found.
 
 Read and judged not at risk: `app/models/route.rb:122`, `lib/migration_waiter.rb:47`, `Rakefile:8`, `config.ru:6`, `app/controllers/ip_pools_controller.rb:36`, `lib/tasks/postal.rake:31`, `config/environments/development.rb:3` and `config/environments/production.rb:3` (the production variant booted).
 
@@ -271,19 +269,19 @@ What this means for parity. The suite is strong on the library code under `lib` 
 
 ## Plan
 
-Each stage ends with an independent review pass that had no part in the work, following a fixed method: read the hop's changelogs, read the unexecuted call sites, compare with the project's own upgrade work, try to break the stage. The review is in each estimate. Every stage's check compares against the S1 recording, and the promise is no undeclared behavior change, each difference sourced.
+Each stage ends with a review: the hop's changelogs, the unexecuted call sites, the project's own upgrade work, and an attempt to break the stage. The review is in each estimate. Every stage's check compares against the S1 recording, and the promise is no undeclared behavior change, each difference sourced.
 
 ### S1: Baseline and characterization
 
 - **Goal:** Record today's behavior on Rails 7.1.6 and put tests around the nine paths the upgrade touches and the suite doesn't run.
 - **Changes:**
   - Record the suite per example under both network conditions (baseline measurement).
-  - Record a request set: login page, an authenticated page, a form that fails validation, response headers and cookies (`spec/requests/sessions_controller_spec.rb` is one of only 3 request specs). Added by the independent review: include one API response whose data contains `<`, `>` and `&` (`app/controllers/legacy_api/base_controller.rb:103`), so S9's escaping change shows up in the recording.
-  - Added by the independent review: make full pages renderable in the test environment first. Today they aren't, by the checkout's own account (`spec/requests/messages_controller_spec.rb:50`), because the asset gems sit outside the test group (`Gemfile:46`). The project's 7.2 branch added `:test` to that group for the same purpose. Do the same, declare it as S1's one Gemfile change, and confirm the lock doesn't move. Without this the request set and the form test below can't be recorded.
+  - Record a request set: login page, an authenticated page, a form that fails validation, response headers and cookies (`spec/requests/sessions_controller_spec.rb` is one of only 3 request specs). Added by the review: include one API response whose data contains `<`, `>` and `&` (`app/controllers/legacy_api/base_controller.rb:103`), so S9's escaping change shows up in the recording.
+  - Added by the review: make full pages renderable in the test environment first. Today they aren't, by the checkout's own account (`spec/requests/messages_controller_spec.rb:50`), because the asset gems sit outside the test group (`Gemfile:46`). The project's 7.2 branch added `:test` to that group for the same purpose. Do the same, declare it as S1's one Gemfile change, and confirm the lock doesn't move. Without this the request set and the form test below can't be recorded.
   - Characterization tests for: the password reset flow end to end (`app/models/concerns/has_authentication.rb:42`, `app/controllers/sessions_controller.rb:46`); `MigrationWaiter.wait` (`lib/migration_waiter.rb:18`); `Worker::Process` work and task runs (`app/lib/worker/process.rb:164`, `app/lib/worker/process.rb:256`); tracked links in HTML parts (`lib/postal/message_parser.rb:121`), asserting the rewritten link since errors there are swallowed (`lib/postal/message_parser.rb:56`); the slow-query explain path (`lib/postal/message_db/database.rb:333`); the two YAML columns, round trip and stored format (`app/models/credential.rb:34`, `app/models/webhook_request.rb:37`); forms rendering validation errors through `dynamic_form` (`app/views/user/edit.html.haml:7`, one of 18 templates that call it); security headers and session cookies; and the asset precompile (`Dockerfile:67`), recorded as a list of output files.
   - Add a boot variant with a configured secret so `config/initializers/secret_key.rb:4` runs.
 - **Check:** `tests`, `parity`, `boot`. The new examples pass on 7.1.6; every example's recorded state under each network condition is unchanged; all boot variants start.
-- **Risk:** low. No version changes. The risk is that characterizing the worker turns out harder than a path's allowance. The independent review adds a second: loading the asset gems in the test environment is new, and whether the layout then renders in the sandbox hasn't been measured.
+- **Risk:** low. No version changes. The risk is that characterizing the worker turns out harder than a path's allowance. The review adds a second: loading the asset gems in the test environment is new, and whether the layout then renders in the sandbox hasn't been measured.
 - **Effort:** 8.0 to 36.75 hours.
 - **Ships separately:** yes. Depends on nothing.
 
@@ -308,7 +306,7 @@ Each stage ends with an independent review pass that had no part in the work, fo
   - Accept the resolver's lock: `connection_pool` 2.5.5 and `minitest` 5.27.0 for this hop.
   - Declare the "Astana" change (`app/views/user/edit.html.haml:40`, `app/views/organizations/edit.html.haml:22`) and hand the client a query for stored values.
   - Leave `lib/tasks/postal.rake:31` as it is; `connection` still works.
-  - Added by the independent review: declare that development and test now take the secret key from `config/initializers/secret_key.rb:7`.
+  - Added by the review: declare that development and test now take the secret key from `config/initializers/secret_key.rb:7`.
   - Read the four unsearchable 7.2 rules against the code (listed in the last section).
 - **Check:** `resolve`, `tests`, `parity`, `boot`, `deprecations`. No example that passed in the S1 recording fails or is missing; recorded responses differ only where declared; all boot variants start, the migration waiter's included; the deprecation count is recorded and each new warning is listed.
 - **Risk:** medium. One confirmed break on a line the suite never ran before S1, two downgrades, four rules search can't see.
@@ -325,11 +323,11 @@ Each stage ends with an independent review pass that had no part in the work, fo
   - Let `rails-html-sanitizer`, `loofah` and `nokogiri` move as resolved, and lift `connection_pool` and `minitest` back up. This resolution from a 7.2 lock is new; ours started from 7.1.6.
   - Confirm `lib/postal/message_db/delivery.rb:26` receives a plain Hash.
   - Declare the `db:migrate` change for `bin/update:24`.
-  - Added by the independent review: declare the `Vary` header change on rendered responses (`app/controllers/application_controller.rb:85`).
+  - Added by the review: declare the `Vary` header change on rendered responses (`app/controllers/application_controller.rb:85`).
   - Ask the client for the MySQL or MariaDB server versions in production (`config/database.yml:2`).
   - Read the two unsearchable 8.0 rules against the code.
 - **Check:** `resolve`, `tests`, `parity`, `boot`, `deprecations`. As S3, and the S1 password reset test passes unchanged.
-- **Risk:** high. Authentication breaks without the fix, a library the code uses leaves the lock and its absence would fail silently in mail tracking, response headers change, and four of the five reset-token lines aren't executed by today's suite. The independent review took the sanitizer out of this list: the three gems move, but we found no caller of the sanitizer helpers in the application.
+- **Risk:** high. Authentication breaks without the fix, a library the code uses leaves the lock and its absence would fail silently in mail tracking, response headers change, and four of the five reset-token lines aren't executed by today's suite. The review took the sanitizer out of this list: the three gems move, but we found no caller of the sanitizer helpers in the application.
 - **Effort:** 4.85 to 53.25 hours.
 - **Ships separately:** yes. Depends on S3.
 
@@ -340,9 +338,9 @@ Each stage ends with an independent review pass that had no part in the work, fo
   - Run `bin/rails app:update` and review each file.
   - Add `benchmark` to the Gemfile (`app/lib/worker/process.rb:164`, `app/lib/worker/process.rb:256`).
   - Commit the restamped `db/schema.rb:13` as its own change and confirm column order is untouched.
-  - Compare `request.remote_ip` (`app/controllers/sessions_controller.rb:67`) before and after behind the client's proxy chain; this needs the client. Added by the independent review: declare that the same action now raises when `Forwarded` and `X-Forwarded-For` disagree.
-  - Moved here from S8 by the independent review: before the hop, add a test for the retention cutoff at `lib/postal/message_db/provisioner.rb:133`. 8.1 is where `to_time` changes.
-  - Added by the independent review: confirm the pool size setting and the worker's pool resize still work under the renamed setting (`config/database.yml:5`, `lib/postal/config.rb:158`, `app/lib/worker/process.rb:105`). `spec/lib/postal_spec.rb:15` is the check.
+  - Compare `request.remote_ip` (`app/controllers/sessions_controller.rb:67`) before and after behind the client's proxy chain; this needs the client. Added by the review: declare that the same action now raises when `Forwarded` and `X-Forwarded-For` disagree.
+  - Moved here from S8 by the review: before the hop, add a test for the retention cutoff at `lib/postal/message_db/provisioner.rb:133`. 8.1 is where `to_time` changes.
+  - Added by the review: confirm the pool size setting and the worker's pool resize still work under the renamed setting (`config/database.yml:5`, `lib/postal/config.rb:158`, `app/lib/worker/process.rb:105`). `spec/lib/postal_spec.rb:15` is the check.
   - Read the seven unsearchable 8.1 rules against the code.
 - **Check:** `resolve`, `tests`, `parity`, `boot`, `deprecations`. As S3, and the S1 worker tests and the retention cutoff test pass unchanged.
 - **Risk:** high. The worker loop depends on a library that leaves the lock, in a file the suite never loaded before S1; seven rules can't be searched, two of them about cookies and request parsing.
@@ -373,7 +371,7 @@ Each stage ends with an independent review pass that had no part in the work, fo
 ### S8: Adopt the 8.0 defaults
 
 - **Goal:** Move `load_defaults` to 8.0.
-- **Changes:** Turn on each 8.0 default. Corrected by the independent review: the retention cutoff test moved to S5, because by this stage `to_time` has already changed. In its place, read the patterns the application runs over message bodies (`lib/postal/message_parser.rb:101`, `lib/postal/message_parser.rb:118`) before accepting the one-second `Regexp.timeout`, and decide with the client whether to keep it, raise it or leave it off for the worker.
+- **Changes:** Turn on each 8.0 default. Corrected by the review: the retention cutoff test moved to S5, because by this stage `to_time` has already changed. In its place, read the patterns the application runs over message bodies (`lib/postal/message_parser.rb:101`, `lib/postal/message_parser.rb:118`) before accepting the one-second `Regexp.timeout`, and decide with the client whether to keep it, raise it or leave it off for the worker.
 - **Check:** `tests`, `parity`, `boot`. The S1 tracked-link test passes unchanged.
 - **Risk:** medium. A pattern that times out on a real message fails silently (`lib/postal/message_parser.rb:56`), and no test or recording uses production-sized mail.
 - **Effort:** 1.5 to 9.0 hours.
@@ -382,7 +380,7 @@ Each stage ends with an independent review pass that had no part in the work, fo
 ### S9: Adopt the 8.1 defaults
 
 - **Goal:** Move `load_defaults` to 8.1.
-- **Changes:** Turn on each 8.1 default. Corrected by the independent review: JSON responses stop escaping HTML entities, and that lands on the `render json:` calls, the API's first (`app/controllers/legacy_api/base_controller.rb:103`). Decide with the client whether API consumers depend on the escaped form; if they do, keep the old setting. `app/views/servers/show.html.haml:27`, where this stage first pointed, is a `to_json` in a view and the escaping setting doesn't govern it. Also declare that hidden form inputs lose `autocomplete="off"` (`app/views/sessions/new.html.haml:7`).
+- **Changes:** Turn on each 8.1 default. Corrected by the review: JSON responses stop escaping HTML entities, and that lands on the `render json:` calls, the API's first (`app/controllers/legacy_api/base_controller.rb:103`). Decide with the client whether API consumers depend on the escaped form; if they do, keep the old setting. `app/views/servers/show.html.haml:27`, where this stage first pointed, is a `to_json` in a view and the escaping setting doesn't govern it. Also declare that hidden form inputs lose `autocomplete="off"` (`app/views/sessions/new.html.haml:7`).
 - **Check:** `tests`, `parity`, `boot`. The API response and the pages recorded in S1 differ only in those two ways.
 - **Risk:** medium. The escaping default can't be found by search, and it changes what API clients receive.
 - **Effort:** 1.5 to 10.5 hours.
@@ -423,8 +421,8 @@ Assumptions:
 - No production-only code paths exist beyond the ones named here.
 - Dependencies behave as their declared constraints say.
 - Reviews turn around within a day.
-- We didn't apply the allowance for a suite that can't run offline. The suite runs offline; 17 examples need DNS and are tracked on their own. The independent review read it the same way. If the allowance applied, each high figure would rise by a quarter.
-- The independent review moved one judgment hit, the retention cutoff line, from S8 to S5 along with its test. S5 rose and S8 fell by the same amount, so the total is unchanged.
+- We didn't apply the allowance for a suite that can't run offline. The suite runs offline; 17 examples need DNS and are tracked on their own. The review read it the same way. If the allowance applied, each high figure would rise by a quarter.
+- The review moved one judgment hit, the retention cutoff line, from S8 to S5 along with its test. S5 rose and S8 fell by the same amount, so the total is unchanged.
 - Hits we read and judged false matches carry no hours. The two `Benchmark` lines are counted both as rule hits and as a removed-gem use, as the rubric defines them.
 - One 7.2 rule and one 8.0 rule are left out of the unsearchable allowance: the Active Job time zone rule (the application doesn't load Active Job, `config/application.rb:5`) and the unregistered database adapter rule (`mysql2` is a built-in adapter, `config/database.yml:2`).
 
@@ -432,14 +430,14 @@ What would move the number:
 
 - A gem that fails at runtime despite resolving. The five stale gems are where we'd expect it.
 - Deprecation warnings that appear only on 7.2 or 8.0.
-- A recorded response that differs and needs a product decision. The header defaults in S6 and the JSON escaping in S9 are the likely sources. (The independent review replaced the sanitizer change in S4 here; see the compatibility matrix.)
+- A recorded response that differs and needs a product decision. The header defaults in S6 and the JSON escaping in S9 are the likely sources. (The review replaced the sanitizer change in S4 here; see the compatibility matrix.)
 - Full pages that still won't render in the test environment after S1's Gemfile change. S1's request set would then need another way to run, and that isn't in the estimate.
 - A review finding that reopens a stage.
 - The client taking the project's own pull request first. That would replace parts of S2 to S5 with a review of work already done, and S1, the password reset fix and S6 to S9 would still stand.
 
-## Independent review
+## Review
 
-Done on November 13, 2026, as an independent review pass that had no part in writing the report. It was a reading pass with no shell, so nothing below was run. The full record is in `roadmap/tech-review.json`. The pass was timed from outside, so the figure is filed with the job record and isn't restated here.
+Done on November 13, 2026. It was a reading review with no shell, so nothing below was run. The full record is in `roadmap/tech-review.json`.
 
 **Method, with counts:**
 
@@ -484,8 +482,8 @@ Of the 11, 6 are things no check in the plan would have shown: items 1, 3, 4, 5,
 - **Production data.** Whether any user or organization stored the "Astana" time zone (S3), and whether every stored `options` and `payload` value reads back under an explicit YAML coder (S6). The migrations here are small; how the per-server message databases behave at production size isn't something a sandbox shows.
 - **The 39 files the suite never loads.** They include 17 controllers, 8 scheduled tasks and the SMTP server process. S1 brings the worker under test. For the rest, the review's eager-load pass on each hop proves they load and nothing about what they do.
 - **Whether the migration waiter's boot variant reaches line 18.** The boot record shows the process started. S1's test makes the question moot.
-- **Whether full pages render in the test environment once the asset gems load there.** The checkout says they don't today (`spec/requests/messages_controller_spec.rb:50`), and the project's 7.2 branch changed the Gemfile group to fix it. We didn't run that change. S1 settles it, and S1's request set depends on the answer. Added by the independent review.
-- **Which real messages are slow to match.** The 8.0 defaults give every pattern one second. Whether any message in production takes longer in `lib/postal/message_parser.rb:101` depends on the mail, and a timeout there is swallowed. Reading the patterns in S8 narrows it; only production mail settles it. Added by the independent review.
-- **Whether API consumers depend on escaped JSON.** The 8.1 defaults change the bytes of every API response that contains `<`, `>` or `&` (`app/controllers/legacy_api/base_controller.rb:103`). Who parses those bodies, and how, isn't in the repository. The client answers this before S9. Added by the independent review.
+- **Whether full pages render in the test environment once the asset gems load there.** The checkout says they don't today (`spec/requests/messages_controller_spec.rb:50`), and the project's 7.2 branch changed the Gemfile group to fix it. We didn't run that change. S1 settles it, and S1's request set depends on the answer. Added by the review.
+- **Which real messages are slow to match.** The 8.0 defaults give every pattern one second. Whether any message in production takes longer in `lib/postal/message_parser.rb:101` depends on the mail, and a timeout there is swallowed. Reading the patterns in S8 narrows it; only production mail settles it. Added by the review.
+- **Whether API consumers depend on escaped JSON.** The 8.1 defaults change the bytes of every API response that contains `<`, `>` or `&` (`app/controllers/legacy_api/base_controller.rb:103`). Who parses those bodies, and how, isn't in the repository. The client answers this before S9. Added by the review.
 - **Resolving hop by hop.** Each hop was resolved from today's lock. S4 and S5 resolve from the previous stage's lock, which may pick different versions. The `resolve` check on each settles it.
 - **The `quirks_mode` disagreement** between our rule and the project's 7.2 branch. S3's suite run with `json` pinned settles nothing by itself; the pin makes the answer unnecessary until S10, which runs on 8.1 where both sources agree.

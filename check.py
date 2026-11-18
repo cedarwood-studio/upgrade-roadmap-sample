@@ -3,7 +3,7 @@
 
 It answers one narrow question: do the report and the execution record say
 what the stored data says? It does not re-measure anything. The measurements
-were produced by Cedarwood Studio's own tooling, which is not in this
+were produced by Cedarwood Studio's own scripts, which are not in this
 repository. README.md lists what a reader can re-check independently.
 
     python3 check.py                  # the checks that need only this repository
