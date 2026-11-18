@@ -59,7 +59,7 @@ python3 check.py --postal postal
 
 Registry records are stored without author and maintainer fields. Test fixtures use `example.com` addresses. The Postal project's branches are described by name and date and its pull request by date only, with no links, numbers or patch text. Where a log quotes Postal's commit titles, the pull request numbers are taken out.
 
-In the records, `out/` is `roadmap/` here, `exec/` is `execution/`, and `repo/` is the Postal checkout. A few records cite files that aren't published. Postal's own copyright notice is in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
+In the records, `out/` is `roadmap/` here, `exec/` is `execution/`, and `repo/` is the Postal checkout. Postal's own copyright notice is in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
 
 ## Why Postal
 

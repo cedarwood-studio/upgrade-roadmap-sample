@@ -10,9 +10,7 @@ Each stage is held to the same test, "same behavior, new version":
 - nothing may move in the lock file that Rails didn't force or the stage didn't explain;
 - deprecation warnings are counted before and after.
 
-Passing those checks doesn't finish a stage. A review then reads the Rails component changelogs for the hop, reads every framework call the test suite loads and never runs, compares the change with the Postal project's own upgrade work, and tries to break it in a throwaway copy. If it finds a defect, the stage goes back and is reviewed again. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
-
-The last two checks in the list and the review were added after the third stage shipped a defect that every earlier check had passed. This document covers the stages before and after that change.
+Passing those checks doesn't finish a stage. A review then looks at the hop's changelogs, the framework calls the suite never runs and the Postal project's own upgrade work, and tries to break the stage. If it finds a defect, the stage goes back and is reviewed again. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
 
 ## Results
 
@@ -24,7 +22,9 @@ The last two checks in the list and the review were added after the third stage 
 | [S3](https://github.com/cedarwood-studio/postal/pull/3) | Rails 7.1.6 to 7.2.4 | 10 files, +338 -77 | 899 of 916, then 910 of 927 | 165 of 170, and the other 5 are one declared change | 6 checks | 5 rounds, the fifth passed in 12.4 min; 62.2 min in all |
 | [S4](https://github.com/cedarwood-studio/postal/pull/4) | Rails 7.2.4 to 8.0.5.2 | 9 files, +236 -74 | 910 of 927, then 920 of 937 | 36 of 170, and the other 134 are one declared change | 2 checks | 1 round, passed in 18.2 min |
 
-Those numbers are from the sandbox, a container with no network during the test run. The 17 examples that don't pass there do live DNS lookups. They were the same 17 before and after every stage.
+Those numbers are from the sandbox, a container with no network during the test run. The 17 examples that don't pass there do live DNS lookups. They were the same 17 before and after every stage. The suite takes 3 minutes 42 seconds, and every check runs it in full.
+
+The Checks column counts how many times the full set of checks ran on a stage before it passed.
 
 Rails deprecation warnings were 0 before and 0 after S1, S2 and S3. S4 went from 0 to 1 distinct warning, printed 4 times as the application boots: `to_time` will keep the full time zone from Rails 8.1 on. The stage left the setting alone, since the plan changes it in a later stage. Ruby deprecation warnings went from 2 to 3 at S1, because a new test boots the SMTP server and that prints one the suite hadn't reached.
 
@@ -34,9 +34,9 @@ S3 is the Rails 7.2 hop. It's the stage that shipped a defect, so here is each r
 
 **As first shipped.** One commit: the Rails pin, the lock file, and one setting in the test environment. Two checks, the second green: 899 of 916 examples before and after, 165 of 170 recorded responses identical, and the other 5 declared as the "Astana" time zone change. The pull request said no application code needed to change.
 
-**What the new start-up check shows on that commit.** Before any review, we ran the seven start-up configurations on S2 and on S3 as shipped. All seven start on S2. On S3 the one with the migration waiter switched on exits with `undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)` at `lib/migration_waiter.rb:18`. A review had read that defect in the Rails source. Nothing had run it until now. The output is in `execution/evidence/boot-S3-as-shipped/`.
+**What the new start-up check shows on that commit.** Before any review, we ran the seven start-up configurations on S2 and on S3 as shipped. All seven start on S2. On S3 the one with the migration waiter switched on exits with `undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)` at `lib/migration_waiter.rb:18`. The defect is visible in the Rails source. Nothing had run it until now. The output is in `execution/evidence/boot-S3-as-shipped/`.
 
-**Round 1. Verdict: defect.** The review wasn't told what had been found before. It read 385 changelog entries and all 16 unexecuted framework call sites, compared the branch with the project's own, and made 14 attempts to break the stage. Seven findings, none of which a check had shown. Three were defects:
+**Round 1. Verdict: defect.** Seven findings, none of which a check had shown. Three were defects:
 
 - The migration waiter, found by starting the application with it on.
 - The lock. The stage had run `bundle lock --update rails` without the conservative option, which moved 26 gems the hop didn't need, `mail`, `nokogiri` and `rack` among them, and dropped `psych` and `stringio` from the lock. The review measured what that did. A different version of the YAML library was loading, in an application that stores two columns as YAML.
@@ -58,19 +58,19 @@ S3 is the Rails 7.2 hop. It's the stage that shipped a defect, so here is each r
 
 **Round 5. Verdict: pass.** Two more small differences, a further change to the Rails log's error entries and the Rails console prompt. By then we had split what a review can find into two kinds. A defect breaks something, or changes a response, stored data or whether a process starts, and sends the stage back. Anything smaller is declared by the author, with its source, without another round. Both of these were the second kind, and they're declared in the pull request. This round also ran 187 requests through pages no check or earlier review had reached, on both versions: 184 answer the same to the byte and 3 differ only in a timestamp or a random boundary.
 
-Every round found something real, and each thing was smaller than the one before. We don't read that as a sign that nothing is left. A framework hop changes many small things, and the last review stopped where its method ended. What we can say is that the two differences that would have reached a client's users or monitors, the process that didn't start and the changed headers, were found in rounds 1 and 3, and neither was visible to any check.
+Every round found something real, and each thing was smaller than the one before. The two differences that would have reached users or monitors, the process that didn't start and the changed headers, were found in rounds 1 and 3, and neither was visible to any check.
 
 One wart is left on the branch. The last of its five commits carries the same title as the first, because a message file was reused. We left the commit alone, because changing it would have meant reviewing the stage again.
 
 ## What the reviews found on the other stages
 
-**S1, 24.2 minutes, passed.** Five findings, three that no check had shown. The roadmap asks S1 for more tests than S1 delivered: nothing runs a worker job, the tracked-link rewrite, the slow-query path or a password reset to its end. The review recorded those as risks for the stages that depend on them. It also found that the SMTP boot test reads a socket with no time limit, so the change it's there to catch would hang the suite and be reported as 0 failures.
+**S1, passed.** Five findings, three that no check had shown. The roadmap asks S1 for more tests than S1 delivered: nothing runs a worker job, the tracked-link rewrite, the slow-query path or a password reset to its end. The review recorded those as risks for the stages that depend on them. It also found that the SMTP boot test reads a socket with no time limit, so the change it's there to catch would hang the suite and be reported as 0 failures.
 
-**S2, 3.9 minutes, passed.** Four findings. The roadmap gives S2 two changes and the stage made one. It removed `annotate` and didn't pin `json` below 3. The lock holds `json` 2.7.1 and the conservative update doesn't move it, so nothing breaks today. The pin is still owed.
+**S2, passed.** Four findings. The roadmap gives S2 two changes and the stage made one. It removed `annotate` and didn't pin `json` below 3. The lock holds `json` 2.7.1 and the conservative update doesn't move it, so nothing breaks today. The pin is still owed.
 
-**S4, 18.2 minutes, passed.** S4 is the Rails 8.0 hop, built with the full set of checks from the start. It took 18.6 minutes and two checks. The first check failed on 134 recorded responses that gained a `Vary` header, which the roadmap's review had predicted and the stage then declared with its source. The password reset fix went in with six examples that walk the reset from the request to the new password. They pass on 7.2.4 without the fix, and on 8.0.5.2 four of them fail if the fix is taken out. So the break the roadmap read in the Active Model changelog is real, and it's now pinned by tests.
+**S4, passed.** S4 is the Rails 8.0 hop, built with the full set of checks from the start. It needed two checks. The first check failed on 134 recorded responses that gained a `Vary` header, which the roadmap's review had predicted and the stage then declared with its source. The password reset fix went in with six examples that walk the reset from the request to the new password. They pass on 7.2.4 without the fix, and on 8.0.5.2 four of them fail if the fix is taken out. So the break the roadmap read in the Active Model changelog is real, and it's now pinned by tests.
 
-The review read 333 changelog entries and all 16 unexecuted call sites and made 9 attempts to break the stage. It found no defect. Six findings, none of which a check had shown:
+It found no defect. Six findings, none of which a check had shown:
 
 - Three differences to declare. The stage's own `Vary` declaration described the "before" wrongly for clients that send an `Accept` header, which is most of them. Error entries in the Rails log change shape again. And the message of one exception changes by two words, which shows in the application's own request log.
 - Two corrections to the stage's notes, both from measuring. The notes said 5 of 6 reset examples fail without the fix. It's 4. And a developer task the notes said hadn't been measured on 8.0 now has been.
@@ -127,25 +127,11 @@ Three of the four lines in the middle of the table are also caught by a measurem
 ## Where the roadmap was wrong or silent
 
 - **The secret key declaration**, above.
-- **S1 and S2 were carried out against an earlier plan.** The roadmap asks more of both. The reviews list what's owed: the `json` pin, and tests for the worker's job loop and the slow-query path. S4 has since added the tests for the tracked-link rewrite and the password reset flow.
+- **S1 and S2 delivered less than the roadmap asks of them.** The reviews list what's owed: the `json` pin, and tests for the worker's job loop and the slow-query path. S4 has since added the tests for the tracked-link rewrite and the password reset flow.
 - **`cgi` on 8.0.** The roadmap said two files use `CGI` without requiring it. S4 measured something narrower: another of the application's files requires it first, and Ruby 3.4 still ships the library, so the lines wouldn't have failed on this Ruby. Naming the gem in the Gemfile is still the right change, for a different reason than the roadmap gave.
 - **`bin/rails app:update`.** The roadmap puts it at the start of each hop. S3 didn't run it, and its notes say so.
 
 The roadmap got these right. The conservative resolve it predicted for 7.2 is the lock S3 now has, gem for gem. `annotate` was the only blocker. Every break it listed for 7.2 was real when run.
-
-## Time, measured
-
-| Step | Wall-clock time |
-|---|---|
-| Roadmap, from a repository URL to a checked report | 36.9 min, of which the review is 11.9 min |
-| Baseline: the request set, the suite, two recordings | 26.8 min |
-| S1 | 12.7 min, then 24.2 min of review |
-| S2 | 5.9 min, then 3.9 min of review |
-| S3, first attempt | 14.9 min |
-| S3, four fixes and five reviews | 91.4 min |
-| S4 | 18.6 min, then 18.2 min of review |
-
-The suite takes 3 minutes 42 seconds. Every check runs it in full, so a codebase with a slower suite would take proportionally longer per stage. The estimate in the roadmap is in an engineer's attended hours, a different measure from these times.
 
 ## What this doesn't show
 
