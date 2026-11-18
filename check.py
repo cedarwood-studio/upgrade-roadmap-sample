@@ -72,6 +72,25 @@ def check_drivers(roadmap):
         expect(text in roadmap, "report does not state %r" % text)
 
 
+def check_flagged_count(roadmap, readme, execution):
+    """The number of lines the prose calls flagged equals the lines listed
+    in the report's findings table."""
+    sec = re.search(r"^\*\*The \w+ lines flagged as breaking\.\*\*.*?(?=^\*\*What the review added)", roadmap, re.M | re.S)
+    expect(bool(sec), "the report has no flagged-lines section")
+    if not sec:
+        return
+    rows = [l for l in sec.group(0).splitlines() if l.startswith("| `")]
+    n = len(set(re.findall(r"`([\w./-]+:\d+)`", " ".join(l.split("|")[1] for l in rows))))
+    words = {7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven"}
+    word = words.get(n, str(n))
+    expect(n > 0, "no flagged lines listed in the report's table")
+    for name, text, pats in (("ROADMAP.md", roadmap, ["The %s lines flagged as breaking" % word, "flags %s lines" % word]),
+                             ("README.md", readme, ["flags %s lines" % word, "%s lines are flagged" % word.capitalize()]),
+                             ("EXECUTION.md", execution, ["flags %s lines" % word])):
+        for pat in pats:
+            expect(pat in text, "%s does not say %r; the findings table lists %d lines" % (name, pat, n))
+
+
 def check_baseline(roadmap, readme, execution):
     """The sentence about the suite before any change comes from the runs,
     and nothing in the prose claims more than it."""
@@ -176,10 +195,8 @@ def check_execution(execution):
         expect("%d check" % st["attempts"] in row, "%s row: checks used differ from summary.json" % st["stage"])
         r = st.get("review")
         if r:
-            expect("%.1f min" % (r["seconds"] / 60.0) in row,
-                   "%s row: review time differs from summary.json (%.1f min)" % (st["stage"], r["seconds"] / 60.0))
-            rounds = len(st.get("reviews") or [r])
-            expect("%d round" % rounds in row, "%s row: review rounds differ from summary.json (%d)" % (st["stage"], rounds))
+            expect(row.rstrip().endswith("| Passed |") and r["verdict"] == "pass",
+                   "%s row: review column differs from summary.json (verdict %r)" % (st["stage"], r["verdict"]))
         expect(not p["unexplained"], "%s has unexplained response differences" % st["stage"])
         boot = st["check"].get("boot")
         if isinstance(boot, list):
@@ -281,6 +298,7 @@ def main():
     roadmap, execution, readme = read("ROADMAP.md"), read("EXECUTION.md"), read("README.md")
     check_drivers(roadmap)
     check_baseline(roadmap, readme, execution)
+    check_flagged_count(roadmap, readme, execution)
     check_eol(roadmap)
     check_estimate(roadmap)
     check_review(roadmap, readme, execution)

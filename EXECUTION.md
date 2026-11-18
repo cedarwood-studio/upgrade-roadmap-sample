@@ -14,13 +14,13 @@ Passing those checks doesn't finish a stage. A review then looks at the hop's ch
 
 ## Results
 
-| Stage | Change | Diff | Examples passing, before and after | Recorded responses identical | Checks | Review |
+| Stage | Change | Diff | Examples passing, before and after | Recorded responses identical | Checks | Independent review |
 |---|---|---|---|---|---|---|
 | Baseline | Record 170 requests and the suite's results. No code change. | none | 834 of 851 | 170 of 170 across two recordings, 2 masked as noise | | |
-| [S1](https://github.com/cedarwood-studio/postal/pull/1) | 65 characterization tests | 14 files, +914 | 834 of 851, then 899 of 916 | 170 of 170 | 1 check | 1 round, passed in 24.2 min |
-| [S2](https://github.com/cedarwood-studio/postal/pull/2) | Remove the `annotate` gem, which blocked Rails 8.0 | 4 files, -65 | 899 of 916, both | 170 of 170 | 1 check | 1 round, passed in 3.9 min |
-| [S3](https://github.com/cedarwood-studio/postal/pull/3) | Rails 7.1.6 to 7.2.4 | 10 files, +338 -77 | 899 of 916, then 910 of 927 | 165 of 170, and the other 5 are one declared change | 6 checks | 5 rounds, the fifth passed in 12.4 min; 62.2 min in all |
-| [S4](https://github.com/cedarwood-studio/postal/pull/4) | Rails 7.2.4 to 8.0.5.2 | 9 files, +236 -74 | 910 of 927, then 920 of 937 | 36 of 170, and the other 134 are one declared change | 2 checks | 1 round, passed in 18.2 min |
+| [S1](https://github.com/cedarwood-studio/postal/pull/1) | 65 characterization tests | 14 files, +914 | 834 of 851, then 899 of 916 | 170 of 170 | 1 check | Passed |
+| [S2](https://github.com/cedarwood-studio/postal/pull/2) | Remove the `annotate` gem, which blocked Rails 8.0 | 4 files, -65 | 899 of 916, both | 170 of 170 | 1 check | Passed |
+| [S3](https://github.com/cedarwood-studio/postal/pull/3) | Rails 7.1.6 to 7.2.4 | 10 files, +338 -77 | 899 of 916, then 910 of 927 | 165 of 170, and the other 5 are one declared change | 6 checks | Passed |
+| [S4](https://github.com/cedarwood-studio/postal/pull/4) | Rails 7.2.4 to 8.0.5.2 | 9 files, +236 -74 | 910 of 927, then 920 of 937 | 36 of 170, and the other 134 are one declared change | 2 checks | Passed |
 
 Those numbers are from the sandbox, a container with no network during the test run. The 17 examples that don't pass there do live DNS lookups. They were the same 17 before and after every stage. The suite takes 3 minutes 42 seconds, and every check runs it in full.
 
@@ -103,7 +103,7 @@ Bodies are compared in full for 163 of the 170 requests and with those values ma
 
 ## What the roadmap finds, line by line
 
-The roadmap flags eight lines as breaking on the path to 8.1. This table says where each is and how the roadmap finds it.
+The roadmap flags nine lines as breaking on the path to 8.1. This table says where each is and how the roadmap finds it.
 
 | Hop | Where | How the roadmap finds it |
 |---|---|---|

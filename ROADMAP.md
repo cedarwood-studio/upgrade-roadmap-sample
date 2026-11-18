@@ -8,7 +8,7 @@
 
 The report below was checked on November 13, 2026 against the Rails changelogs and the Postal project's own upgrade branches. What follows is what that check found.
 
-**The eight lines flagged as breaking.** The search flags eight lines in Postal that documented Rails changes break. One reads differently at the target.
+**The nine lines flagged as breaking.** The search flags nine lines in Postal that documented Rails changes break. One reads differently at the target.
 
 | Line | Found by |
 |---|---|

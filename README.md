@@ -10,7 +10,7 @@ It doesn't judge Postal or the people who maintain it. We picked Postal because 
 
 ## What this sample shows
 
-A test suite can pass on a Rails upgrade and still miss a break, because the suite never runs the line that breaks. The roadmap here flags eight lines in Postal as breaking on the path to Rails 8.1, and the three it ranks highest all sit in lines the suite doesn't run.
+A test suite can pass on a Rails upgrade and still miss a break, because the suite never runs the line that breaks. The roadmap here flags nine lines in Postal as breaking on the path to Rails 8.1, and the three it ranks highest all sit in lines the suite doesn't run.
 
 One of those is a real defect. With an optional start-up feature switched on, Postal doesn't start on Rails 7.2, and no test fails. The third stage on the fork carries the fix, and `EXECUTION.md` tells that stage round by round, with what each review found and what it changed.
 
@@ -23,7 +23,7 @@ One of those is a real defect. With an optional start-up feature switched on, Po
 ## The short version
 
 - Postal's main branch pins Rails 7.1.6. That series passed end of life 408 days before the report date, by the dates at endoflife.date. The only series still receiving security fixes is 8.1, three series away.
-- Eight lines are flagged as breaking on the path to 8.1. One of them, a `schema.rb` column sorting first read as a break, was reverted in Rails 8.1.4, so at the target it isn't one.
+- Nine lines are flagged as breaking on the path to 8.1. One of them, a `schema.rb` column sorting first read as a break, was reverted in Rails 8.1.4, so at the target it isn't one.
 - The report also finds a second gem (`cgi`) that leaves the lock on Rails 8.0 while two files use it, and 11 items from its review, 6 of which no check in the plan would have shown.
 - The effort range for this application is 30 to 263 hours across ten stages.
 - Four stages are on the fork, each as its own pull request: 65 tests that pin current behavior, the blocking gem removed, Rails 7.1.6 to 7.2.4, and Rails 7.2.4 to 8.0.5.2.
