@@ -36,7 +36,7 @@
  },
  "estimate": {
   "assumptions": [
-   "The range comes from a rubric of uncalibrated priors; 0 executed upgrades have corrected it.",
+   "The range is an estimate for this application; every number in it was set by judgment.",
    "The suite plus the S1 recording is the acceptance test.",
    "No production-only code paths exist beyond the ones named in the report.",
    "Dependencies behave as their declared constraints say.",

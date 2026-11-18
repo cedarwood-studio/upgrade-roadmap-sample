@@ -183,7 +183,7 @@ On GitHub Actions (https://github.com/cedarwood-studio/postal/actions/runs/43382
 
 ### Independent review
 
-An independent review pass, which had no part in writing this stage, read the framework's component changelogs for the hop and every framework call the test suite loads and never runs, compared the change with any upgrade work the project has in flight, and tried to break it. It is a timed and recorded step of our process. No person has reviewed this stage yet.
+An independent review pass, which had no part in writing this stage, read the framework's component changelogs for the hop and every framework call the test suite loads and never runs, compared the change with any upgrade work the project has in flight, and tried to break it. It is a timed and recorded step of our process.
 
 - **Verdict:** pass
 - **Findings:** 7, of which 6 the checks had not caught

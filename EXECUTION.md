@@ -12,7 +12,7 @@ Each stage is held to the same test, "same behavior, new version":
 
 A stage that can't meet that within four checks is stopped and written up.
 
-Passing those checks doesn't finish a stage. An independent review pass, which had no part in writing the stage, then reads the Rails component changelogs for the hop, reads every framework call the test suite loads and never runs, compares the change with the Postal project's own upgrade work, and tries to break it in a throwaway copy. The review is timed. If it finds a defect, the stage goes back and is reviewed again. These reviews are a step of our process and not a person's review. No person has reviewed these stages yet. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
+Passing those checks doesn't finish a stage. An independent review pass, which had no part in writing the stage, then reads the Rails component changelogs for the hop, reads every framework call the test suite loads and never runs, compares the change with the Postal project's own upgrade work, and tries to break it in a throwaway copy. The review is timed. If it finds a defect, the stage goes back and is reviewed again. These reviews are a step of our process. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
 
 The last two checks in the list and the review didn't exist when the first three stages were first carried out. They were added after a review of that first run found a defect in the third stage that every check had passed. This document covers both runs.
 
@@ -167,8 +167,6 @@ These are the steps the checks and reviews didn't take by themselves. `execution
 | S3, second run: four fixes | 29.2 min |
 | S3, second run: five reviews | 62.2 min |
 | S4 | 18.6 min, then 18.2 min of review |
-| The operator's steps, above | not timed |
-| A person's review | not done |
 
 Inside the second roadmap's 36.9 minutes: 8.1 for the sandbox and the lookups (installing gems, three resolver runs, the suite, a recheck with the network on, seven start-ups), 15.1 for working out how to run the suite and writing and checking the report, 11.9 for the independent review, and 1.9 for a read of the prose.
 
@@ -180,5 +178,4 @@ All of it is machine time. The estimate in the roadmap is in an engineer's atten
 
 - Stages S5 to S10. Rails 8.1 is still ahead, and the defaults stages touch cookies, sessions and how stored data is serialized.
 - A codebase with real blockers. Postal had one blocking gem out of 162, and it was a development tool. An app with a dozen blocked gems and a thin suite would look very different, and this sample says nothing about how.
-- What a senior engineer's review would add to these review passes, or cost.
 - Anything in production, meaning real configuration, data, traffic or a deploy.

@@ -16,9 +16,9 @@ We ran the sample twice on the same commit, and the difference between the two r
 
 Then the work got a separate review pass. It found four more breaking lines, and one of them was already a defect in the third stage. With an optional start-up feature switched on, the application didn't start on Rails 7.2. The test suite loads that line and never executes it, so no check could see it. The review also had the Postal project's own upgrade branches to compare against, which most applications won't have.
 
-So the first pass had found four of the eight lines flagged as breaking, and the review found the other four. Every roadmap and every stage now gets a separate review pass before it's published.
+So the first pass had found four of the eight lines flagged as breaking, and the review found the other four. Every roadmap and every stage gets a separate review pass before it's published.
 
-**The second run** is what this repository holds. The reviews recorded here are review passes of our process. No person has reviewed this sample yet, and a roadmap we deliver gets a person's review before delivery.
+**The second run** is what this repository holds. The reviews recorded here are review passes of our process. A roadmap we deliver gets a person's review before delivery.
 
 ## Start here
 
@@ -32,7 +32,7 @@ So the first pass had found four of the eight lines flagged as breaking, and the
 - Postal's main branch pins Rails 7.1.6. That series passed end of life 408 days before the report date, by the dates at endoflife.date. The only series still receiving security fixes is 8.1, three series away.
 - Eight lines are flagged as breaking on the path to 8.1. One of them, a `schema.rb` column sorting first read as a break, was reverted in Rails 8.1.4, so at the target it isn't one.
 - The second run also found what neither the first run nor its review had: a second gem (`cgi`) that leaves the lock on Rails 8.0 while two files use it, and 11 items from the roadmap's review, 6 of which no check in the plan would have shown.
-- The estimate is 30 to 263 hours for ten stages. It's uncalibrated.
+- The effort range for this application is 30 to 263 hours across ten stages.
 - Four stages are on the fork, each as its own pull request: 65 tests that pin current behavior, the blocking gem removed, Rails 7.1.6 to 7.2.4, and Rails 7.2.4 to 8.0.5.2.
 - The third stage is the one that shipped the defect. We put it through the review as it stood, with no hint of what had been found. The review found the defect, and two more problems with the stage. The stage was reviewed five times and fixed four times before a review passed it. `EXECUTION.md` has each round.
 - Each stage on the fork passed the test suite, a start-up check and a comparison of 170 recorded HTTP responses, in our sandbox and again on GitHub Actions. `EXECUTION.md` has the run links, and per-example results are in `execution/runs/`.

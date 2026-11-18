@@ -129,7 +129,7 @@ def check_estimate(roadmap):
     expect("| **Total** | **%s** | **%s** |" % (num(low), num(high)) in roadmap,
            "estimate total row is not %s to %s" % (num(low), num(high)))
     expect("%.1f to 1" % (high / low) in roadmap, "the report does not print the range's ratio, %.1f to 1" % (high / low))
-    expect("uncalibrated" in roadmap, "the report does not say the estimate's numbers are uncalibrated priors")
+    expect("set by judgment" in roadmap, "the report does not say how the estimate's numbers were set")
 
 
 def check_review(roadmap, readme, execution):

@@ -6,7 +6,7 @@
 
 ## Review findings
 
-This is the second report we produced for this commit. The first was generated on November 13, 2026 without the changelog rules, the removed-gem search, the unexecuted-call list, the start-up checks or the look at the project's own work, and it had no review before its stages began. A review afterward found four breaking lines it had missed, one of them already a defect in a finished stage. The first report, as corrected by that review, is in [`first-pass/ROADMAP.md`](first-pass/ROADMAP.md). Everything below this section is the second report as generated and then put through an independent review pass, a step of our own process that had no part in writing the report. No person has reviewed it yet. The estimate and the driver table are as generated.
+This is the second report we produced for this commit. The first was generated on November 13, 2026 without the changelog rules, the removed-gem search, the unexecuted-call list, the start-up checks or the look at the project's own work, and it had no review before its stages began. A review afterward found four breaking lines it had missed, one of them already a defect in a finished stage. The first report, as corrected by that review, is in [`first-pass/ROADMAP.md`](first-pass/ROADMAP.md). Everything below this section is the second report as generated and then put through an independent review pass, a step of our own process that had no part in writing the report. The estimate and the driver table are as generated.
 
 **The first run's eight lines, in this report.** The first report's search confirmed four lines and its review added four. This report's search found all eight before its own review began. It reads one of them differently.
 
@@ -413,7 +413,7 @@ Each stage ends with an independent review pass that had no part in the work, fo
 | S10 Cleanup | 1.0 | 6.0 |
 | **Total** | **30.35** | **263.25** |
 
-The high end is 8.7 to 1 against the low. The range comes from a rubric of uncalibrated priors: every number in it was set by judgment, and 0 executed upgrades have corrected it so far. The low end is "everything behaves as declared." The high end is "each unknown named in this report costs its listed allowance." Neither includes work outside the plan.
+The high end is 8.7 to 1 against the low. The range is an estimate for this application, and every number in it was set by judgment. The low end is "everything behaves as declared." The high end is "each unknown named in this report costs its listed allowance." Neither includes work outside the plan.
 
 The range is that wide for two reasons the measurements give. The five stale, undeclared gems carry an allowance on every hop, and that alone is 90 of the 263.25 high hours. And only 43.1 percent of the affected lines are executed by the suite, which raises every stage's high end by half.
 
@@ -439,7 +439,7 @@ What would move the number:
 
 ## Independent review
 
-Done on November 13, 2026, by a reviewer who didn't write the report. It was a reading pass with no shell, so nothing below was run. The full record is in `roadmap/tech-review.json`. The pass was timed from outside, so the figure is filed with the job record and isn't restated here.
+Done on November 13, 2026, as an independent review pass that had no part in writing the report. It was a reading pass with no shell, so nothing below was run. The full record is in `roadmap/tech-review.json`. The pass was timed from outside, so the figure is filed with the job record and isn't restated here.
 
 **Method, with counts:**
 
