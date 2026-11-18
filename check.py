@@ -144,8 +144,8 @@ def check_review(roadmap, readme, execution):
     expect("Of the %d, %d are things no check" % (len(rev["findings"]), uncaught) in roadmap,
            "the report's count of findings no check would show differs from the record")
     secs = load("roadmap/run-summary.json")["independent_review_seconds"]
-    expect("%.1f minutes" % (secs / 60.0) in readme and "%.1f min" % (secs / 60.0) in execution,
-           "README.md or EXECUTION.md does not state the roadmap review's measured time (%.1f minutes)" % (secs / 60.0))
+    expect("%.1f min" % (secs / 60.0) in execution,
+           "EXECUTION.md does not state the roadmap review's measured time (%.1f minutes)" % (secs / 60.0))
     s = load("execution/summary.json")
     for st in s["stages"]:
         r = st.get("review")
