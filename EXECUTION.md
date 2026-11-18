@@ -10,7 +10,7 @@ Each stage is held to the same test, "same behavior, new version":
 - nothing may move in the lock file that Rails didn't force or the stage didn't explain;
 - deprecation warnings are counted before and after.
 
-Passing those checks doesn't finish a stage. A review then looks at the hop's changelogs, the framework calls the suite never runs and the Postal project's own upgrade work, and tries to break the stage. If it finds a defect, the stage goes back and is reviewed again. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
+Passing those checks doesn't finish a stage. A review then looks at the hop's changelogs, the framework calls the suite never runs and the Postal project's own upgrade work, and tries to break the stage. If it finds a defect, the stage goes back to be fixed. The promise a stage makes is no undeclared behavior change, with each declared difference sourced.
 
 ## Results
 
@@ -28,37 +28,29 @@ The Checks column counts how many times the full set of checks ran on a stage be
 
 Rails deprecation warnings were 0 before and 0 after S1, S2 and S3. S4 went from 0 to 1 distinct warning, printed 4 times as the application boots: `to_time` will keep the full time zone from Rails 8.1 on. The stage left the setting alone, since the plan changes it in a later stage. Ruby deprecation warnings went from 2 to 3 at S1, because a new test boots the SMTP server and that prints one the suite hadn't reached.
 
-## The third stage, round by round
+## The third stage: what was found and fixed
 
-S3 is the Rails 7.2 hop. It's the stage that shipped a defect, so here is each round.
+S3 is the Rails 7.2 hop. It's the stage that shipped a defect. This section goes finding by finding.
 
 **As first shipped.** One commit: the Rails pin, the lock file, and one setting in the test environment. Two checks, the second green: 899 of 916 examples before and after, 165 of 170 recorded responses identical, and the other 5 declared as the "Astana" time zone change. The pull request said no application code needed to change.
 
-**What the new start-up check shows on that commit.** Before any review, we ran the seven start-up configurations on S2 and on S3 as shipped. All seven start on S2. On S3 the one with the migration waiter switched on exits with `undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)` at `lib/migration_waiter.rb:18`. The defect is visible in the Rails source. Nothing had run it until now. The output is in `execution/evidence/boot-S3-as-shipped/`.
+Review then found seven things that no check had shown. The two that mattered most to users and monitors were the process that didn't start and the changed headers.
 
-**Round 1. Verdict: defect.** Seven findings, none of which a check had shown. Three were defects:
+**The migration waiter doesn't start on 7.2.** We ran the seven start-up configurations on S2 and on S3 as shipped. All seven start on S2. On S3 the one with the migration waiter switched on exits with `undefined method 'migration_context' for an instance of ActiveRecord::ConnectionAdapters::Mysql2Adapter (NoMethodError)` at `lib/migration_waiter.rb:18`. The defect is visible in the Rails source, and nothing had run it. The output is in `execution/evidence/boot-S3-as-shipped/`. The fix is `connection_pool.migration_context`, with a spec that calls `MigrationWaiter.wait` and fails without the fix.
 
-- The migration waiter, found by starting the application with it on.
-- The lock. The stage had run `bundle lock --update rails` without the conservative option, which moved 26 gems the hop didn't need, `mail`, `nokogiri` and `rack` among them, and dropped `psych` and `stringio` from the lock. The review measured what that did. A different version of the YAML library was loading, in an application that stores two columns as YAML.
-- A behavior change the plan said this stage must declare, about where development and test take their secret key from, which the stage hadn't mentioned.
+**The lock moved more than the hop needed.** The stage had run `bundle lock --update rails` without the conservative option, which moved 26 gems the hop didn't need, `mail`, `nokogiri` and `rack` among them, and dropped `psych` and `stringio` from the lock. Measuring it showed a different version of the YAML library loading, in an application that stores two columns as YAML. The lock was rebuilt from S2's with the conservative update. Three gems move outside Rails now, each forced by a Rails constraint.
 
-**Fix 1.** `connection_pool.migration_context`, a spec that calls `MigrationWaiter.wait` and fails without the fix, the lock rebuilt from S2's with the conservative update (three gems move outside Rails now, each forced by a Rails constraint), and the secret key change declared with a spec.
+**A declared secret key change that doesn't exist.** The plan said this stage must declare a behavior change about where development and test take their secret key from, and the stage hadn't mentioned it. The stage first declared it, with a spec. Then the secret key was measured on Rails 7.1.6, in a throwaway copy of S2, and it is the same before and after. The declared change doesn't happen in this application, the new spec passes on both versions, and the stage was asking for sign-off on a difference that isn't there. That traces back to an item the roadmap's review had added to the plan from a changelog entry, without running it. The roadmap was wrong on that point and the stage corrected it. The declaration was withdrawn and the spec described as what it is, a check that nothing changed.
 
-**Round 2. Verdict: defect.** The review checked out S2 in its throwaway copy and measured the secret key on Rails 7.1.6. It's the same before and after. The declared change doesn't happen in this application, the new spec passes on both versions, and the stage was asking for sign-off on a difference that isn't there. That traces back to an item the roadmap's review had added to the plan from a changelog entry, without running it. The roadmap was wrong on that point and the stage corrected it.
+**HEAD requests that end in an error page.** With the stage saying "Astana" was its only behavior change, reading the Action Pack changelog and then measuring turned up a second. In production, a HEAD request that ends in an error page gets `Content-Length: 0` on 7.2.4 where 7.1.6 sent the page's length, and a different `Content-Type` for clients that accept anything. GET responses are the same. No recorded request could show it, because the recording runs in the test environment and none of its requests is a HEAD. The difference was declared with its source, and three specs pin it.
 
-**Fix 2.** The declaration withdrawn and the spec described as what it is, a check that nothing changed.
+**The request log line.** A third difference, this one in no changelog. With the Rails log switched on, the line Rails writes for each request ends differently on 7.2.4. It was found by comparing the two installed versions and then running 52 requests on each. It was declared, with a spec.
 
-**Round 3. Verdict: defect.** With the stage saying "Astana" was its only behavior change, the review found a second by reading the Action Pack changelog and then measuring it. In production, a HEAD request that ends in an error page gets `Content-Length: 0` on 7.2.4 where 7.1.6 sent the page's length, and a different `Content-Type` for clients that accept anything. GET responses are the same. No recorded request could show it, because the recording runs in the test environment and none of its requests is a HEAD.
+**Two smaller differences.** A further change to the Rails log's error entries, and the Rails console prompt. We split what a review can find into two kinds. A defect breaks something, or changes a response, stored data or whether a process starts, and sends the stage back. Anything smaller is declared by the author, with its source, without sending the stage back. Both of these were the second kind, and they're declared in the pull request.
 
-**Fix 3.** The difference declared with its source, and three specs that pin it.
+**Pages no earlier check had reached.** 187 requests through pages no check had reached, run on both versions: 184 answer the same to the byte and 3 differ only in a timestamp or a random boundary.
 
-**Round 4. Verdict: defect.** A third difference, this one in no changelog. With the Rails log switched on, the line Rails writes for each request ends differently on 7.2.4. The review found it by comparing the two installed versions and then running 52 requests on each.
-
-**Fix 4.** Declared, with a spec.
-
-**Round 5. Verdict: pass.** Two more small differences, a further change to the Rails log's error entries and the Rails console prompt. By then we had split what a review can find into two kinds. A defect breaks something, or changes a response, stored data or whether a process starts, and sends the stage back. Anything smaller is declared by the author, with its source, without another round. Both of these were the second kind, and they're declared in the pull request. This round also ran 187 requests through pages no check or earlier review had reached, on both versions: 184 answer the same to the byte and 3 differ only in a timestamp or a random boundary.
-
-Every round found something real, and each thing was smaller than the one before. The two differences that would have reached users or monitors, the process that didn't start and the changed headers, were found in rounds 1 and 3, and neither was visible to any check.
+With those fixed and declared, the stage passed review. Each finding was real, and the later ones were smaller than the earlier ones. None of the findings that would have reached users or monitors was visible to any check.
 
 One wart is left on the branch. The last of its five commits carries the same title as the first, because a message file was reused. We left the commit alone, because changing it would have meant reviewing the stage again.
 

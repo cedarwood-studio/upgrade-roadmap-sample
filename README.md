@@ -12,7 +12,7 @@ It doesn't judge Postal or the people who maintain it. We picked Postal because 
 
 A test suite can pass on a Rails upgrade and still miss a break, because the suite never runs the line that breaks. The roadmap here flags nine lines in Postal as breaking on the path to Rails 8.1, and the three it ranks highest all sit in lines the suite doesn't run.
 
-One of those is a real defect. With an optional start-up feature switched on, Postal doesn't start on Rails 7.2, and no test fails. The third stage on the fork carries the fix, and `EXECUTION.md` tells that stage round by round, with what each review found and what it changed.
+One of those is a real defect. With an optional start-up feature switched on, Postal doesn't start on Rails 7.2, and no test fails. The third stage on the fork carries the fix, and `EXECUTION.md` tells that stage finding by finding, with what review found and what changed.
 
 ## Start here
 
@@ -27,7 +27,7 @@ One of those is a real defect. With an optional start-up feature switched on, Po
 - The report also finds a second gem (`cgi`) that leaves the lock on Rails 8.0 while two files use it, and 11 items from its review, 6 of which no check in the plan would have shown.
 - The effort range for this application is 30 to 263 hours across ten stages.
 - Four stages are on the fork, each as its own pull request: 65 tests that pin current behavior, the blocking gem removed, Rails 7.1.6 to 7.2.4, and Rails 7.2.4 to 8.0.5.2.
-- The third stage is the one that shipped the defect. It went through review as it stood, and the review found the defect and two more problems with the stage. It was fixed and reviewed again until a review passed it. `EXECUTION.md` has each round.
+- The third stage is the one that shipped the defect. Review found the defect and two more problems with the stage as it stood. They were fixed, and the stage then passed review. `EXECUTION.md` has each finding.
 - Each stage on the fork passed the test suite, a start-up check and a comparison of 170 recorded HTTP responses, in our sandbox and again on GitHub Actions. `EXECUTION.md` has the run links, and per-example results are in `execution/runs/`.
 - The fourth stage, Rails 8.0, carries the password reset fix, with tests that fail without it. It passed its first review, which asked for three more differences to be declared.
 
